@@ -206,13 +206,15 @@ function findTeamSplit(line: string): { away: string; home: string } | null {
     return null
 }
 
+import { SCHEDULE_PATH } from '../utils/Constants'
+
 /**
  * Load and parse the season schedule.
- * @param path Path to schedule file (default: /data/schedule/schedule-82games.txt)
+ * @param path Path to schedule file
  * @returns Parsed season schedule
  */
 export async function loadSchedule(
-    path: string = '/data/schedule/schedule-82games.txt'
+    path: string = SCHEDULE_PATH
 ): Promise<SeasonSchedule> {
     const text = await loadText(path)
     return parseSchedule(text)
