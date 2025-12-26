@@ -9,7 +9,7 @@
     "orientation": "any",
     "icons": [
         {
-            "src": "/icons/basketball.svg",
+            "src": "icons/basketball.svg",
             "sizes": "any",
             "type": "image/svg+xml",
             "purpose": "any"
