@@ -32,18 +32,21 @@ export const PLAYER_STAR_LB = 88
 // Data Paths
 // ============================================================================
 
+/** Base URL from Vite - handles different base paths for dev vs production */
+export const BASE_URL = import.meta.env.BASE_URL
+
 /** Path to roster files (relative to public directory) */
-export const ROSTER_PATH = '/data/rosters/'
+export const ROSTER_PATH = `${BASE_URL}data/rosters/`
 export const ROSTER_EXTENSION = '.csv'
 
 /** Path to comments files */
-export const COMMENTS_PATH = '/data/comments/'
+export const COMMENTS_PATH = `${BASE_URL}data/comments/`
 
 /** Path to localization files */
-export const LOCALIZATION_PATH = '/data/localization/'
+export const LOCALIZATION_PATH = `${BASE_URL}data/localization/`
 
 /** Path to schedule file */
-export const SCHEDULE_PATH = '/data/schedule/schedule-82games.txt'
+export const SCHEDULE_PATH = `${BASE_URL}data/schedule/schedule-82games.txt`
 
 // ============================================================================
 // Display Constants
