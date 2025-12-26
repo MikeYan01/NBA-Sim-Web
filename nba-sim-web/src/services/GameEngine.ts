@@ -16,7 +16,6 @@ import {
     hostGame,
     hostGameByName,
     type GameResult,
-    type BoxScore,
 } from '../models/Game'
 import { SeasonManager, SeasonResult } from '../models/Season'
 

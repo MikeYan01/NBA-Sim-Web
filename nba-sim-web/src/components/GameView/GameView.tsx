@@ -219,8 +219,8 @@ export const GameView = () => {
             visibleCount={visibleLogCount}
             team1Name={team1LocalName}
             team2Name={team2LocalName}
-            team1Color={matchupColors?.awayColor}
-            team2Color={matchupColors?.homeColor}
+            team1Color={matchupColors?.away.colors.primary}
+            team2Color={matchupColors?.home.colors.primary}
           />
         </div>
       )}
