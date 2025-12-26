@@ -15,7 +15,7 @@ type LocalizedStrings = Record<string, unknown>
 // Cached localized strings
 let chineseStrings: LocalizedStrings | null = null
 let englishStrings: LocalizedStrings | null = null
-let currentLanguage: Language = Language.CHINESE
+let currentLanguage: Language = Language.ENGLISH
 
 /**
  * Initialize the localization service.

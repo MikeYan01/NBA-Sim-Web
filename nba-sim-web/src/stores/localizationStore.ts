@@ -10,7 +10,7 @@ interface LocalizationState {
 }
 
 export const useLocalizationStore = create<LocalizationState>((set, get) => ({
-    language: Language.CHINESE,
+    language: Language.ENGLISH,
     isInitialized: false,
 
     setLanguage: (lang) => {
