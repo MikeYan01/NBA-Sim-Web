@@ -1,5 +1,7 @@
 /NBA-sim-master
 .DS_Store
+.github/*
+!.github/workflows/
 .specify
 /specs/*
 
