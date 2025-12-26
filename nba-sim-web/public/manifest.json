@@ -1,0 +1,30 @@
+{
+    "name": "NBA Simulator",
+    "short_name": "NBA Sim",
+    "description": "Experience realistic basketball simulation with authentic play-by-play commentary",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#f8fafc",
+    "theme_color": "#1d428a",
+    "orientation": "any",
+    "icons": [
+        {
+            "src": "/icons/icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/icons/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "categories": [
+        "games",
+        "sports"
+    ],
+    "screenshots": [],
+    "prefer_related_applications": false
+}

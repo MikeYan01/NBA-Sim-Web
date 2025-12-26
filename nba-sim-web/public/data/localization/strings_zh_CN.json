@@ -1,0 +1,386 @@
+{
+    "ui": {
+        "common": {
+            "close": "关闭",
+            "expand": "展开",
+            "collapse": "收起"
+        },
+        "menu": {
+            "singleGame": "单场比赛",
+            "season": "赛季模拟",
+            "prediction": "冠军预测",
+            "settings": "设置",
+            "home": "首页"
+        },
+        "home": {
+            "title": "NBA 模拟器",
+            "subtitle": "体验真实的篮球模拟和原汁原味的比赛解说",
+            "startSingle": "快速比赛",
+            "startSeason": "完整赛季",
+            "startPrediction": "冠军预测",
+            "singleDesc": "模拟任意两支球队之间的单场比赛",
+            "seasonDesc": "运行完整的82场常规赛和季后赛",
+            "predictionDesc": "多次模拟完整赛季预测各队夺冠概率"
+        },
+        "teamSelection": {
+            "title": "快速比赛",
+            "selectAway": "客队",
+            "selectHome": "主队",
+            "startGame": "开始比赛",
+            "westConf": "西部联盟",
+            "eastConf": "东部联盟",
+            "selected": "已选择"
+        },
+        "gameView": {
+            "backToSelection": "返回球队选择",
+            "finalScore": "最终比分",
+            "liveSimulation": "实时模拟中",
+            "boxScore": "技术统计",
+            "playByPlay": "比赛进程",
+            "controls": {
+                "restart": "重播",
+                "play": "播放",
+                "pause": "暂停",
+                "skipToEnd": "跳到结尾"
+            }
+        },
+        "boxScore": {
+            "title": "技术统计",
+            "player": "球员",
+            "totals": "全队",
+            "team": "球队",
+            "total": "总分",
+            "starter": "先发"
+        },
+        "season": {
+            "title": "赛季模拟",
+            "subtitle": "模拟完整的82场常规赛、附加赛和季后赛",
+            "startSeason": "开始赛季",
+            "newSeason": "新赛季",
+            "results": "赛季结果",
+            "champion": "总冠军",
+            "simulating": "赛季模拟中...",
+            "simulatingDesc": "正在进行1,230场常规赛，附加赛和季后赛...",
+            "tabs": {
+                "standings": "排名",
+                "leaders": "数据榜",
+                "recaps": "比赛回顾",
+                "playoffs": "季后赛"
+            },
+            "recaps": {
+                "title": "比赛回顾",
+                "games": "场比赛",
+                "commentary": "现场解说",
+                "lines": "条"
+            },
+            "playoffs": {
+                "title": "季后赛对阵",
+                "playIn": "附加赛",
+                "firstRound": "首轮",
+                "confSemis": "分区半决赛",
+                "confFinals": "分区决赛",
+                "finals": "总决赛",
+                "seriesMvp": "系列赛MVP",
+                "finalsMvp": "总决赛MVP",
+                "playIn78": "7v8 附加赛",
+                "playIn910": "9v10 附加赛",
+                "playIn8th": "8号种子争夺战",
+                "playInFinal": "附加赛决赛",
+                "secured7th": "锁定7号种子",
+                "secured8th": "锁定8号种子",
+                "advancesToFinal": "进入8号种子争夺战",
+                "advances": "晋级",
+                "eliminated": "淘汰",
+                "willFace": "将面对"
+            }
+        },
+        "prediction": {
+            "title": "冠军预测",
+            "subtitle": "通过多次赛季模拟计算各队夺冠概率",
+            "loadingEngine": "加载游戏引擎...",
+            "simCount": "模拟次数",
+            "custom": "自定义",
+            "startPrediction": "开始预测",
+            "simulating": "赛季模拟中...",
+            "progress": "进度",
+            "results": "预测结果",
+            "seasonsSimulated": "个赛季已完成",
+            "runAgain": "重新运行",
+            "championshipOdds": "夺冠概率",
+            "title1": "次",
+            "titles": "次"
+        },
+        "standings": {
+            "title": "排名",
+            "rank": "#",
+            "team": "球队",
+            "gamesBack": "胜差",
+            "legend": {
+                "playoffs": "1-6: 直接进入季后赛",
+                "playIn": "7-10: 附加赛",
+                "lottery": "11-15: 无缘季后赛"
+            }
+        },
+        "leaderboards": {
+            "title": "联盟数据榜",
+            "player": "球员",
+            "teamTab": "球队",
+            "value": "场均",
+            "categories": {
+                "points": "得分",
+                "rebounds": "篮板",
+                "assists": "助攻",
+                "steals": "抢断",
+                "blocks": "盖帽",
+                "threes": "三分",
+                "freeThrows": "罚球",
+                "minutes": "上场时间"
+            },
+            "team": {
+                "points": "得分",
+                "pointsAllowed": "失分",
+                "shotsMade": "投篮命中",
+                "threesMade": "三分命中",
+                "freeThrowsMade": "罚球命中",
+                "fieldGoalPct": "投篮%",
+                "threePct": "三分%",
+                "opponentFieldGoalPct": "对手投篮%",
+                "opponentThreePct": "对手三分%"
+            }
+        },
+        "settings": {
+            "title": "设置",
+            "language": "语言",
+            "languageDesc": "选择您偏好的语言"
+        }
+    },
+    "stat": {
+        "points": {
+            "short": "分",
+            "long": "得分"
+        },
+        "rebounds": {
+            "short": "板",
+            "long": "篮板",
+            "offensive": {
+                "short": "前板",
+                "long": "前场篮板"
+            },
+            "defensive": {
+                "short": "后板",
+                "long": "后场篮板"
+            }
+        },
+        "assists": {
+            "short": "助",
+            "long": "助攻"
+        },
+        "steals": {
+            "short": "断",
+            "long": "抢断"
+        },
+        "blocks": {
+            "short": "帽",
+            "long": "盖帽"
+        },
+        "minutes": {
+            "short": "分钟",
+            "long": "上场时间"
+        },
+        "fieldgoal": {
+            "label": "投篮",
+            "pct": "投篮命中率"
+        },
+        "threepoint": {
+            "label": "三分",
+            "pct": "三分命中率"
+        },
+        "freethrow": {
+            "label": "罚球",
+            "pct": "罚球命中率"
+        },
+        "winrate": "胜率",
+        "wins": "胜",
+        "losses": "负",
+        "abbr": {
+            "pts": "分",
+            "reb": "板",
+            "ast": "助",
+            "stl": "断",
+            "blk": "帽"
+        }
+    },
+    "game": {
+        "away": "客",
+        "home": "主",
+        "at": "@",
+        "recap": "比赛回顾",
+        "finalscore": "最终比分",
+        "overtime": {
+            "suffix": "加时"
+        },
+        "score_differential_title": "分差走势图",
+        "score_differential_leading": "领先",
+        "score_differential_tied": "平局",
+        "score_differential_scale": "比例",
+        "score_differential_points": "分",
+        "flow_insights_title": "比赛流程分析",
+        "flow_largest_lead": "最大领先优势",
+        "flow_points": "分",
+        "flow_lead_changes": "领先易手次数",
+        "flow_times_tied": "平局次数"
+    },
+    "playoff": {
+        "round": {
+            "first": "首轮",
+            "semi": "半决赛",
+            "final": "决赛",
+            "championship": "总决赛"
+        },
+        "game": {
+            "prefix": "G"
+        },
+        "recap": {
+            "series_result": "系列赛结果",
+            "series_mvp": "系列赛MVP",
+            "average": "场均",
+            "series_record": "系列赛",
+            "advance": "晋级",
+            "champion": "夺冠"
+        }
+    },
+    "playin": {
+        "7v8": "附加赛7v8",
+        "9v10": "附加赛9v10",
+        "final": "附加赛决赛",
+        "final_battle": "附加赛8号种子争夺战",
+        "secured": {
+            "7": "7号种子",
+            "8": "8号种子"
+        },
+        "advanced": "进入8号种子争夺战",
+        "advanced_final": "晋级最后一场附加赛",
+        "eliminated": "被淘汰",
+        "winner": "胜者:",
+        "loser": "败者:",
+        "summary": "附加赛最终结果总结",
+        "secured_prefix": "✅ 锁定",
+        "eliminated_prefix": "❌ ",
+        "advance_prefix": "⏭️ ",
+        "final_seeds": "季后赛最终种子:",
+        "seed_label": "号种子:",
+        "error": "附加赛出错:"
+    },
+    "conference": {
+        "east": "东部",
+        "west": "西部",
+        "east_full": "东部联盟:",
+        "west_full": "西部联盟:",
+        "east_standings": "东部排名",
+        "west_standings": "西部排名"
+    },
+    "commentary": {
+        "distance": {
+            "feet": "英尺外"
+        },
+        "shot": {
+            "threepoint_suffix": "三分",
+            "dunk_marker": "扣",
+            "layup_marker": "篮"
+        },
+        "freethrow": {
+            "label": "罚球",
+            "attempt_suffix": "罚"
+        },
+        "rebound": {
+            "offensive": "前场篮板",
+            "defensive": "后场篮板"
+        },
+        "substitution": {
+            "replace": "换下",
+            "prefix": "换人"
+        },
+        "time": {
+            "quarter_prefix": "第",
+            "quarter_suffix": "节",
+            "overtime_prefix": "加时第",
+            "seconds": "秒",
+            "quarter_end": "结束",
+            "current_score": "目前的比分是:",
+            "game_start": "比赛开始"
+        },
+        "regular_end": {
+            "time_up": "常规时间走完",
+            "tied_prefix": "目前双方战成",
+            "tied_suffix": "平",
+            "overtime_start": "加时赛开始"
+        },
+        "game_end": {
+            "full_time": "全场比赛结束",
+            "final_score": "最终比分是:",
+            "congratulations": "恭喜",
+            "win_by": "以",
+            "points_advantage": "分的优势战胜",
+            "defeat": "",
+            "quarter_details": "每节比分详情"
+        },
+        "player_status": {
+            "currently": "目前",
+            "fg_made": "投",
+            "fg_total": "中拿到",
+            "points_suffix": "分!"
+        },
+        "player_stats": {
+            "points": "分",
+            "rebounds": "篮板",
+            "assists": "助攻",
+            "steals": "抢断",
+            "blocks": "盖帽",
+            "turnovers": "失误",
+            "fouls": "犯规",
+            "fieldgoals": "投篮 ",
+            "threepointers": "三分 ",
+            "freethrows": "罚球 ",
+            "playing_time": "上场时间",
+            "minutes": "分",
+            "seconds": "秒",
+            "dnp": "************************** 球员未上场 **************************"
+        },
+        "team_stats": {
+            "header": "球员数据统计",
+            "total": "全队数据统计"
+        }
+    },
+    "recap": {
+        "header": "比赛回顾",
+        "series_result": "系列赛结果:",
+        "series_mvp": "系列赛MVP:",
+        "series_context": "系列赛",
+        "champion": "夺冠",
+        "advance": "晋级",
+        "final_summary": "📋 附加赛最终结果总结",
+        "avg_stats": "场均"
+    },
+    "leaderboard": {
+        "player_ppg": "球员场均得分榜",
+        "player_rpg": "球员场均篮板榜",
+        "player_apg": "球员场均助攻榜",
+        "player_spg": "球员场均抢断榜",
+        "player_bpg": "球员场均盖帽榜",
+        "player_ftmpg": "球员场均罚球命中个数榜",
+        "player_3pmpg": "球员场均三分命中个数榜",
+        "team_ppg": "球队场均得分榜",
+        "team_papg": "球队场均失分榜",
+        "team_fgmpg": "球队场均投篮命中数榜",
+        "team_3pmpg": "球队场均三分命中个数榜",
+        "team_ftmpg": "球队场均罚球命中个数榜",
+        "team_fgpct": "球队场均投篮命中率榜",
+        "team_3ppct": "球队场均三分命中率榜",
+        "team_opp_fgpct": "对手场均投篮命中率榜",
+        "team_opp_3ppct": "对手场均三分命中率榜"
+    },
+    "prediction": {
+        "title": "冠军预测结果 (%d 次模拟)",
+        "wins": "次夺冠"
+    }
+}

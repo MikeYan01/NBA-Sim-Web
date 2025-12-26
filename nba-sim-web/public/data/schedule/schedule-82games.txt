@@ -1,0 +1,1547 @@
+10-21
+Rockets Thunder
+Warriors Lakers
+
+10-22
+Nets Hornets
+Cavaliers Knicks
+Heat Magic
+76ers Celtics
+Raptors Hawks
+Pistons Bulls
+Pelicans Grizzlies
+Wizards Bucks
+Clippers Jazz
+Spurs Mavericks
+Timberwolves Trail Blazers
+Kings Suns
+
+10-23
+Thunder Pacers
+Nuggets Warriors
+
+10-24
+Hawks Magic
+Cavaliers Nets
+Bucks Raptors
+Celtics Knicks
+Pistons Rockets
+Spurs Pelicans
+Heat Grizzlies
+Wizards Mavericks
+Timberwolves Lakers
+Warriors Trail Blazers
+Jazz Kings
+Suns Clippers
+
+10-25
+Bulls Magic
+Thunder Hawks
+Hornets 76ers
+Pacers Grizzlies
+Suns Nuggets
+
+10-26
+Nets Spurs
+Celtics Pistons
+Hornets Wizards
+Knicks Heat
+Bucks Cavaliers
+Pacers Timberwolves
+Raptors Mavericks
+Lakers Kings
+Trail Blazers Clippers
+
+10-27
+Cavaliers Pistons
+Magic 76ers
+Hawks Bulls
+Nets Rockets
+Celtics Pelicans
+Raptors Spurs
+Thunder Mavericks
+Suns Jazz
+Nuggets Timberwolves
+Grizzlies Warriors
+Trail Blazers Lakers
+
+10-28
+76ers Wizards
+Hornets Heat
+Knicks Bucks
+Kings Thunder
+Clippers Warriors
+
+10-29
+Cavaliers Celtics
+Magic Pistons
+Hawks Nets
+Rockets Raptors
+Kings Bulls
+Pacers Mavericks
+Trail Blazers Jazz
+Pelicans Nuggets
+Lakers Timberwolves
+Grizzlies Suns
+
+10-30
+Magic Hornets
+Warriors Bucks
+Wizards Thunder
+Heat Spurs
+
+10-31
+Hawks Pacers
+Celtics 76ers
+Raptors Cavaliers
+Knicks Bulls
+Lakers Grizzlies
+Jazz Suns
+Nuggets Trail Blazers
+Pelicans Clippers
+
+11-01
+Kings Bucks
+Timberwolves Hornets
+Warriors Pacers
+Magic Wizards
+Rockets Celtics
+Mavericks Pistons
+
+11-02
+Pelicans Thunder
+76ers Nets
+Jazz Hornets
+Hawks Cavaliers
+Grizzlies Raptors
+Bulls Knicks
+Spurs Suns
+Heat Lakers
+
+11-03
+Timberwolves Nets
+Bucks Pacers
+Jazz Celtics
+Wizards Knicks
+Mavericks Rockets
+Pistons Grizzlies
+Kings Nuggets
+Lakers Trail Blazers
+Heat Clippers
+
+11-04
+Bucks Raptors
+Magic Hawks
+76ers Bulls
+Hornets Pelicans
+Suns Warriors
+Thunder Clippers
+
+11-05
+76ers Cavaliers
+Jazz Pistons
+Nets Pacers
+Wizards Celtics
+Timberwolves Knicks
+Rockets Grizzlies
+Pelicans Mavericks
+Heat Nuggets
+Spurs Lakers
+Thunder Trail Blazers
+Warriors Kings
+
+11-06
+Clippers Suns
+
+11-07
+Celtics Magic
+Cavaliers Wizards
+Raptors Hawks
+Pistons Nets
+Rockets Spurs
+Mavericks Grizzlies
+Hornets Heat
+Bulls Bucks
+Jazz Timberwolves
+Warriors Nuggets
+Thunder Kings
+
+11-08
+Mavericks Wizards
+Raptors 76ers
+Lakers Hawks
+Bulls Cavaliers
+Trail Blazers Heat
+Pelicans Spurs
+Pacers Nuggets
+Suns Clippers
+
+11-09
+Rockets Bucks
+Thunder Grizzlies
+Nets Knicks
+Celtics Magic
+Pistons 76ers
+Pacers Warriors
+Timberwolves Kings
+
+11-10
+Lakers Hornets
+Wizards Pistons
+Trail Blazers Magic
+Cavaliers Heat
+Spurs Bulls
+Bucks Mavericks
+Pelicans Suns
+Timberwolves Jazz
+Hawks Clippers
+
+11-11
+Raptors Nets
+Grizzlies Knicks
+Warriors Thunder
+Celtics 76ers
+Pacers Jazz
+Nuggets Kings
+
+11-12
+Bucks Hornets
+Bulls Pistons
+Magic Knicks
+Grizzlies Celtics
+Cavaliers Heat
+Wizards Rockets
+Trail Blazers Pelicans
+Warriors Spurs
+Suns Mavericks
+Lakers Thunder
+Hawks Kings
+Nuggets Clippers
+
+11-13
+Raptors Cavaliers
+Pacers Suns
+Hawks Jazz
+
+11-14
+Heat Knicks
+Nets Magic
+76ers Pistons
+Trail Blazers Rockets
+Hornets Bucks
+Kings Timberwolves
+Lakers Pelicans
+Clippers Mavericks
+Warriors Spurs
+
+11-15
+Grizzlies Cavaliers
+Thunder Hornets
+Raptors Pacers
+Lakers Bucks
+Nuggets Timberwolves
+
+11-16
+Clippers Celtics
+Kings Spurs
+Nets Wizards
+Magic Rockets
+Warriors Pelicans
+Trail Blazers Mavericks
+Hawks Suns
+Bulls Jazz
+
+11-17
+Bucks Cavaliers
+Pacers Pistons
+Clippers 76ers
+Knicks Heat
+Hornets Raptors
+Mavericks Timberwolves
+Thunder Pelicans
+Bulls Nuggets
+
+11-18
+Warriors Magic
+Celtics Nets
+Pistons Hawks
+Grizzlies Spurs
+Jazz Lakers
+Suns Trail Blazers
+
+11-19
+Rockets Cavaliers
+Hornets Pacers
+Warriors Heat
+Raptors 76ers
+Wizards Timberwolves
+Nuggets Pelicans
+Kings Thunder
+Knicks Mavericks
+Bulls Trail Blazers
+
+11-20
+Clippers Magic
+Kings Grizzlies
+76ers Bucks
+Hawks Spurs
+
+11-21
+Pacers Cavaliers
+Nets Celtics
+Wizards Raptors
+Heat Bulls
+Pelicans Mavericks
+Timberwolves Suns
+Nuggets Rockets
+Trail Blazers Warriors
+Thunder Jazz
+
+11-22
+Clippers Hornets
+Knicks Magic
+Hawks Pelicans
+Wizards Bulls
+Pistons Bucks
+Grizzlies Mavericks
+Kings Nuggets
+
+11-23
+Heat 76ers
+Hornets Hawks
+Magic Celtics
+Clippers Cavaliers
+Nets Raptors
+Trail Blazers Thunder
+Spurs Suns
+Lakers Jazz
+
+11-24
+Pistons Pacers
+Cavaliers Raptors
+Knicks Nets
+Mavericks Heat
+Nuggets Grizzlies
+Trail Blazers Bucks
+Bulls Pelicans
+Rockets Suns
+Jazz Warriors
+Timberwolves Kings
+
+11-25
+Hawks Wizards
+Magic 76ers
+Clippers Lakers
+
+11-26
+Pistons Celtics
+Knicks Hornets
+Bucks Heat
+Timberwolves Thunder
+Pacers Raptors
+Grizzlies Pelicans
+Rockets Warriors
+Spurs Trail Blazers
+Suns Kings
+
+11-28
+Cavaliers Hawks
+76ers Nets
+Bulls Hornets
+Magic Pistons
+Wizards Pacers
+Bucks Knicks
+Spurs Nuggets
+Suns Thunder
+Kings Jazz
+Grizzlies Clippers
+Mavericks Lakers
+
+11-29
+Celtics Timberwolves
+Raptors Hornets
+Bulls Pacers
+Pistons Heat
+Nets Bucks
+Pelicans Warriors
+Nuggets Suns
+Mavericks Clippers
+
+11-30
+Rockets Jazz
+Celtics Cavaliers
+Raptors Knicks
+Hawks 76ers
+Thunder Trail Blazers
+Spurs Timberwolves
+Grizzlies Kings
+Pelicans Lakers
+
+12-01
+Hawks Pistons
+Cavaliers Pacers
+Bucks Wizards
+Hornets Nets
+Clippers Heat
+Bulls Magic
+Mavericks Nuggets
+Rockets Jazz
+Suns Lakers
+
+12-02
+Wizards 76ers
+Trail Blazers Raptors
+Knicks Celtics
+Timberwolves Pelicans
+Grizzlies Spurs
+Thunder Warriors
+
+12-03
+Trail Blazers Cavaliers
+Nuggets Pacers
+Spurs Magic
+Clippers Hawks
+Hornets Knicks
+Nets Bulls
+Kings Rockets
+Pistons Bucks
+Heat Mavericks
+
+12-04
+Warriors 76ers
+Celtics Wizards
+Jazz Nets
+Lakers Raptors
+Timberwolves Pelicans
+
+12-05
+Lakers Celtics
+Heat Magic
+Nuggets Hawks
+Spurs Cavaliers
+Trail Blazers Pistons
+Jazz Knicks
+Hornets Raptors
+Pacers Bulls
+Suns Rockets
+Clippers Grizzlies
+76ers Bucks
+Mavericks Thunder
+
+12-06
+Pelicans Nets
+Hawks Wizards
+Warriors Cavaliers
+Bucks Pistons
+Kings Heat
+Clippers Timberwolves
+Rockets Mavericks
+
+12-07
+Magic Knicks
+Celtics Raptors
+Nuggets Hornets
+Trail Blazers Grizzlies
+Warriors Bulls
+Lakers 76ers
+Thunder Jazz
+
+12-08
+Kings Pacers
+Suns Timberwolves
+Spurs Pelicans
+
+12-10
+Warriors Rockets
+Wizards Cavaliers
+Suns Mavericks
+Grizzlies Thunder
+Knicks Magic
+Kings Spurs
+Warriors Pelicans
+Trail Blazers Pelicans
+Heat Nets
+Trail Blazers Spurs
+Celtics Pistons
+76ers Hawks
+Wizards Raptors
+Clippers Rockets
+Nuggets Lakers
+
+12-13
+Pacers Nets
+Jazz Mavericks
+Kings Nuggets
+Knicks Pistons
+Bulls Hornets
+Suns Timberwolves
+Bulls Hawks
+76ers Pacers
+Heat Bucks
+Raptors Cavaliers
+Clippers Thunder
+Timberwolves Lakers
+Bucks Magic
+Celtics Hornets
+Grizzlies Jazz
+
+12-17
+Cavaliers Bulls
+Grizzlies Timberwolves
+Clippers Thunder
+Wizards Spurs
+
+12-18
+Hawks Hornets
+Knicks Pacers
+Heat Nets
+Raptors Bucks
+Rockets Pelicans
+Pistons Mavericks
+Magic Nuggets
+Warriors Suns
+Lakers Jazz
+Kings Trail Blazers
+
+12-19
+Heat Celtics
+76ers Knicks
+Spurs Hawks
+Bulls Cavaliers
+Thunder Timberwolves
+
+12-20
+Rockets Nuggets
+Pacers Pelicans
+Mavericks 76ers
+Celtics Raptors
+Hornets Pistons
+Wizards Grizzlies
+Suns Warriors
+Magic Jazz
+Trail Blazers Kings
+Lakers Clippers
+
+12-21
+Bulls Hawks
+Raptors Nets
+Heat Knicks
+Bucks Timberwolves
+Spurs Wizards
+Rockets Kings
+
+12-22
+Hornets Cavaliers
+Pacers Celtics
+Mavericks Pelicans
+Jazz Nuggets
+Grizzlies Thunder
+Magic Warriors
+Pistons Trail Blazers
+
+12-23
+Wizards Hornets
+Nets 76ers
+Bulls Hawks
+Pelicans Cavaliers
+Bucks Pacers
+Raptors Heat
+Nuggets Mavericks
+Knicks Timberwolves
+Thunder Spurs
+Lakers Suns
+Grizzlies Jazz
+Magic Trail Blazers
+Pistons Kings
+Rockets Clippers
+
+12-25
+Cavaliers Knicks
+Spurs Thunder
+Mavericks Warriors
+Rockets Lakers
+Timberwolves Nuggets
+
+12-26
+Heat Hawks
+Hornets Magic
+Raptors Wizards
+Celtics Pacers
+76ers Bulls
+Bucks Grizzlies
+Suns Pelicans
+Pistons Jazz
+Clippers Trail Blazers
+
+12-27
+Mavericks Kings
+Suns Pelicans
+Nuggets Magic
+Knicks Hawks
+Bucks Bulls
+Cavaliers Rockets
+Pacers Heat
+Nets Timberwolves
+Jazz Spurs
+
+12-28
+76ers Thunder
+Warriors Raptors
+Celtics Trail Blazers
+Grizzlies Wizards
+Pistons Clippers
+Kings Lakers
+
+12-29
+Bucks Hornets
+Suns Wizards
+Warriors Nets
+Nuggets Heat
+Magic Raptors
+Timberwolves Bulls
+Pacers Rockets
+Knicks Pelicans
+Hawks Thunder
+Cavaliers Spurs
+Mavericks Trail Blazers
+
+12-30
+76ers Grizzlies
+Celtics Jazz
+Pistons Lakers
+Kings Clippers
+
+12-31
+Warriors Hornets
+Timberwolves Hawks
+Magic Pacers
+Suns Cavaliers
+Pelicans Bulls
+Knicks Spurs
+Nuggets Raptors
+Wizards Bucks
+Trail Blazers Thunder
+
+01-01
+Rockets Nets
+Heat Pistons
+76ers Mavericks
+Celtics Kings
+Jazz Clippers
+
+01-02
+Spurs Pacers
+Nets Wizards
+Nuggets Cavaliers
+Hawks Knicks
+Magic Bulls
+Hornets Bucks
+Trail Blazers Pelicans
+Kings Suns
+Thunder Warriors
+Grizzlies Lakers
+
+01-03
+Timberwolves Heat
+76ers Knicks
+Hawks Raptors
+Hornets Bulls
+Trail Blazers Spurs
+Rockets Mavericks
+Jazz Warriors
+Celtics Clippers
+
+01-04
+Pistons Cavaliers
+Pacers Magic
+Nuggets Nets
+Pelicans Heat
+Timberwolves Wizards
+Thunder Suns
+Bucks Kings
+Grizzlies Lakers
+
+01-05
+Knicks Pistons
+Bulls Celtics
+Hawks Raptors
+Suns Rockets
+Hornets Thunder
+Nuggets 76ers
+Warriors Clippers
+Jazz Trail Blazers
+
+01-06
+Cavaliers Pacers
+Magic Wizards
+Spurs Grizzlies
+Heat Timberwolves
+Lakers Pelicans
+Mavericks Kings
+
+01-07
+Raptors Hornets
+Bulls Pistons
+Wizards 76ers
+Pelicans Hawks
+Nuggets Celtics
+Magic Nets
+Clippers Knicks
+Lakers Spurs
+Suns Grizzlies
+Jazz Thunder
+Bucks Warriors
+Rockets Trail Blazers
+
+01-08
+Pacers Hornets
+Heat Bulls
+Cavaliers Timberwolves
+Mavericks Jazz
+
+01-09
+Raptors Celtics
+76ers Magic
+Pelicans Wizards
+Clippers Nets
+Thunder Grizzlies
+Hawks Nuggets
+Knicks Suns
+Kings Warriors
+Rockets Trail Blazers
+Bucks Lakers
+
+01-10
+Timberwolves Cavaliers
+Heat Pacers
+Clippers Pistons
+Spurs Celtics
+Mavericks Bulls
+Hornets Jazz
+
+01-11
+Pelicans Magic
+Nets Grizzlies
+Knicks Trail Blazers
+76ers Raptors
+Spurs Timberwolves
+Heat Thunder
+Bucks Nuggets
+Wizards Suns
+Hawks Warriors
+Rockets Kings
+
+01-12
+Jazz Cavaliers
+Celtics Pacers
+76ers Raptors
+Nets Mavericks
+Lakers Kings
+Hornets Clippers
+
+01-13
+Suns Heat
+Bulls Rockets
+Timberwolves Bucks
+Nuggets Pelicans
+Spurs Thunder
+Hawks Lakers
+Trail Blazers Warriors
+
+01-14
+Raptors Pacers
+Cavaliers 76ers
+Jazz Bulls
+Nets Pelicans
+Nuggets Mavericks
+Knicks Kings
+Wizards Clippers
+
+01-15
+Grizzlies Magic
+Suns Pistons
+Thunder Rockets
+Celtics Heat
+Bucks Spurs
+Jazz Mavericks
+Knicks Warriors
+Hawks Trail Blazers
+Hornets Lakers
+
+01-16
+Bulls Nets
+Pelicans Pacers
+Cavaliers 76ers
+Clippers Raptors
+Timberwolves Rockets
+Wizards Kings
+
+01-17
+Jazz Mavericks
+Celtics Hawks
+Pacers Pistons
+Suns Knicks
+Thunder Heat
+Timberwolves Spurs
+Hornets Warriors
+Wizards Nuggets
+Lakers Trail Blazers
+
+01-18
+Magic Grizzlies
+Nets Bulls
+Pelicans Rockets
+Hornets Nuggets
+Trail Blazers Kings
+Raptors Lakers
+
+01-19
+Bucks Hawks
+Thunder Cavaliers
+Clippers Wizards
+Mavericks Knicks
+Pacers 76ers
+Suns Nets
+Celtics Pistons
+Jazz Spurs
+Heat Warriors
+
+01-20
+Suns 76ers
+Clippers Bulls
+Spurs Rockets
+Timberwolves Jazz
+Lakers Nuggets
+Raptors Warriors
+Heat Kings
+
+01-21
+Cavaliers Hornets
+Pacers Celtics
+Nets Knicks
+Hawks Grizzlies
+Pistons Pelicans
+Thunder Bucks
+Raptors Kings
+
+01-22
+Hornets Magic
+Rockets 76ers
+Nuggets Wizards
+Warriors Mavericks
+Bulls Timberwolves
+Spurs Jazz
+Lakers Clippers
+Heat Trail Blazers
+
+01-23
+Rockets Pistons
+Suns Hawks
+Celtics Nets
+Kings Cavaliers
+Pelicans Grizzlies
+Nuggets Bucks
+Pacers Thunder
+Raptors Trail Blazers
+
+01-24
+Knicks 76ers
+Warriors Timberwolves
+Wizards Hornets
+Cavaliers Magic
+Celtics Bulls
+Lakers Mavericks
+Heat Jazz
+
+01-25
+Kings Pistons
+Nuggets Grizzlies
+Mavericks Bucks
+Raptors Thunder
+Pelicans Spurs
+Heat Suns
+Nets Clippers
+
+01-26
+76ers Hornets
+Magic Cavaliers
+Pacers Hawks
+Trail Blazers Celtics
+Lakers Bulls
+Grizzlies Rockets
+Warriors Timberwolves
+
+01-27
+Trail Blazers Wizards
+Kings Knicks
+Pelicans Thunder
+Bucks 76ers
+Pistons Nuggets
+Nets Suns
+Clippers Jazz
+
+01-28
+Lakers Cavaliers
+Bulls Pacers
+Hawks Celtics
+Magic Heat
+Knicks Raptors
+Hornets Grizzlies
+Timberwolves Mavericks
+Warriors Jazz
+Spurs Rockets
+
+01-29
+Kings 76ers
+Bucks Wizards
+Rockets Hawks
+Hornets Mavericks
+Nets Nuggets
+Pistons Suns
+Thunder Timberwolves
+
+01-30
+Raptors Magic
+Lakers Wizards
+Kings Celtics
+Grizzlies Pelicans
+Trail Blazers Knicks
+Bulls Heat
+Cavaliers Suns
+Nets Jazz
+Clippers Nuggets
+Pistons Warriors
+
+01-31
+Spurs Hornets
+Hawks Pacers
+Pelicans 76ers
+Timberwolves Grizzlies
+Mavericks Rockets
+
+02-01
+Bucks Celtics
+Magic Spurs
+Nets Pistons
+Bulls Heat
+Jazz Raptors
+Kings Wizards
+Lakers Knicks
+Clippers Suns
+Cavaliers Trail Blazers
+Thunder Nuggets
+
+02-02
+Pelicans Hornets
+Rockets Pacers
+Timberwolves Grizzlies
+76ers Clippers
+
+02-03
+Nuggets Pistons
+Jazz Pacers
+Knicks Wizards
+Lakers Nets
+Hawks Heat
+Celtics Mavericks
+Bulls Bucks
+Magic Thunder
+76ers Warriors
+Suns Trail Blazers
+
+02-04
+Nuggets Knicks
+Timberwolves Raptors
+Celtics Rockets
+Pelicans Bucks
+Thunder Spurs
+Grizzlies Kings
+Cavaliers Clippers
+
+02-05
+Wizards Pistons
+Nets Magic
+Jazz Hawks
+Bulls Raptors
+Hornets Rockets
+Spurs Mavericks
+Warriors Suns
+76ers Lakers
+
+02-06
+Heat Celtics
+Knicks Pistons
+Pacers Bucks
+Pelicans Timberwolves
+Grizzlies Trail Blazers
+Clippers Kings
+
+02-07
+Wizards Nets
+Rockets Thunder
+Mavericks Spurs
+Jazz Magic
+Hornets Hawks
+Nuggets Bulls
+Warriors Lakers
+76ers Suns
+Grizzlies Trail Blazers
+Cavaliers Kings
+
+02-08
+Knicks Celtics
+Heat Wizards
+Clippers Timberwolves
+Pacers Raptors
+
+02-09
+Pistons Hornets
+Bulls Nets
+Jazz Heat
+Bucks Magic
+Hawks Timberwolves
+Kings Pelicans
+Cavaliers Nuggets
+Grizzlies Warriors
+Thunder Lakers
+76ers Trail Blazers
+
+02-10
+Pacers Knicks
+Clippers Rockets
+Mavericks Suns
+Spurs Lakers
+
+02-11
+Hawks Hornets
+Wizards Cavaliers
+Bucks Magic
+Bulls Celtics
+Pacers Nets
+Knicks 76ers
+Pistons Raptors
+Clippers Rockets
+Trail Blazers Timberwolves
+Heat Pelicans
+Thunder Suns
+Kings Jazz
+Grizzlies Nuggets
+Spurs Warriors
+
+02-12
+Bucks Thunder
+Trail Blazers Jazz
+Mavericks Lakers
+
+02-19
+Rockets Hornets
+Nets Cavaliers
+Hawks 76ers
+Pacers Wizards
+Pistons Knicks
+Raptors Bulls
+Suns Spurs
+Celtics Warriors
+Magic Kings
+Nuggets Clippers
+
+02-20
+Cavaliers Hornets
+Jazz Grizzlies
+Pacers Wizards
+Heat Hawks
+Mavericks Timberwolves
+Bucks Pelicans
+Nets Thunder
+Clippers Lakers
+Nuggets Trail Blazers
+
+02-21
+Magic Suns
+76ers Pelicans
+Pistons Bulls
+Grizzlies Heat
+Kings Spurs
+Rockets Knicks
+
+02-22
+Cavaliers Thunder
+Nets Hawks
+Nuggets Warriors
+Raptors Bucks
+Mavericks Pacers
+Hornets Wizards
+Celtics Lakers
+76ers Timberwolves
+Knicks Bulls
+Trail Blazers Suns
+Magic Clippers
+
+02-23
+Spurs Pistons
+Kings Grizzlies
+Jazz Rockets
+
+02-24
+76ers Pacers
+Wizards Hawks
+Mavericks Nets
+Thunder Raptors
+Hornets Bulls
+Knicks Cavaliers
+Heat Bucks
+Warriors Pelicans
+Celtics Suns
+Magic Lakers
+Timberwolves Trail Blazers
+
+02-25
+Thunder Pistons
+Warriors Grizzlies
+Spurs Raptors
+Kings Rockets
+Cavaliers Bucks
+Celtics Nuggets
+
+02-26
+Hornets Pacers
+Heat 76ers
+Wizards Hawks
+Spurs Nets
+Rockets Magic
+Trail Blazers Bulls
+Kings Mavericks
+Lakers Suns
+Pelicans Jazz
+Timberwolves Clippers
+
+02-27
+Cavaliers Pistons
+Nets Celtics
+Knicks Bucks
+Grizzlies Mavericks
+Nuggets Thunder
+
+02-28
+Trail Blazers Hornets
+Rockets Heat
+Raptors Wizards
+Lakers Warriors
+Pelicans Jazz
+
+03-01
+Spurs Knicks
+Cavaliers Nets
+Bucks Bulls
+Timberwolves Nuggets
+Grizzlies Pacers
+Trail Blazers Hawks
+76ers Celtics
+Pistons Magic
+Thunder Mavericks
+Pelicans Clippers
+Kings Lakers
+
+03-02
+Rockets Wizards
+Celtics Bucks
+Nuggets Jazz
+Clippers Warriors
+
+03-03
+Mavericks Hornets
+Pistons Cavaliers
+Wizards Magic
+Nets Heat
+Knicks Raptors
+Thunder Bulls
+Grizzlies Timberwolves
+Spurs 76ers
+Pelicans Lakers
+Suns Kings
+
+03-04
+Thunder Knicks
+Hornets Celtics
+Jazz 76ers
+Trail Blazers Grizzlies
+Hawks Bucks
+Pacers Clippers
+
+03-05
+Mavericks Magic
+Jazz Wizards
+Warriors Rockets
+Nets Heat
+Raptors Timberwolves
+Pistons Spurs
+Bulls Suns
+Lakers Nuggets
+Pelicans Kings
+
+03-06
+Mavericks Celtics
+Heat Hornets
+Trail Blazers Rockets
+Knicks Nuggets
+Pelicans Suns
+Clippers Spurs
+Pacers Lakers
+
+03-07
+Magic Timberwolves
+Nets Pistons
+76ers Hawks
+Clippers Grizzlies
+Jazz Bucks
+Warriors Thunder
+
+03-08
+Celtics Cavaliers
+Knicks Lakers
+Pistons Heat
+Mavericks Raptors
+Wizards Pelicans
+Magic Bucks
+Rockets Spurs
+Hornets Suns
+Pacers Trail Blazers
+Bulls Kings
+
+03-09
+76ers Cavaliers
+Grizzlies Nets
+Nuggets Thunder
+Warriors Jazz
+Knicks Clippers
+
+03-10
+Grizzlies 76ers
+Pistons Nets
+Wizards Heat
+Mavericks Hawks
+Raptors Rockets
+Suns Bucks
+Celtics Spurs
+Bulls Warriors
+Hornets Trail Blazers
+Pacers Kings
+Timberwolves Lakers
+
+03-11
+Cavaliers Magic
+Raptors Pelicans
+Knicks Jazz
+Rockets Nuggets
+Hornets Kings
+Timberwolves Clippers
+
+03-12
+76ers Pistons
+Suns Pacers
+Wizards Magic
+Nets Hawks
+Bucks Heat
+Nuggets Spurs
+Celtics Thunder
+Bulls Lakers
+
+03-13
+Grizzlies Pistons
+Knicks Pacers
+Suns Raptors
+Pelicans Rockets
+Cavaliers Mavericks
+Timberwolves Warriors
+Jazz Trail Blazers
+Bulls Clippers
+
+03-14
+Nets 76ers
+Bucks Hawks
+Wizards Celtics
+Magic Heat
+Hornets Spurs
+Nuggets Lakers
+Kings Clippers
+
+03-15
+Timberwolves Thunder
+Mavericks Cavaliers
+Pacers Bucks
+Pistons Raptors
+Trail Blazers 76ers
+Warriors Knicks
+Jazz Kings
+
+03-16
+Magic Hawks
+Warriors Wizards
+Trail Blazers Nets
+Suns Celtics
+Grizzlies Bulls
+Mavericks Pelicans
+Lakers Rockets
+Spurs Clippers
+
+03-17
+Heat Hornets
+Thunder Magic
+Pistons Wizards
+Pacers Knicks
+Cavaliers Bucks
+Suns Timberwolves
+76ers Nuggets
+Spurs Kings
+
+03-18
+Warriors Celtics
+Thunder Nets
+Trail Blazers Pacers
+Raptors Bulls
+Knicks Grizzlies
+Jazz Timberwolves
+Clippers Pelicans
+Hawks Mavericks
+Lakers Rockets
+
+03-19
+Magic Hornets
+Pistons Wizards
+Cavaliers Bulls
+Lakers Heat
+Clippers Pelicans
+Suns Spurs
+Bucks Jazz
+76ers Kings
+
+03-20
+Knicks Nets
+Warriors Pistons
+Hawks Rockets
+Celtics Grizzlies
+Trail Blazers Timberwolves
+Raptors Nuggets
+
+03-21
+Thunder Wizards
+Grizzlies Hornets
+Cavaliers Pelicans
+Lakers Magic
+Warriors Hawks
+Heat Rockets
+Pacers Spurs
+Clippers Mavericks
+76ers Jazz
+Bucks Suns
+
+03-22
+Trail Blazers Nuggets
+Nets Kings
+Wizards Knicks
+Timberwolves Celtics
+Raptors Suns
+
+03-23
+Grizzlies Hawks
+Lakers Pistons
+Pacers Magic
+Thunder 76ers
+Spurs Heat
+Rockets Bulls
+Raptors Jazz
+Warriors Mavericks
+Nets Trail Blazers
+Bucks Clippers
+
+03-24
+Kings Hornets
+Pelicans Knicks
+Magic Cavaliers
+Nuggets Suns
+
+03-25
+Hawks Pistons
+Lakers Pacers
+Bulls 76ers
+Thunder Celtics
+Heat Cavaliers
+Spurs Grizzlies
+Wizards Jazz
+Rockets Timberwolves
+Mavericks Nuggets
+Nets Warriors
+Bucks Trail Blazers
+Raptors Clippers
+
+03-26
+Knicks Hornets
+Pelicans Pistons
+Kings Magic
+
+03-27
+Clippers Pacers
+Hawks Celtics
+Heat Cavaliers
+Rockets Grizzlies
+Bulls Thunder
+Pelicans Raptors
+Jazz Nuggets
+Wizards Warriors
+Mavericks Trail Blazers
+Nets Lakers
+
+03-28
+Spurs Bucks
+76ers Hornets
+Kings Hawks
+Bulls Grizzlies
+Pistons Timberwolves
+Jazz Suns
+
+03-29
+Clippers Bucks
+Heat Pacers
+Kings Nets
+Celtics Hornets
+Wizards Trail Blazers
+Magic Raptors
+Rockets Pelicans
+Knicks Thunder
+Warriors Nuggets
+
+03-30
+76ers Heat
+Celtics Hawks
+Suns Grizzlies
+Bulls Spurs
+Timberwolves Mavericks
+Cavaliers Jazz
+Pistons Thunder
+Wizards Lakers
+
+03-31
+Suns Magic
+Hornets Nets
+Raptors Pistons
+Knicks Rockets
+Cavaliers Lakers
+Trail Blazers Clippers
+
+04-01
+76ers Wizards
+Celtics Heat
+Hawks Magic
+Pacers Bulls
+Bucks Rockets
+Mavericks Grizzlies
+Kings Raptors
+Nuggets Jazz
+Spurs Warriors
+
+04-02
+Suns Hornets
+Timberwolves Pistons
+Lakers Thunder
+Cavaliers Warriors
+Pelicans Trail Blazers
+Spurs Clippers
+
+04-03
+Pacers Hornets
+Timberwolves 76ers
+Hawks Nets
+Bulls Knicks
+Jazz Rockets
+Raptors Grizzlies
+Celtics Bucks
+Magic Mavericks
+Pelicans Kings
+
+04-04
+Wizards Heat
+Spurs Nuggets
+Pistons 76ers
+
+04-05
+Raptors Celtics
+Wizards Nets
+Suns Bulls
+Grizzlies Bucks
+Pacers Cavaliers
+Hornets Timberwolves
+Magic Pelicans
+Jazz Thunder
+Lakers Mavericks
+Clippers Kings
+Rockets Warriors
+
+04-06
+Knicks Hawks
+Pistons Magic
+Cavaliers Grizzlies
+76ers Spurs
+Trail Blazers Nuggets
+
+04-07
+Bulls Wizards
+Hornets Celtics
+Bucks Nets
+Heat Raptors
+Timberwolves Pacers
+Jazz Pelicans
+Kings Warriors
+Thunder Lakers
+Mavericks Clippers
+Rockets Suns
+
+04-08
+Hawks Cavaliers
+Timberwolves Magic
+Bucks Pistons
+Trail Blazers Spurs
+Grizzlies Nuggets
+Thunder Clippers
+Mavericks Suns
+
+04-09
+Heat Raptors
+Bulls Wizards
+Pacers Nets
+Celtics Knicks
+76ers Rockets
+Lakers Warriors
+
+04-10
+Heat Wizards
+Pistons Hornets
+Pelicans Celtics
+76ers Pacers
+Cavaliers Hawks
+Raptors Knicks
+Magic Bulls
+Timberwolves Rockets
+Nets Bucks
+Mavericks Spurs
+Grizzlies Jazz
+Thunder Nuggets
+Clippers Trail Blazers
+Warriors Kings
+Suns Lakers
+
+04-12
+Magic Celtics
+Wizards Cavaliers
+Pistons Pacers
+Hawks Heat
+Hornets Knicks
+Bucks 76ers
+Nets Raptors
+Bulls Mavericks
+Grizzlies Rockets
+Warriors Clippers
+Jazz Lakers
+Pelicans Timberwolves
+Suns Thunder
+Kings Trail Blazers
+Nuggets Spurs

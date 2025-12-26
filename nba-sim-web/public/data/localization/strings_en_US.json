@@ -1,0 +1,386 @@
+{
+    "ui": {
+        "common": {
+            "close": "Close",
+            "expand": "Expand",
+            "collapse": "Collapse"
+        },
+        "menu": {
+            "singleGame": "Single Game",
+            "season": "Season",
+            "prediction": "Prediction",
+            "settings": "Settings",
+            "home": "Home"
+        },
+        "home": {
+            "title": "NBA Simulator",
+            "subtitle": "Experience realistic basketball simulation with authentic play-by-play commentary",
+            "startSingle": "Quick Match",
+            "startSeason": "Full Season",
+            "startPrediction": "Prediction",
+            "singleDesc": "Simulate a single game between any two teams",
+            "seasonDesc": "Run a complete 82-game season with playoffs",
+            "predictionDesc": "Predict championship odds by running multiple seasons simulations"
+        },
+        "teamSelection": {
+            "title": "Quick Match",
+            "selectAway": "Away Team",
+            "selectHome": "Home Team",
+            "startGame": "Start Game",
+            "westConf": "Western Conference",
+            "eastConf": "Eastern Conference",
+            "selected": "Selected"
+        },
+        "gameView": {
+            "backToSelection": "Back to Team Selection",
+            "finalScore": "Final Score",
+            "liveSimulation": "Live Simulation",
+            "boxScore": "Box Score",
+            "playByPlay": "Play-by-Play",
+            "controls": {
+                "restart": "Restart",
+                "play": "Play",
+                "pause": "Pause",
+                "skipToEnd": "Skip to End"
+            }
+        },
+        "boxScore": {
+            "title": "Box Score",
+            "player": "Player",
+            "totals": "TOTALS",
+            "team": "Team",
+            "total": "Total",
+            "starter": "S"
+        },
+        "season": {
+            "title": "Season Simulation",
+            "subtitle": "Simulate a full 82-game regular season, play-in tournament, and playoffs",
+            "startSeason": "Start Season",
+            "newSeason": "New Season",
+            "results": "Season Results",
+            "champion": "Champion",
+            "simulating": "Simulating Season...",
+            "simulatingDesc": "Playing 1,230 regular season games, play-in tournament, and playoffs...",
+            "tabs": {
+                "standings": "Standings",
+                "leaders": "Leaders",
+                "recaps": "Recaps",
+                "playoffs": "Playoffs"
+            },
+            "recaps": {
+                "title": "Game Recaps",
+                "games": "games",
+                "commentary": "Live Commentary",
+                "lines": "lines"
+            },
+            "playoffs": {
+                "title": "Playoff Bracket",
+                "playIn": "Play-In Tournament",
+                "firstRound": "First Round",
+                "confSemis": "Conference Semifinals",
+                "confFinals": "Conference Finals",
+                "finals": "NBA Finals",
+                "seriesMvp": "Series MVP",
+                "finalsMvp": "Finals MVP",
+                "playIn78": "7v8 Play-In",
+                "playIn910": "9v10 Play-In",
+                "playIn8th": "8th Seed Battle",
+                "playInFinal": "Play-In Final",
+                "secured7th": "Secured 7th Seed",
+                "secured8th": "Secured 8th Seed",
+                "advancesToFinal": "Advances to 8th seed battle",
+                "advances": "Advances",
+                "eliminated": "Eliminated",
+                "willFace": "Will face"
+            }
+        },
+        "prediction": {
+            "title": "Championship Prediction",
+            "subtitle": "Run multiple season simulations to calculate championship probabilities",
+            "loadingEngine": "Loading game engine...",
+            "simCount": "Number of Simulations",
+            "custom": "Custom",
+            "startPrediction": "Run Prediction",
+            "simulating": "Simulating Seasons...",
+            "progress": "Progress",
+            "results": "Prediction Results",
+            "seasonsSimulated": "seasons simulated",
+            "runAgain": "Run Again",
+            "championshipOdds": "Championship Odds",
+            "title1": "title",
+            "titles": "titles"
+        },
+        "standings": {
+            "title": "Standings",
+            "rank": "#",
+            "team": "Team",
+            "gamesBack": "GB",
+            "legend": {
+                "playoffs": "1-6: Playoff Berth",
+                "playIn": "7-10: Play-In",
+                "lottery": "11-15: Lottery"
+            }
+        },
+        "leaderboards": {
+            "title": "League Leaders",
+            "player": "Player",
+            "teamTab": "Teams",
+            "value": "AVG",
+            "categories": {
+                "points": "Points",
+                "rebounds": "Rebounds",
+                "assists": "Assists",
+                "steals": "Steals",
+                "blocks": "Blocks",
+                "threes": "3PM",
+                "freeThrows": "FTM",
+                "minutes": "Minutes"
+            },
+            "team": {
+                "points": "PPG",
+                "pointsAllowed": "Opp PPG",
+                "shotsMade": "FGM",
+                "threesMade": "3PM",
+                "freeThrowsMade": "FTM",
+                "fieldGoalPct": "FG%",
+                "threePct": "3P%",
+                "opponentFieldGoalPct": "Opp FG%",
+                "opponentThreePct": "Opp 3P%"
+            }
+        },
+        "settings": {
+            "title": "Settings",
+            "language": "Language",
+            "languageDesc": "Select your preferred language"
+        }
+    },
+    "stat": {
+        "points": {
+            "short": " Pts",
+            "long": "Points"
+        },
+        "rebounds": {
+            "short": " Reb",
+            "long": "Rebounds",
+            "offensive": {
+                "short": " orb",
+                "long": "Offensive Rebounds"
+            },
+            "defensive": {
+                "short": " drb",
+                "long": "Defensive Rebounds"
+            }
+        },
+        "assists": {
+            "short": " Ast",
+            "long": "Assists"
+        },
+        "steals": {
+            "short": " Stl",
+            "long": "Steals"
+        },
+        "blocks": {
+            "short": " Blk",
+            "long": "Blocks"
+        },
+        "minutes": {
+            "short": " Min",
+            "long": "Minutes Played "
+        },
+        "fieldgoal": {
+            "label": "FG ",
+            "pct": "FG%"
+        },
+        "threepoint": {
+            "label": "3P ",
+            "pct": "3P%"
+        },
+        "freethrow": {
+            "label": "FT ",
+            "pct": "FT%"
+        },
+        "winrate": " W%",
+        "wins": "W",
+        "losses": "L",
+        "abbr": {
+            "pts": "PTS",
+            "reb": "REB",
+            "ast": "AST",
+            "stl": "STL",
+            "blk": "BLK"
+        }
+    },
+    "game": {
+        "away": "Away",
+        "home": "Home",
+        "at": "@",
+        "recap": "Game Recap",
+        "finalscore": "Final Score",
+        "overtime": {
+            "suffix": "OT"
+        },
+        "score_differential_title": "Score Differential Chart",
+        "score_differential_leading": "Leading",
+        "score_differential_tied": "Tied",
+        "score_differential_scale": "Scale",
+        "score_differential_points": "pts",
+        "flow_insights_title": "Game Flow Insights",
+        "flow_largest_lead": "Largest Lead",
+        "flow_points": "pts",
+        "flow_lead_changes": "Lead Changes",
+        "flow_times_tied": "Times Tied"
+    },
+    "playoff": {
+        "round": {
+            "first": " First Round",
+            "semi": " Semifinals",
+            "final": " Finals",
+            "championship": " Championship"
+        },
+        "game": {
+            "prefix": "G"
+        },
+        "recap": {
+            "series_result": "Series Result",
+            "series_mvp": "Series MVP",
+            "average": "Average",
+            "series_record": "Series",
+            "advance": " advances",
+            "champion": " wins the championship"
+        }
+    },
+    "playin": {
+        "7v8": " Play-in 7v8",
+        "9v10": " Play-in 9v10",
+        "final": " Play-in Final",
+        "final_battle": " Play-in 8th Seed Battle",
+        "secured": {
+            "7": "7th seed",
+            "8": "8th seed"
+        },
+        "advanced": "Advanced to 8th seed battle",
+        "advanced_final": "Advanced to final play-in game",
+        "eliminated": "Eliminated",
+        "winner": "Winner:",
+        "loser": "Loser:",
+        "summary": "Play-in Tournament Final Results",
+        "secured_prefix": "✅ Secured",
+        "eliminated_prefix": "❌ ",
+        "advance_prefix": "⏭️ ",
+        "final_seeds": "Final Playoff Seeds:",
+        "seed_label": " seed:",
+        "error": "Play-in error:"
+    },
+    "conference": {
+        "east": "Eastern",
+        "west": "Western",
+        "east_full": "Eastern Conference:",
+        "west_full": "Western Conference:",
+        "east_standings": "Eastern Conference Standings",
+        "west_standings": "Western Conference Standings"
+    },
+    "commentary": {
+        "distance": {
+            "feet": " feet "
+        },
+        "shot": {
+            "threepoint_suffix": " three-pointer",
+            "dunk_marker": "dunk",
+            "layup_marker": "layup"
+        },
+        "freethrow": {
+            "label": "Free throw",
+            "attempt_suffix": " of "
+        },
+        "rebound": {
+            "offensive": "offensive rebound",
+            "defensive": "defensive rebound"
+        },
+        "substitution": {
+            "replace": " replaces ",
+            "prefix": "Substitution"
+        },
+        "time": {
+            "quarter_prefix": "Q",
+            "quarter_suffix": "",
+            "overtime_prefix": "OT",
+            "seconds": "",
+            "quarter_end": " ends",
+            "current_score": "Current score:",
+            "game_start": " starts"
+        },
+        "regular_end": {
+            "time_up": "Regulation time is up",
+            "tied_prefix": "The score is tied at ",
+            "tied_suffix": "",
+            "overtime_start": "Overtime starts"
+        },
+        "game_end": {
+            "full_time": "Game over",
+            "final_score": "Final score:",
+            "congratulations": "Congratulations to ",
+            "win_by": " for defeating ",
+            "points_advantage": " by ",
+            "defeat": " points",
+            "quarter_details": "Score by quarters"
+        },
+        "player_status": {
+            "currently": "Currently ",
+            "fg_made": " for ",
+            "fg_total": " with ",
+            "points_suffix": " points!"
+        },
+        "player_stats": {
+            "points": " Pts",
+            "rebounds": " Reb",
+            "assists": " Ast",
+            "steals": " Stl",
+            "blocks": " Blk",
+            "turnovers": " TO",
+            "fouls": " PF",
+            "fieldgoals": "FG ",
+            "threepointers": "3PT ",
+            "freethrows": "FT ",
+            "playing_time": " Playing time",
+            "minutes": "m",
+            "seconds": "s",
+            "dnp": "************************** Did Not Play **************************"
+        },
+        "team_stats": {
+            "header": " Player Statistics",
+            "total": " Team Statistics"
+        }
+    },
+    "recap": {
+        "header": "Game Recap",
+        "series_result": "Series Result:",
+        "series_mvp": "Series MVP:",
+        "series_context": "Series",
+        "champion": "Championship",
+        "advance": "Advance",
+        "final_summary": "📋 Play-In Tournament Final Results",
+        "avg_stats": "Avg"
+    },
+    "leaderboard": {
+        "player_ppg": "Points Per Game Leaders",
+        "player_rpg": "Rebounds Per Game Leaders",
+        "player_apg": "Assists Per Game Leaders",
+        "player_spg": "Steals Per Game Leaders",
+        "player_bpg": "Blocks Per Game Leaders",
+        "player_ftmpg": "Free Throws Made Per Game Leaders",
+        "player_3pmpg": "Three-Pointers Made Per Game Leaders",
+        "team_ppg": "Team Points Per Game Leaders",
+        "team_papg": "Team Points Allowed Per Game Leaders",
+        "team_fgmpg": "Team Field Goals Made Per Game Leaders",
+        "team_3pmpg": "Team Three-Pointers Made Per Game Leaders",
+        "team_ftmpg": "Team Free Throws Made Per Game Leaders",
+        "team_fgpct": "Team Field Goal Percentage Leaders",
+        "team_3ppct": "Team Three-Point Percentage Leaders",
+        "team_opp_fgpct": "Opponent Field Goal Percentage Leaders",
+        "team_opp_3ppct": "Opponent Three-Point Percentage Leaders"
+    },
+    "prediction": {
+        "title": "Championship Prediction Results (%d simulations)",
+        "wins": "wins"
+    }
+}

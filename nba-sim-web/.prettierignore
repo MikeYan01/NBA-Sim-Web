@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+coverage/
+
+# Lock files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Data files (auto-formatted could break structure)
+public/data/
+
+# Generated files
+*.min.js
+*.min.css

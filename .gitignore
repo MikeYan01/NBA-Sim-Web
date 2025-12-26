@@ -1,0 +1,54 @@
+/NBA-sim-master
+.DS_Store
+.github
+.specify
+/specs/*
+
+# Node/JS build artifacts
+node_modules/
+
+# Environment and local overrides
+.env
+.env.*
+*.local
+.env.*.local
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Dependencies
+node_modules
+
+# Build output
+dist
+dist-ssr
+build
+*.local
+
+# Coverage
+coverage
+
+# Editor directories and files
+.vscode/
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Test artifacts
+test-results/
+playwright-report/
