@@ -4,13 +4,13 @@
 
 Browser-based NBA basketball simulator migrated from Java to TypeScript/React. Features realistic game simulation with play-by-play commentary, full 82-game seasons, playoffs, and championship predictions.
 
-![React](https://img.shields.io/badge/React-19-blue) ![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue) ![Vite](https://img.shields.io/badge/Vite-7.x-purple) ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4.x-cyan) ![Tests](https://img.shields.io/badge/Tests-420%2B%20passed-green)
+![React](https://img.shields.io/badge/React-19-blue) ![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue) ![Vite](https://img.shields.io/badge/Vite-7.x-purple) ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4.x-cyan) ![Tests](https://img.shields.io/badge/Tests-419%2B%20passed-green)
 
 ## Features
 
 ### 🏀 Single Game Mode
 - Select any two NBA teams for a head-to-head matchup
-- Real-time play-by-play commentary with adjustable speed (1x to 32x)
+- Real-time play-by-play commentary with adjustable speed (1x to 64x)
 - Detailed box scores with sortable statistics
 - Score differential chart
 - Authentic basketball simulation including fouls, free throws, overtime, and injuries
@@ -19,8 +19,9 @@ Browser-based NBA basketball simulator migrated from Java to TypeScript/React. F
 ### 📅 Season Mode
 - Full 82-game NBA season simulation
 - Conference standings with playoff seeding
-- Play-in tournament (7-10 seeds) with modal game recaps
+- Play-in tournament (7-10 seeds)
 - Complete playoff bracket with best-of-7 series
+- Playoff mode with realistic adjustments (slower pace, tougher defense)
 - Series MVP with detailed stats (PTS, REB, AST, STL, BLK, FG%, 3P%)
 - Game recaps with commentary and box scores
 - Leaderboards for points, rebounds, assists, steals, blocks
@@ -28,6 +29,7 @@ Browser-based NBA basketball simulator migrated from Java to TypeScript/React. F
 ### 🔮 Championship Prediction
 - Monte Carlo simulation for championship probabilities
 - Run N simulations to predict champions
+- Optimized fast simulation mode
 - Web Worker for non-blocking background processing
 - Progress indicator during prediction
 
@@ -70,37 +72,6 @@ Open http://localhost:5173 in your browser.
 ```bash
 npm run build
 npm run preview
-```
-
-## Project Structure
-
-```
-nba-sim-web/
-├── public/
-│   └── data/
-│       ├── comments/      # Commentary templates (EN/ZH)
-│       ├── localization/  # UI strings (EN/ZH)
-│       ├── rosters/       # 30 NBA team rosters (CSV)
-│       └── schedule/      # 82-game schedule
-├── src/
-│   ├── components/        # React components
-│   │   ├── BoxScore/      # Box score display
-│   │   ├── GameView/      # Single game simulation view
-│   │   ├── Home/          # Landing page
-│   │   ├── Layout/        # App layout with navigation
-│   │   ├── Leaderboards/  # Season stat leaders
-│   │   ├── Prediction/    # Championship prediction mode
-│   │   ├── Season/        # Season mode (playoffs, standings, recaps)
-│   │   ├── Settings/      # Language settings
-│   │   ├── Standings/     # Conference standings
-│   │   └── TeamSelection/ # Team picker
-│   ├── hooks/             # Custom React hooks
-│   ├── models/            # Business logic (Game, Season, Player, Team, Playoffs)
-│   ├── services/          # Data loading, localization, export
-│   ├── stores/            # Zustand state management
-│   ├── utils/             # Utilities (SeededRandom, Constants, Comments)
-│   └── workers/           # Web Workers for background processing
-└── tests/                 # Test suites
 ```
 
 ## Testing
