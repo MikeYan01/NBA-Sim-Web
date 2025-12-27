@@ -381,4 +381,39 @@ export class Player {
             minutesTracking: this.getMinutesTracking(),
         }
     }
+
+    /**
+     * Clone this player with fresh game stats.
+     * Used for team caching to create fresh copies for each game.
+     */
+    clone(): Player {
+        return new Player(
+            this.name,
+            this.englishName,
+            this.position,
+            this.playerType,
+            this.rotationType,
+            this.rating,
+            this.insideRating,
+            this.midRating,
+            this.threeRating,
+            this.freeThrowPercent,
+            this.interiorDefense,
+            this.perimeterDefense,
+            this.orbRating,
+            this.drbRating,
+            this.astRating,
+            this.stlRating,
+            this.blkRating,
+            this.layupRating,
+            this.standDunk,
+            this.drivingDunk,
+            this.athleticism,
+            this.durability,
+            this.offConst,
+            this.defConst,
+            this.drawFoul,
+            this.teamName
+        )
+    }
 }

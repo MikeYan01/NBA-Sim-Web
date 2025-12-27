@@ -13,8 +13,8 @@ interface GameState {
     setSeason: (season: SeasonResult | null) => void
 
     // Season Progress
-    seasonProgress: { gamesCompleted: number; totalGames: number; phase: 'regular' | 'playin' | 'playoffs' } | null
-    setSeasonProgress: (progress: { gamesCompleted: number; totalGames: number; phase: 'regular' | 'playin' | 'playoffs' } | null) => void
+    seasonProgress: { gamesCompleted: number; totalGames: number; phase: 'initializing' | 'regular' | 'playin' | 'playoffs' } | null
+    setSeasonProgress: (progress: { gamesCompleted: number; totalGames: number; phase: 'initializing' | 'regular' | 'playin' | 'playoffs' } | null) => void
 
     // Teams
     teams: Team[]

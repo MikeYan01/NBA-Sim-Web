@@ -8,8 +8,11 @@
 import { Position, POSITIONS, TeamGameStats, TeamGameState, Language } from './types'
 import { Player, PlayerCSVRow } from './Player'
 import { RotationType } from './types'
-import { ROSTER_PATH, getLocalizedTeamName } from '../utils/Constants'
+import { ROSTER_PATH, getLocalizedTeamName, ALL_TEAMS_EN } from '../utils/Constants'
 import { loadCSV } from '../services/ResourceLoader'
+
+// Static cache for loaded team templates
+const teamTemplateCache = new Map<string, Team>()
 
 export class Team {
     // Team identity
@@ -56,10 +59,20 @@ export class Team {
 
     /**
      * Factory method to load a team from a CSV roster file.
+     * Uses caching to avoid redundant network requests.
+     * Returns a fresh copy with reset stats for game use.
      * @param teamName The team name (English)
      * @returns A new Team instance with loaded roster
      */
     static async loadFromCSV(teamName: string): Promise<Team> {
+        // Check cache first
+        const cached = teamTemplateCache.get(teamName)
+        if (cached) {
+            // Return a fresh copy with reset stats
+            return cached.clone()
+        }
+
+        // Load from CSV
         const team = new Team(teamName)
         const filePath = `${ROSTER_PATH}${teamName}.csv`
 
@@ -94,7 +107,67 @@ export class Team {
             players.sort((a, b) => b.rating - a.rating)
         }
 
-        return team
+        // Cache the template
+        teamTemplateCache.set(teamName, team)
+
+        // Return a fresh copy
+        return team.clone()
+    }
+
+    /**
+     * Preload all NBA teams into cache.
+     * Call this during initialization to avoid delays later.
+     */
+    static async preloadAllTeams(): Promise<void> {
+        const loadPromises = ALL_TEAMS_EN.map(teamName => Team.loadFromCSV(teamName))
+        await Promise.all(loadPromises)
+    }
+
+    /**
+     * Check if all teams are cached.
+     */
+    static areTeamsCached(): boolean {
+        return teamTemplateCache.size >= ALL_TEAMS_EN.length
+    }
+
+    /**
+     * Clone this team for use in a game.
+     * Creates fresh players with reset stats.
+     */
+    clone(): Team {
+        const cloned = new Team(this.name)
+
+        // Clone players with fresh stats
+        for (const player of this.players) {
+            const clonedPlayer = player.clone()
+            cloned.players.push(clonedPlayer)
+
+            // Set up roster structure
+            if (clonedPlayer.rotationType === RotationType.STARTER) {
+                cloned.starters.set(clonedPlayer.position, clonedPlayer)
+                clonedPlayer.hasBeenOnCourt = true
+            } else if (clonedPlayer.rotationType === RotationType.BENCH) {
+                if (!cloned.benches.has(clonedPlayer.position)) {
+                    cloned.benches.set(clonedPlayer.position, [])
+                }
+                cloned.benches.get(clonedPlayer.position)!.push(clonedPlayer)
+            } else if (clonedPlayer.rotationType === RotationType.DEEP_BENCH) {
+                if (!cloned.rareBenches.has(clonedPlayer.position)) {
+                    cloned.rareBenches.set(clonedPlayer.position, [])
+                }
+                cloned.rareBenches.get(clonedPlayer.position)!.push(clonedPlayer)
+            }
+        }
+
+        // Sort benches by rating in descending order
+        for (const players of cloned.benches.values()) {
+            players.sort((a, b) => b.rating - a.rating)
+        }
+        for (const players of cloned.rareBenches.values()) {
+            players.sort((a, b) => b.rating - a.rating)
+        }
+
+        return cloned
     }
 
     /**

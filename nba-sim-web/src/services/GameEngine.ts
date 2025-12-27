@@ -32,21 +32,32 @@ let initialized = false
 /**
  * Initialize the game engine service.
  * Must be called before running any simulations.
+ * Preloads all teams to avoid delays during simulation.
  */
 export async function initGameEngine(): Promise<void> {
     if (initialized) {
         return
     }
 
+    // Initialize in parallel for better performance
+    const initPromises: Promise<void>[] = []
+
     // Initialize localization if needed
     if (!isLocalizationInitialized()) {
-        await initLocalization()
+        initPromises.push(initLocalization())
     }
 
     // Initialize comments if needed
     if (!isCommentsInitialized()) {
-        await initComments()
+        initPromises.push(initComments())
     }
+
+    // Preload all teams if not cached
+    if (!Team.areTeamsCached()) {
+        initPromises.push(Team.preloadAllTeams())
+    }
+
+    await Promise.all(initPromises)
 
     initialized = true
 }

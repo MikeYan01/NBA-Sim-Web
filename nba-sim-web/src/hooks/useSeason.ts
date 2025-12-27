@@ -12,7 +12,12 @@ export function useSeason() {
 
     const simulateSeason = useCallback(async (seed?: number) => {
         setIsLoading(true)
-        setSeasonProgress(null)
+        // Show initializing phase immediately
+        setSeasonProgress({
+            gamesCompleted: 0,
+            totalGames: 0,
+            phase: 'initializing',
+        })
 
         // Terminate any existing worker
         if (workerRef.current) {
@@ -31,7 +36,12 @@ export function useSeason() {
 
             switch (type) {
                 case 'INITIALIZED':
-                    // Worker is ready, season will start
+                    // Worker finished loading resources, season will start
+                    setSeasonProgress({
+                        gamesCompleted: 0,
+                        totalGames: 1230,
+                        phase: 'regular',
+                    })
                     break
 
                 case 'PROGRESS':

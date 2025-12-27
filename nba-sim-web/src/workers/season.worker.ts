@@ -6,6 +6,7 @@
  */
 
 import { SeasonManager, SeasonOptions } from '../models/Season'
+import { Team } from '../models/Team'
 import { initLocalization } from '../services/LocalizationService'
 import { initComments } from '../services/CommentLoader'
 import { Language } from '../models/types'
@@ -69,10 +70,14 @@ let shouldCancel = false
 
 /**
  * Initialize the worker (load resources)
+ * Loads localization, comments, and preloads all teams in parallel.
  */
 async function initialize(): Promise<void> {
-    await initLocalization()
-    await initComments()
+    await Promise.all([
+        initLocalization(),
+        initComments(),
+        Team.preloadAllTeams(),
+    ])
 }
 
 /**

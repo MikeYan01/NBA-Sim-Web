@@ -45,17 +45,23 @@ export const SeasonView = () => {
 
     // Loading screen with progress
     if (isLoading) {
+        const isInitializing = seasonProgress?.phase === 'initializing'
+
         return (
             <div className="flex flex-col items-center justify-center min-h-[60vh]">
                 <div className="relative mb-6">
                     <div className="w-16 h-16 border-4 border-indigo-200 rounded-full"></div>
                     <div className="absolute top-0 left-0 w-16 h-16 border-4 border-indigo-500 rounded-full border-t-transparent animate-spin"></div>
                 </div>
-                <h2 className="text-xl font-semibold text-slate-900">{t('ui.season.simulating')}</h2>
-                <p className="text-slate-500 mt-2 text-sm mb-4">{t('ui.season.simulatingDesc')}</p>
+                <h2 className="text-xl font-semibold text-slate-900">
+                    {isInitializing ? t('ui.season.initializing') : t('ui.season.simulating')}
+                </h2>
+                <p className="text-slate-500 mt-2 text-sm mb-4">
+                    {isInitializing ? t('ui.season.initializingDesc') : t('ui.season.simulatingDesc')}
+                </p>
 
                 {/* Progress info */}
-                {seasonProgress && (
+                {seasonProgress && !isInitializing && (
                     <p className="text-indigo-600 font-medium mb-2">
                         {seasonProgress.phase === 'regular'
                             ? t('ui.season.regularSeason')
@@ -71,11 +77,11 @@ export const SeasonView = () => {
                 <div className="w-72 h-3 bg-slate-200 rounded-full overflow-hidden">
                     <div
                         className="h-full bg-gradient-to-r from-indigo-500 to-indigo-600 rounded-full transition-all duration-300 ease-out"
-                        style={{ width: seasonProgress ? `${progressPercent}%` : '5%' }}
+                        style={{ width: isInitializing ? '0%' : (seasonProgress ? `${progressPercent}%` : '5%') }}
                     ></div>
                 </div>
 
-                {seasonProgress && (
+                {seasonProgress && !isInitializing && (
                     <p className="text-slate-400 text-sm mt-2">{progressPercent}%</p>
                 )}
             </div>

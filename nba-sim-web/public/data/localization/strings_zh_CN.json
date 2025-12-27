@@ -61,6 +61,8 @@
             "champion": "总冠军",
             "simulating": "赛季模拟中...",
             "simulatingDesc": "正在进行1230场常规赛，6场附加赛和东西部季后赛...",
+            "initializing": "正在初始化...",
+            "initializingDesc": "加载球队名单和赛程数据...",
             "regularSeason": "常规赛",
             "tabs": {
                 "standings": "排名",
