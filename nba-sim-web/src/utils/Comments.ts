@@ -1142,14 +1142,14 @@ export function getDefensiveFoul(
 }
 
 /**
- * Generate comments when a team calls timeout.
+ * Generate comments when a team substitutes players.
  *
  * @param teamName Team name
  * @param random Seeded random generator
  * @param language Current language
  * @param output Commentary output collector
  */
-export function getTimeOutComment(
+export function getSubstitutionComment(
     teamName: string,
     random: SeededRandom,
     language: Language,
@@ -1157,7 +1157,7 @@ export function getTimeOutComment(
 ): void {
     const teamDisplay = getLocalizedTeamName(teamName, language)
     const comment = getFormattedComment(
-        'timeout',
+        'substitution',
         random,
         language,
         { '0': teamDisplay }

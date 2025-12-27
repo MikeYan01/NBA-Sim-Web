@@ -43,7 +43,7 @@ import {
     getDefensiveFoul,
     getSubstituteComment,
     getSubstitutionPrefix,
-    getTimeOutComment,
+    getSubstitutionComment,
     getReachFoulTimes,
     getJumpBallPlayerComments,
 } from './Comments'
@@ -101,7 +101,7 @@ function emitSubstitutionCommentary(
     if (!commentary || !language || !random) return
 
     if (announcePrefix && context && !context.announced) {
-        getTimeOutComment(team.name, random, language, commentary)
+        getSubstitutionComment(team.name, random, language, commentary)
         getSubstitutionPrefix(team.name, language, commentary)
         context.announced = true
     }
@@ -1630,9 +1630,6 @@ export function judgeMakeShot(
             defensePlayer.foul++
             defenseTeam.quarterFoul++
 
-            judgeFoulOut(defensePlayer, defenseTeam, defenseTeamOnCourt, random, language, commentary)
-            foulProtect(defensePlayer, defenseTeam, defenseTeamOnCourt, currentQuarter, random, language, commentary)
-
             // Generate shooting foul comment
             if (commentary && language) {
                 getFoulComment(
@@ -1643,6 +1640,9 @@ export function judgeMakeShot(
                     commentary
                 )
             }
+
+            judgeFoulOut(defensePlayer, defenseTeam, defenseTeamOnCourt, random, language, commentary)
+            foulProtect(defensePlayer, defenseTeam, defenseTeamOnCourt, currentQuarter, random, language, commentary)
 
             let freeThrowResult: FreeThrowOutcome
             if (distance <= Constants.MAX_MID_SHOT)

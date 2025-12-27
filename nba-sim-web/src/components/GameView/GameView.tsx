@@ -253,7 +253,8 @@ export const GameView = () => {
                 { label: '4x', value: 200 },
                 { label: '8x', value: 100 },
                 { label: '16x', value: 50 },
-                { label: '32x', value: 25 }
+                { label: '32x', value: 25 },
+                { label: '64x', value: 12 }
               ].map((speed) => (
                 <button
                   key={speed.label}

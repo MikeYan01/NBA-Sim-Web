@@ -856,7 +856,13 @@
         "{1} seizes the moment for the fast break! No defense!",
         "{0} catches them before they set up!\n{1} easy layup!"
     ],
-    "timeout": "\n{0} calls timeout!\nMaking substitutions!",
+    "substitution": [
+        "\n{0} making a substitution!",
+        "\n{0} bringing in fresh legs!",
+        "\nCoach signals for a sub! {0} making changes!",
+        "\n{0} rotating players!",
+        "\n{0} going to the bench for a change!"
+    ],
     "foulOut": {
         "normal": [
             "{0} might foul out! Waiting for ref confirmation!",
