@@ -133,6 +133,9 @@
                 "assists": "助攻",
                 "steals": "抢断",
                 "blocks": "盖帽",
+                "turnovers": "失误",
+                "doubleDoubles": "两双",
+                "tripleDoubles": "三双",
                 "threes": "三分",
                 "freeThrows": "罚球",
                 "minutes": "上场时间"
@@ -220,7 +223,8 @@
         "overtime": {
             "suffix": "加时"
         },
-        "score_differential_title": "分差走势图",
+        "score_differential_title": "实时分差",
+        "score_differential_waiting": "等待比赛开始...",
         "score_differential_leading": "领先",
         "score_differential_tied": "平局",
         "score_differential_scale": "比例",

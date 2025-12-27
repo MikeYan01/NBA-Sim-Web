@@ -9,12 +9,15 @@ interface LeaderboardsProps {
     stats: SeasonStats
 }
 
-const PLAYER_CATEGORIES: { id: StatCategory; labelKey: string; seasonStatsKey: any }[] = [
+const PLAYER_CATEGORIES: { id: StatCategory; labelKey: string; seasonStatsKey: any; isTotal?: boolean }[] = [
     { id: StatCategory.POINTS, labelKey: 'ui.leaderboards.categories.points', seasonStatsKey: 'points' },
     { id: StatCategory.REBOUNDS, labelKey: 'ui.leaderboards.categories.rebounds', seasonStatsKey: 'rebounds' },
     { id: StatCategory.ASSISTS, labelKey: 'ui.leaderboards.categories.assists', seasonStatsKey: 'assists' },
     { id: StatCategory.STEALS, labelKey: 'ui.leaderboards.categories.steals', seasonStatsKey: 'steals' },
     { id: StatCategory.BLOCKS, labelKey: 'ui.leaderboards.categories.blocks', seasonStatsKey: 'blocks' },
+    { id: StatCategory.TURNOVERS, labelKey: 'ui.leaderboards.categories.turnovers', seasonStatsKey: 'turnovers' },
+    { id: StatCategory.DOUBLE_DOUBLES, labelKey: 'ui.leaderboards.categories.doubleDoubles', seasonStatsKey: 'doubleDoubles', isTotal: true },
+    { id: StatCategory.TRIPLE_DOUBLES, labelKey: 'ui.leaderboards.categories.tripleDoubles', seasonStatsKey: 'tripleDoubles', isTotal: true },
     { id: StatCategory.THREE_POINTERS, labelKey: 'ui.leaderboards.categories.threes', seasonStatsKey: 'threesMade' },
     { id: StatCategory.FREE_THROWS, labelKey: 'ui.leaderboards.categories.freeThrows', seasonStatsKey: 'freeThrowsMade' },
 ]
@@ -49,19 +52,28 @@ export const Leaderboards = ({ stats }: LeaderboardsProps) => {
             case StatCategory.ASSISTS: return 'assists'
             case StatCategory.STEALS: return 'steals'
             case StatCategory.BLOCKS: return 'blocks'
+            case StatCategory.TURNOVERS: return 'turnovers'
+            case StatCategory.DOUBLE_DOUBLES: return 'doubleDoubles'
+            case StatCategory.TRIPLE_DOUBLES: return 'tripleDoubles'
             case StatCategory.THREE_POINTERS: return 'threesMade'
             case StatCategory.FREE_THROWS: return 'freeThrowsMade'
             default: return 'points'
         }
     }
 
+    // Check if current category displays totals instead of per-game
+    const isCurrentCategoryTotal = PLAYER_CATEGORIES.find(c => c.id === activePlayerCategory)?.isTotal ?? false
+
     const activePlayerLeaders = stats.getLeaders(getSeasonStatsCategory(activePlayerCategory), 50)
     const activeTeamConfig = TEAM_CATEGORIES.find(c => c.id === activeTeamCategory)!
     const activeTeamLeaders = stats.getTeamLeaders(activeTeamCategory, 30, activeTeamConfig.ascending)
 
-    const formatValue = (value: number, isPercentage?: boolean) => {
+    const formatValue = (value: number, isPercentage?: boolean, isTotal?: boolean) => {
         if (isPercentage) {
             return `${(value * 100).toFixed(1)}%`
+        }
+        if (isTotal) {
+            return value.toString()
         }
         return value.toFixed(1)
     }
@@ -157,7 +169,7 @@ export const Leaderboards = ({ stats }: LeaderboardsProps) => {
                                         {getLocalizedTeamName(entry.teamName, language)}
                                     </td>
                                     <td className="px-4 py-2.5 text-right font-bold text-slate-900">
-                                        {formatValue(entry.value)}
+                                        {formatValue(entry.value, false, isCurrentCategoryTotal)}
                                     </td>
                                 </tr>
                             ))}

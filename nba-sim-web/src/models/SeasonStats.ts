@@ -29,6 +29,9 @@ export interface PlayerSeasonTotals {
     assists: number
     steals: number
     blocks: number
+    turnovers: number
+    doubleDoubles: number
+    tripleDoubles: number
     threesMade: number
     threesAttempted: number
     freeThrowsMade: number
@@ -105,6 +108,9 @@ export type StatCategory =
     | 'assists'
     | 'steals'
     | 'blocks'
+    | 'turnovers'
+    | 'doubleDoubles'
+    | 'tripleDoubles'
     | 'threesMade'
     | 'freeThrowsMade'
     | 'minutesPlayed'
@@ -160,6 +166,9 @@ export class SeasonStats {
             assists: 0,
             steals: 0,
             blocks: 0,
+            turnovers: 0,
+            doubleDoubles: 0,
+            tripleDoubles: 0,
             threesMade: 0,
             threesAttempted: 0,
             freeThrowsMade: 0,
@@ -171,6 +180,18 @@ export class SeasonStats {
             englishName: '',
         }
 
+        // Check for double-double and triple-double
+        const doubleDigitStats = [
+            player.score >= 10,
+            player.rebound >= 10,
+            player.assist >= 10,
+            player.steal >= 10,
+            player.block >= 10,
+        ].filter(Boolean).length
+
+        const isDoubleDouble = doubleDigitStats >= 2
+        const isTripleDouble = doubleDigitStats >= 3
+
         // Update totals
         totals.games += 1
         totals.points += player.score
@@ -180,6 +201,9 @@ export class SeasonStats {
         totals.assists += player.assist
         totals.steals += player.steal
         totals.blocks += player.block
+        totals.turnovers += player.turnover
+        if (isDoubleDouble) totals.doubleDoubles += 1
+        if (isTripleDouble) totals.tripleDoubles += 1
         totals.threesMade += player.threeMade
         totals.threesAttempted += player.threeAttempted
         totals.freeThrowsMade += player.freeThrowMade
@@ -332,6 +356,9 @@ export class SeasonStats {
             if (!totals) continue
 
             let value: number
+            // For counting stats (double-doubles, triple-doubles), use totals instead of per-game
+            const useTotals = category === 'doubleDoubles' || category === 'tripleDoubles'
+
             switch (category) {
                 case 'points':
                     value = perGame.points
@@ -348,6 +375,15 @@ export class SeasonStats {
                 case 'blocks':
                     value = perGame.blocks
                     break
+                case 'turnovers':
+                    value = roundDouble(totals.turnovers / totals.games)
+                    break
+                case 'doubleDoubles':
+                    value = totals.doubleDoubles
+                    break
+                case 'tripleDoubles':
+                    value = totals.tripleDoubles
+                    break
                 case 'threesMade':
                     value = perGame.threesMade
                     break
@@ -360,6 +396,9 @@ export class SeasonStats {
                 default:
                     value = 0
             }
+
+            // For double/triple-doubles, skip players with 0
+            if (useTotals && value === 0) continue
 
             entries.push({
                 name,

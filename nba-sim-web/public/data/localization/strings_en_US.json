@@ -133,6 +133,9 @@
                 "assists": "Assists",
                 "steals": "Steals",
                 "blocks": "Blocks",
+                "turnovers": "Turnovers",
+                "doubleDoubles": "Double-Doubles",
+                "tripleDoubles": "Triple-Doubles",
                 "threes": "3PM",
                 "freeThrows": "FTM",
                 "minutes": "Minutes"
@@ -220,7 +223,8 @@
         "overtime": {
             "suffix": "OT"
         },
-        "score_differential_title": "Score Differential Chart",
+        "score_differential_title": "Live Score Differential",
+        "score_differential_waiting": "Waiting for game to start...",
         "score_differential_leading": "Leading",
         "score_differential_tied": "Tied",
         "score_differential_scale": "Scale",

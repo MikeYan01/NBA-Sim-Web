@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import { useLocalization } from '../../hooks/useLocalization'
 
 interface ScoreDifferentialChartProps {
     scoreSnapshots: [number, number][]
@@ -19,6 +20,8 @@ export const ScoreDifferentialChart = ({
     team1Color = '#6366f1',
     team2Color = '#ef4444',
 }: ScoreDifferentialChartProps) => {
+    const { t } = useLocalization()
+
     const chartData = useMemo(() => {
         if (!scoreSnapshots || scoreSnapshots.length === 0) return []
 
@@ -113,7 +116,7 @@ export const ScoreDifferentialChart = ({
         return (
             <div className="bg-white rounded-xl border border-slate-200 p-4">
                 <div className="text-center text-slate-400 text-sm py-8">
-                    等待比赛开始...
+                    {t('game.score_differential_waiting')}
                 </div>
             </div>
         )
@@ -127,7 +130,7 @@ export const ScoreDifferentialChart = ({
         <div className="bg-white rounded-xl border border-slate-200 p-4">
             {/* Header */}
             <div className="flex items-center justify-between mb-3">
-                <span className="text-sm font-medium text-slate-600">实时分差</span>
+                <span className="text-sm font-medium text-slate-600">{t('game.score_differential_title')}</span>
                 {leadingTeam && (
                     <span
                         className="text-sm font-bold px-2 py-0.5 rounded"
@@ -138,7 +141,7 @@ export const ScoreDifferentialChart = ({
                 )}
                 {!leadingTeam && lastDiff === 0 && (
                     <span className="text-sm font-medium text-slate-500 px-2 py-0.5 rounded bg-slate-100">
-                        平局
+                        {t('game.score_differential_tied')}
                     </span>
                 )}
             </div>
@@ -253,10 +256,10 @@ export const ScoreDifferentialChart = ({
                 <div className="flex justify-between mt-8 text-xs ml-8">
                     <div className="flex items-center gap-1">
                         <div className="w-3 h-1 rounded" style={{ backgroundColor: team1Color }} />
-                        <span className="text-slate-500">{team1Name} 领先</span>
+                        <span className="text-slate-500">{team1Name} {t('game.score_differential_leading')}</span>
                     </div>
                     <div className="flex items-center gap-1">
-                        <span className="text-slate-500">{team2Name} 领先</span>
+                        <span className="text-slate-500">{team2Name} {t('game.score_differential_leading')}</span>
                         <div className="w-3 h-1 rounded" style={{ backgroundColor: team2Color }} />
                     </div>
                 </div>
