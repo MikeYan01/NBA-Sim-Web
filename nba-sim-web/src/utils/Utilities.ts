@@ -143,16 +143,22 @@ export function roundDouble(num: number, scale: number = 2): number {
  * Uses a weighted probability system to simulate realistic possession times:
  * - 24s shot clock: Average 15-17s (bell curve centered around 16s)
  * - 14s shot clock: Average 8-10s (bell curve centered around 9s)
+ * Playoff games have slower pace (+1s average per possession).
  *
  * @param random - The SeededRandom object
  * @param time - Maximum time of current play (24 for full possession, 14 for offensive rebound)
+ * @param isPlayoff - Whether this is a playoff/play-in game (slower pace)
  * @returns Current play's time in seconds
  */
-export function generateRandomPlayTime(random: SeededRandom, time: number): number {
+export function generateRandomPlayTime(random: SeededRandom, time: number, isPlayoff: boolean = false): number {
+    // Playoff pace adjustment
+    const paceAdjustment = isPlayoff ? Constants.PLAYOFF_PACE_SLOWDOWN : 0
+
     if (time === 24) {
         // Distribution: 5% very quick (4-7s), 80% normal (8-18s), 15% slow (19-24s)
         const roll = generateRandomNum(random, 1, 100)
 
+        let baseTime: number
         if (roll <= 5) {
             // Very quick play: 4-7 seconds
             return generateRandomNum(random, 4, 7)
@@ -160,11 +166,12 @@ export function generateRandomPlayTime(random: SeededRandom, time: number): numb
             // Use triangle distribution for more realistic clustering
             const r1 = generateRandomNum(random, 8, 18)
             const r2 = generateRandomNum(random, 8, 18)
-            return Math.floor((r1 + r2) / 2) // Averages toward middle values (12-14)
+            baseTime = Math.floor((r1 + r2) / 2) // Averages toward middle values (12-14)
         } else {
             // Slow, deliberate play: 19-24 seconds
             return generateRandomNum(random, 19, 24)
         }
+        return Math.min(baseTime + paceAdjustment, 24)
     } else if (time === 14) {
         // Offensive rebound / reset possession (14 seconds)
         // Real NBA average: ~8-10 seconds
@@ -268,7 +275,7 @@ export function choosePlayerBasedOnRating(
         if (selectedPlayerList.length >= 1) {
             if (
                 selectedPlayerList.length === 1 ||
-                (generateRandomNum(random) <= Constants.SINGLE_STAR_EXTRA && selectedPlayerList[0].rating <= Constants.GENERAL_THLD)
+                (generateRandomNum(random) <= Constants.SINGLE_STAR_EXTRA && selectedPlayerList[0].rating <= Constants.PLAYER_STAR_LB)
             ) {
                 selectedPlayer = selectedPlayerList[0]
             } else {
@@ -504,6 +511,7 @@ function calculateAthleticismImpact(athleticismDiff: number, distance: number): 
  * @param currentQuarter - Current quarter number
  * @param team1 - Team 1
  * @param team2 - Team 2
+ * @param isPlayoff - Whether this is a playoff/play-in game (tighter defense)
  * @returns Shot goal percentage (0-100 scale)
  */
 export function calculatePercentage(
@@ -516,7 +524,8 @@ export function calculatePercentage(
     quarterTime: number,
     currentQuarter: number,
     team1: Team,
-    team2: Team
+    team2: Team,
+    isPlayoff: boolean = false
 ): number {
     let percentage: number
 
@@ -553,11 +562,13 @@ export function calculatePercentage(
         percentage -= Constants.DEFENSE_COFF * (defensePlayer.perimeterDefense - Constants.DEFENSE_BASE)
     }
 
-    // Check defense density
+    // Check defense density (playoffs have tighter defense)
+    const defenseEasy = isPlayoff ? Constants.PLAYOFF_DEFENSE_EASY : Constants.DEFENSE_EASY
+    const defenseHard = isPlayoff ? Constants.PLAYOFF_DEFENSE_HARD : Constants.DEFENSE_HARD
     const temp = generateRandomNum(random)
-    if (temp <= Constants.DEFENSE_EASY) {
+    if (temp <= defenseEasy) {
         percentage += Constants.DEFENSE_BUFF
-    } else if (temp <= Constants.DEFENSE_EASY + Constants.DEFENSE_HARD) {
+    } else if (temp <= defenseEasy + defenseHard) {
         percentage -= Constants.DEFENSE_BUFF
     }
 
@@ -1054,9 +1065,6 @@ export function foulProtect(
     language?: Language,
     commentary?: CommentaryOutput
 ): void {
-    // Skip if player has already fouled out
-    if (!previousPlayer.canOnCourt) return
-
     if (
         previousPlayer.rotationType === 1 && // STARTER
         ((currentQuarter === 1 && previousPlayer.foul === Constants.QUARTER1_PROTECT) ||
@@ -1622,7 +1630,10 @@ export function judgeMakeShot(
             defensePlayer.foul++
             defenseTeam.quarterFoul++
 
-            // Generate shooting foul comment first (whistle before foul out/protection commentary)
+            judgeFoulOut(defensePlayer, defenseTeam, defenseTeamOnCourt, random, language, commentary)
+            foulProtect(defensePlayer, defenseTeam, defenseTeamOnCourt, currentQuarter, random, language, commentary)
+
+            // Generate shooting foul comment
             if (commentary && language) {
                 getFoulComment(
                     offensePlayer.getDisplayName(language),
@@ -1632,9 +1643,6 @@ export function judgeMakeShot(
                     commentary
                 )
             }
-
-            judgeFoulOut(defensePlayer, defenseTeam, defenseTeamOnCourt, random, language, commentary)
-            foulProtect(defensePlayer, defenseTeam, defenseTeamOnCourt, currentQuarter, random, language, commentary)
 
             let freeThrowResult: FreeThrowOutcome
             if (distance <= Constants.MAX_MID_SHOT)

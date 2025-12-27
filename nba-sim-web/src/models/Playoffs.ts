@@ -132,6 +132,8 @@ export interface PlayoffOptions {
     silentMode?: boolean
     language?: Language
     standings?: StandingsManager
+    /** Progress callback for playoffs */
+    onProgress?: (gamesCompleted: number, totalGames: number, phase: 'playin' | 'playoffs') => void
 }
 
 // =============================================================================
@@ -299,11 +301,14 @@ export class PlayoffManager {
     private random: SeededRandom
     private _silentMode: boolean
     private language: Language
+    private onProgress?: (gamesCompleted: number, totalGames: number, phase: 'playin' | 'playoffs') => void
+    private playoffGamesCompleted: number = 0
 
     constructor(options: PlayoffOptions = {}) {
         this.random = new SeededRandom(BigInt(options.seed ?? Date.now()))
         this._silentMode = options.silentMode ?? false
         this.language = options.language ?? Language.ENGLISH
+        this.onProgress = options.onProgress
     }
 
     /**
@@ -311,6 +316,22 @@ export class PlayoffManager {
      */
     get silentMode(): boolean {
         return this._silentMode
+    }
+
+    /**
+     * Total games estimate for progress calculation.
+     * Regular season: 1230, Play-in: 6, Playoffs (max): 105
+     */
+    private readonly estimatedTotalGames = 1230 + 6 + 105
+
+    /**
+     * Report progress after a game is completed.
+     */
+    private reportProgress(phase: 'playin' | 'playoffs', totalGames?: number): void {
+        this.playoffGamesCompleted++
+        if (this.onProgress) {
+            this.onProgress(this.playoffGamesCompleted, totalGames ?? this.estimatedTotalGames, phase)
+        }
     }
 
     /**
@@ -352,7 +373,8 @@ export class PlayoffManager {
      */
     hostPlayoffGame(awayTeam: Team, homeTeam: Team, gameDate?: string): GameResult {
         // hostGame uses the random object directly
-        const result = hostGame(awayTeam, homeTeam, this.random, this.language, gameDate)
+        // Pass isPlayoff=true for slower pace and tighter defense
+        const result = hostGame(awayTeam, homeTeam, this.random, this.language, gameDate, true)
         return result
     }
 
@@ -369,7 +391,8 @@ export class PlayoffManager {
         team1: string,
         team2: string,
         _seriesName: string,
-        teams: Map<string, Team>
+        teams: Map<string, Team>,
+        totalGames: number = 0
     ): SeriesResult {
         let team1Wins = 0
         let team2Wins = 0
@@ -400,6 +423,9 @@ export class PlayoffManager {
             const gameDate = `Game ${gameNumber}`
             const gameResult = this.hostPlayoffGame(awayTeam, homeTeam, gameDate)
             games.push(gameResult)
+
+            // Report progress
+            this.reportProgress('playoffs', totalGames)
 
             // Update series stats
             updatePlayerSeriesStats(playerStats, gameResult)
@@ -468,6 +494,7 @@ export class PlayoffManager {
         team8Obj.resetGameStats()
 
         const game1Result = this.hostPlayoffGame(team8Obj, team7Obj, `${conferencePrefix} Play-In 7v8`) // 8 away, 7 home
+        this.reportProgress('playin')
         const winner7v8 = game1Result.winner
         const loser7v8 = winner7v8 === team7 ? team8 : team7
 
@@ -496,6 +523,7 @@ export class PlayoffManager {
         team10Obj.resetGameStats()
 
         const game2Result = this.hostPlayoffGame(team10Obj, team9Obj, `${conferencePrefix} Play-In 9v10`) // 10 away, 9 home
+        this.reportProgress('playin')
         const winner9v10 = game2Result.winner
         const loser9v10 = winner9v10 === team9 ? team10 : team9
 
@@ -522,6 +550,7 @@ export class PlayoffManager {
         winner9v10Obj.resetGameStats()
 
         const game3Result = this.hostPlayoffGame(winner9v10Obj, loser7v8Obj, `${conferencePrefix} Play-In Final`) // winner9v10 away
+        this.reportProgress('playin')
         const winner8th = game3Result.winner
         const loser8th = winner8th === loser7v8 ? winner9v10 : loser7v8
 
@@ -555,7 +584,8 @@ export class PlayoffManager {
     hostConferencePlayoffs(
         seeds: string[],
         conference: Conference,
-        teams: Map<string, Team>
+        teams: Map<string, Team>,
+        totalGames: number = 0
     ): {
         champion: string
         firstRound: SeriesResult[]
@@ -581,7 +611,8 @@ export class PlayoffManager {
                 team1,
                 team2,
                 `${conferencePrefix} First Round`,
-                teams
+                teams,
+                totalGames
             )
             firstRound.push(result)
         }
@@ -596,7 +627,8 @@ export class PlayoffManager {
                 team1,
                 team2,
                 `${conferencePrefix} Semis`,
-                teams
+                teams,
+                totalGames
             )
             semis.push(result)
         }
@@ -607,7 +639,8 @@ export class PlayoffManager {
             finalsSeeds[0],
             finalsSeeds[1],
             `${conferencePrefix} Finals`,
-            teams
+            teams,
+            totalGames
         )
 
         return {
@@ -636,6 +669,11 @@ export class PlayoffManager {
         const westTop10 = westStandings.slice(0, 10).map((e) => e.teamName)
         const eastTop10 = eastStandings.slice(0, 10).map((e) => e.teamName)
 
+        // Calculate total games for progress
+        // Play-in: 6 games (3 per conference)
+        // Playoffs: max 15 series × 7 games = 105 games
+        const totalPlayoffGames = 1236 + 6 + 105 // Regular season + play-in + playoffs max
+
         // Host play-in tournaments
         const westPlayIn = this.hostPlayIn(westTop10, Conference.WEST, teams)
         const eastPlayIn = this.hostPlayIn(eastTop10, Conference.EAST, teams)
@@ -653,8 +691,8 @@ export class PlayoffManager {
         ]
 
         // Host conference playoffs
-        const westPlayoffs = this.hostConferencePlayoffs(westSeeds, Conference.WEST, teams)
-        const eastPlayoffs = this.hostConferencePlayoffs(eastSeeds, Conference.EAST, teams)
+        const westPlayoffs = this.hostConferencePlayoffs(westSeeds, Conference.WEST, teams, totalPlayoffGames)
+        const eastPlayoffs = this.hostConferencePlayoffs(eastSeeds, Conference.EAST, teams, totalPlayoffGames)
 
         // Determine NBA Finals home court based on regular season record
         const westChampRecord = standings.getTeamRecord(westPlayoffs.champion)
@@ -684,7 +722,8 @@ export class PlayoffManager {
             westPlayoffs.champion,
             eastPlayoffs.champion,
             'NBA Finals',
-            teams
+            teams,
+            totalPlayoffGames
         )
 
         return {

@@ -11,7 +11,7 @@
 
 import { Team } from './Team'
 import { Conference, Language, StandingEntry } from './types'
-import { hostGame, GameResult, GameRecapData } from './Game'
+import { hostGame, hostGameFast, GameResult, GameRecapData } from './Game'
 import { SeasonStats } from './SeasonStats'
 import { StandingsManager } from './Standings'
 import { PlayoffManager, PlayoffBracketResult } from './Playoffs'
@@ -35,8 +35,10 @@ export interface SeasonOptions {
     silentMode?: boolean
     /** Language for output */
     language?: Language
-    /** Progress callback */
+    /** Progress callback for regular season */
     onProgress?: (gamesCompleted: number, totalGames: number) => void
+    /** Progress callback for playoffs (play-in + playoffs) */
+    onPlayoffProgress?: (gamesCompleted: number, totalGames: number, phase: 'playin' | 'playoffs') => void
 }
 
 /**
@@ -91,6 +93,7 @@ export class SeasonManager {
     private standings: StandingsManager
     private stats: SeasonStats
     private onProgress?: (gamesCompleted: number, totalGames: number) => void
+    private onPlayoffProgress?: (gamesCompleted: number, totalGames: number, phase: 'playin' | 'playoffs') => void
 
     constructor(options: SeasonOptions = {}) {
         const seed = options.seed !== undefined ? BigInt(options.seed) : BigInt(Date.now())
@@ -98,6 +101,7 @@ export class SeasonManager {
         this.language = options.language ?? Language.ENGLISH
         this.silentMode = options.silentMode ?? false
         this.onProgress = options.onProgress
+        this.onPlayoffProgress = options.onPlayoffProgress
         this.standings = new StandingsManager()
         this.stats = new SeasonStats()
     }
@@ -284,6 +288,7 @@ export class SeasonManager {
             seed: playoffSeed,
             silentMode: this.silentMode,
             language: this.language,
+            onProgress: this.onPlayoffProgress,
         })
 
         // Cache all teams for playoffs
@@ -355,4 +360,193 @@ export async function runRegularSeason(options: SeasonOptions = {}): Promise<Reg
 
     const manager = new SeasonManager(options)
     return manager.hostRegularSeason()
+}
+
+// =============================================================================
+// Fast Season Simulation (for prediction mode)
+// =============================================================================
+
+/**
+ * Options for fast season simulation
+ */
+export interface FastSeasonOptions {
+    /** Seed for RNG */
+    seed?: number
+}
+
+/**
+ * Run a fast season simulation that only returns the champion.
+ * Skips all commentary, box scores, stats tracking, and recaps.
+ * Designed for prediction mode where only the champion matters.
+ *
+ * @param options Fast season options
+ * @returns Champion team name
+ */
+export async function runSeasonFast(options: FastSeasonOptions = {}): Promise<string> {
+    const seed = options.seed !== undefined ? BigInt(options.seed) : BigInt(Date.now())
+    const random = new SeededRandom(seed)
+
+    // Load all teams
+    const teams = new Map<string, Team>()
+    const allTeamNames = [...EAST_TEAMS_EN, ...WEST_TEAMS_EN]
+    for (const teamName of allTeamNames) {
+        const team = await Team.loadFromCSV(teamName)
+        teams.set(teamName, team)
+    }
+
+    // Load schedule
+    const schedule = await loadSchedule()
+    const standings = new StandingsManager()
+
+    // Simulate regular season (fast mode)
+    for (const game of schedule.games) {
+        const awayTeam = teams.get(game.awayTeam)!
+        const homeTeam = teams.get(game.homeTeam)!
+
+        // Create a game-specific random
+        const gameSeed = random.nextInt(1000000)
+        const gameRandom = new SeededRandom(BigInt(gameSeed))
+
+        const winner = hostGameFast(awayTeam, homeTeam, gameRandom, false)
+        const loser = winner === game.awayTeam ? game.homeTeam : game.awayTeam
+        standings.recordGame(winner, loser)
+    }
+
+    // Get playoff seeds
+    const eastStandings = standings.getConferenceStandings(Conference.EAST)
+    const westStandings = standings.getConferenceStandings(Conference.WEST)
+
+    // Run play-in and playoffs (fast mode)
+    const champion = runPlayoffsFast(random, teams, standings, eastStandings, westStandings)
+
+    return champion
+}
+
+/**
+ * Run play-in and playoffs in fast mode.
+ * Returns the champion team name.
+ */
+function runPlayoffsFast(
+    random: SeededRandom,
+    teams: Map<string, Team>,
+    standings: StandingsManager,
+    eastStandings: StandingEntry[],
+    westStandings: StandingEntry[]
+): string {
+    // Helper to run a fast game
+    const playGame = (team1Name: string, team2Name: string, isPlayoff: boolean): string => {
+        const team1 = teams.get(team1Name)!
+        const team2 = teams.get(team2Name)!
+        const gameSeed = random.nextInt(1000000)
+        const gameRandom = new SeededRandom(BigInt(gameSeed))
+        return hostGameFast(team1, team2, gameRandom, isPlayoff)
+    }
+
+    // Helper to run a best-of-7 series
+    const playSeries = (higherSeed: string, lowerSeed: string): string => {
+        let team1Wins = 0
+        let team2Wins = 0
+
+        // 2-2-1-1-1 format
+        const homeTeams = [higherSeed, higherSeed, lowerSeed, lowerSeed, higherSeed, lowerSeed, higherSeed]
+
+        for (let game = 0; game < 7; game++) {
+            const homeTeam = homeTeams[game]
+            const awayTeam = homeTeam === higherSeed ? lowerSeed : higherSeed
+            const winner = playGame(awayTeam, homeTeam, true)
+
+            if (winner === higherSeed) {
+                team1Wins++
+            } else {
+                team2Wins++
+            }
+
+            if (team1Wins === 4) return higherSeed
+            if (team2Wins === 4) return lowerSeed
+        }
+
+        return team1Wins > team2Wins ? higherSeed : lowerSeed
+    }
+
+    // Run play-in for each conference
+    const runPlayIn = (conferenceStandings: StandingEntry[]): string[] => {
+        const seed7 = conferenceStandings[6].teamName
+        const seed8 = conferenceStandings[7].teamName
+        const seed9 = conferenceStandings[8].teamName
+        const seed10 = conferenceStandings[9].teamName
+
+        // Game 1: 7 vs 8 (winner gets 7th seed)
+        const winner7v8 = playGame(seed8, seed7, true)
+        const loser7v8 = winner7v8 === seed7 ? seed8 : seed7
+
+        // Game 2: 9 vs 10 (loser eliminated)
+        const winner9v10 = playGame(seed10, seed9, true)
+
+        // Game 3: Loser of 7v8 vs Winner of 9v10 (winner gets 8th seed)
+        const winner8thSeed = playGame(winner9v10, loser7v8, true)
+
+        return [winner7v8, winner8thSeed]
+    }
+
+    // Run play-in
+    const [westSeed7, westSeed8] = runPlayIn(westStandings)
+    const [eastSeed7, eastSeed8] = runPlayIn(eastStandings)
+
+    // Build playoff brackets
+    const getPlayoffTeams = (conferenceStandings: StandingEntry[], seed7: string, seed8: string): string[] => {
+        return [
+            conferenceStandings[0].teamName, // 1
+            conferenceStandings[1].teamName, // 2
+            conferenceStandings[2].teamName, // 3
+            conferenceStandings[3].teamName, // 4
+            conferenceStandings[4].teamName, // 5
+            conferenceStandings[5].teamName, // 6
+            seed7,                            // 7 (from play-in)
+            seed8,                            // 8 (from play-in)
+        ]
+    }
+
+    const westTeams = getPlayoffTeams(westStandings, westSeed7, westSeed8)
+    const eastTeams = getPlayoffTeams(eastStandings, eastSeed7, eastSeed8)
+
+    // First Round (1v8, 4v5, 3v6, 2v7)
+    const westR1Winners = [
+        playSeries(westTeams[0], westTeams[7]), // 1v8
+        playSeries(westTeams[3], westTeams[4]), // 4v5
+        playSeries(westTeams[2], westTeams[5]), // 3v6
+        playSeries(westTeams[1], westTeams[6]), // 2v7
+    ]
+
+    const eastR1Winners = [
+        playSeries(eastTeams[0], eastTeams[7]), // 1v8
+        playSeries(eastTeams[3], eastTeams[4]), // 4v5
+        playSeries(eastTeams[2], eastTeams[5]), // 3v6
+        playSeries(eastTeams[1], eastTeams[6]), // 2v7
+    ]
+
+    // Conference Semis (1/8 winner vs 4/5 winner, 2/7 winner vs 3/6 winner)
+    const westSemiWinners = [
+        playSeries(westR1Winners[0], westR1Winners[1]),
+        playSeries(westR1Winners[3], westR1Winners[2]),
+    ]
+
+    const eastSemiWinners = [
+        playSeries(eastR1Winners[0], eastR1Winners[1]),
+        playSeries(eastR1Winners[3], eastR1Winners[2]),
+    ]
+
+    // Conference Finals
+    const westChampion = playSeries(westSemiWinners[0], westSemiWinners[1])
+    const eastChampion = playSeries(eastSemiWinners[0], eastSemiWinners[1])
+
+    // NBA Finals (determine higher seed by regular season record)
+    const westRecord = standings.getTeamRecord(westChampion)
+    const eastRecord = standings.getTeamRecord(eastChampion)
+    const westWinPct = westRecord ? westRecord.wins / (westRecord.wins + westRecord.losses) : 0
+    const eastWinPct = eastRecord ? eastRecord.wins / (eastRecord.wins + eastRecord.losses) : 0
+
+    const higherSeed = westWinPct >= eastWinPct ? westChampion : eastChampion
+    const lowerSeed = westWinPct >= eastWinPct ? eastChampion : westChampion
+
+    return playSeries(higherSeed, lowerSeed)
 }

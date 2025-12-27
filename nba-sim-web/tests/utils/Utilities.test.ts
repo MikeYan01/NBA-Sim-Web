@@ -584,8 +584,8 @@ describe('Utilities', () => {
         it('should return non-starter max for bench players', () => {
             const benchPlayer = createPlayer(createMockPlayer({ rotationType: '2', durability: '95' }), 'Lakers')
             const target = Utilities.getTargetMinutes(benchPlayer)
-            // NON_STARTER_MAX_MINUTES = 35 * 60 = 2100
-            expect(target).toBe(2100)
+            // NON_STARTER_MAX_MINUTES = 36 * 60 = 2160
+            expect(target).toBe(2160)
         })
     })
 
@@ -636,7 +636,7 @@ describe('Utilities', () => {
 
         it('should return true for bench player past bench stint', () => {
             const player = createPlayer(createMockPlayer({ rotationType: '2' }), 'Lakers')
-            player.currentStintSeconds = 400 // MAX_BENCH_STINT = 6 * 60 = 360
+            player.currentStintSeconds = 490 // MAX_BENCH_STINT = 8 * 60 = 480
             expect(Utilities.shouldSubForFatigue(player, false)).toBe(true)
         })
     })

@@ -118,14 +118,14 @@ describe('Player', () => {
     })
 
     describe('isStar calculation', () => {
-        it('should be true when rating >= 88', () => {
-            const row = createMockCSVRow({ rating: '88' })
+        it('should be true when rating >= 90', () => {
+            const row = createMockCSVRow({ rating: '90' })
             const player = Player.fromCSVRow(row, 'Lakers')
             expect(player.isStar).toBe(true)
         })
 
-        it('should be false when rating < 88', () => {
-            const row = createMockCSVRow({ rating: '87' })
+        it('should be false when rating < 90', () => {
+            const row = createMockCSVRow({ rating: '89' })
             const player = Player.fromCSVRow(row, 'Lakers')
             expect(player.isStar).toBe(false)
         })

@@ -508,4 +508,38 @@ export class SeasonStats {
         this.teamTotals.clear()
         this.teamPerGame.clear()
     }
+
+    /**
+     * Serialize to plain object for Web Worker transfer.
+     */
+    toJSON(): SeasonStatsData {
+        return {
+            playerTotals: Object.fromEntries(this.playerTotals),
+            playerPerGame: Object.fromEntries(this.playerPerGame),
+            teamTotals: Object.fromEntries(this.teamTotals),
+            teamPerGame: Object.fromEntries(this.teamPerGame),
+        }
+    }
+
+    /**
+     * Restore from serialized data (Web Worker transfer).
+     */
+    static fromJSON(data: SeasonStatsData): SeasonStats {
+        const stats = new SeasonStats()
+        stats.playerTotals = new Map(Object.entries(data.playerTotals))
+        stats.playerPerGame = new Map(Object.entries(data.playerPerGame))
+        stats.teamTotals = new Map(Object.entries(data.teamTotals))
+        stats.teamPerGame = new Map(Object.entries(data.teamPerGame))
+        return stats
+    }
+}
+
+/**
+ * Serialized SeasonStats data for Web Worker transfer.
+ */
+export interface SeasonStatsData {
+    playerTotals: Record<string, PlayerSeasonTotals>
+    playerPerGame: Record<string, PlayerPerGameStats>
+    teamTotals: Record<string, TeamSeasonTotals>
+    teamPerGame: Record<string, TeamPerGameStats>
 }

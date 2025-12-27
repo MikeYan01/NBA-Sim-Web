@@ -184,8 +184,8 @@ describe('LocalizationService', () => {
     })
 
     describe('setLanguage and getLanguage', () => {
-        it('should default to Chinese', () => {
-            expect(getLanguage()).toBe(Language.CHINESE)
+        it('should default to English', () => {
+            expect(getLanguage()).toBe(Language.ENGLISH)
         })
 
         it('should change language when set', () => {

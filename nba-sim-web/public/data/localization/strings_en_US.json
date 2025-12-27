@@ -60,7 +60,8 @@
             "results": "Season Results",
             "champion": "Champion",
             "simulating": "Simulating Season...",
-            "simulatingDesc": "Playing 1,230 regular season games, play-in tournament, and playoffs...",
+            "simulatingDesc": "Playing 1230 regular season games, 6 play-in tournaments, and western & eastern playoffs...",
+            "regularSeason": "Regular Season",
             "tabs": {
                 "standings": "Standings",
                 "leaders": "Leaders",

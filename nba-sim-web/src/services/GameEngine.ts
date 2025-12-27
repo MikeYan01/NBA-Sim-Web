@@ -17,7 +17,7 @@ import {
     hostGameByName,
     type GameResult,
 } from '../models/Game'
-import { SeasonManager, SeasonResult } from '../models/Season'
+import { runSeasonFast } from '../models/Season'
 
 // =============================================================================
 // Initialization State
@@ -198,6 +198,7 @@ export interface PredictionOptions {
  * 
  * This is the core prediction mode implementation that runs N complete
  * season simulations and aggregates championship counts.
+ * Uses fast simulation mode that skips commentary, box scores, and stats tracking.
  *
  * @param count - Number of seasons to simulate
  * @param options - Prediction options
@@ -211,30 +212,21 @@ export async function runPrediction(
 
     const {
         baseSeed = Date.now(),
-        language = Language.ENGLISH,
         onProgress,
     } = options
 
     const championCounts = new Map<string, number>()
     const startTime = performance.now()
 
-    // Run N season simulations
+    // Run N season simulations using fast mode
     for (let i = 0; i < count; i++) {
         // Each simulation uses a sequential seed for determinism
         const simulationSeed = baseSeed + i
 
-        // Create a fresh season manager for each simulation
-        const seasonManager = new SeasonManager({
-            seed: simulationSeed,
-            silentMode: true, // No commentary for prediction mode
-            language,
-        })
-
-        // Run the full season including playoffs
-        const result: SeasonResult = await seasonManager.hostSeason()
+        // Run fast season simulation (no commentary, no stats tracking)
+        const champion = await runSeasonFast({ seed: simulationSeed })
 
         // Aggregate championship count
-        const champion = result.champion
         if (champion) {
             const currentCount = championCounts.get(champion) ?? 0
             championCounts.set(champion, currentCount + 1)
@@ -245,10 +237,8 @@ export async function runPrediction(
             onProgress(i + 1, count)
         }
 
-        // Yield to UI thread periodically to allow progress updates to render
-        if ((i + 1) % 1 === 0) {
-            await new Promise(resolve => setTimeout(resolve, 0))
-        }
+        // Yield to UI thread to allow progress updates to render
+        await new Promise(resolve => setTimeout(resolve, 0))
     }
 
     const endTime = performance.now()

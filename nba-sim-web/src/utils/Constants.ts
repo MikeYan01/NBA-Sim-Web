@@ -26,7 +26,7 @@ export const DUNK_EXCEL_LB = 90
 // ============================================================================
 
 /** Minimum rating to be considered a star player */
-export const PLAYER_STAR_LB = 88
+export const PLAYER_STAR_LB = 90
 
 // ============================================================================
 // Data Paths
@@ -140,12 +140,12 @@ export const BENCH_TARGET_MINUTES = 18 * 60 // ~18 minutes
 // Durability-based target minutes for starters (in seconds)
 export const HIGH_DURABILITY_THRESHOLD = 90
 export const HIGH_DURABILITY_MINUTES = 32 * 60 // 1920 seconds
-export const MEDIUM_DURABILITY_THRESHOLD = 80
+export const MEDIUM_DURABILITY_THRESHOLD = 85
 export const MEDIUM_DURABILITY_MINUTES = 30 * 60 // 1800 seconds
-export const LOW_DURABILITY_THRESHOLD = 70
+export const LOW_DURABILITY_THRESHOLD = 75
 export const LOW_DURABILITY_MINUTES = 26 * 60 // 1560 seconds
 export const VERY_LOW_DURABILITY_MINUTES = 22 * 60 // 1320 seconds
-export const NON_STARTER_MAX_MINUTES = 35 * 60 // Bench players use high limit
+export const NON_STARTER_MAX_MINUTES = 36 * 60 // Bench players use high limit
 
 // Athleticism-based target minutes adjustment for starters (in seconds)
 export const ATHLETICISM_ELITE_THRESHOLD = 90
@@ -167,7 +167,7 @@ export const MIN_STARTER_MINUTES = 18 * 60 // Minimum 18 minutes for any starter
 export const MAX_STARTER_STINT = 10 * 60 // 10 minutes
 export const MAX_STARTER_STINT_CLOSE_GAME = 8 * 60 // 8 minutes in close games
 export const MAX_STARTER_STINT_NORMAL_GAME = 6 * 60 // 6 minutes in normal games
-export const MAX_BENCH_STINT = 6 * 60 // 6 minutes
+export const MAX_BENCH_STINT = 8 * 60 // 8 minutes
 
 // Minimum rest time between stints (in seconds)
 export const MIN_REST_TIME = 2 * 60 // 2 minutes
@@ -219,13 +219,12 @@ export const THREE_POINT_LINE_DISTANCE = 23
 // Offense Player Selection
 // ============================================================================
 
-export const MAJOR_SCORE_FACTOR = 0.55
-export const MINOR_SCORE_FACTOR = 0.15
+export const MAJOR_SCORE_FACTOR = 0.49
+export const MINOR_SCORE_FACTOR = 0.17
 export const SINGLE_STAR_PERCENT_1 = 3
 export const SINGLE_STAR_PERCENT_2 = 6
-export const SINGLE_STAR_EXTRA = 22
-export const GENERAL_THLD = 90
-export const CLUTCH_PERCENT = 50
+export const SINGLE_STAR_EXTRA = 10
+export const CLUTCH_PERCENT = 30
 export const RATING_RANGE = 10
 export const AST_SCALE = 2
 
@@ -337,10 +336,9 @@ export const TYPE5_MID_SHOT = 20
 // Initial Shot Percent Coefficients
 // ============================================================================
 
-export const INIT_CLOSE_SHOT_COFF = -0.2
+export const INIT_CLOSE_SHOT_COFF = -0.15
 export const INIT_CLOSE_SHOT_INTCP = 37
-export const INIT_MID_SHOT_INTCP = 8
-// Note: In Java, -31/81 is integer division = 0. We match that behavior.
+export const INIT_MID_SHOT_INTCP = 10
 export const INIT_THREE_SHOT_COFF = 0
 export const INIT_THREE_SHOT_INTCP = 41
 
@@ -368,12 +366,29 @@ export const DEFENSE_COFF = 0.1
 export const DEFENSE_BASE = 35
 
 // ============================================================================
-// Defense Density
+// Defense Intensity
 // ============================================================================
 
 export const DEFENSE_EASY = 10
 export const DEFENSE_HARD = 50
 export const DEFENSE_BUFF = 12
+
+// ============================================================================
+// Playoff/Play-In Adjustments
+// ============================================================================
+
+/**
+ * Playoff games feature tighter defense and slower pace.
+ * - Fewer possessions per game (each team shoots ~4 fewer times)
+ * - Lower shooting percentages due to increased defensive intensity
+ */
+
+/** Extra seconds added to average possession time in playoffs (reduces total possessions) */
+export const PLAYOFF_PACE_SLOWDOWN = 1.0
+
+/** Playoff defense intensity - less easy looks, more contested shots */
+export const PLAYOFF_DEFENSE_EASY = 5    // Regular: 10 -> reduces easy baskets
+export const PLAYOFF_DEFENSE_HARD = 55   // Regular: 50 -> more contested shots
 
 // ============================================================================
 // Consistency
@@ -440,7 +455,7 @@ export const FOUL_RATING_THLD2 = 85
 export const FOUL_COFF1 = 3.8
 export const FOUL_COFF2 = 3.3
 export const FOUL_COFF3 = 2.8
-export const STAR_FOUL_SCALE = 1.15
+export const STAR_FOUL_SCALE = 1.1
 
 // ============================================================================
 // Flagrant Foul

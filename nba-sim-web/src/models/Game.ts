@@ -19,6 +19,7 @@ import {
     BlockResult,
     FoulResult,
     ShotResult,
+    ShotType,
     type Position,
     type ShotChoiceResult,
 } from './types'
@@ -256,6 +257,7 @@ interface GameState {
     random: SeededRandom
     language: Language
     commentary: CommentaryOutput
+    isPlayoff: boolean
 }
 
 // =============================================================================
@@ -625,14 +627,15 @@ function playPossession(state: GameState): number {
         random,
         language,
         commentary,
+        isPlayoff,
     } = state
 
-    // Determine play time
+    // Determine play time (playoffs have slower pace)
     let currentPlayTime: number
     if (!state.isSecondChance) {
-        currentPlayTime = quarterTime > 24 ? generateRandomPlayTime(random, 24) : quarterTime
+        currentPlayTime = quarterTime > 24 ? generateRandomPlayTime(random, 24, isPlayoff) : quarterTime
     } else {
-        currentPlayTime = quarterTime > 24 ? generateRandomPlayTime(random, 14) : quarterTime
+        currentPlayTime = quarterTime > 24 ? generateRandomPlayTime(random, 14, isPlayoff) : quarterTime
         state.isSecondChance = false
     }
 
@@ -837,7 +840,7 @@ function playPossession(state: GameState): number {
         return currentPlayTime
     }
 
-    // Calculate shot percentage
+    // Calculate shot percentage (playoffs have tighter defense)
     const percentage = calculatePercentage(
         random,
         distance,
@@ -848,7 +851,8 @@ function playPossession(state: GameState): number {
         quarterTime,
         currentQuarter,
         offenseTeam,
-        defenseTeam
+        defenseTeam,
+        isPlayoff
     )
 
     // Judge whether to make the shot (stats are updated inside judgeMakeShot)
@@ -1082,6 +1086,7 @@ function handleOvertime(state: GameState): void {
  * @param random Seeded random generator
  * @param language Language for commentary
  * @param date Optional date string for recap (e.g., "01-15")
+ * @param isPlayoff Whether this is a playoff/play-in game (slower pace, tighter defense)
  * @returns Complete game result
  */
 export function hostGame(
@@ -1089,7 +1094,8 @@ export function hostGame(
     team2: Team,
     random: SeededRandom,
     language: Language = Language.ENGLISH,
-    date?: string
+    date?: string,
+    isPlayoff: boolean = false
 ): GameResult {
     // Reset team game stats
     team1.resetGameStats()
@@ -1129,6 +1135,7 @@ export function hostGame(
         random,
         language,
         commentary,
+        isPlayoff,
     }
 
     // Jump ball to start the game
@@ -1260,4 +1267,272 @@ export async function hostGameByName(
     const language = options.language ?? Language.ENGLISH
 
     return hostGame(team1, team2, random, language)
+}
+
+// =============================================================================
+// FAST GAME SIMULATION (for prediction mode)
+// =============================================================================
+
+/**
+ * Minimal game state for fast simulation.
+ */
+interface FastGameState {
+    team1: Team
+    team2: Team
+    teamOneOnCourt: Map<Position, Player>
+    teamTwoOnCourt: Map<Position, Player>
+    quarterTime: number
+    currentQuarter: number
+    isSecondChance: boolean
+    random: SeededRandom
+    isPlayoff: boolean
+}
+
+/**
+ * Play a single possession in fast mode (no commentary).
+ */
+function playPossessionFast(state: FastGameState): number {
+    const {
+        team1,
+        team2,
+        teamOneOnCourt,
+        teamTwoOnCourt,
+        quarterTime,
+        currentQuarter,
+        random,
+        isPlayoff,
+    } = state
+
+    // Determine play time
+    let currentPlayTime: number
+    if (!state.isSecondChance) {
+        currentPlayTime = quarterTime > 24 ? generateRandomPlayTime(random, 24, isPlayoff) : quarterTime
+    } else {
+        currentPlayTime = quarterTime > 24 ? generateRandomPlayTime(random, 14, isPlayoff) : quarterTime
+        state.isSecondChance = false
+    }
+
+    // Update player minutes (simplified)
+    updatePlayerMinutes(teamOneOnCourt, currentPlayTime)
+    updatePlayerMinutes(teamTwoOnCourt, currentPlayTime)
+
+    // Get offense and defense teams
+    const offenseTeam = team1.hasBall ? team1 : team2
+    const defenseTeam = !team1.hasBall ? team1 : team2
+    const offenseTeamOnCourt = team1.hasBall ? teamOneOnCourt : teamTwoOnCourt
+    const defenseTeamOnCourt = !team1.hasBall ? teamOneOnCourt : teamTwoOnCourt
+
+    // Choose players
+    const offensePlayer = choosePlayerBasedOnRating(
+        random,
+        offenseTeamOnCourt,
+        'rating',
+        currentQuarter,
+        quarterTime,
+        offenseTeam,
+        defenseTeam
+    )
+
+    if (!offensePlayer) {
+        throw new Error('Cannot continue game without offense player')
+    }
+
+    const defensePlayer = chooseDefensePlayer(random, offensePlayer, defenseTeamOnCourt)
+
+    // Judge ball possession lost (no commentary)
+    const loseBallOutcome: LoseBallOutcome = judgeLoseBall(
+        random,
+        defenseTeam,
+        defenseTeamOnCourt,
+        offensePlayer,
+        defensePlayer
+    )
+
+    const loseBallResult = loseBallOutcome.result
+
+    if (loseBallResult === LoseBallResult.LOSE_BALL_NO_SCORE) {
+        offenseTeam.hasBall = false
+        defenseTeam.hasBall = true
+        return currentPlayTime
+    } else if (loseBallResult === LoseBallResult.LOSE_BALL_AND_SCORE) {
+        // Possession stays with offense team (they inbound after being scored on)
+        return currentPlayTime
+    } else if (loseBallResult === LoseBallResult.JUMP_BALL_WIN) {
+        return currentPlayTime
+    }
+
+    // Judge foul (no commentary, simplified)
+    const foulResult = judgeNormalFoul(
+        random,
+        offenseTeamOnCourt,
+        defenseTeamOnCourt,
+        offensePlayer,
+        defensePlayer,
+        offenseTeam,
+        defenseTeam,
+        currentQuarter,
+        quarterTime,
+        team1,
+        team2
+    )
+
+    if (foulResult === FoulResult.OFFENSIVE_FOUL) {
+        offenseTeam.hasBall = false
+        defenseTeam.hasBall = true
+        return currentPlayTime
+    } else if (foulResult === FoulResult.DEFENSIVE_FOUL) {
+        return currentPlayTime
+    }
+
+    // Skip injury check in fast mode for speed
+
+    const distance = getShotDistance(random, offensePlayer)
+    const shotType = distance <= 4 ? ShotType.LAYUP : ShotType.JUMPER
+
+    // Judge block (no commentary)
+    const blockOutcome: BlockOutcome = judgeBlock(
+        random,
+        distance,
+        offenseTeamOnCourt,
+        defenseTeamOnCourt,
+        offensePlayer,
+        defensePlayer
+    )
+
+    if (blockOutcome.result === BlockResult.BLOCK_OFFENSIVE_REBOUND) {
+        state.isSecondChance = true
+        return currentPlayTime
+    } else if (blockOutcome.result === BlockResult.BLOCK_DEFENSIVE_REBOUND) {
+        offenseTeam.hasBall = false
+        defenseTeam.hasBall = true
+        return currentPlayTime
+    }
+
+    // Calculate shot percentage
+    const percentage = calculatePercentage(
+        random,
+        distance,
+        offensePlayer,
+        defensePlayer,
+        offenseTeamOnCourt,
+        shotType,
+        quarterTime,
+        currentQuarter,
+        offenseTeam,
+        defenseTeam,
+        isPlayoff
+    )
+
+    // Judge shot (no commentary)
+    const shotOutcome: ShotOutcome = judgeMakeShot(
+        random,
+        distance,
+        offensePlayer,
+        defensePlayer,
+        offenseTeam,
+        defenseTeam,
+        offenseTeamOnCourt,
+        defenseTeamOnCourt,
+        percentage,
+        quarterTime - currentPlayTime,
+        currentQuarter,
+        team1,
+        team2,
+        ''
+    )
+
+    if (shotOutcome.result === ShotResult.MADE_SHOT || shotOutcome.result === ShotResult.MADE_FREE_THROWS) {
+        offenseTeam.hasBall = false
+        defenseTeam.hasBall = true
+        return currentPlayTime
+    } else if (shotOutcome.result === ShotResult.DEFENSIVE_REBOUND || shotOutcome.result === ShotResult.OUT_OF_BOUNDS) {
+        offenseTeam.hasBall = false
+        defenseTeam.hasBall = true
+        return currentPlayTime
+    } else if (shotOutcome.result === ShotResult.OFFENSIVE_REBOUND) {
+        state.isSecondChance = true
+        return currentPlayTime
+    }
+
+    return currentPlayTime
+}
+
+/**
+ * Play a quarter in fast mode.
+ */
+function playQuarterFast(state: FastGameState): void {
+    while (state.quarterTime > 0) {
+        const timeConsumed = playPossessionFast(state)
+        state.quarterTime -= timeConsumed
+    }
+}
+
+/**
+ * Fast game simulation that only returns the winner.
+ * Skips all commentary, box scores, recaps, and detailed tracking.
+ * Designed for prediction mode where only the winner matters.
+ *
+ * @param team1 First team
+ * @param team2 Second team
+ * @param random Seeded random generator
+ * @param isPlayoff Whether this is a playoff game
+ * @returns Winner team name
+ */
+export function hostGameFast(
+    team1: Team,
+    team2: Team,
+    random: SeededRandom,
+    isPlayoff: boolean = false
+): string {
+    // Reset team game stats
+    team1.resetGameStats()
+    team2.resetGameStats()
+
+    // Reset player stats
+    for (const player of team1.players) {
+        player.resetGameStats()
+    }
+    for (const player of team2.players) {
+        player.resetGameStats()
+    }
+
+    // Initialize players on court
+    const teamOneOnCourt = initializePlayersOnCourt(team1)
+    const teamTwoOnCourt = initializePlayersOnCourt(team2)
+
+    // Initialize fast game state
+    const state: FastGameState = {
+        team1,
+        team2,
+        teamOneOnCourt,
+        teamTwoOnCourt,
+        quarterTime: 720,
+        currentQuarter: 1,
+        isSecondChance: false,
+        random,
+        isPlayoff,
+    }
+
+    // Jump ball
+    jumpBall(random, team1, team2)
+
+    // Play 4 quarters
+    for (let quarter = 1; quarter <= 4; quarter++) {
+        state.currentQuarter = quarter
+        state.quarterTime = 720
+        state.team1.quarterFoul = 0
+        state.team2.quarterFoul = 0
+        playQuarterFast(state)
+    }
+
+    // Overtime if needed
+    while (team1.totalScore === team2.totalScore) {
+        state.currentQuarter++
+        state.quarterTime = 300 // 5 minutes
+        state.team1.quarterFoul = 0
+        state.team2.quarterFoul = 0
+        playQuarterFast(state)
+    }
+
+    return team1.totalScore > team2.totalScore ? team1.name : team2.name
 }
