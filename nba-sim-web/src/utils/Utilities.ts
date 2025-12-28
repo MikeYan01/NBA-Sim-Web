@@ -159,7 +159,7 @@ export function generateRandomPlayTime(random: SeededRandom, time: number, isPla
         const roll = generateRandomNum(random, 1, 100)
 
         let baseTime: number
-        if (roll <= 5) {
+        if (roll <= 10) {
             // Very quick play: 4-7 seconds
             return generateRandomNum(random, 4, 7)
         } else if (roll <= 85) {
@@ -317,10 +317,21 @@ export function choosePlayerBasedOnRating(
                 poss[i] = 0
                 continue
             }
+
+            // Apply diminishing returns for star players (rating >= 90)
+            // This reduces their shot frequency while keeping role players unaffected
+            let effectiveRating = player.rating
+            if (player.rating >= Constants.PLAYER_STAR_LB) {
+                // Use power decay: rating^0.85 * scaling factor to match original range
+                // Example: 97^0.85 ≈ 52.8, 78^0.85 ≈ 44.6 → ratio reduced from 1.24 to 1.18
+                effectiveRating = Math.pow(player.rating, Constants.STAR_SELECTION_DECAY_POWER) *
+                    Math.pow(100, 1 - Constants.STAR_SELECTION_DECAY_POWER)
+            }
+
             poss[i] =
                 10 *
                 (basePoss +
-                    major * player.rating +
+                    major * effectiveRating +
                     minor * Math.max(player.insideRating, player.layupRating) +
                     minor * Math.max(player.midRating, player.threeRating) +
                     minor * player.offConst -
@@ -363,19 +374,61 @@ export function choosePlayerBasedOnRating(
     }
 
     const pick = generateRandomNum(random, 1, 1000)
-    if (pick <= poss[0] && teamOnCourt.get('C')) return teamOnCourt.get('C')!
-    else if (pick <= poss[0] + poss[1] && teamOnCourt.get('PF')) return teamOnCourt.get('PF')!
-    else if (pick <= poss[0] + poss[1] + poss[2] && teamOnCourt.get('SF')) return teamOnCourt.get('SF')!
-    else if (pick <= poss[0] + poss[1] + poss[2] + poss[3] && teamOnCourt.get('SG')) return teamOnCourt.get('SG')!
-    else if (teamOnCourt.get('PG')) return teamOnCourt.get('PG')!
-
-    // Fallback: return any non-null player
-    for (const player of teamOnCourt.values()) {
-        if (player) return player
+    let selectedPlayer: Player
+    if (pick <= poss[0] && teamOnCourt.get('C')) selectedPlayer = teamOnCourt.get('C')!
+    else if (pick <= poss[0] + poss[1] && teamOnCourt.get('PF')) selectedPlayer = teamOnCourt.get('PF')!
+    else if (pick <= poss[0] + poss[1] + poss[2] && teamOnCourt.get('SF')) selectedPlayer = teamOnCourt.get('SF')!
+    else if (pick <= poss[0] + poss[1] + poss[2] + poss[3] && teamOnCourt.get('SG')) selectedPlayer = teamOnCourt.get('SG')!
+    else if (teamOnCourt.get('PG')) selectedPlayer = teamOnCourt.get('PG')!
+    else {
+        // Fallback: return any non-null player
+        for (const player of teamOnCourt.values()) {
+            if (player) {
+                selectedPlayer = player
+                break
+            }
+        }
+        if (!selectedPlayer!) {
+            throw new Error('ERROR: No players found in TeamOnCourt map!')
+        }
     }
 
-    // This should never happen
-    throw new Error('ERROR: No players found in TeamOnCourt map!')
+    // Veteran star load management: when a veteran star is selected for a shot,
+    // there's a 15% chance the ball goes to a teammate instead (simulates rest/load management)
+    // Exception: clutch time (Q4+, close game, <7min left) - veterans should always take the shot
+    if (attr === 'rating' && Constants.VETERAN_STAR_PLAYERS.includes(selectedPlayer.englishName)) {
+        // Check if it's clutch time - if so, skip load management
+        const isClutchTime = currentQuarter >= 4 &&
+            quarterTime <= Constants.TIME_LEFT_CLUTCH &&
+            offenseTeam && defenseTeam &&
+            Math.abs(offenseTeam.totalScore - defenseTeam.totalScore) <= Constants.CLOSE_GAME_DIFF
+
+        if (!isClutchTime && generateRandomNum(random) <= Constants.VETERAN_STAR_USAGE_PENALTY) {
+            // Find teammates and their ratings for weighted selection
+            const teammates: Player[] = []
+            let totalTeammateRating = 0
+            for (const player of teamOnCourt.values()) {
+                if (player !== selectedPlayer) {
+                    teammates.push(player)
+                    totalTeammateRating += player.rating
+                }
+            }
+            if (teammates.length > 0 && totalTeammateRating > 0) {
+                // Weighted selection based on rating
+                let currentRatingSum = 0
+                const randomPick = generateRandomNum(random, 1, Math.floor(totalTeammateRating))
+                for (const teammate of teammates) {
+                    currentRatingSum += teammate.rating
+                    if (randomPick <= currentRatingSum) {
+                        selectedPlayer = teammate
+                        break
+                    }
+                }
+            }
+        }
+    }
+
+    return selectedPlayer
 }
 
 /**
@@ -611,6 +664,13 @@ export function calculatePercentage(
         percentage += Constants.ELITE_PLAYMAKER_DUAL_BONUS
     } else if (elitePlaymakerCount === 1) {
         percentage += Constants.ELITE_PLAYMAKER_SINGLE_BONUS
+    }
+
+    // Star player defensive focus penalty
+    // High-rated players (rating >= 90) face tighter defense from opposing teams' game plans
+    // This reduces their efficiency while not affecting role players
+    if (offensePlayer.rating >= Constants.PLAYER_STAR_LB) {
+        percentage -= Constants.STAR_DEFENSE_FOCUS_PENALTY
     }
 
     return percentage
@@ -1720,12 +1780,13 @@ export function updatePlayerMinutes(teamOnCourt: Map<string, Player>, playTime: 
 // =============================================================================
 
 /**
- * Get target minutes for a player based on durability and athleticism.
+ * Get target minutes for a player based on durability, athleticism, and game situation.
  *
  * @param player - The player
+ * @param isCloseGame - Whether the game is close (optional, for bonus minutes)
  * @returns Target minutes in seconds
  */
-export function getTargetMinutes(player: Player): number {
+export function getTargetMinutes(player: Player, isCloseGame: boolean = false): number {
     if (player.rotationType !== 1) {
         // Not a starter
         return Constants.NON_STARTER_MAX_MINUTES
@@ -1756,7 +1817,10 @@ export function getTargetMinutes(player: Player): number {
         athleticismAdjustment = Constants.ATHLETICISM_VERY_LOW_PENALTY
     }
 
-    const targetMinutes = baseMinutes + athleticismAdjustment
+    // Close game bonus - starters should play more in tight games
+    const closeGameBonus = isCloseGame ? Constants.CLOSE_GAME_BONUS_MINUTES : 0
+
+    const targetMinutes = baseMinutes + athleticismAdjustment + closeGameBonus
     return Math.max(targetMinutes, Constants.MIN_STARTER_MINUTES)
 }
 
@@ -1801,7 +1865,7 @@ export function shouldSubForFatigue(player: Player, isCloseGame: boolean): boole
 export function shouldSubForPerformance(player: Player): boolean {
     if (player.shotAttempted >= Constants.MIN_SHOTS_FOR_HOT) {
         const shotPct = player.shotMade / player.shotAttempted
-        if (shotPct < Constants.COLD_SHOOTER_THRESHOLD) {
+        if (shotPct <= Constants.COLD_SHOOTER_THRESHOLD) {
             return true
         }
     }
@@ -1827,9 +1891,11 @@ export function findBestSubstitute(
         const starter = team.starters.get(pos)
         if (starter && starter.canOnCourt && !starter.isOnCourt) {
             const restTime = gameTime - starter.lastSubbedOutTime
-            const minRest = isCloseGame ? 60 : Constants.MIN_REST_TIME
+            const minRest = isCloseGame ? Constants.MIN_REST_TIME_CLOSE_GAME : Constants.MIN_REST_TIME
+            const targetMinutes = getTargetMinutes(starter, isCloseGame)
 
-            if (restTime >= minRest && starter.secondsPlayed < 2340 && isFoulSituationSafe(starter, currentQuarter)) {
+            // Only bring back starter if they haven't exceeded their target minutes (higher in close games)
+            if (restTime >= minRest && starter.secondsPlayed < targetMinutes && isFoulSituationSafe(starter, currentQuarter)) {
                 return starter
             }
         }
@@ -1903,6 +1969,13 @@ export function checkIntelligentSubstitutions(
         currentQuarter === Constants.CLUTCH_QUARTER && quarterTime <= Constants.TIME_LEFT_CLUTCH && scoreDiff <= Constants.CLOSE_GAME_DIFF
     const isCloseGame = scoreDiff <= Constants.CLOSE_GAME_DIFF
 
+    // Determine if this team is trailing
+    const isTrailing = team.totalScore < (team === team1 ? team2.totalScore : team1.totalScore)
+
+    // Use higher probabilities when trailing to get starters back faster
+    const subCheckProb = isTrailing ? Constants.SUB_CHECK_PROBABILITY_TRAILING : Constants.SUB_CHECK_PROBABILITY
+    const subDecisionProb = isTrailing ? Constants.SUB_DECISION_PROBABILITY_TRAILING : Constants.SUB_DECISION_PROBABILITY
+
     // Clutch time: keep best players in
     if (isClutchTime) {
         return ensureStartersInClutch(team, teamOnCourt, gameTime, random, language, commentary, subContext)
@@ -1910,7 +1983,7 @@ export function checkIntelligentSubstitutions(
 
     // Proactively check if rested starters with safe foul situation can return
     // This ensures foul-protected starters don't sit too long
-    if (generateRandomNum(random, 1, 100) < Constants.SUB_CHECK_PROBABILITY) {
+    if (generateRandomNum(random, 1, 100) < subCheckProb) {
         for (const [pos, starter] of team.starters.entries()) {
             const currentPlayer = teamOnCourt.get(pos)
 
@@ -1919,9 +1992,9 @@ export function checkIntelligentSubstitutions(
 
                 const restTime = gameTime - starter.lastSubbedOutTime
                 const minRest = isCloseGame ? Constants.MIN_REST_TIME_CLOSE_GAME : Constants.MIN_REST_TIME
-                const targetMinutes = getTargetMinutes(starter)
+                const targetMinutes = getTargetMinutes(starter, isCloseGame)
 
-                // If starter has rested enough, is under target minutes, AND foul situation is safe
+                // If starter has rested enough, is under target minutes (higher in close games), AND foul situation is safe
                 if (restTime >= minRest && starter.secondsPlayed < targetMinutes && isFoulSituationSafe(starter, currentQuarter)) {
                     teamOnCourt.set(pos, starter)
                     currentPlayer.isOnCourt = false
@@ -1940,7 +2013,7 @@ export function checkIntelligentSubstitutions(
     }
 
     // Random chance to check for substitutions
-    if (generateRandomNum(random, 1, 100) >= Constants.SUB_DECISION_PROBABILITY) {
+    if (generateRandomNum(random, 1, 100) >= subDecisionProb) {
         return false
     }
 
@@ -1959,8 +2032,8 @@ export function checkIntelligentSubstitutions(
         else if (shouldSubForFatigue(currentPlayer, isCloseGame)) {
             priority = Constants.FATIGUE_BASE_PRIORITY + Math.floor(currentPlayer.currentStintSeconds / Constants.FATIGUE_SECONDS_TO_PRIORITY)
         }
-        // High: minutes cap
-        else if (currentPlayer.secondsPlayed >= getTargetMinutes(currentPlayer)) {
+        // High: minutes cap (higher target in close games)
+        else if (currentPlayer.secondsPlayed >= getTargetMinutes(currentPlayer, isCloseGame)) {
             priority = Constants.MINUTES_CAP_PRIORITY
         }
         // Medium: performance (cold shooter - only if not close game)

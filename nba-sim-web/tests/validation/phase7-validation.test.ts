@@ -502,12 +502,18 @@ describe('T090: 100 Deterministic Game Tests', () => {
         'should produce identical results with same seed across 100 different seeds',
         async () => {
             for (let seed = 1; seed <= 100; seed++) {
+                // Clone teams fresh for each pair of runs to avoid state pollution
+                const home1 = homeTeam.clone()
+                const away1 = awayTeam.clone()
+                const home2 = homeTeam.clone()
+                const away2 = awayTeam.clone()
+
                 // Run game twice with same seed
                 const random1 = new SeededRandom(seed)
-                const result1 = hostGame(homeTeam, awayTeam, random1, Language.ENGLISH)
+                const result1 = hostGame(home1, away1, random1, Language.ENGLISH)
 
                 const random2 = new SeededRandom(seed)
-                const result2 = hostGame(homeTeam, awayTeam, random2, Language.ENGLISH)
+                const result2 = hostGame(home2, away2, random2, Language.ENGLISH)
 
                 // Verify exact match
                 expect(result1.team1Score).toBe(result2.team1Score)

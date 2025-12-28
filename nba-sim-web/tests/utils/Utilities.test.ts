@@ -590,15 +590,15 @@ describe('Utilities', () => {
     })
 
     describe('shouldSubForFoulTrouble', () => {
-        it('should return true for starter with 2 fouls in Q1', () => {
+        it('should return true for starter with 3 fouls in Q1', () => {
             const player = createPlayer(createMockPlayer({ rotationType: '1' }), 'Lakers')
-            player.foul = 2
+            player.foul = 3
             expect(Utilities.shouldSubForFoulTrouble(player, 1)).toBe(true)
         })
 
-        it('should return false for starter with 1 foul in Q1', () => {
+        it('should return false for starter with 2 fouls in Q1', () => {
             const player = createPlayer(createMockPlayer({ rotationType: '1' }), 'Lakers')
-            player.foul = 1
+            player.foul = 2
             expect(Utilities.shouldSubForFoulTrouble(player, 1)).toBe(false)
         })
 
@@ -618,7 +618,7 @@ describe('Utilities', () => {
     describe('shouldSubForFatigue', () => {
         it('should return true for starter past max stint', () => {
             const player = createPlayer(createMockPlayer({ rotationType: '1' }), 'Lakers')
-            player.currentStintSeconds = 400 // MAX_STARTER_STINT_NORMAL_GAME = 6 * 60 = 360
+            player.currentStintSeconds = 500 // MAX_STARTER_STINT_NORMAL_GAME = 8 * 60 = 480
             expect(Utilities.shouldSubForFatigue(player, false)).toBe(true)
         })
 

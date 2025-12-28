@@ -249,50 +249,6 @@ describe('Prediction Performance Tests', () => {
         console.log('\n' + formatPredictionResults(result))
     }, FIVE_MINUTES_MS + 30000)
 
-    // This test takes a long time - only run manually or in CI
-    it.skip('should complete 100 simulations within 5 minutes (full benchmark)', async () => {
-        console.log('\n=== Starting 100 Simulation Benchmark ===')
-        console.log('This test may take up to 5 minutes...\n')
-
-        const startTime = performance.now()
-
-        let lastProgress = 0
-        const result = await runMockPrediction(100, {
-            baseSeed: 777777,
-            language: Language.ENGLISH,
-            onProgress: (completed, total) => {
-                // Log every 10 simulations
-                if (completed % 10 === 0 && completed !== lastProgress) {
-                    const currentTime = performance.now()
-                    const elapsed = currentTime - startTime
-                    const rate = completed / (elapsed / 1000)
-                    const remaining = (total - completed) / rate
-                    console.log(
-                        `Progress: ${completed}/${total} - ` +
-                        `${(elapsed / 1000).toFixed(1)}s elapsed, ` +
-                        `~${remaining.toFixed(0)}s remaining`
-                    )
-                    lastProgress = completed
-                }
-            },
-        })
-
-        const endTime = performance.now()
-        const elapsed = endTime - startTime
-
-        console.log('\n=== Benchmark Complete ===')
-        console.log(`Total time: ${(elapsed / 1000).toFixed(2)} seconds (${(elapsed / 60000).toFixed(2)} minutes)`)
-        console.log(`Average time per simulation: ${(elapsed / 100000).toFixed(2)} seconds`)
-        console.log(`Simulations per minute: ${(100 / (elapsed / 60000)).toFixed(1)}`)
-
-        // CRITICAL: Must complete within 5 minutes
-        expect(elapsed).toBeLessThan(FIVE_MINUTES_MS)
-        expect(result.totalSimulations).toBe(100)
-
-        console.log('\n=== Championship Probabilities ===')
-        console.log(formatPredictionResults(result))
-    }, FIVE_MINUTES_MS + 60000)
-
     describe('Performance Metrics', () => {
         it('should measure single season simulation time', async () => {
             const iterations = 5

@@ -28,6 +28,18 @@ export const DUNK_EXCEL_LB = 90
 /** Minimum rating to be considered a star player */
 export const PLAYER_STAR_LB = 90
 
+/** Veteran star players (age >= 34) who need load management in regular season */
+export const VETERAN_STAR_PLAYERS = [
+    'Stephen Curry',
+    'Kevin Durant',
+    'LeBron James',
+    'James Harden',
+    'Kawhi Leonard'
+]
+
+/** Probability (%) to redirect shot to teammate when veteran star is selected */
+export const VETERAN_STAR_USAGE_PENALTY = 15
+
 // ============================================================================
 // Data Paths
 // ============================================================================
@@ -51,10 +63,6 @@ export const SCHEDULE_PATH = `${BASE_URL}data/schedule/schedule-82games.txt`
 // ============================================================================
 // Display Constants
 // ============================================================================
-
-/** Max ranks for tables */
-export const MAX_PLAYER_RANK = 100
-export const MAX_TEAM_RANK = 30
 
 /** Max length of StringBuilder for live comments */
 export const MAX_SB_LEN = 128
@@ -99,20 +107,6 @@ export const MIN_SHOT_ATTEMPTED = 7
 export const MAX_BAD_SHOT_PERCENT = 0.2
 
 // ============================================================================
-// Outstanding Defensive Stats
-// ============================================================================
-
-export const MIN_OUTSTANDING_STEALS = 3
-export const MIN_OUTSTANDING_BLOCKS = 3
-
-// ============================================================================
-// Year Constants
-// ============================================================================
-
-export const CURRENT_YEAR = `${new Date().getFullYear()}-`
-export const NEXT_YEAR = `${new Date().getFullYear() + 1}-`
-
-// ============================================================================
 // Garbage Time Constants
 // ============================================================================
 
@@ -127,8 +121,8 @@ export const TIME_LEFT3 = 60
 // Clutch Time Constants
 // ============================================================================
 
-export const TIME_LEFT_CLUTCH = 360
-export const CLOSE_GAME_DIFF = 12
+export const TIME_LEFT_CLUTCH = 420
+export const CLOSE_GAME_DIFF = 15
 
 // ============================================================================
 // Intelligent Substitution System
@@ -162,11 +156,11 @@ export const ATHLETICISM_LOW_THRESHOLD = 65
 export const ATHLETICISM_LOW_PENALTY = -5 * 60 // -5 minutes
 export const ATHLETICISM_VERY_LOW_PENALTY = -6 * 60 // -6 minutes
 export const MIN_STARTER_MINUTES = 18 * 60 // Minimum 18 minutes for any starter
+export const CLOSE_GAME_BONUS_MINUTES = 5 * 60 // +5 minutes in close games
 
 // Maximum continuous stint duration before rest needed (in seconds)
-export const MAX_STARTER_STINT = 10 * 60 // 10 minutes
-export const MAX_STARTER_STINT_CLOSE_GAME = 8 * 60 // 8 minutes in close games
-export const MAX_STARTER_STINT_NORMAL_GAME = 6 * 60 // 6 minutes in normal games
+export const MAX_STARTER_STINT_CLOSE_GAME = 10 * 60 // 10 minutes in close games
+export const MAX_STARTER_STINT_NORMAL_GAME = 8 * 60 // 8 minutes in normal games
 export const MAX_BENCH_STINT = 8 * 60 // 8 minutes
 
 // Minimum rest time between stints (in seconds)
@@ -178,15 +172,19 @@ export const BENCH_MINUTES_BUFFER = 5 * 60 // 5 minute buffer
 
 // Performance-based thresholds
 export const MIN_SHOTS_FOR_HOT = 4
-export const COLD_SHOOTER_THRESHOLD = 0.3
+export const COLD_SHOOTER_THRESHOLD = 0.2
 
 // Injury probability constants
 export const INJURY_BASE_PROBABILITY = 200
 export const INJURY_PROBABILITY_DIVISOR = 1000000
 
 // Substitution probabilities and priorities
-export const SUB_CHECK_PROBABILITY = 40
-export const SUB_DECISION_PROBABILITY = 20
+// When leading or tied
+export const SUB_CHECK_PROBABILITY = 50
+export const SUB_DECISION_PROBABILITY = 25
+// When trailing - more aggressive to get starters back
+export const SUB_CHECK_PROBABILITY_TRAILING = 90
+export const SUB_DECISION_PROBABILITY_TRAILING = 60
 export const GARBAGE_TIME_SUB_PROBABILITY = 100
 export const FOUL_TROUBLE_PRIORITY = 100
 export const MINUTES_CAP_PRIORITY = 80
@@ -206,6 +204,20 @@ export const OVERTIME_QUARTER = 5 // Overtime starts at quarter 5
 export const CLUTCH_QUARTER = 4 // Clutch time in Q4
 
 // ============================================================================
+// Star Player Defense Focus (Defensive Attention)
+// High-rated players face tighter defense due to opposing team's game plan
+// ============================================================================
+
+export const STAR_DEFENSE_FOCUS_PENALTY = 3.0 // Penalty percentage for stars (rating >= PLAYER_STAR_LB)
+
+// ============================================================================
+// Star Player Selection Weight Decay
+// Reduces shot frequency for high-rated players to spread scoring
+// ============================================================================
+
+export const STAR_SELECTION_DECAY_POWER = 0.85 // Power for diminishing returns on rating weight
+
+// ============================================================================
 // Game Constants
 // ============================================================================
 
@@ -221,10 +233,8 @@ export const THREE_POINT_LINE_DISTANCE = 23
 
 export const MAJOR_SCORE_FACTOR = 0.49
 export const MINOR_SCORE_FACTOR = 0.17
-export const SINGLE_STAR_PERCENT_1 = 3
-export const SINGLE_STAR_PERCENT_2 = 6
-export const SINGLE_STAR_EXTRA = 10
-export const CLUTCH_PERCENT = 30
+export const SINGLE_STAR_EXTRA = 5
+export const CLUTCH_PERCENT = 15
 export const RATING_RANGE = 10
 export const AST_SCALE = 2
 
@@ -238,15 +248,15 @@ export const REBOUND_POWER_SCALE = 0.8
 // Position Selection
 // ============================================================================
 
-export const SAME_POS = 52
-export const OTHER_POS = 12
+export const SAME_POS = 60
+export const OTHER_POS = 10
 
 // ============================================================================
 // Lose Ball (Turnover/Steal)
 // ============================================================================
 
 export const JUMP_BALL_PLAY = 60
-export const TURNOVER = 5
+export const TURNOVER = 4
 export const STEAL_BASE = 1
 export const STEAL_RATING_SCALE = 4
 export const STEAL_DEFENSE_SCALE = 2
@@ -290,7 +300,7 @@ export const REBOUND_RATING_BONUS_PERCENT = 10
 // Foul Protection
 // ============================================================================
 
-export const QUARTER1_PROTECT = 2
+export const QUARTER1_PROTECT = 3
 export const QUARTER2_PROTECT = 4
 export const QUARTER3_PROTECT = 5
 
@@ -306,7 +316,6 @@ export const DEF_FOUL = 2
 // ============================================================================
 
 export const MIN_CLOSE_SHOT = 1
-export const PAINT_CLOSE_SHOT = 3
 export const MAX_CLOSE_SHOT = 12
 export const MIN_MID_SHOT = 13
 export const MID_MID_SHOT = 20
@@ -317,10 +326,6 @@ export const MAX_THREE_SHOT = 35
 export const MIN_DIST_CURVE = 28
 export const DIST_CURVE_PERCENT = 90
 export const DIST_CURVE = 5
-export const DUNK_MAX_PERCENT = 90
-export const DUNK_PERCENT_MULTIPLIER = 2.0
-export const MIN_SHOT_PERCENT = 20
-export const MAX_SHOT_PERCENT = 90
 
 // ============================================================================
 // Shot Choice Percentages
@@ -401,23 +406,10 @@ export const DEF_CONSISTENCY_MAX_BONUS = 2
 export const CONSISTENCY_BASE = 50
 
 // ============================================================================
-// Athleticism
-// ============================================================================
-
-export const ATHLETIC_COFF = 0.06
-
-// ============================================================================
 // Clutch Time
 // ============================================================================
 
-export const CLUTCH_OFF_CONST = 100
 export const CLUTCH_SHOT_COFF = 0.6
-
-// ============================================================================
-// Status Comment Percent
-// ============================================================================
-
-export const STATUS_COMMENT_PERCENT = 40
 
 // ============================================================================
 // Extra Comment in Garbage Time
@@ -429,8 +421,8 @@ export const EXTRA_COMMENT = 15
 // Assist Allocation
 // ============================================================================
 
-export const HIGH_BOTH_RATING = 25
-export const HIGH_BOTH_RATING_THLD = 88
+export const HIGH_BOTH_RATING = 33
+export const HIGH_BOTH_RATING_THLD = 89
 export const HIGHEST_RATING_PERCENT = 10
 export const STAR_PLAYER_AST = 75
 export const NON_STAR_PLAYER_AST = 95
