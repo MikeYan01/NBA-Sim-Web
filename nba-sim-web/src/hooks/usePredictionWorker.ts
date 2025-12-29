@@ -21,10 +21,11 @@ import type {
     WorkerPredictionResult,
     WorkerPredictionRanking,
 } from '../workers/prediction.worker'
-import { SeasonManager } from '../models/SeasonManager'
-import type { SeasonResult } from '../models/types'
+import { SeasonManager } from '../models/Season'
+import type { SeasonResult } from '../models/Season'
 import { Team } from '../models/Team'
-import { initLocalization, initComments } from '../services/resources'
+import { initLocalization } from '../services/LocalizationService'
+import { initComments } from '../services/CommentLoader'
 
 // =============================================================================
 // Worker Support Detection
