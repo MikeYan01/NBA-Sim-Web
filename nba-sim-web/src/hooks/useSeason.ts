@@ -10,10 +10,21 @@ import type { SeasonWorkerInMessage, SeasonWorkerOutMessage } from '../workers/s
 
 /**
  * Check if we're in a browser environment with Worker support.
- * Actual module worker compatibility is tested by attempting to create one.
+ * iPhone Safari has issues with module workers even on latest iOS.
  */
 function hasWorkerSupport(): boolean {
-    return typeof window !== 'undefined' && typeof Worker !== 'undefined'
+    if (typeof window === 'undefined' || typeof Worker === 'undefined') {
+        return false
+    }
+
+    // iPhone Safari has issues with module workers - use main thread
+    // iPad and Mac are fine
+    const isIPhone = /iPhone/.test(navigator.userAgent)
+    if (isIPhone) {
+        return false
+    }
+
+    return true
 }
 
 export function useSeason() {
