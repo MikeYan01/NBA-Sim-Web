@@ -1,14 +1,78 @@
 import { useCallback, useRef } from 'react'
 import { useGameStore } from '../stores/gameStore'
-import { SeasonResult } from '../models/Season'
+import { SeasonManager, SeasonResult, SeasonOptions } from '../models/Season'
 import { SeasonStats } from '../models/SeasonStats'
 import { useLocalization } from './useLocalization'
+import { Team } from '../models/Team'
+import { initLocalization } from '../services/LocalizationService'
+import { initComments } from '../services/CommentLoader'
 import type { SeasonWorkerInMessage, SeasonWorkerOutMessage } from '../workers/season.worker'
+
+/**
+ * Check if we're in a browser environment with Worker support.
+ * Actual module worker compatibility is tested by attempting to create one.
+ */
+function hasWorkerSupport(): boolean {
+    return typeof window !== 'undefined' && typeof Worker !== 'undefined'
+}
 
 export function useSeason() {
     const { currentSeason, setSeason, isLoading, setIsLoading, seasonProgress, setSeasonProgress } = useGameStore()
     const { language } = useLocalization()
     const workerRef = useRef<Worker | null>(null)
+
+    /**
+     * Run season simulation on main thread (fallback for iOS and unsupported browsers)
+     */
+    const runOnMainThread = useCallback(async (seed?: number) => {
+        try {
+            // Initialize resources
+            await Promise.all([
+                initLocalization(),
+                initComments(),
+                Team.preloadAllTeams(),
+            ])
+
+            // Update progress to show we're past initialization
+            setSeasonProgress({
+                gamesCompleted: 0,
+                totalGames: 1230,
+                phase: 'regular',
+            })
+
+            const options: SeasonOptions = {
+                seed,
+                language,
+                silentMode: true,
+                onProgress: (gamesCompleted: number, totalGames: number) => {
+                    setSeasonProgress({
+                        gamesCompleted,
+                        totalGames,
+                        phase: 'regular',
+                    })
+                },
+                onPlayoffProgress: (gamesCompleted: number, totalGames: number, phase: 'playin' | 'playoffs') => {
+                    const regularSeasonGames = 1230
+                    setSeasonProgress({
+                        gamesCompleted: regularSeasonGames + gamesCompleted,
+                        totalGames,
+                        phase,
+                    })
+                },
+            }
+
+            const manager = new SeasonManager(options)
+            const result = await manager.hostSeason()
+
+            setSeason(result)
+            setSeasonProgress(null)
+            setIsLoading(false)
+        } catch (error) {
+            console.error('Main thread season simulation failed:', error)
+            setSeasonProgress(null)
+            setIsLoading(false)
+        }
+    }, [language, setSeason, setSeasonProgress, setIsLoading])
 
     const simulateSeason = useCallback(async (seed?: number) => {
         setIsLoading(true)
@@ -22,13 +86,29 @@ export function useSeason() {
         // Terminate any existing worker
         if (workerRef.current) {
             workerRef.current.terminate()
+            workerRef.current = null
         }
 
-        // Create new worker
-        const worker = new Worker(
-            new URL('../workers/season.worker.ts', import.meta.url),
-            { type: 'module' }
-        )
+        // Check basic Worker support
+        if (!hasWorkerSupport()) {
+            console.log('Workers not supported, running on main thread')
+            setTimeout(() => runOnMainThread(seed), 50)
+            return
+        }
+
+        // Try to create module worker - will fallback if it fails
+        let worker: Worker
+        try {
+            worker = new Worker(
+                new URL('../workers/season.worker.ts', import.meta.url),
+                { type: 'module' }
+            )
+        } catch (error) {
+            console.warn('Failed to create worker, falling back to main thread:', error)
+            setTimeout(() => runOnMainThread(seed), 50)
+            return
+        }
+
         workerRef.current = worker
 
         worker.onmessage = (event: MessageEvent<SeasonWorkerOutMessage>) => {
@@ -75,20 +155,22 @@ export function useSeason() {
 
                 case 'ERROR':
                     console.error('Season simulation failed:', error)
-                    setSeasonProgress(null)
-                    setIsLoading(false)
+                    // Fallback to main thread on worker error
                     worker.terminate()
                     workerRef.current = null
+                    console.log('Retrying on main thread after worker error')
+                    runOnMainThread(seed)
                     break
             }
         }
 
         worker.onerror = (error) => {
             console.error('Worker error:', error)
-            setSeasonProgress(null)
-            setIsLoading(false)
             worker.terminate()
             workerRef.current = null
+            // Fallback to main thread on worker error
+            console.log('Retrying on main thread after worker error')
+            runOnMainThread(seed)
         }
 
         // Start the simulation
@@ -98,7 +180,7 @@ export function useSeason() {
             language,
         }
         worker.postMessage(message)
-    }, [language, setIsLoading, setSeason, setSeasonProgress])
+    }, [language, setIsLoading, setSeason, setSeasonProgress, runOnMainThread])
 
     return { currentSeason, simulateSeason, isLoading, seasonProgress }
 }
