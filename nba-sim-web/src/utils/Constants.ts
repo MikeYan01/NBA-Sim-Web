@@ -231,11 +231,10 @@ export const THREE_POINT_LINE_DISTANCE = 23
 // Offense Player Selection
 // ============================================================================
 
-export const MAJOR_SCORE_FACTOR = 0.49
-export const MINOR_SCORE_FACTOR = 0.17
-export const SINGLE_STAR_EXTRA = 5
-export const CLUTCH_PERCENT = 15
-export const RATING_RANGE = 10
+export const MAJOR_SCORE_FACTOR = 0.55
+export const MINOR_SCORE_FACTOR = 0.15
+export const CLUTCH_PERCENT = 25
+export const RATING_RANGE = 15
 export const AST_SCALE = 2
 
 // ============================================================================

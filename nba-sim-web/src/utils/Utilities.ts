@@ -261,7 +261,7 @@ export function choosePlayerBasedOnRating(
         }
 
         for (const player of teamOnCourt.values()) {
-            if (highestRating - player.rating <= Constants.RATING_RANGE && player.playerType !== PlayerType.INSIDER) {
+            if (highestRating - player.rating <= Constants.RATING_RANGE) {
                 selectedPlayerList.push(player)
             }
         }
@@ -273,25 +273,18 @@ export function choosePlayerBasedOnRating(
 
         // Higher chance to select the player with highest rating
         if (selectedPlayerList.length >= 1) {
-            if (
-                selectedPlayerList.length === 1 ||
-                (generateRandomNum(random) <= Constants.SINGLE_STAR_EXTRA && selectedPlayerList[0].rating <= Constants.PLAYER_STAR_LB)
-            ) {
-                selectedPlayer = selectedPlayerList[0]
-            } else {
-                let totalStarRating = 0
-                for (const player of selectedPlayerList) {
-                    totalStarRating += player.rating
-                }
+            let totalStarRating = 0
+            for (const player of selectedPlayerList) {
+                totalStarRating += player.rating
+            }
 
-                let currentRatingSum = 0
-                const randomPick = generateRandomNum(random, 1, totalStarRating)
-                for (const player of selectedPlayerList) {
-                    currentRatingSum += player.rating
-                    if (randomPick <= currentRatingSum) {
-                        selectedPlayer = player
-                        break
-                    }
+            let currentRatingSum = 0
+            const randomPick = generateRandomNum(random, 1, totalStarRating)
+            for (const player of selectedPlayerList) {
+                currentRatingSum += player.rating
+                if (randomPick <= currentRatingSum) {
+                    selectedPlayer = player
+                    break
                 }
             }
 
@@ -303,7 +296,7 @@ export function choosePlayerBasedOnRating(
                 defenseTeam &&
                 Math.abs(offenseTeam.totalScore - defenseTeam.totalScore) <= Constants.CLOSE_GAME_DIFF
             ) {
-                if (generateRandomNum(random) <= Constants.CLUTCH_PERCENT && selectedPlayer && selectedPlayer.isStar) {
+                if (generateRandomNum(random) <= Constants.CLUTCH_PERCENT && selectedPlayer) {
                     return selectedPlayer
                 }
             }

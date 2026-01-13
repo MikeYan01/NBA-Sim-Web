@@ -1,8 +1,8 @@
 name,englishName,position,playerType,rotationType,rating,insideRating,midRating,threeRating,freeThrowPercent,interiorDefense,perimeterDefense,orbRating,drbRating,astRating,stlRating,blkRating,layupRating,standDunk,drivingDunk,athleticism,durability,offConst,defConst,drawFoul
 杰伦·布朗,Jaylen Brown,SF,1,1,95,96,97,81,78,70,89,45,67,78,46,52,94,40,94,85,82,98,85,85
-杰森·塔图姆,Jayson Tatum,PF,1,1,94,90,85,85,81,81,87,35,85,78,43,52,96,50,89,86,80,98,85,88
+杰森·塔图姆,Jayson Tatum,PF,4,1,94,90,85,85,81,81,87,35,85,78,43,52,96,50,89,86,80,98,85,88
 德里克·怀特,Derrick White,SG,5,1,85,83,97,80,87,58,91,37,53,80,59,82,87,40,55,80,81,70,95,70
-佩顿·普理查德,Payton Pritchard,PG,5,1,83,98,97,78,86,36,60,42,53,79,41,32,85,25,35,69,81,90,35,57
+佩顿·普理查德,Payton Pritchard,PG,4,1,83,98,97,78,86,36,60,42,53,79,41,32,85,25,35,69,81,90,35,57
 安芬尼·西蒙斯,Anfernee Simons,PG,4,2,80,97,76,82,90,49,59,35,46,69,38,37,89,40,89,81,80,75,40,69
 尼米亚斯·奎塔,Neemias Queta,C,2,1,79,98,69,50,60,76,45,85,80,49,46,86,75,75,70,72,80,55,65,50
 乔丹·沃尔什,Jordan Walsh,PF,4,2,78,67,67,86,83,78,82,67,71,52,79,67,68,40,80,81,80,60,80,52
