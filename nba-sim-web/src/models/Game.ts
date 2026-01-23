@@ -201,6 +201,10 @@ export interface GameRecapData {
     playByPlayLog: string[]
     /** Optional box score for detailed stats */
     boxScore?: BoxScore
+    /** Score snapshots [team1Score, team2Score] for each log line */
+    scoreSnapshots?: [number, number][]
+    /** Time snapshots [quarter, timeRemaining] for each log line */
+    timeSnapshots?: [number, number][]
 }
 
 /**
@@ -425,7 +429,9 @@ function generateGameRecap(
     finalQuarter: number,
     playByPlayLog: string[],
     language: Language = Language.ENGLISH,
-    boxScore?: BoxScore
+    boxScore?: BoxScore,
+    scoreSnapshots?: [number, number][],
+    timeSnapshots?: [number, number][]
 ): GameRecapData {
     // Calculate team shooting percentages
     const team1FgPct = team1.totalShotAttempted > 0
@@ -457,6 +463,8 @@ function generateGameRecap(
         finalQuarter,
         playByPlayLog,
         boxScore,
+        scoreSnapshots,
+        timeSnapshots,
     }
 }
 
@@ -1218,7 +1226,7 @@ export function hostGame(
 
     // Generate recap data if date is provided (includes play-by-play log and box score)
     const recap = date
-        ? generateGameRecap(team1, team2, date, state.gameFlow, state.currentQuarter, commentary.lines, language, boxScore)
+        ? generateGameRecap(team1, team2, date, state.gameFlow, state.currentQuarter, commentary.lines, language, boxScore, commentary.scoreSnapshots, commentary.timeSnapshots)
         : undefined
 
     // Use real-time score snapshots from commentary (recorded at each addLine call)

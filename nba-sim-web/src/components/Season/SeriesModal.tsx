@@ -3,9 +3,11 @@ import { SeriesResult } from '../../models/Playoffs'
 import { GameResult } from '../../models/Game'
 import { useLocalization } from '../../hooks/useLocalization'
 import { getLocalizedTeamName } from '../../utils/Constants'
-import { X, ChevronDown, ChevronRight, MessageSquareText, BarChart2 } from 'lucide-react'
+import { X, ChevronDown, ChevronRight, MessageSquareText, BarChart2, TrendingUp } from 'lucide-react'
 import { clsx } from 'clsx'
 import { BoxScore as BoxScoreComponent } from '../BoxScore/BoxScore'
+import { ScoreDifferentialChart } from '../GameView/ScoreDifferentialChart'
+import { getTeamColors } from '../../utils/teamColors'
 
 interface SeriesModalProps {
     series: SeriesResult
@@ -92,10 +94,14 @@ interface GameCardProps {
 const GameCard = ({ game, gameNumber }: GameCardProps) => {
     const { t, language } = useLocalization()
     const [expanded, setExpanded] = useState(false)
-    const [activeTab, setActiveTab] = useState<'commentary' | 'boxscore'>('commentary')
+    const [activeTab, setActiveTab] = useState<'commentary' | 'boxscore' | 'differential'>('commentary')
 
     const t1Won = game.team1Score > game.team2Score
     const otSuffix = game.finalQuarter > 4 ? ` (${game.finalQuarter - 4}OT)` : ''
+
+    // Get team colors for the chart
+    const team1Colors = getTeamColors(game.team1Name)
+    const team2Colors = getTeamColors(game.team2Name)
 
     return (
         <div className="border border-slate-200 rounded-xl overflow-hidden bg-white shadow-sm">
@@ -172,6 +178,20 @@ const GameCard = ({ game, gameNumber }: GameCardProps) => {
                                 {t('ui.gameView.boxScore')}
                             </button>
                         )}
+                        {game.scoreSnapshots && game.scoreSnapshots.length > 0 && (
+                            <button
+                                onClick={() => setActiveTab('differential')}
+                                className={clsx(
+                                    "flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors",
+                                    activeTab === 'differential'
+                                        ? "text-indigo-600 border-b-2 border-indigo-600 bg-white"
+                                        : "text-slate-500 hover:text-slate-700"
+                                )}
+                            >
+                                <TrendingUp className="w-4 h-4" />
+                                {t('game.score_differential_title')}
+                            </button>
+                        )}
                     </div>
 
                     {/* Content */}
@@ -183,6 +203,17 @@ const GameCard = ({ game, gameNumber }: GameCardProps) => {
                         )}
                         {activeTab === 'boxscore' && game.boxScore && (
                             <BoxScoreComponent boxScore={game.boxScore} />
+                        )}
+                        {activeTab === 'differential' && game.scoreSnapshots && game.scoreSnapshots.length > 0 && (
+                            <ScoreDifferentialChart
+                                scoreSnapshots={game.scoreSnapshots}
+                                timeSnapshots={game.timeSnapshots || []}
+                                visibleCount={game.scoreSnapshots.length}
+                                team1Name={getLocalizedTeamName(game.team1Name, language)}
+                                team2Name={getLocalizedTeamName(game.team2Name, language)}
+                                team1Color={team1Colors.primary}
+                                team2Color={team2Colors.primary}
+                            />
                         )}
                     </div>
                 </div>
