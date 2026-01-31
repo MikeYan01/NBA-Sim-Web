@@ -2,10 +2,12 @@ import { useState } from 'react'
 import { PlayoffBracketResult, SeriesResult, PlayInResult, PlayInGameResult } from '../../models/Playoffs'
 import { useLocalization } from '../../hooks/useLocalization'
 import { getLocalizedTeamName } from '../../utils/Constants'
-import { MessageSquareText, Trophy, BarChart2, X } from 'lucide-react'
+import { MessageSquareText, Trophy, BarChart2, TrendingUp, X } from 'lucide-react'
 import { clsx } from 'clsx'
 import { SeriesModal } from './SeriesModal'
 import { BoxScore as BoxScoreComponent } from '../BoxScore/BoxScore'
+import { ScoreDifferentialChart } from '../GameView/ScoreDifferentialChart'
+import { getTeamColors } from '../../utils/teamColors'
 
 interface PlayoffBracketProps {
     playoffs: PlayoffBracketResult
@@ -38,7 +40,6 @@ export const PlayoffBracket = ({ playoffs }: PlayoffBracketProps) => {
             <div className="bg-gradient-to-r from-amber-400 to-amber-500 rounded-xl p-4 text-center text-white shadow-lg">
                 <Trophy className="w-8 h-8 mx-auto mb-2" />
                 <div className="text-2xl font-bold">{getLocalizedTeamName(playoffs.champion, language)}</div>
-                <div className="text-amber-100 text-sm">🏆 NBA Champion</div>
                 {playoffs.finalsMVP && (
                     <div className="mt-2 text-sm">
                         {t('ui.season.playoffs.finalsMvp')}: <span className="font-semibold">{playoffs.finalsMVP.playerName}</span>
@@ -46,9 +47,9 @@ export const PlayoffBracket = ({ playoffs }: PlayoffBracketProps) => {
                 )}
             </div>
 
-            <details className="bg-white rounded-xl border border-slate-200 overflow-hidden">
+            <details open className="bg-white rounded-xl border border-slate-200 overflow-hidden">
                 <summary className="px-4 py-3 cursor-pointer hover:bg-slate-50 font-medium text-slate-700">
-                    🏀 {t('ui.season.playoffs.playIn')}
+                    {t('ui.season.playoffs.playIn')}
                 </summary>
                 <div className="p-4 space-y-6 border-t border-slate-100">
                     <PlayInSection title={t('conference.west')} playIn={playoffs.playIn.west} />
@@ -308,10 +309,14 @@ const PlayInSection = ({ title, playIn }: { title: string; playIn: PlayInResult 
 const PlayInGameCard = ({ game }: { game: PlayInGameResult }) => {
     const { t, language } = useLocalization()
     const [showModal, setShowModal] = useState(false)
-    const [activeTab, setActiveTab] = useState<'commentary' | 'boxscore'>('commentary')
+    const [activeTab, setActiveTab] = useState<'commentary' | 'boxscore' | 'differential'>('commentary')
     const gameResult = game.gameResult
     const awayWon = game.winner === game.awayTeam
     const otSuffix = gameResult.finalQuarter && gameResult.finalQuarter > 4 ? ` (${gameResult.finalQuarter - 4}OT)` : ''
+
+    // Get team colors for the chart
+    const team1Colors = getTeamColors(game.awayTeam)
+    const team2Colors = getTeamColors(game.homeTeam)
 
     // Localize the round name
     const getLocalizedRoundName = (roundName: string): string => {
@@ -461,6 +466,20 @@ const PlayInGameCard = ({ game }: { game: PlayInGameResult }) => {
                                     {t('ui.boxScore.title')}
                                 </button>
                             )}
+                            {gameResult.scoreSnapshots && gameResult.scoreSnapshots.length > 0 && (
+                                <button
+                                    onClick={() => setActiveTab('differential')}
+                                    className={clsx(
+                                        "flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors",
+                                        activeTab === 'differential'
+                                            ? "text-indigo-600 border-b-2 border-indigo-600 bg-white"
+                                            : "text-slate-500 hover:text-slate-700"
+                                    )}
+                                >
+                                    <TrendingUp className="w-4 h-4" />
+                                    {t('game.score_differential_title')}
+                                </button>
+                            )}
                         </div>
 
                         {/* Content */}
@@ -472,6 +491,17 @@ const PlayInGameCard = ({ game }: { game: PlayInGameResult }) => {
                             )}
                             {activeTab === 'boxscore' && gameResult.boxScore && (
                                 <BoxScoreComponent boxScore={gameResult.boxScore} />
+                            )}
+                            {activeTab === 'differential' && gameResult.scoreSnapshots && gameResult.scoreSnapshots.length > 0 && (
+                                <ScoreDifferentialChart
+                                    scoreSnapshots={gameResult.scoreSnapshots}
+                                    timeSnapshots={gameResult.timeSnapshots || []}
+                                    visibleCount={gameResult.scoreSnapshots.length}
+                                    team1Name={getLocalizedTeamName(game.awayTeam, language)}
+                                    team2Name={getLocalizedTeamName(game.homeTeam, language)}
+                                    team1Color={team1Colors.primary}
+                                    team2Color={team2Colors.primary}
+                                />
                             )}
                         </div>
 

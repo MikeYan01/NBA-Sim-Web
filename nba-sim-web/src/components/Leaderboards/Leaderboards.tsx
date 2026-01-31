@@ -64,7 +64,7 @@ export const Leaderboards = ({ stats }: LeaderboardsProps) => {
     // Check if current category displays totals instead of per-game
     const isCurrentCategoryTotal = PLAYER_CATEGORIES.find(c => c.id === activePlayerCategory)?.isTotal ?? false
 
-    const activePlayerLeaders = stats.getLeaders(getSeasonStatsCategory(activePlayerCategory), 50)
+    const activePlayerLeaders = stats.getLeaders(getSeasonStatsCategory(activePlayerCategory), 100)
     const activeTeamConfig = TEAM_CATEGORIES.find(c => c.id === activeTeamCategory)!
     const activeTeamLeaders = stats.getTeamLeaders(activeTeamCategory, 30, activeTeamConfig.ascending)
 

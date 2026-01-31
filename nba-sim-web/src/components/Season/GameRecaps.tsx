@@ -43,7 +43,7 @@ export const GameRecaps = ({ recaps }: GameRecapsProps) => {
         <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
             <div className="px-4 py-3 border-b border-slate-100 bg-slate-50/80">
                 <h2 className="font-semibold text-slate-900">
-                    📰 {t('ui.season.recaps.title')} ({recaps.length} {t('ui.season.recaps.games')})
+                    {t('ui.season.recaps.title')} ({recaps.length} {t('ui.season.recaps.games')})
                 </h2>
             </div>
             <div className="max-h-[500px] overflow-y-auto divide-y divide-slate-100">
@@ -83,17 +83,9 @@ const GameRecapCard = ({ recap }: { recap: GameRecapData }) => {
     const awayTeamColors = getTeamColors(recap.awayTeam)
     const homeTeamColors = getTeamColors(recap.homeTeam)
 
-    // Format player stats with enhanced info (FG%, steals, blocks when notable)
+    // Format player stats with enhanced info (steals, blocks, FG% when notable)
     const formatPlayerStats = (p: typeof recap.awayTopPlayers[0]) => {
         let stats = `${p.points}${t('stat.points.short')} ${p.rebounds}${t('stat.rebounds.short')} ${p.assists}${t('stat.assists.short')}`
-
-        // Add FG% if notable (> 70% on 4+ shots)
-        if (p.fgAttempted >= 4) {
-            const fgPct = Math.round((p.fgMade / p.fgAttempted) * 100)
-            if (fgPct >= 70) {
-                stats += ` ${fgPct}%`
-            }
-        }
 
         // Add steals if 3+
         if (p.steals >= 3) {
@@ -103,6 +95,14 @@ const GameRecapCard = ({ recap }: { recap: GameRecapData }) => {
         // Add blocks if 3+
         if (p.blocks >= 3) {
             stats += ` ${p.blocks}${t('stat.blocks.short')}`
+        }
+
+        // Add FG% if notable (> 70% on 4+ shots) - show at the end
+        if (p.fgAttempted >= 4) {
+            const fgPct = Math.round((p.fgMade / p.fgAttempted) * 100)
+            if (fgPct >= 70) {
+                stats += ` ${fgPct}%`
+            }
         }
 
         return stats

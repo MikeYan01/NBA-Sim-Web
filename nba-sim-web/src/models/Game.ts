@@ -362,44 +362,22 @@ function getTopPlayers(team: Team, language: Language = Language.ENGLISH): Playe
         if (p.steal >= 10) doubleDigitStats++
         if (p.block >= 10) doubleDigitStats++
 
-        // Count stats >= 8 for near triple-double check
-        let nearDoubleStats = 0
-        if (p.score >= 8) nearDoubleStats++
-        if (p.rebound >= 8) nearDoubleStats++
-        if (p.assist >= 8) nearDoubleStats++
-        if (p.steal >= 8) nearDoubleStats++
-        if (p.block >= 8) nearDoubleStats++
-
         // Calculate shooting efficiency
         const fgPct = p.shotAttempted > 0 ? (p.shotMade * 100.0 / p.shotAttempted) : 0.0
-        const efficientScoring = p.score >= 20 && fgPct >= 60.0
+        const efficientScoring = p.score >= 20 && fgPct >= 70.0
 
         // Add special markers for exceptional performances (priority order)
-        if (p.score >= 50) {
-            marker = '🌟 '  // 50+ points
-        } else if (doubleDigitStats >= 4) {
-            marker = '👑 '  // Quadruple-double (4 stats >= 10)
+        if (efficientScoring) {
+            marker = '🎯 '  // Efficient scorer (20+ points on 70%+ shooting)
         } else if (p.score >= 40) {
-            marker = '⭐ '  // 40+ points
+            marker = '🔥 '  // 40+ points
         } else if (doubleDigitStats >= 3) {
             marker = '🔥 '  // Triple double
-        } else if (p.steal >= 5 && p.block >= 5) {
-            marker = '🛡️ '  // Defensive monster (5+ steals AND 5+ blocks)
-        } else if (p.steal >= 6 || p.block >= 6) {
-            marker = '🔒 '  // Elite defense (6+ steals OR 6+ blocks)
-        } else if (p.assist >= 15 && p.score >= 10) {
-            marker = '🎯 '  // Playmaker (15+ assists with 10+ points)
-        } else if (p.rebound >= 20) {
-            marker = '🏀 '  // Rebound machine (20+ rebounds)
         } else if ((p.score >= 15 && p.rebound >= 15) || (p.score >= 15 && p.assist >= 15) ||
             (p.rebound >= 15 && p.assist >= 15)) {
-            marker = '💯 '  // Big double-double (15+15)
-        } else if (efficientScoring) {
-            marker = '🎪 '  // Efficient scorer (20+ points on 60%+ shooting)
-        } else if (nearDoubleStats >= 3) {
-            marker = '💪 '  // Near triple double (3 stats >= 8)
+            marker = '🔥 '  // Big double-double (15+15)
         } else if (p.steal >= 4 || p.block >= 4) {
-            marker = '🔐 '  // Strong defense (4+ steals OR 4+ blocks)
+            marker = '🔒 '  // Strong defense (4+ steals OR 4+ blocks)
         }
 
         topPlayers.push({

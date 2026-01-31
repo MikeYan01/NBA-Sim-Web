@@ -8,7 +8,7 @@ Browser-based NBA basketball simulator migrated from Java to TypeScript/React. F
 
 ## Features
 
-### 🏀 Single Game Mode
+### Single Game Mode
 - Select any two NBA teams for a head-to-head matchup
 - Real-time play-by-play commentary with adjustable speed (1x to 64x)
 - Detailed box scores with sortable statistics
@@ -16,7 +16,7 @@ Browser-based NBA basketball simulator migrated from Java to TypeScript/React. F
 - Authentic basketball simulation including fouls, free throws, overtime, and injuries
 - Intelligent player rotation and foul protection
 
-### 📅 Season Mode
+### Season Mode
 - Full 82-game NBA season simulation
 - Conference standings with playoff seeding
 - Play-in tournament (7-10 seeds)
@@ -26,20 +26,20 @@ Browser-based NBA basketball simulator migrated from Java to TypeScript/React. F
 - Game recaps with commentary and box scores
 - Leaderboards for points, rebounds, assists, steals, blocks
 
-### 🔮 Championship Prediction
+### Championship Prediction
 - Monte Carlo simulation for championship probabilities
 - Run N simulations to predict champions
 - Optimized fast simulation mode
 - Web Worker for non-blocking background processing
 - Progress indicator during prediction
 
-### 🌍 Bilingual Support
+### Bilingual Support
 - Full English and Chinese (中文) support
 - Player names, team names, and all UI elements localized
 - Authentic commentary in both languages
 - Language toggle in header
 
-### 🎨 Modern UI Features
+### Modern UI Features
 - **Team color theming** - UI adapts to selected teams
 - **Responsive design** - Works on mobile, tablet, and desktop
 - **Progressive Web App (PWA)** - Install on any device

@@ -1858,7 +1858,7 @@ export function shouldSubForFatigue(player: Player, isCloseGame: boolean): boole
 export function shouldSubForPerformance(player: Player): boolean {
     if (player.shotAttempted >= Constants.MIN_SHOTS_FOR_HOT) {
         const shotPct = player.shotMade / player.shotAttempted
-        if (shotPct <= Constants.COLD_SHOOTER_THRESHOLD) {
+        if (shotPct < Constants.COLD_SHOOTER_THRESHOLD) {
             return true
         }
     }
