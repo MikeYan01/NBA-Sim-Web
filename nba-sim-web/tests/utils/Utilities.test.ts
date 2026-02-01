@@ -618,7 +618,7 @@ describe('Utilities', () => {
     describe('shouldSubForFatigue', () => {
         it('should return true for starter past max stint', () => {
             const player = createPlayer(createMockPlayer({ rotationType: '1' }), 'Lakers')
-            player.currentStintSeconds = 500 // MAX_STARTER_STINT_NORMAL_GAME = 8 * 60 = 480
+            player.currentStintSeconds = 650 // MAX_STARTER_STINT_NORMAL_GAME = 10 * 60 = 600
             expect(Utilities.shouldSubForFatigue(player, false)).toBe(true)
         })
 
@@ -630,7 +630,7 @@ describe('Utilities', () => {
 
         it('should allow longer stint in close game', () => {
             const player = createPlayer(createMockPlayer({ rotationType: '1' }), 'Lakers')
-            player.currentStintSeconds = 400 // Greater than normal (360) but less than close game (480)
+            player.currentStintSeconds = 650 // Greater than normal (600) but less than close game (720)
             expect(Utilities.shouldSubForFatigue(player, true)).toBe(false)
         })
 

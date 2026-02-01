@@ -159,8 +159,8 @@ export const MIN_STARTER_MINUTES = 18 * 60 // Minimum 18 minutes for any starter
 export const CLOSE_GAME_BONUS_MINUTES = 5 * 60 // +5 minutes in close games
 
 // Maximum continuous stint duration before rest needed (in seconds)
-export const MAX_STARTER_STINT_CLOSE_GAME = 10 * 60 // 10 minutes in close games
-export const MAX_STARTER_STINT_NORMAL_GAME = 8 * 60 // 8 minutes in normal games
+export const MAX_STARTER_STINT_CLOSE_GAME = 12 * 60 // 10 minutes in close games
+export const MAX_STARTER_STINT_NORMAL_GAME = 10 * 60 // 8 minutes in normal games
 export const MAX_BENCH_STINT = 8 * 60 // 8 minutes
 
 // Minimum rest time between stints (in seconds)
@@ -184,7 +184,7 @@ export const SUB_CHECK_PROBABILITY = 50
 export const SUB_DECISION_PROBABILITY = 25
 // When trailing - more aggressive to get starters back
 export const SUB_CHECK_PROBABILITY_TRAILING = 90
-export const SUB_DECISION_PROBABILITY_TRAILING = 60
+export const SUB_DECISION_PROBABILITY_TRAILING = 70
 export const GARBAGE_TIME_SUB_PROBABILITY = 100
 export const FOUL_TROUBLE_PRIORITY = 100
 export const MINUTES_CAP_PRIORITY = 80
@@ -409,6 +409,16 @@ export const CONSISTENCY_BASE = 50
 // ============================================================================
 
 export const CLUTCH_SHOT_COFF = 0.6
+
+// ============================================================================
+// Home Court Advantage
+// ============================================================================
+
+/** Shooting percentage boost for home team (%) */
+export const HOME_COURT_BOOST = 0.75
+
+/** Shooting percentage penalty for away team (%) */
+export const AWAY_COURT_PENALTY = 0.75
 
 // ============================================================================
 // Extra Comment in Garbage Time

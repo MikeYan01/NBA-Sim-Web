@@ -37,6 +37,7 @@ import {
     makeFreeThrow,
     updatePlayerMinutes,
     checkIntelligentSubstitutions,
+    ensureStartersAtQuarterStart,
     jumpBall,
     judgeInjury,
     type LoseBallOutcome,
@@ -827,6 +828,8 @@ function playPossession(state: GameState): number {
     }
 
     // Calculate shot percentage (playoffs have tighter defense)
+    // Home team (team2) is on offense when team1 doesn't have the ball
+    const isHomeTeamOnOffense = !team1.hasBall
     const percentage = calculatePercentage(
         random,
         distance,
@@ -838,7 +841,8 @@ function playPossession(state: GameState): number {
         currentQuarter,
         offenseTeam,
         defenseTeam,
-        isPlayoff
+        isPlayoff,
+        isHomeTeamOnOffense
     )
 
     // Judge whether to make the shot (stats are updated inside judgeMakeShot)
@@ -1052,6 +1056,10 @@ function handleOvertime(state: GameState): void {
     // Reset minutes tracking
     state.minutesRecorded = new Array(13).fill(false)
 
+    // Ensure starters are on court at the start of overtime (unless injured/fouled out)
+    ensureStartersAtQuarterStart(state.team1, state.teamOneOnCourt, state.random, state.language, state.commentary)
+    ensureStartersAtQuarterStart(state.team2, state.teamTwoOnCourt, state.random, state.language, state.commentary)
+
     // Generate overtime start commentary
     syncScoresToCommentary(state, 300)
     regularEnd(state.team1, state.team2, state.language, state.commentary)
@@ -1137,6 +1145,12 @@ export function hostGame(
         state.team1.quarterFoul = 0
         state.team2.quarterFoul = 0
         state.minutesRecorded = new Array(13).fill(false)
+
+        // Ensure starters are on court at the start of Q3 (unless injured/fouled out)
+        if (quarter === 3) {
+            ensureStartersAtQuarterStart(team1, state.teamOneOnCourt, random, language, commentary)
+            ensureStartersAtQuarterStart(team2, state.teamTwoOnCourt, random, language, commentary)
+        }
 
         playQuarter(state)
 
@@ -1395,6 +1409,8 @@ function playPossessionFast(state: FastGameState): number {
     }
 
     // Calculate shot percentage
+    // Home team (team2) is on offense when team1 doesn't have the ball
+    const isHomeTeamOnOffense = !team1.hasBall
     const percentage = calculatePercentage(
         random,
         distance,
@@ -1406,7 +1422,8 @@ function playPossessionFast(state: FastGameState): number {
         currentQuarter,
         offenseTeam,
         defenseTeam,
-        isPlayoff
+        isPlayoff,
+        isHomeTeamOnOffense
     )
 
     // Judge shot (no commentary)
@@ -1508,6 +1525,13 @@ export function hostGameFast(
         state.quarterTime = 720
         state.team1.quarterFoul = 0
         state.team2.quarterFoul = 0
+
+        // Ensure starters are on court at the start of Q3 (unless injured/fouled out)
+        if (quarter === 3) {
+            ensureStartersAtQuarterStart(team1, state.teamOneOnCourt)
+            ensureStartersAtQuarterStart(team2, state.teamTwoOnCourt)
+        }
+
         playQuarterFast(state)
     }
 
@@ -1517,6 +1541,11 @@ export function hostGameFast(
         state.quarterTime = 300 // 5 minutes
         state.team1.quarterFoul = 0
         state.team2.quarterFoul = 0
+
+        // Ensure starters are on court at the start of overtime (unless injured/fouled out)
+        ensureStartersAtQuarterStart(team1, state.teamOneOnCourt)
+        ensureStartersAtQuarterStart(team2, state.teamTwoOnCourt)
+
         playQuarterFast(state)
     }
 

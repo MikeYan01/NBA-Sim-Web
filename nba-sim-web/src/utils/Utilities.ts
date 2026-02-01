@@ -571,7 +571,8 @@ export function calculatePercentage(
     currentQuarter: number,
     team1: Team,
     team2: Team,
-    isPlayoff: boolean = false
+    isPlayoff: boolean = false,
+    isHomeTeamOnOffense: boolean = false
 ): number {
     let percentage: number
 
@@ -664,6 +665,13 @@ export function calculatePercentage(
     // This reduces their efficiency while not affecting role players
     if (offensePlayer.rating >= Constants.PLAYER_STAR_LB) {
         percentage -= Constants.STAR_DEFENSE_FOCUS_PENALTY
+    }
+
+    // Home court advantage: home team gets boost, away team gets penalty
+    if (isHomeTeamOnOffense) {
+        percentage += Constants.HOME_COURT_BOOST
+    } else {
+        percentage -= Constants.AWAY_COURT_PENALTY
     }
 
     return percentage
@@ -1114,15 +1122,20 @@ export function foulProtect(
     team: Team,
     teamOnCourt: Map<string, Player>,
     currentQuarter: number,
+    scoreDiff: number,
     random?: SeededRandom,
     language?: Language,
     commentary?: CommentaryOutput
 ): void {
+    // Check if game is close - skip Q3 protection if close game
+    const isCloseGame = scoreDiff <= Constants.CLOSE_GAME_DIFF
+    const shouldProtectQ3 = !isCloseGame && currentQuarter === 3 && previousPlayer.foul === Constants.QUARTER3_PROTECT
+
     if (
         previousPlayer.rotationType === 1 && // STARTER
         ((currentQuarter === 1 && previousPlayer.foul === Constants.QUARTER1_PROTECT) ||
             (currentQuarter === 2 && previousPlayer.foul === Constants.QUARTER2_PROTECT) ||
-            (currentQuarter === 3 && previousPlayer.foul === Constants.QUARTER3_PROTECT))
+            shouldProtectQ3)
     ) {
         const currentPlayer = findSubPlayer(previousPlayer, team)
 
@@ -1289,7 +1302,8 @@ export function judgeNormalFoul(
         fouler.turnover++
         fouler.foul++
         judgeFoulOut(fouler, offenseTeam, offenseTeamOnCourt, random, language, commentary)
-        foulProtect(fouler, offenseTeam, offenseTeamOnCourt, currentQuarter, random, language, commentary)
+        const scoreDiff = Math.abs(team1.totalScore - team2.totalScore)
+        foulProtect(fouler, offenseTeam, offenseTeamOnCourt, currentQuarter, scoreDiff, random, language, commentary)
         return FoulResult.OFFENSIVE_FOUL
     } else if (poss <= Constants.OFF_FOUL + Constants.DEF_FOUL) {
         let fouler: Player
@@ -1332,7 +1346,8 @@ export function judgeNormalFoul(
 
         fouler.foul++
         judgeFoulOut(fouler, defenseTeam, defenseTeamOnCourt, random, language, commentary)
-        foulProtect(fouler, defenseTeam, defenseTeamOnCourt, currentQuarter, random, language, commentary)
+        const scoreDiff2 = Math.abs(team1.totalScore - team2.totalScore)
+        foulProtect(fouler, defenseTeam, defenseTeamOnCourt, currentQuarter, scoreDiff2, random, language, commentary)
 
         defenseTeam.quarterFoul++
         if (defenseTeam.quarterFoul >= Constants.BONUS_FOUL_THRESHOLD) {
@@ -1598,7 +1613,8 @@ export function judgeMakeShot(
                 getTimeAndScore(quarterTime, currentQuarter, team1, team2, language, commentary)
             }
             judgeFoulOut(defensePlayer, defenseTeam, defenseTeamOnCourt, random, language, commentary)
-            foulProtect(defensePlayer, defenseTeam, defenseTeamOnCourt, currentQuarter, random, language, commentary)
+            const scoreDiff3 = Math.abs(team1.totalScore - team2.totalScore)
+            foulProtect(defensePlayer, defenseTeam, defenseTeamOnCourt, currentQuarter, scoreDiff3, random, language, commentary)
 
             const andOneResult = makeFreeThrow(
                 random,
@@ -1695,7 +1711,8 @@ export function judgeMakeShot(
             }
 
             judgeFoulOut(defensePlayer, defenseTeam, defenseTeamOnCourt, random, language, commentary)
-            foulProtect(defensePlayer, defenseTeam, defenseTeamOnCourt, currentQuarter, random, language, commentary)
+            const scoreDiff4 = Math.abs(team1.totalScore - team2.totalScore)
+            foulProtect(defensePlayer, defenseTeam, defenseTeamOnCourt, currentQuarter, scoreDiff4, random, language, commentary)
 
             let freeThrowResult: FreeThrowOutcome
             if (distance <= Constants.MAX_MID_SHOT)
@@ -2185,4 +2202,40 @@ function ensureStartersInClutch(
     }
 
     return madeSub
+}
+
+/**
+ * Ensure starters are on court at the start of Q3 and overtime.
+ * This is called before the quarter begins, not during play.
+ * Starters who are injured or fouled out will not be substituted in.
+ */
+export function ensureStartersAtQuarterStart(
+    team: Team,
+    teamOnCourt: Map<string, Player>,
+    random?: SeededRandom,
+    language?: Language,
+    commentary?: CommentaryOutput
+): void {
+    const context: SubstitutionCommentaryContext = { announced: false }
+
+    for (const [pos, currentPlayer] of teamOnCourt.entries()) {
+        // Skip if current player is already a starter who can play
+        if (currentPlayer.rotationType === 1 && currentPlayer.canOnCourt) continue
+
+        // Try to put the starter for this position on court
+        const starter = team.starters.get(pos as Position)
+        if (starter && starter.canOnCourt && !starter.isOnCourt) {
+            // Swap: current player out, starter in
+            teamOnCourt.set(pos, starter)
+            currentPlayer.isOnCourt = false
+            currentPlayer.currentStintSeconds = 0
+
+            starter.isOnCourt = true
+            starter.currentStintSeconds = 0
+            starter.hasBeenOnCourt = true
+
+            // Generate substitution commentary
+            emitSubstitutionCommentary(team, starter, currentPlayer, random, language, commentary, context, true)
+        }
+    }
 }
