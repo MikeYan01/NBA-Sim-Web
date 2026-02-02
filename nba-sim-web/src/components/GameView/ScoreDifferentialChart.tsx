@@ -42,12 +42,15 @@ export const ScoreDifferentialChart = ({
     // Calculate chart dimensions and scales
     const chartConfig = useMemo(() => {
         if (chartData.length === 0) {
-            return { minDiff: -10, maxDiff: 10, points: '', zeroY: 50, paddedRange: 10, lastDiff: 0, areaPath: '' }
+            return { minDiff: -10, maxDiff: 10, actualMaxDiff: 10, points: '', zeroY: 50, paddedRange: 10, lastDiff: 0, areaPath: '' }
         }
 
         const differentials = chartData.map(d => d.differential)
         const maxDiff = Math.max(...differentials, 10)
         const minDiff = Math.min(...differentials, -10)
+
+        // Calculate actual max differential for display
+        const actualMaxDiff = Math.max(Math.abs(Math.max(...differentials)), Math.abs(Math.min(...differentials)))
 
         // Add padding to the range only if actual data exceeds default
         const range = Math.max(Math.abs(maxDiff), Math.abs(minDiff))
@@ -84,6 +87,7 @@ export const ScoreDifferentialChart = ({
         return {
             minDiff: -paddedRange,
             maxDiff: paddedRange,
+            actualMaxDiff,
             points,
             areaPath,
             zeroY,
@@ -148,11 +152,11 @@ export const ScoreDifferentialChart = ({
 
             {/* Chart */}
             <div className="relative">
-                {/* Team labels */}
+                {/* Team labels - show actual max differential */}
                 <div className="absolute left-0 top-0 bottom-0 flex flex-col justify-between text-xs py-2 pr-2">
-                    <span className="font-medium" style={{ color: team1Color }}>+{Math.round(chartConfig.maxDiff)}</span>
+                    <span className="font-medium" style={{ color: team1Color }}>+{Math.round(chartConfig.actualMaxDiff)}</span>
                     <span className="text-slate-400">0</span>
-                    <span className="font-medium" style={{ color: team2Color }}>{Math.round(chartConfig.minDiff)}</span>
+                    <span className="font-medium" style={{ color: team2Color }}>-{Math.round(chartConfig.actualMaxDiff)}</span>
                 </div>
 
                 {/* SVG Chart */}

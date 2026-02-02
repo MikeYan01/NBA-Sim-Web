@@ -1678,7 +1678,21 @@ export function judgeMakeShot(
                 return convertFreeThrowToShotOutcome(flagrantResult)
             }
 
-            // Challenge the foul
+            defensePlayer.foul++
+            defenseTeam.quarterFoul++
+
+            // Generate shooting foul comment first
+            if (commentary && language) {
+                getFoulComment(
+                    offensePlayer.getDisplayName(language),
+                    defensePlayer.getDisplayName(language),
+                    random,
+                    language,
+                    commentary
+                )
+            }
+
+            // Challenge the foul (after foul comment)
             if (
                 currentQuarter >= Constants.CHALLENGE_START_QUARTER &&
                 defenseTeam.canChallenge &&
@@ -1693,21 +1707,12 @@ export function judgeMakeShot(
                 }
                 defenseTeam.canChallenge = false
 
-                if (challengeSuccess) return { result: ShotResult.DEFENSIVE_REBOUND }
-            }
-
-            defensePlayer.foul++
-            defenseTeam.quarterFoul++
-
-            // Generate shooting foul comment
-            if (commentary && language) {
-                getFoulComment(
-                    offensePlayer.getDisplayName(language),
-                    defensePlayer.getDisplayName(language),
-                    random,
-                    language,
-                    commentary
-                )
+                if (challengeSuccess) {
+                    // Challenge successful - revert foul count
+                    defensePlayer.foul--
+                    defenseTeam.quarterFoul--
+                    return { result: ShotResult.DEFENSIVE_REBOUND }
+                }
             }
 
             judgeFoulOut(defensePlayer, defenseTeam, defenseTeamOnCourt, random, language, commentary)
