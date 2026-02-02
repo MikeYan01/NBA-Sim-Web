@@ -157,6 +157,7 @@ export const ATHLETICISM_LOW_PENALTY = -5 * 60 // -5 minutes
 export const ATHLETICISM_VERY_LOW_PENALTY = -6 * 60 // -6 minutes
 export const MIN_STARTER_MINUTES = 18 * 60 // Minimum 18 minutes for any starter
 export const CLOSE_GAME_BONUS_MINUTES = 5 * 60 // +5 minutes in close games
+export const PLAYOFF_STARTER_BONUS_MINUTES = 2 * 60 // +2 minutes for starters in playoffs
 
 // Maximum continuous stint duration before rest needed (in seconds)
 export const MAX_STARTER_STINT_CLOSE_GAME = 12 * 60 // 10 minutes in close games

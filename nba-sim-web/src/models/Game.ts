@@ -985,6 +985,7 @@ function playQuarter(state: GameState): void {
             team1,
             team2,
             garbageTime,
+            state.isPlayoff,
             language,
             commentary
         )
@@ -998,6 +999,7 @@ function playQuarter(state: GameState): void {
             team1,
             team2,
             garbageTime,
+            state.isPlayoff,
             language,
             commentary
         )

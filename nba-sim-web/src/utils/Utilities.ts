@@ -1799,9 +1799,10 @@ export function updatePlayerMinutes(teamOnCourt: Map<string, Player>, playTime: 
  *
  * @param player - The player
  * @param isCloseGame - Whether the game is close (optional, for bonus minutes)
+ * @param isPlayoff - Whether this is a playoff game (optional, for bonus minutes)
  * @returns Target minutes in seconds
  */
-export function getTargetMinutes(player: Player, isCloseGame: boolean = false): number {
+export function getTargetMinutes(player: Player, isCloseGame: boolean = false, isPlayoff: boolean = false): number {
     if (player.rotationType !== 1) {
         // Not a starter
         return Constants.NON_STARTER_MAX_MINUTES
@@ -1835,7 +1836,10 @@ export function getTargetMinutes(player: Player, isCloseGame: boolean = false): 
     // Close game bonus - starters should play more in tight games
     const closeGameBonus = isCloseGame ? Constants.CLOSE_GAME_BONUS_MINUTES : 0
 
-    const targetMinutes = baseMinutes + athleticismAdjustment + closeGameBonus
+    // Playoff bonus - starters play more minutes in playoffs
+    const playoffBonus = isPlayoff ? Constants.PLAYOFF_STARTER_BONUS_MINUTES : 0
+
+    const targetMinutes = baseMinutes + athleticismAdjustment + closeGameBonus + playoffBonus
     return Math.max(targetMinutes, Constants.MIN_STARTER_MINUTES)
 }
 
@@ -1895,7 +1899,8 @@ export function findBestSubstitute(
     currentPlayer: Player,
     gameTime: number,
     isCloseGame: boolean,
-    currentQuarter: number
+    currentQuarter: number,
+    isPlayoff: boolean = false
 ): Player | null {
     const pos = currentPlayer.position
     const currentRotation = currentPlayer.rotationType
@@ -1907,7 +1912,7 @@ export function findBestSubstitute(
         if (starter && starter.canOnCourt && !starter.isOnCourt) {
             const restTime = gameTime - starter.lastSubbedOutTime
             const minRest = isCloseGame ? Constants.MIN_REST_TIME_CLOSE_GAME : Constants.MIN_REST_TIME
-            const targetMinutes = getTargetMinutes(starter, isCloseGame)
+            const targetMinutes = getTargetMinutes(starter, isCloseGame, isPlayoff)
 
             // Only bring back starter if they haven't exceeded their target minutes (higher in close games)
             if (restTime >= minRest && starter.secondsPlayed < targetMinutes && isFoulSituationSafe(starter, currentQuarter)) {
@@ -1946,6 +1951,7 @@ export function findBestSubstitute(
  * @param team1 - Team 1 reference (for score differential)
  * @param team2 - Team 2 reference (for score differential)
  * @param isGarbageTime - Whether the game is in garbage time
+ * @param isPlayoff - Whether this is a playoff game (starters get more minutes)
  * @returns true if substitutions were made, false otherwise
  */
 export function checkIntelligentSubstitutions(
@@ -1958,6 +1964,7 @@ export function checkIntelligentSubstitutions(
     team1: Team,
     team2: Team,
     isGarbageTime: boolean,
+    isPlayoff: boolean = false,
     language?: Language,
     commentary?: CommentaryOutput
 ): boolean {
@@ -2007,7 +2014,7 @@ export function checkIntelligentSubstitutions(
 
                 const restTime = gameTime - starter.lastSubbedOutTime
                 const minRest = isCloseGame ? Constants.MIN_REST_TIME_CLOSE_GAME : Constants.MIN_REST_TIME
-                const targetMinutes = getTargetMinutes(starter, isCloseGame)
+                const targetMinutes = getTargetMinutes(starter, isCloseGame, isPlayoff)
 
                 // If starter has rested enough, is under target minutes (higher in close games), AND foul situation is safe
                 if (restTime >= minRest && starter.secondsPlayed < targetMinutes && isFoulSituationSafe(starter, currentQuarter)) {
@@ -2048,7 +2055,7 @@ export function checkIntelligentSubstitutions(
             priority = Constants.FATIGUE_BASE_PRIORITY + Math.floor(currentPlayer.currentStintSeconds / Constants.FATIGUE_SECONDS_TO_PRIORITY)
         }
         // High: minutes cap (higher target in close games)
-        else if (currentPlayer.secondsPlayed >= getTargetMinutes(currentPlayer, isCloseGame)) {
+        else if (currentPlayer.secondsPlayed >= getTargetMinutes(currentPlayer, isCloseGame, isPlayoff)) {
             priority = Constants.MINUTES_CAP_PRIORITY
         }
         // Medium: performance (cold shooter - only if not close game)
@@ -2065,7 +2072,7 @@ export function checkIntelligentSubstitutions(
     // Make ONE substitution if needed
     if (posToSub !== null && highestPriority > 0) {
         const currentPlayer = teamOnCourt.get(posToSub)!
-        const newPlayer = findBestSubstitute(team, currentPlayer, gameTime, isCloseGame, currentQuarter)
+        const newPlayer = findBestSubstitute(team, currentPlayer, gameTime, isCloseGame, currentQuarter, isPlayoff)
 
         if (newPlayer !== null && newPlayer !== currentPlayer) {
             teamOnCourt.set(posToSub, newPlayer)
