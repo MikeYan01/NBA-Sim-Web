@@ -426,6 +426,9 @@ export async function runSeasonFast(options: FastSeasonOptions = {}): Promise<st
 
     // Simulate regular season (fast mode)
     for (const game of schedule.games) {
+        // Skip All-Star game marker
+        if (game.awayTeam === 'ALL-STAR') continue
+
         const awayTeam = teams.get(game.awayTeam)!
         const homeTeam = teams.get(game.homeTeam)!
 
