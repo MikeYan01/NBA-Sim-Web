@@ -2,7 +2,7 @@ import { useState, useMemo } from 'react'
 import { GameRecapData } from '../../models/Game'
 import { useLocalization } from '../../hooks/useLocalization'
 import { getLocalizedTeamName } from '../../utils/Constants'
-import { ChevronDown, ChevronRight, MessageSquareText, BarChart2, TrendingUp, X } from 'lucide-react'
+import { ChevronDown, ChevronRight, MessageSquareText, BarChart2, TrendingUp, X, Star } from 'lucide-react'
 import { clsx } from 'clsx'
 import { BoxScore as BoxScoreComponent } from '../BoxScore/BoxScore'
 import { ScoreDifferentialChart } from '../GameView/ScoreDifferentialChart'
@@ -72,7 +72,7 @@ export const GameRecaps = ({ recaps }: GameRecapsProps) => {
     )
 }
 
-const GameRecapCard = ({ recap }: { recap: GameRecapData }) => {
+export const GameRecapCard = ({ recap }: { recap: GameRecapData }) => {
     const { t, language } = useLocalization()
     const [showModal, setShowModal] = useState(false)
     const [activeTab, setActiveTab] = useState<'commentary' | 'boxscore' | 'differential'>('commentary')
@@ -108,24 +108,40 @@ const GameRecapCard = ({ recap }: { recap: GameRecapData }) => {
         return stats
     }
 
+    const isAllStar = recap.isAllStar ?? false
+
     return (
         <>
             <div
-                className="bg-slate-50 rounded-lg p-3 border border-slate-200 hover:border-slate-300 hover:shadow-sm cursor-pointer transition-all"
+                className={clsx(
+                    "rounded-lg p-3 border cursor-pointer transition-all",
+                    isAllStar
+                        ? "bg-gradient-to-r from-amber-50 to-yellow-50 border-amber-300 hover:border-amber-400 hover:shadow-md ring-1 ring-amber-200"
+                        : "bg-slate-50 border-slate-200 hover:border-slate-300 hover:shadow-sm"
+                )}
                 onClick={() => setShowModal(true)}
             >
+                {/* All-Star Badge */}
+                {isAllStar && (
+                    <div className="flex items-center gap-1.5 mb-2">
+                        <Star className="w-4 h-4 text-amber-500 fill-amber-500" />
+                        <span className="text-xs font-bold text-amber-600 uppercase tracking-wider">{t('ui.season.allStarGame')}</span>
+                        <Star className="w-4 h-4 text-amber-500 fill-amber-500" />
+                    </div>
+                )}
+
                 {/* Score Line */}
                 <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-3">
                         <span className={clsx("font-semibold", awayWon ? "text-green-600" : "text-slate-600")}>
-                            {getLocalizedTeamName(recap.awayTeam, language)} ({recap.awayWins}-{recap.awayLosses})
+                            {getLocalizedTeamName(recap.awayTeam, language)}{!isAllStar && ` (${recap.awayWins}-${recap.awayLosses})`}
                         </span>
-                        <span className="text-slate-400">@</span>
+                        <span className="text-slate-400">vs</span>
                         <span className={clsx("font-semibold", !awayWon ? "text-green-600" : "text-slate-600")}>
-                            {getLocalizedTeamName(recap.homeTeam, language)} ({recap.homeWins}-{recap.homeLosses})
+                            {getLocalizedTeamName(recap.homeTeam, language)}{!isAllStar && ` (${recap.homeWins}-${recap.homeLosses})`}
                         </span>
                     </div>
-                    <span className="font-bold text-slate-900 tabular-nums">
+                    <span className={clsx("font-bold tabular-nums", isAllStar ? "text-amber-700" : "text-slate-900")}>
                         {recap.awayScore} - {recap.homeScore}{otSuffix}
                     </span>
                 </div>
@@ -172,7 +188,7 @@ const GameRecapCard = ({ recap }: { recap: GameRecapData }) => {
                                         awayWon ? "text-green-600" : "text-slate-700"
                                     )}>
                                         {getLocalizedTeamName(recap.awayTeam, language)}
-                                        <span className="text-xs font-normal text-slate-400 ml-1">({recap.awayWins}-{recap.awayLosses})</span>
+                                        {!isAllStar && <span className="text-xs font-normal text-slate-400 ml-1">({recap.awayWins}-{recap.awayLosses})</span>}
                                     </span>
                                     <span className="text-xl font-bold tabular-nums text-slate-900">
                                         {recap.awayScore} - {recap.homeScore}
@@ -182,7 +198,7 @@ const GameRecapCard = ({ recap }: { recap: GameRecapData }) => {
                                         !awayWon ? "text-green-600" : "text-slate-700"
                                     )}>
                                         {getLocalizedTeamName(recap.homeTeam, language)}
-                                        <span className="text-xs font-normal text-slate-400 ml-1">({recap.homeWins}-{recap.homeLosses})</span>
+                                        {!isAllStar && <span className="text-xs font-normal text-slate-400 ml-1">({recap.homeWins}-{recap.homeLosses})</span>}
                                     </span>
                                     {otSuffix && (
                                         <span className="text-sm text-orange-500 font-medium">{otSuffix}</span>
@@ -241,17 +257,21 @@ const GameRecapCard = ({ recap }: { recap: GameRecapData }) => {
                             )}
                         </div>
 
-                        {/* Content */}
-                        <div className="flex-1 overflow-y-auto p-4">
-                            {activeTab === 'commentary' && recap.playByPlayLog && (
+                        {/* Content - all tabs stay mounted to preserve scroll position */}
+                        <div className={clsx("flex-1 overflow-y-auto p-4", activeTab !== 'commentary' && "hidden")}>
+                            {recap.playByPlayLog && (
                                 <div className="text-sm text-slate-600 whitespace-pre-line leading-relaxed">
                                     {recap.playByPlayLog.join('\n')}
                                 </div>
                             )}
-                            {activeTab === 'boxscore' && recap.boxScore && (
+                        </div>
+                        <div className={clsx("flex-1 overflow-y-auto p-4", activeTab !== 'boxscore' && "hidden")}>
+                            {recap.boxScore && (
                                 <BoxScoreComponent boxScore={recap.boxScore} />
                             )}
-                            {activeTab === 'differential' && recap.scoreSnapshots && recap.scoreSnapshots.length > 0 && (
+                        </div>
+                        <div className={clsx("flex-1 overflow-y-auto p-4", activeTab !== 'differential' && "hidden")}>
+                            {recap.scoreSnapshots && recap.scoreSnapshots.length > 0 && (
                                 <ScoreDifferentialChart
                                     scoreSnapshots={recap.scoreSnapshots}
                                     timeSnapshots={recap.timeSnapshots || []}

@@ -206,6 +206,8 @@ export interface GameRecapData {
     scoreSnapshots?: [number, number][]
     /** Time snapshots [quarter, timeRemaining] for each log line */
     timeSnapshots?: [number, number][]
+    /** Whether this is an All-Star game */
+    isAllStar?: boolean
 }
 
 /**
@@ -263,6 +265,7 @@ interface GameState {
     language: Language
     commentary: CommentaryOutput
     isPlayoff: boolean
+    isAllStar: boolean
 }
 
 // =============================================================================
@@ -615,6 +618,7 @@ function playPossession(state: GameState): number {
         language,
         commentary,
         isPlayoff,
+        isAllStar,
     } = state
 
     // Determine play time (playoffs have slower pace)
@@ -645,7 +649,8 @@ function playPossession(state: GameState): number {
         currentQuarter,
         quarterTime,
         offenseTeam,
-        defenseTeam
+        defenseTeam,
+        isAllStar
     )
 
     if (!offensePlayer) {
@@ -842,7 +847,8 @@ function playPossession(state: GameState): number {
         offenseTeam,
         defenseTeam,
         isPlayoff,
-        isHomeTeamOnOffense
+        isHomeTeamOnOffense,
+        isAllStar
     )
 
     // Judge whether to make the shot (stats are updated inside judgeMakeShot)
@@ -987,7 +993,8 @@ function playQuarter(state: GameState): void {
             garbageTime,
             state.isPlayoff,
             language,
-            commentary
+            commentary,
+            state.isAllStar
         )
         checkIntelligentSubstitutions(
             random,
@@ -1001,7 +1008,8 @@ function playQuarter(state: GameState): void {
             garbageTime,
             state.isPlayoff,
             language,
-            commentary
+            commentary,
+            state.isAllStar
         )
 
         // Play a possession
@@ -1083,6 +1091,7 @@ function handleOvertime(state: GameState): void {
  * @param language Language for commentary
  * @param date Optional date string for recap (e.g., "01-15")
  * @param isPlayoff Whether this is a playoff/play-in game (slower pace, tighter defense)
+ * @param isAllStar Whether this is an All-Star game (no home court, no star penalty)
  * @returns Complete game result
  */
 export function hostGame(
@@ -1091,7 +1100,8 @@ export function hostGame(
     random: SeededRandom,
     language: Language = Language.ENGLISH,
     date?: string,
-    isPlayoff: boolean = false
+    isPlayoff: boolean = false,
+    isAllStar: boolean = false
 ): GameResult {
     // Reset team game stats
     team1.resetGameStats()
@@ -1132,6 +1142,7 @@ export function hostGame(
         language,
         commentary,
         isPlayoff,
+        isAllStar,
     }
 
     // Jump ball to start the game

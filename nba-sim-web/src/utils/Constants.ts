@@ -158,6 +158,12 @@ export const MIN_STARTER_MINUTES = 18 * 60 // Minimum 18 minutes for any starter
 export const CLOSE_GAME_BONUS_MINUTES = 5 * 60 // +5 minutes in close games
 export const PLAYOFF_STARTER_BONUS_MINUTES = 2 * 60 // +2 minutes for starters in playoffs
 
+// All-Star game: shorter minutes so everyone plays (~16 min avg for 15 players)
+export const ALL_STAR_STARTER_MINUTES = 20 * 60 // 20 minutes for starters
+export const ALL_STAR_BENCH_MINUTES = 16 * 60 // 16 minutes for bench
+export const ALL_STAR_DEEP_BENCH_MINUTES = 12 * 60 // 12 minutes for deep bench
+export const ALL_STAR_MAX_STINT = 6 * 60 // 6 minutes max stint
+
 // Maximum continuous stint duration before rest needed (in seconds)
 export const MAX_STARTER_STINT_CLOSE_GAME = 12 * 60 // 10 minutes in close games
 export const MAX_STARTER_STINT_NORMAL_GAME = 10 * 60 // 8 minutes in normal games
@@ -609,6 +615,9 @@ const TEAM_MAPPINGS: [string, string][] = [
     ['雷霆', 'Thunder'],
     ['马刺', 'Spurs'],
     ['鹈鹕', 'Pelicans'],
+    // All-Star Teams
+    ['东部全明星', 'East All-Stars'],
+    ['西部全明星', 'West All-Stars'],
 ]
 
 for (const [zh, en] of TEAM_MAPPINGS) {

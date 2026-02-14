@@ -152,6 +152,16 @@ export function parseSchedule(text: string): SeasonSchedule {
             continue
         }
 
+        // Check for All-Star game marker
+        if (line === 'ALL-STAR') {
+            games.push({
+                date: currentDate,
+                awayTeam: 'ALL-STAR',
+                homeTeam: 'ALL-STAR',
+            })
+            continue
+        }
+
         // Otherwise it's a game line: "AwayTeam HomeTeam"
         const parts = line.split(' ')
         if (parts.length >= 2) {
@@ -169,9 +179,12 @@ export function parseSchedule(text: string): SeasonSchedule {
         }
     }
 
+    // Count regular season games only (exclude ALL-STAR marker)
+    const regularGames = games.filter(g => g.awayTeam !== 'ALL-STAR').length
+
     return {
         games,
-        totalGames: games.length,
+        totalGames: regularGames,
         startDate,
         endDate,
     }

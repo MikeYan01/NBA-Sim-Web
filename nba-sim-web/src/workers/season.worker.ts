@@ -135,6 +135,7 @@ async function runSeasonSimulation(
             games: result.regularSeason.games,
             gamesPlayed: result.regularSeason.gamesPlayed,
             recaps: result.regularSeason.recaps,
+            allStarRecap: result.regularSeason.allStarRecap,
         },
         playoffs: result.playoffs,
         champion: result.champion,

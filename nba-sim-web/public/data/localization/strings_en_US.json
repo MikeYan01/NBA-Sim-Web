@@ -60,10 +60,11 @@
             "results": "Season Results",
             "champion": "Champion",
             "simulating": "Simulating Season...",
-            "simulatingDesc": "Playing 1230 regular season games, 6 play-in tournaments, and western & eastern playoffs...",
+            "simulatingDesc": "Playing 1230 regular season games, All-Star Game, 6 play-in tournaments, and western & eastern playoffs...",
             "initializing": "Initializing...",
             "initializingDesc": "Loading team rosters and schedule data...",
             "regularSeason": "Regular Season",
+            "allStarGame": "All-Star Game",
             "tabs": {
                 "standings": "Standings",
                 "leaders": "Leaders",
@@ -71,7 +72,7 @@
                 "playoffs": "Playoffs"
             },
             "recaps": {
-                "title": "Game Recaps",
+                "title": "Regular Season",
                 "games": "games",
                 "commentary": "Live Commentary",
                 "lines": "lines"

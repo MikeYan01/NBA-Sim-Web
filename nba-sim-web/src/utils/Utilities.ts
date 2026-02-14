@@ -223,7 +223,8 @@ export function choosePlayerBasedOnRating(
     currentQuarter: number = 0,
     quarterTime: number = 0,
     offenseTeam: Team | null = null,
-    defenseTeam: Team | null = null
+    defenseTeam: Team | null = null,
+    isAllStar: boolean = false
 ): Player {
     const major = Constants.MAJOR_SCORE_FACTOR
     const minor = Constants.MINOR_SCORE_FACTOR
@@ -389,7 +390,8 @@ export function choosePlayerBasedOnRating(
     // Veteran star load management: when a veteran star is selected for a shot,
     // there's a 15% chance the ball goes to a teammate instead (simulates rest/load management)
     // Exception: clutch time (Q4+, close game, <7min left) - veterans should always take the shot
-    if (attr === 'rating' && Constants.VETERAN_STAR_PLAYERS.includes(selectedPlayer.englishName)) {
+    // Exception: All-Star game - no load management
+    if (!isAllStar && attr === 'rating' && Constants.VETERAN_STAR_PLAYERS.includes(selectedPlayer.englishName)) {
         // Check if it's clutch time - if so, skip load management
         const isClutchTime = currentQuarter >= 4 &&
             quarterTime <= Constants.TIME_LEFT_CLUTCH &&
@@ -593,7 +595,8 @@ export function calculatePercentage(
     team1: Team,
     team2: Team,
     isPlayoff: boolean = false,
-    isHomeTeamOnOffense: boolean = false
+    isHomeTeamOnOffense: boolean = false,
+    isAllStar: boolean = false
 ): number {
     let percentage: number
 
@@ -681,18 +684,20 @@ export function calculatePercentage(
         percentage += Constants.ELITE_PLAYMAKER_SINGLE_BONUS
     }
 
-    // Star player defensive focus penalty
+    // Star player defensive focus penalty (skip in All-Star game)
     // High-rated players (rating >= 90) face tighter defense from opposing teams' game plans
     // This reduces their efficiency while not affecting role players
-    if (offensePlayer.rating >= Constants.PLAYER_STAR_LB) {
+    if (!isAllStar && offensePlayer.rating >= Constants.PLAYER_STAR_LB) {
         percentage -= Constants.STAR_DEFENSE_FOCUS_PENALTY
     }
 
-    // Home court advantage: home team gets boost, away team gets penalty
-    if (isHomeTeamOnOffense) {
-        percentage += Constants.HOME_COURT_BOOST
-    } else {
-        percentage -= Constants.AWAY_COURT_PENALTY
+    // Home court advantage: home team gets boost, away team gets penalty (skip in All-Star game)
+    if (!isAllStar) {
+        if (isHomeTeamOnOffense) {
+            percentage += Constants.HOME_COURT_BOOST
+        } else {
+            percentage -= Constants.AWAY_COURT_PENALTY
+        }
     }
 
     return percentage
@@ -1823,7 +1828,14 @@ export function updatePlayerMinutes(teamOnCourt: Map<string, Player>, playTime: 
  * @param isPlayoff - Whether this is a playoff game (optional, for bonus minutes)
  * @returns Target minutes in seconds
  */
-export function getTargetMinutes(player: Player, isCloseGame: boolean = false, isPlayoff: boolean = false): number {
+export function getTargetMinutes(player: Player, isCloseGame: boolean = false, isPlayoff: boolean = false, isAllStar: boolean = false): number {
+    // All-Star game: fixed shorter minutes so everyone plays
+    if (isAllStar) {
+        if (player.rotationType === 1) return Constants.ALL_STAR_STARTER_MINUTES
+        if (player.rotationType === 2) return Constants.ALL_STAR_BENCH_MINUTES
+        return Constants.ALL_STAR_DEEP_BENCH_MINUTES
+    }
+
     if (player.rotationType !== 1) {
         // Not a starter
         return Constants.NON_STARTER_MAX_MINUTES
@@ -1887,7 +1899,12 @@ export function isFoulSituationSafe(player: Player, currentQuarter: number): boo
 /**
  * Check if player should be subbed due to fatigue
  */
-export function shouldSubForFatigue(player: Player, isCloseGame: boolean): boolean {
+export function shouldSubForFatigue(player: Player, isCloseGame: boolean, isAllStar: boolean = false): boolean {
+    // All-Star game: shorter stints for everyone
+    if (isAllStar) {
+        return player.currentStintSeconds >= Constants.ALL_STAR_MAX_STINT
+    }
+
     if (player.rotationType === 1) {
         // STARTER
         const maxStint = isCloseGame ? Constants.MAX_STARTER_STINT_CLOSE_GAME : Constants.MAX_STARTER_STINT_NORMAL_GAME
@@ -1921,7 +1938,8 @@ export function findBestSubstitute(
     gameTime: number,
     isCloseGame: boolean,
     currentQuarter: number,
-    isPlayoff: boolean = false
+    isPlayoff: boolean = false,
+    isAllStar: boolean = false
 ): Player | null {
     const pos = currentPlayer.position
     const currentRotation = currentPlayer.rotationType
@@ -1933,7 +1951,7 @@ export function findBestSubstitute(
         if (starter && starter.canOnCourt && !starter.isOnCourt) {
             const restTime = gameTime - starter.lastSubbedOutTime
             const minRest = isCloseGame ? Constants.MIN_REST_TIME_CLOSE_GAME : Constants.MIN_REST_TIME
-            const targetMinutes = getTargetMinutes(starter, isCloseGame, isPlayoff)
+            const targetMinutes = getTargetMinutes(starter, isCloseGame, isPlayoff, isAllStar)
 
             // Only bring back starter if they haven't exceeded their target minutes (higher in close games)
             if (restTime >= minRest && starter.secondsPlayed < targetMinutes && isFoulSituationSafe(starter, currentQuarter)) {
@@ -1987,9 +2005,15 @@ export function checkIntelligentSubstitutions(
     isGarbageTime: boolean,
     isPlayoff: boolean = false,
     language?: Language,
-    commentary?: CommentaryOutput
+    commentary?: CommentaryOutput,
+    isAllStar: boolean = false
 ): boolean {
     const subContext: SubstitutionCommentaryContext = { announced: false }
+
+    // All-Star game: simplified rotation to give everyone playing time
+    if (isAllStar) {
+        return checkAllStarSubstitutions(random, team, teamOnCourt, gameTime, language, commentary, subContext)
+    }
 
     // Garbage time: prioritize giving deep bench players minutes
     if (isGarbageTime) {
@@ -2035,7 +2059,7 @@ export function checkIntelligentSubstitutions(
 
                 const restTime = gameTime - starter.lastSubbedOutTime
                 const minRest = isCloseGame ? Constants.MIN_REST_TIME_CLOSE_GAME : Constants.MIN_REST_TIME
-                const targetMinutes = getTargetMinutes(starter, isCloseGame, isPlayoff)
+                const targetMinutes = getTargetMinutes(starter, isCloseGame, isPlayoff, isAllStar)
 
                 // If starter has rested enough, is under target minutes (higher in close games), AND foul situation is safe
                 if (restTime >= minRest && starter.secondsPlayed < targetMinutes && isFoulSituationSafe(starter, currentQuarter)) {
@@ -2072,11 +2096,11 @@ export function checkIntelligentSubstitutions(
             priority = Constants.FOUL_TROUBLE_PRIORITY
         }
         // High: fatigue
-        else if (shouldSubForFatigue(currentPlayer, isCloseGame)) {
+        else if (shouldSubForFatigue(currentPlayer, isCloseGame, isAllStar)) {
             priority = Constants.FATIGUE_BASE_PRIORITY + Math.floor(currentPlayer.currentStintSeconds / Constants.FATIGUE_SECONDS_TO_PRIORITY)
         }
         // High: minutes cap (higher target in close games)
-        else if (currentPlayer.secondsPlayed >= getTargetMinutes(currentPlayer, isCloseGame, isPlayoff)) {
+        else if (currentPlayer.secondsPlayed >= getTargetMinutes(currentPlayer, isCloseGame, isPlayoff, isAllStar)) {
             priority = Constants.MINUTES_CAP_PRIORITY
         }
         // Medium: performance (cold shooter - only if not close game)
@@ -2093,7 +2117,7 @@ export function checkIntelligentSubstitutions(
     // Make ONE substitution if needed
     if (posToSub !== null && highestPriority > 0) {
         const currentPlayer = teamOnCourt.get(posToSub)!
-        const newPlayer = findBestSubstitute(team, currentPlayer, gameTime, isCloseGame, currentQuarter, isPlayoff)
+        const newPlayer = findBestSubstitute(team, currentPlayer, gameTime, isCloseGame, currentQuarter, isPlayoff, isAllStar)
 
         if (newPlayer !== null && newPlayer !== currentPlayer) {
             teamOnCourt.set(posToSub, newPlayer)
@@ -2112,6 +2136,81 @@ export function checkIntelligentSubstitutions(
     }
 
     return madeSubs
+}
+
+/**
+ * All-Star substitution: simple rotation based on stint time and total minutes.
+ * Cycles through all 15 players evenly regardless of rotationType.
+ */
+function checkAllStarSubstitutions(
+    random: SeededRandom,
+    team: Team,
+    teamOnCourt: Map<string, Player>,
+    gameTime: number,
+    language?: Language,
+    commentary?: CommentaryOutput,
+    subContext?: SubstitutionCommentaryContext
+): boolean {
+    const ctx = subContext ?? { announced: false }
+    let madeSub = false
+
+    for (const [pos, currentPlayer] of teamOnCourt.entries()) {
+        // Sub if stint exceeds max OR total minutes exceed target
+        const stintOver = currentPlayer.currentStintSeconds >= Constants.ALL_STAR_MAX_STINT
+        let targetMinutes: number
+        if (currentPlayer.rotationType === 1) targetMinutes = Constants.ALL_STAR_STARTER_MINUTES
+        else if (currentPlayer.rotationType === 2) targetMinutes = Constants.ALL_STAR_BENCH_MINUTES
+        else targetMinutes = Constants.ALL_STAR_DEEP_BENCH_MINUTES
+        const minutesOver = currentPlayer.secondsPlayed >= targetMinutes
+
+        if (!stintOver && !minutesOver) continue
+
+        // Find the player with fewest minutes who is off court
+        // Priority: same position first, then any position (All-Star games allow cross-position)
+        let bestSub: Player | null = null
+        let lowestMinutes = Infinity
+
+        // Pass 1: same position
+        for (const player of team.players) {
+            if (player === currentPlayer) continue
+            if (player.position !== pos) continue
+            if (!player.canOnCourt || player.isOnCourt) continue
+            const restTime = gameTime - player.lastSubbedOutTime
+            if (player.hasBeenOnCourt && restTime < 60) continue
+            if (player.secondsPlayed < lowestMinutes) {
+                lowestMinutes = player.secondsPlayed
+                bestSub = player
+            }
+        }
+
+        // Pass 2: any position if no same-position sub found
+        if (!bestSub) {
+            for (const player of team.players) {
+                if (player === currentPlayer) continue
+                if (!player.canOnCourt || player.isOnCourt) continue
+                const restTime = gameTime - player.lastSubbedOutTime
+                if (player.hasBeenOnCourt && restTime < 60) continue
+                if (player.secondsPlayed < lowestMinutes) {
+                    lowestMinutes = player.secondsPlayed
+                    bestSub = player
+                }
+            }
+        }
+
+        if (bestSub) {
+            teamOnCourt.set(pos, bestSub)
+            currentPlayer.isOnCourt = false
+            currentPlayer.lastSubbedOutTime = gameTime
+            currentPlayer.currentStintSeconds = 0
+            bestSub.isOnCourt = true
+            bestSub.hasBeenOnCourt = true
+            bestSub.currentStintSeconds = 0
+            emitSubstitutionCommentary(team, bestSub, currentPlayer, random, language, commentary, ctx, true)
+            madeSub = true
+        }
+    }
+
+    return madeSub
 }
 
 /**

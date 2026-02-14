@@ -15,6 +15,7 @@ import { hostGame, hostGameFast, GameResult, GameRecapData } from './Game'
 import { SeasonStats } from './SeasonStats'
 import { StandingsManager } from './Standings'
 import { PlayoffManager, PlayoffBracketResult } from './Playoffs'
+import { hostAllStarGame } from './AllStar'
 import { SeededRandom } from '../utils/SeededRandom'
 import { EAST_TEAMS_EN, WEST_TEAMS_EN } from '../utils/Constants'
 import { loadSchedule, SeasonSchedule, ScheduleGame } from '../services/ResourceLoader'
@@ -58,6 +59,8 @@ export interface RegularSeasonResult {
     gamesPlayed: number
     /** Game recaps grouped by date */
     recaps: GameRecapData[]
+    /** All-Star game recap */
+    allStarRecap?: GameRecapData
 }
 
 /**
@@ -237,14 +240,35 @@ export class SeasonManager {
 
         const gameResults: GameResult[] = []
         const recaps: GameRecapData[] = []
-        const totalGames = games.length
+        // Exclude ALL-STAR marker from progress total
+        const totalGames = games.filter(g => g.awayTeam !== 'ALL-STAR').length
 
         // Load all teams upfront
         await this.loadAllTeams()
 
         // Simulate each game
+        let allStarRecap: GameRecapData | undefined
+        let regularGamesCompleted = 0
         for (let i = 0; i < games.length; i++) {
             const game = games[i]
+
+            // All-Star game: triggered by schedule marker
+            if (game.awayTeam === 'ALL-STAR') {
+                const allStarSeed = this.random.nextInt(1000000)
+                const allStarRandom = new SeededRandom(BigInt(allStarSeed))
+                const result = hostAllStarGame(
+                    this.stats,
+                    this.standings,
+                    this.teams,
+                    allStarRandom,
+                    this.language
+                )
+                if (result) {
+                    allStarRecap = result
+                }
+                continue
+            }
+
             const result = await this.hostRegularSeasonGame(
                 game.awayTeam,
                 game.homeTeam,
@@ -258,8 +282,9 @@ export class SeasonManager {
             }
 
             // Report progress
+            regularGamesCompleted++
             if (this.onProgress) {
-                this.onProgress(i + 1, totalGames)
+                this.onProgress(regularGamesCompleted, totalGames)
             }
         }
 
@@ -272,6 +297,7 @@ export class SeasonManager {
             games: gameResults,
             gamesPlayed: gameResults.length,
             recaps,
+            allStarRecap,
         }
     }
 

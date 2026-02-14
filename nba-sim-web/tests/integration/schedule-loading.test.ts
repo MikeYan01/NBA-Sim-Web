@@ -33,8 +33,8 @@ describe('Schedule File Integration', () => {
     const schedule = parseSchedule(scheduleText)
 
     describe('Full Season Validation', () => {
-        it('should have exactly 1230 total games', () => {
-            // 30 teams x 82 games / 2 = 1230
+        it('should have exactly 1230 regular season games', () => {
+            // 30 teams x 82 games / 2 = 1230 (All-Star not counted)
             expect(schedule.totalGames).toBe(1230)
         })
 
@@ -83,6 +83,8 @@ describe('Schedule File Integration', () => {
 
         it('should not have any team playing themselves', () => {
             for (const game of schedule.games) {
+                // Skip All-Star game marker
+                if (game.awayTeam === 'ALL-STAR') continue
                 expect(game.homeTeam).not.toBe(game.awayTeam)
             }
         })
@@ -97,6 +99,8 @@ describe('Schedule File Integration', () => {
             ])
 
             for (const game of schedule.games) {
+                // Skip All-Star game marker
+                if (game.awayTeam === 'ALL-STAR') continue
                 expect(validTeams.has(game.homeTeam), `Invalid home team: ${game.homeTeam}`).toBe(true)
                 expect(validTeams.has(game.awayTeam), `Invalid away team: ${game.awayTeam}`).toBe(true)
             }

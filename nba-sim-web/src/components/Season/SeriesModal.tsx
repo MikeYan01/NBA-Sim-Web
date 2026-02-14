@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { SeriesResult } from '../../models/Playoffs'
 import { GameResult } from '../../models/Game'
 import { useLocalization } from '../../hooks/useLocalization'
@@ -95,6 +95,16 @@ const GameCard = ({ game, gameNumber }: GameCardProps) => {
     const { t, language } = useLocalization()
     const [expanded, setExpanded] = useState(false)
     const [activeTab, setActiveTab] = useState<'commentary' | 'boxscore' | 'differential'>('commentary')
+    const cardRef = useRef<HTMLDivElement>(null)
+
+    // Scroll card into view when expanded
+    useEffect(() => {
+        if (expanded && cardRef.current) {
+            setTimeout(() => {
+                cardRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+            }, 50)
+        }
+    }, [expanded])
 
     const t1Won = game.team1Score > game.team2Score
     const otSuffix = game.finalQuarter > 4 ? ` (${game.finalQuarter - 4}OT)` : ''
@@ -104,7 +114,7 @@ const GameCard = ({ game, gameNumber }: GameCardProps) => {
     const team2Colors = getTeamColors(game.team2Name)
 
     return (
-        <div className="border border-slate-200 rounded-xl overflow-hidden bg-white shadow-sm">
+        <div ref={cardRef} className="border border-slate-200 rounded-xl overflow-hidden bg-white shadow-sm">
             {/* Game Header - Always visible */}
             <button
                 onClick={() => setExpanded(!expanded)}
@@ -194,17 +204,21 @@ const GameCard = ({ game, gameNumber }: GameCardProps) => {
                         )}
                     </div>
 
-                    {/* Content */}
-                    <div className="p-4 max-h-[600px] overflow-y-auto">
-                        {activeTab === 'commentary' && game.playByPlayLog && (
+                    {/* Content - all tabs stay mounted to preserve scroll position */}
+                    <div className={clsx("p-4 max-h-[600px] overflow-y-auto", activeTab !== 'commentary' && "hidden")}>
+                        {game.playByPlayLog && (
                             <div className="text-sm text-slate-600 whitespace-pre-line leading-relaxed">
                                 {game.playByPlayLog.join('\n')}
                             </div>
                         )}
-                        {activeTab === 'boxscore' && game.boxScore && (
+                    </div>
+                    <div className={clsx("p-4 max-h-[600px] overflow-y-auto", activeTab !== 'boxscore' && "hidden")}>
+                        {game.boxScore && (
                             <BoxScoreComponent boxScore={game.boxScore} />
                         )}
-                        {activeTab === 'differential' && game.scoreSnapshots && game.scoreSnapshots.length > 0 && (
+                    </div>
+                    <div className={clsx("p-4 max-h-[600px] overflow-y-auto", activeTab !== 'differential' && "hidden")}>
+                        {game.scoreSnapshots && game.scoreSnapshots.length > 0 && (
                             <ScoreDifferentialChart
                                 scoreSnapshots={game.scoreSnapshots}
                                 timeSnapshots={game.timeSnapshots || []}

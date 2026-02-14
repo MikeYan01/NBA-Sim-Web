@@ -4,7 +4,7 @@ import { useLocalization } from '../../hooks/useLocalization'
 import { getLocalizedTeamName } from '../../utils/Constants'
 import { Standings } from '../Standings/Standings'
 import { Leaderboards } from '../Leaderboards/Leaderboards'
-import { GameRecaps } from './GameRecaps'
+import { GameRecaps, GameRecapCard } from './GameRecaps'
 import { PlayoffBracket } from './PlayoffBracket'
 import { Play, Trophy, RefreshCw } from 'lucide-react'
 import { clsx } from 'clsx'
@@ -155,7 +155,12 @@ export const SeasonView = () => {
                     />
                 )}
                 {activeTab === 'recaps' && (
-                    <GameRecaps recaps={currentSeason.regularSeason.recaps} />
+                    <div className="space-y-4">
+                        <GameRecaps recaps={currentSeason.regularSeason.recaps} />
+                        {currentSeason.regularSeason.allStarRecap && (
+                            <GameRecapCard recap={currentSeason.regularSeason.allStarRecap} />
+                        )}
+                    </div>
                 )}
                 {activeTab === 'playoffs' && (
                     <PlayoffBracket playoffs={currentSeason.playoffs} />
