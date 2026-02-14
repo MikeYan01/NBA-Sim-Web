@@ -437,18 +437,39 @@ export function chooseDefensePlayer(
     offensePlayer: Player,
     defenseTeamOnCourt: Map<string, Player>
 ): Player {
-    const offensePos = offensePlayer.position
-    const otherPos: string[] = []
-    for (const pos of defenseTeamOnCourt.keys()) {
-        if (pos !== offensePos) otherPos.push(pos)
+    // Position chain: PG(0) - SG(1) - SF(2) - PF(3) - C(4)
+    // Adjacent positions switch more often (e.g. PG vs SG >> PG vs C)
+    const positions = ['PG', 'SG', 'SF', 'PF', 'C']
+    const offIdx = positions.indexOf(offensePlayer.position)
+
+    // Same position gets fixed %, others weighted by 1/distance
+    const sameWeight = Constants.DEFENSE_MATCHUP_SAME_POS
+    const otherBudget = 100 - sameWeight
+    let inverseDistSum = 0
+    for (let i = 0; i < 5; i++) {
+        if (i !== offIdx) inverseDistSum += 1 / Math.abs(i - offIdx)
     }
 
-    const poss = generateRandomNum(random)
-    if (poss <= Constants.SAME_POS) return defenseTeamOnCourt.get(offensePos)!
-    else if (poss <= Constants.SAME_POS + Constants.OTHER_POS) return defenseTeamOnCourt.get(otherPos[0])!
-    else if (poss <= Constants.SAME_POS + 2 * Constants.OTHER_POS) return defenseTeamOnCourt.get(otherPos[1])!
-    else if (poss <= Constants.SAME_POS + 3 * Constants.OTHER_POS) return defenseTeamOnCourt.get(otherPos[2])!
-    else return defenseTeamOnCourt.get(otherPos[3])!
+    // Build cumulative thresholds
+    const cumulative: number[] = []
+    let sum = 0
+    for (let i = 0; i < 5; i++) {
+        if (i === offIdx) {
+            sum += sameWeight
+        } else {
+            sum += (1 / Math.abs(i - offIdx) / inverseDistSum) * otherBudget
+        }
+        cumulative.push(sum)
+    }
+
+    const roll = generateRandomNum(random)
+    for (let i = 0; i < 5; i++) {
+        if (roll <= cumulative[i]) {
+            return defenseTeamOnCourt.get(positions[i])!
+        }
+    }
+
+    return defenseTeamOnCourt.get(offensePlayer.position)!
 }
 
 // =============================================================================

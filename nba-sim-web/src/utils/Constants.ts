@@ -28,13 +28,12 @@ export const DUNK_EXCEL_LB = 90
 /** Minimum rating to be considered a star player */
 export const PLAYER_STAR_LB = 90
 
-/** Veteran star players (age >= 34) who need load management in regular season */
+/** Veteran star players who need load management in regular season */
 export const VETERAN_STAR_PLAYERS = [
     'Stephen Curry',
     'Kevin Durant',
     'LeBron James',
-    'James Harden',
-    'Kawhi Leonard'
+    'James Harden'
 ]
 
 /** Probability (%) to redirect shot to teammate when veteran star is selected */
@@ -251,6 +250,10 @@ export const REBOUND_POWER_SCALE = 0.8
 export const SAME_POS = 60
 export const OTHER_POS = 10
 
+// Defense matchup: position-distance weighted (for chooseDefensePlayer)
+// Same position gets this %, remaining distributed by 1/distance
+export const DEFENSE_MATCHUP_SAME_POS = 50
+
 // ============================================================================
 // Lose Ball (Turnover/Steal)
 // ============================================================================
@@ -367,8 +370,8 @@ export const ELITE_PLAYMAKER_DUAL_BONUS = 2.5
 // Defense Player Effect
 // ============================================================================
 
-export const DEFENSE_COFF = 0.1
-export const DEFENSE_BASE = 35
+export const DEFENSE_COFF = 0.15
+export const DEFENSE_BASE = 40
 
 // ============================================================================
 // Defense Intensity
