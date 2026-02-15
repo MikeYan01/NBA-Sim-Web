@@ -162,7 +162,8 @@ export const PLAYOFF_STARTER_BONUS_MINUTES = 2 * 60 // +2 minutes for starters i
 export const ALL_STAR_STARTER_MINUTES = 20 * 60 // 20 minutes for starters
 export const ALL_STAR_BENCH_MINUTES = 16 * 60 // 16 minutes for bench
 export const ALL_STAR_DEEP_BENCH_MINUTES = 12 * 60 // 12 minutes for deep bench
-export const ALL_STAR_MAX_STINT = 6 * 60 // 6 minutes max stint
+export const ALL_STAR_MAX_STINT = 8 * 60 // 8 minutes max stint
+export const ALL_STAR_SUB_PROBABILITY = 25 // 25% chance to check subs each possession
 
 // Maximum continuous stint duration before rest needed (in seconds)
 export const MAX_STARTER_STINT_CLOSE_GAME = 12 * 60 // 10 minutes in close games

@@ -2050,6 +2050,7 @@ export function checkIntelligentSubstitutions(
 
     // Proactively check if rested starters with safe foul situation can return
     // This ensures foul-protected starters don't sit too long
+    // Batch: bring back all eligible starters at once
     if (generateRandomNum(random, 1, 100) < subCheckProb) {
         for (const [pos, starter] of team.starters.entries()) {
             const currentPlayer = teamOnCourt.get(pos)
@@ -2073,10 +2074,11 @@ export function checkIntelligentSubstitutions(
                     starter.currentStintSeconds = 0
 
                     emitSubstitutionCommentary(team, starter, currentPlayer, random, language, commentary, subContext, true)
-                    return true // Successfully brought back a starter
+                    madeSubs = true
                 }
             }
         }
+        if (madeSubs) return true
     }
 
     // Random chance to check for substitutions
@@ -2084,9 +2086,8 @@ export function checkIntelligentSubstitutions(
         return false
     }
 
-    // Find ONE player who most needs to be subbed
-    let posToSub: string | null = null
-    let highestPriority = 0
+    // Find ALL players who need to be subbed (batch substitutions)
+    const subsNeeded: { pos: string; priority: number }[] = []
 
     for (const [pos, currentPlayer] of teamOnCourt.entries()) {
         let priority = 0
@@ -2108,19 +2109,20 @@ export function checkIntelligentSubstitutions(
             priority = Constants.PERFORMANCE_PRIORITY
         }
 
-        if (priority > highestPriority) {
-            highestPriority = priority
-            posToSub = pos
+        if (priority > 0) {
+            subsNeeded.push({ pos, priority })
         }
     }
 
-    // Make ONE substitution if needed
-    if (posToSub !== null && highestPriority > 0) {
-        const currentPlayer = teamOnCourt.get(posToSub)!
+    // Sort by priority descending and make all substitutions in one batch
+    subsNeeded.sort((a, b) => b.priority - a.priority)
+
+    for (const { pos } of subsNeeded) {
+        const currentPlayer = teamOnCourt.get(pos)!
         const newPlayer = findBestSubstitute(team, currentPlayer, gameTime, isCloseGame, currentQuarter, isPlayoff, isAllStar)
 
         if (newPlayer !== null && newPlayer !== currentPlayer) {
-            teamOnCourt.set(posToSub, newPlayer)
+            teamOnCourt.set(pos, newPlayer)
             currentPlayer.isOnCourt = false
             currentPlayer.lastSubbedOutTime = gameTime
             currentPlayer.currentStintSeconds = 0
@@ -2152,6 +2154,12 @@ function checkAllStarSubstitutions(
     subContext?: SubstitutionCommentaryContext
 ): boolean {
     const ctx = subContext ?? { announced: false }
+
+    // Rate limit: only check subs with a probability gate to avoid constant substitutions
+    if (generateRandomNum(random, 1, 100) > Constants.ALL_STAR_SUB_PROBABILITY) {
+        return false
+    }
+
     let madeSub = false
 
     for (const [pos, currentPlayer] of teamOnCourt.entries()) {
@@ -2170,11 +2178,19 @@ function checkAllStarSubstitutions(
         let bestSub: Player | null = null
         let lowestMinutes = Infinity
 
-        // Pass 1: same position
+        // Helper: get target minutes for a candidate
+        const getTarget = (p: Player) => {
+            if (p.rotationType === 1) return Constants.ALL_STAR_STARTER_MINUTES
+            if (p.rotationType === 2) return Constants.ALL_STAR_BENCH_MINUTES
+            return Constants.ALL_STAR_DEEP_BENCH_MINUTES
+        }
+
+        // Pass 1: same position, must still have minutes remaining
         for (const player of team.players) {
             if (player === currentPlayer) continue
             if (player.position !== pos) continue
             if (!player.canOnCourt || player.isOnCourt) continue
+            if (player.secondsPlayed >= getTarget(player)) continue
             const restTime = gameTime - player.lastSubbedOutTime
             if (player.hasBeenOnCourt && restTime < 60) continue
             if (player.secondsPlayed < lowestMinutes) {
@@ -2183,11 +2199,12 @@ function checkAllStarSubstitutions(
             }
         }
 
-        // Pass 2: any position if no same-position sub found
+        // Pass 2: any position, must still have minutes remaining
         if (!bestSub) {
             for (const player of team.players) {
                 if (player === currentPlayer) continue
                 if (!player.canOnCourt || player.isOnCourt) continue
+                if (player.secondsPlayed >= getTarget(player)) continue
                 const restTime = gameTime - player.lastSubbedOutTime
                 if (player.hasBeenOnCourt && restTime < 60) continue
                 if (player.secondsPlayed < lowestMinutes) {
