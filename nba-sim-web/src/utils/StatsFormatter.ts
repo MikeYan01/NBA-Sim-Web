@@ -93,8 +93,7 @@ export function formatPlayerBoxScore(
 export function formatSimpleRanking(
     rank: number,
     displayName: string,
-    value: number,
-    _language: Language
+    value: number
 ): string {
     return `${rank} ${displayName}  ${value.toFixed(2)}`
 }
@@ -155,7 +154,6 @@ export function formatStandingEntry(
         winPercentage: number
         gamesBack: number
     },
-    _language: Language
 ): string {
     const { rank, teamName, wins, losses, winPercentage, gamesBack } = entry
     const pct = winPercentage.toFixed(3).substring(1) // ".750" format
@@ -210,7 +208,7 @@ export function formatConferenceStandings(
 
     // Each team
     for (const entry of standings) {
-        lines.push(formatStandingEntry(entry, language))
+        lines.push(formatStandingEntry(entry))
     }
 
     return lines
@@ -493,8 +491,7 @@ export function formatLeaderboardEntry(
     rank: number,
     playerName: string,
     teamName: string,
-    value: number,
-    _language: Language
+    value: number
 ): string {
     const rankStr = String(rank).padStart(2)
     const nameStr = playerName.padEnd(20)
@@ -539,8 +536,7 @@ export function formatLeaderboard(
             index + 1,
             entry.name,
             entry.teamName,
-            entry.value,
-            language
+            entry.value
         ))
     })
 
@@ -601,8 +597,7 @@ export function formatSeriesResult(
     winner: string,
     loser: string,
     winnerWins: number,
-    loserWins: number,
-    _language: Language
+    loserWins: number
 ): string {
     return `${winner} def. ${loser} ${winnerWins}-${loserWins}`
 }

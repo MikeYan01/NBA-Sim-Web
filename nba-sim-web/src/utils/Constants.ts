@@ -132,12 +132,12 @@ export const BENCH_TARGET_MINUTES = 18 * 60 // ~18 minutes
 
 // Durability-based target minutes for starters (in seconds)
 export const HIGH_DURABILITY_THRESHOLD = 90
-export const HIGH_DURABILITY_MINUTES = 32 * 60 // 1920 seconds
+export const HIGH_DURABILITY_MINUTES = 34 * 60 // 2040 seconds
 export const MEDIUM_DURABILITY_THRESHOLD = 85
-export const MEDIUM_DURABILITY_MINUTES = 30 * 60 // 1800 seconds
+export const MEDIUM_DURABILITY_MINUTES = 32 * 60 // 1920 seconds
 export const LOW_DURABILITY_THRESHOLD = 75
-export const LOW_DURABILITY_MINUTES = 26 * 60 // 1560 seconds
-export const VERY_LOW_DURABILITY_MINUTES = 22 * 60 // 1320 seconds
+export const LOW_DURABILITY_MINUTES = 28 * 60 // 1680 seconds
+export const VERY_LOW_DURABILITY_MINUTES = 24 * 60 // 1440 seconds
 export const NON_STARTER_MAX_MINUTES = 36 * 60 // Bench players use high limit
 
 // Athleticism-based target minutes adjustment for starters (in seconds)
@@ -166,13 +166,13 @@ export const ALL_STAR_MAX_STINT = 8 * 60 // 8 minutes max stint
 export const ALL_STAR_SUB_PROBABILITY = 25 // 25% chance to check subs each possession
 
 // Maximum continuous stint duration before rest needed (in seconds)
-export const MAX_STARTER_STINT_CLOSE_GAME = 12 * 60 // 10 minutes in close games
-export const MAX_STARTER_STINT_NORMAL_GAME = 10 * 60 // 8 minutes in normal games
+export const MAX_STARTER_STINT_CLOSE_GAME = 12 * 60 // 12 minutes in close games
+export const MAX_STARTER_STINT_NORMAL_GAME = 9 * 60 // 9 minutes in normal games
 export const MAX_BENCH_STINT = 8 * 60 // 8 minutes
 
 // Minimum rest time between stints (in seconds)
-export const MIN_REST_TIME = 2 * 60 // 2 minutes
-export const MIN_REST_TIME_CLOSE_GAME = 1 * 60 // 1 minute in close games
+export const MIN_REST_TIME = 3 * 60 // 3 minutes
+export const MIN_REST_TIME_CLOSE_GAME = 2 * 60 // 2 minutes in close games
 
 // Bench player limits
 export const BENCH_MINUTES_BUFFER = 5 * 60 // 5 minute buffer
@@ -188,7 +188,7 @@ export const INJURY_PROBABILITY_DIVISOR = 1000000
 // Substitution probabilities and priorities
 // When leading or tied
 export const SUB_CHECK_PROBABILITY = 50
-export const SUB_DECISION_PROBABILITY = 25
+export const SUB_DECISION_PROBABILITY = 50
 // When trailing - more aggressive to get starters back
 export const SUB_CHECK_PROBABILITY_TRAILING = 90
 export const SUB_DECISION_PROBABILITY_TRAILING = 70
@@ -207,6 +207,7 @@ export const QUARTER_1 = 1
 export const QUARTER_2 = 2
 export const QUARTER_3 = 3
 export const Q1_NO_SUB_TIME = 360 // No subs in first 6 minutes of Q1
+export const Q3_NO_SUB_TIME = 360 // No subs in first 6 minutes of Q3
 export const OVERTIME_QUARTER = 5 // Overtime starts at quarter 5
 export const CLUTCH_QUARTER = 4 // Clutch time in Q4
 
@@ -387,6 +388,34 @@ export const DEFENSE_BASE = 40
 export const DEFENSE_EASY = 10
 export const DEFENSE_HARD = 50
 export const DEFENSE_BUFF = 12
+
+// ============================================================================
+// Elite Perimeter Defense Bonus (Switching Defense)
+// When multiple on-court defenders have perimeterDefense >= threshold,
+// the team can switch everything, reducing opponent shot percentage.
+// ============================================================================
+
+export const ELITE_PERIMETER_DEF_THRESHOLD = 85
+export const ELITE_PERIMETER_DEF_MIN_COUNT = 3   // Need >= 3 elite perimeter defenders to trigger
+export const ELITE_PERIMETER_DEF_BONUS = 3.0     // -3.0% to opponent shot percentage
+
+// ============================================================================
+// Team Offensive Spacing
+// ============================================================================
+
+export const TEAM_SPACING_BASE = 72
+export const TEAM_SPACING_SCALE = 0.12
+export const TEAM_SPACING_MAX_BONUS = 2.0
+
+// ============================================================================
+// Elite Offensive Rotation Bonus
+// All 5 on-court players have midRating >= 80 AND threeRating >= 75
+// Represents a lineup with no offensive weak links - every player can shoot.
+// ============================================================================
+
+export const ELITE_ROTATION_MID_THRESHOLD = 80
+export const ELITE_ROTATION_THREE_THRESHOLD = 75
+export const ELITE_ROTATION_BONUS = 3.0 // +3.0% to team shot percentage
 
 // ============================================================================
 // Playoff/Play-In Adjustments

@@ -95,33 +95,6 @@ export function getTeamCSSVariables(teamName: string): Record<string, string> {
 }
 
 /**
- * Generate Tailwind-compatible inline styles for team theming
- */
-export function getTeamStyles(teamName: string): React.CSSProperties {
-    const vars = getTeamCSSVariables(teamName);
-    return vars as unknown as React.CSSProperties;
-}
-
-/**
- * Get contrasting text color for a background
- */
-export function getContrastColor(hexColor: string): string {
-    // Remove # if present
-    const hex = hexColor.replace('#', '');
-
-    // Convert to RGB
-    const r = parseInt(hex.substr(0, 2), 16);
-    const g = parseInt(hex.substr(2, 2), 16);
-    const b = parseInt(hex.substr(4, 2), 16);
-
-    // Calculate relative luminance
-    const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-
-    // Return black for light backgrounds, white for dark
-    return luminance > 0.5 ? '#000000' : '#FFFFFF';
-}
-
-/**
  * Lighten or darken a hex color
  */
 export function adjustColor(hexColor: string, amount: number): string {

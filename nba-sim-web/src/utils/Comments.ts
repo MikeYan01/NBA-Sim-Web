@@ -22,7 +22,6 @@ import {
 import { getString } from '../services/LocalizationService'
 import {
     getLocalizedTeamName,
-    MAX_SB_LEN,
     SHOT_POSITION_PERCENT,
     TYPE_1_LAYUP,
     TYPE_1_DUNK,
@@ -1251,7 +1250,7 @@ export function getSubstitutionPrefix(
 ): void {
     const teamDisplay = getLocalizedTeamName(teamName, language)
     addLine(output, '')
-    addLine(output, `════════════════ ${teamDisplay} ${getString('commentary.substitution.prefix', language)} ════════════════`)
+    addLine(output, `════ ${teamDisplay} ${getString('commentary.substitution.prefix', language)} ════`)
 }
 
 /**
@@ -1337,7 +1336,7 @@ export function quarterEnd(
 
     // Separator
     addLine(output, '')
-    addLine(output, '==============================================')
+    addLine(output, '============')
     addLine(output, '')
 
     // Next quarter start announcement
@@ -1360,7 +1359,6 @@ export function quarterEnd(
  */
 export function regularEnd(
     awayTeam: Team,
-    _homeTeam: Team,
     language: Language,
     output: CommentaryOutput
 ): void {
@@ -1379,7 +1377,7 @@ export function regularEnd(
 
     // Separator
     addLine(output, '')
-    addLine(output, '==============================================')
+    addLine(output, '============')
     addLine(output, '')
 
     // Overtime start announcement
@@ -1410,7 +1408,7 @@ export function gameEnd(
 
     // Separator
     addLine(output, '')
-    addLine(output, '==============================================')
+    addLine(output, '============')
     addLine(output, '')
 
     // Full time announcement
@@ -1586,5 +1584,4 @@ export function getTeamData(
     addLine(output, sb)
 }
 
-// Re-export utility functions
-export { MAX_SB_LEN }
+

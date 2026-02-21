@@ -568,6 +568,24 @@ function calculateAthleticismImpact(athleticismDiff: number, distance: number): 
 }
 
 /**
+ * Calculate team offensive spacing bonus from on-court players' three-point shooting.
+ * Teams with multiple three-point threats create better spacing and easier shots.
+ */
+export function calculateTeamSpacingBonus(offenseTeamOnCourt: Map<string, Player>): number {
+    let totalThree = 0
+    let count = 0
+    for (const player of offenseTeamOnCourt.values()) {
+        totalThree += player.threeRating
+        count++
+    }
+    const avgThree = count > 0 ? totalThree / count : Constants.TEAM_SPACING_BASE
+    let bonus = Constants.TEAM_SPACING_SCALE * (avgThree - Constants.TEAM_SPACING_BASE)
+    if (bonus > Constants.TEAM_SPACING_MAX_BONUS) bonus = Constants.TEAM_SPACING_MAX_BONUS
+    else if (bonus < -Constants.TEAM_SPACING_MAX_BONUS) bonus = -Constants.TEAM_SPACING_MAX_BONUS
+    return bonus
+}
+
+/**
  * Calculate shot goal percentage.
  *
  * @param random - The SeededRandom object
@@ -596,7 +614,8 @@ export function calculatePercentage(
     team2: Team,
     isPlayoff: boolean = false,
     isHomeTeamOnOffense: boolean = false,
-    isAllStar: boolean = false
+    isAllStar: boolean = false,
+    defenseTeamOnCourt?: Map<string, Player>
 ): number {
     let percentage: number
 
@@ -643,6 +662,20 @@ export function calculatePercentage(
         percentage -= Constants.DEFENSE_BUFF
     }
 
+    // Elite perimeter defense bonus (switching defense)
+    // >= 3 elite perimeter defenders on court enables switch-everything scheme
+    if (!isAllStar && defenseTeamOnCourt) {
+        let eliteDefCount = 0
+        for (const player of defenseTeamOnCourt.values()) {
+            if (player.perimeterDefense >= Constants.ELITE_PERIMETER_DEF_THRESHOLD) {
+                eliteDefCount++
+            }
+        }
+        if (eliteDefCount >= Constants.ELITE_PERIMETER_DEF_MIN_COUNT) {
+            percentage -= Constants.ELITE_PERIMETER_DEF_BONUS
+        }
+    }
+
     // Offensive consistency bonus (higher offConst = better)
     let offConsistencyBonus = Constants.OFF_CONSISTENCY_COFF * (offensePlayer.offConst - Constants.CONSISTENCY_BASE)
     if (offConsistencyBonus > Constants.OFF_CONSISTENCY_MAX_BONUS) offConsistencyBonus = Constants.OFF_CONSISTENCY_MAX_BONUS
@@ -682,6 +715,26 @@ export function calculatePercentage(
         percentage += Constants.ELITE_PLAYMAKER_DUAL_BONUS
     } else if (elitePlaymakerCount === 1) {
         percentage += Constants.ELITE_PLAYMAKER_SINGLE_BONUS
+    }
+
+    // Team offensive spacing bonus (skip in All-Star game)
+    if (!isAllStar) {
+        percentage += calculateTeamSpacingBonus(offenseTeamOnCourt)
+    }
+
+    // Elite offensive rotation bonus - all 5 on-court players can shoot (skip in All-Star game)
+    if (!isAllStar) {
+        let allEliteShooters = true
+        for (const player of offenseTeamOnCourt.values()) {
+            if (player.midRating < Constants.ELITE_ROTATION_MID_THRESHOLD ||
+                player.threeRating < Constants.ELITE_ROTATION_THREE_THRESHOLD) {
+                allEliteShooters = false
+                break
+            }
+        }
+        if (allEliteShooters) {
+            percentage += Constants.ELITE_ROTATION_BONUS
+        }
     }
 
     // Star player defensive focus penalty (skip in All-Star game)
@@ -2020,8 +2073,11 @@ export function checkIntelligentSubstitutions(
         return checkGarbageTimeSubstitutions(random, team, teamOnCourt, gameTime, language, commentary, subContext)
     }
 
-    // Q1 first 6 minutes: Keep all starters in (unless fouled out or injured)
+    // Q1/Q3 first 6 minutes: Keep all starters in (unless fouled out or injured)
     if (currentQuarter === Constants.QUARTER_1 && quarterTime > Constants.Q1_NO_SUB_TIME) {
+        return false
+    }
+    if (currentQuarter === Constants.QUARTER_3 && quarterTime > Constants.Q3_NO_SUB_TIME) {
         return false
     }
 
@@ -2030,11 +2086,11 @@ export function checkIntelligentSubstitutions(
         return checkOvertimeSubstitutions(team, teamOnCourt, gameTime, random, language, commentary, subContext)
     }
 
-    let madeSubs = false
     const scoreDiff = Math.abs(team1.totalScore - team2.totalScore)
     const isClutchTime =
         currentQuarter === Constants.CLUTCH_QUARTER && quarterTime <= Constants.TIME_LEFT_CLUTCH && scoreDiff <= Constants.CLOSE_GAME_DIFF
-    const isCloseGame = scoreDiff <= Constants.CLOSE_GAME_DIFF
+    // Close game only matters in Q4+ (affects rest time, stint length, target minutes)
+    const isCloseGame = currentQuarter >= Constants.CLUTCH_QUARTER && scoreDiff <= Constants.CLOSE_GAME_DIFF
 
     // Determine if this team is trailing
     const isTrailing = team.totalScore < (team === team1 ? team2.totalScore : team1.totalScore)
@@ -2048,11 +2104,22 @@ export function checkIntelligentSubstitutions(
         return ensureStartersInClutch(team, teamOnCourt, gameTime, random, language, commentary, subContext)
     }
 
-    // Proactively check if rested starters with safe foul situation can return
-    // This ensures foul-protected starters don't sit too long
-    // Batch: bring back all eligible starters at once
+    // Determine max substitutions for this check (randomized batch size)
+    // 15% = 1, 30% = 2, 30% = 3, 15% = 4, 10% = 5
+    const batchRoll = generateRandomNum(random, 1, 100)
+    let maxSubs: number
+    if (batchRoll <= 15) maxSubs = 1
+    else if (batchRoll <= 45) maxSubs = 2
+    else if (batchRoll <= 75) maxSubs = 3
+    else if (batchRoll <= 90) maxSubs = 4
+    else maxSubs = 5
+
+    // Proactively check if rested starters can return (up to maxSubs)
+    let madeSubs = false
     if (generateRandomNum(random, 1, 100) < subCheckProb) {
+        let returnCount = 0
         for (const [pos, starter] of team.starters.entries()) {
+            if (returnCount >= maxSubs) break
             const currentPlayer = teamOnCourt.get(pos)
 
             if (starter && starter.canOnCourt && !starter.isOnCourt &&
@@ -2075,6 +2142,7 @@ export function checkIntelligentSubstitutions(
 
                     emitSubstitutionCommentary(team, starter, currentPlayer, random, language, commentary, subContext, true)
                     madeSubs = true
+                    returnCount++
                 }
             }
         }
@@ -2086,7 +2154,7 @@ export function checkIntelligentSubstitutions(
         return false
     }
 
-    // Find ALL players who need to be subbed (batch substitutions)
+    // Find all players who need to be subbed, sorted by priority
     const subsNeeded: { pos: string; priority: number }[] = []
 
     for (const [pos, currentPlayer] of teamOnCourt.entries()) {
@@ -2114,10 +2182,12 @@ export function checkIntelligentSubstitutions(
         }
     }
 
-    // Sort by priority descending and make all substitutions in one batch
+    // Sort by priority descending, execute up to maxSubs substitutions
     subsNeeded.sort((a, b) => b.priority - a.priority)
 
+    let subCount = 0
     for (const { pos } of subsNeeded) {
+        if (subCount >= maxSubs) break
         const currentPlayer = teamOnCourt.get(pos)!
         const newPlayer = findBestSubstitute(team, currentPlayer, gameTime, isCloseGame, currentQuarter, isPlayoff, isAllStar)
 
@@ -2131,9 +2201,9 @@ export function checkIntelligentSubstitutions(
             newPlayer.hasBeenOnCourt = true
             newPlayer.currentStintSeconds = 0
 
-            madeSubs = true
-
             emitSubstitutionCommentary(team, newPlayer, currentPlayer, random, language, commentary, subContext, true)
+            madeSubs = true
+            subCount++
         }
     }
 

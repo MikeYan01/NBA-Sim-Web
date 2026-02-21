@@ -848,7 +848,8 @@ function playPossession(state: GameState): number {
         defenseTeam,
         isPlayoff,
         isHomeTeamOnOffense,
-        isAllStar
+        isAllStar,
+        defenseTeamOnCourt
     )
 
     // Judge whether to make the shot (stats are updated inside judgeMakeShot)
@@ -1072,7 +1073,7 @@ function handleOvertime(state: GameState): void {
 
     // Generate overtime start commentary
     syncScoresToCommentary(state, 300)
-    regularEnd(state.team1, state.team2, state.language, state.commentary)
+    regularEnd(state.team1, state.language, state.commentary)
 
     // Play the overtime period
     playQuarter(state)
@@ -1436,7 +1437,9 @@ function playPossessionFast(state: FastGameState): number {
         offenseTeam,
         defenseTeam,
         isPlayoff,
-        isHomeTeamOnOffense
+        isHomeTeamOnOffense,
+        false,
+        defenseTeamOnCourt
     )
 
     // Judge shot (no commentary)
