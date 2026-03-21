@@ -428,13 +428,11 @@ export function getUpsetComment(
 export function getBallComment(
     teamName: string,
     name: string,
-    defensePlayer: string,
     random: SeededRandom,
     language: Language,
     output: CommentaryOutput
 ): void {
     const lastName = getLastName(name, language)
-    const defenseLastName = getLastName(defensePlayer, language)
     const teamDisplay = getLocalizedTeamName(teamName, language)
 
     const comment1 = getFormattedComment(
@@ -449,17 +447,10 @@ export function getBallComment(
         language,
         { '0': lastName }
     )
-    const comment3 = getFormattedComment(
-        'getBall.defense',
-        random,
-        language,
-        { '0': defenseLastName }
-    )
 
     addLine(output, '')
     addLine(output, comment1)
     addLine(output, comment2)
-    addLine(output, comment3)
 }
 
 /**

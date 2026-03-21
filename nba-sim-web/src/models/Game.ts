@@ -663,7 +663,6 @@ function playPossession(state: GameState): number {
     getBallComment(
         offenseTeam.name,
         offensePlayer.getDisplayName(language),
-        defensePlayer.getDisplayName(language),
         random,
         language,
         commentary
