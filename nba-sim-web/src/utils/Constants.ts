@@ -142,40 +142,40 @@ export const NON_STARTER_MAX_MINUTES = 36 * 60 // Bench players use high limit
 
 // Athleticism-based target minutes adjustment for starters (in seconds)
 export const ATHLETICISM_ELITE_THRESHOLD = 90
-export const ATHLETICISM_ELITE_BONUS = 2 * 60 // +2 minutes
+export const ATHLETICISM_ELITE_BONUS = 2 * 60
 export const ATHLETICISM_HIGH_THRESHOLD = 85
-export const ATHLETICISM_HIGH_BONUS = 1 * 60 // +1 minute
+export const ATHLETICISM_HIGH_BONUS = 1 * 60
 export const ATHLETICISM_ABOVE_AVG_THRESHOLD = 80
-export const ATHLETICISM_ABOVE_AVG_PENALTY = -2 * 60 // -2 minutes
+export const ATHLETICISM_ABOVE_AVG_PENALTY = -2 * 60
 export const ATHLETICISM_AVG_THRESHOLD = 75
-export const ATHLETICISM_AVG_PENALTY = -3 * 60 // -3 minutes
+export const ATHLETICISM_AVG_PENALTY = -3 * 60
 export const ATHLETICISM_BELOW_AVG_THRESHOLD = 70
-export const ATHLETICISM_BELOW_AVG_PENALTY = -4 * 60 // -4 minutes
+export const ATHLETICISM_BELOW_AVG_PENALTY = -4 * 60
 export const ATHLETICISM_LOW_THRESHOLD = 65
-export const ATHLETICISM_LOW_PENALTY = -5 * 60 // -5 minutes
-export const ATHLETICISM_VERY_LOW_PENALTY = -6 * 60 // -6 minutes
-export const MIN_STARTER_MINUTES = 18 * 60 // Minimum 18 minutes for any starter
-export const CLOSE_GAME_BONUS_MINUTES = 5 * 60 // +5 minutes in close games
-export const PLAYOFF_STARTER_BONUS_MINUTES = 2 * 60 // +2 minutes for starters in playoffs
+export const ATHLETICISM_LOW_PENALTY = -5 * 60
+export const ATHLETICISM_VERY_LOW_PENALTY = -6 * 60
+export const MIN_STARTER_MINUTES = 18 * 60
+export const CLOSE_GAME_BONUS_MINUTES = 5 * 60
+export const PLAYOFF_STARTER_BONUS_MINUTES = 2 * 60
 
 // All-Star game: shorter minutes so everyone plays (~16 min avg for 15 players)
-export const ALL_STAR_STARTER_MINUTES = 20 * 60 // 20 minutes for starters
-export const ALL_STAR_BENCH_MINUTES = 16 * 60 // 16 minutes for bench
-export const ALL_STAR_DEEP_BENCH_MINUTES = 12 * 60 // 12 minutes for deep bench
-export const ALL_STAR_MAX_STINT = 8 * 60 // 8 minutes max stint
-export const ALL_STAR_SUB_PROBABILITY = 25 // 25% chance to check subs each possession
+export const ALL_STAR_STARTER_MINUTES = 20 * 60
+export const ALL_STAR_BENCH_MINUTES = 16 * 60
+export const ALL_STAR_DEEP_BENCH_MINUTES = 12 * 60
+export const ALL_STAR_MAX_STINT = 8 * 60
+export const ALL_STAR_SUB_PROBABILITY = 25
 
 // Maximum continuous stint duration before rest needed (in seconds)
-export const MAX_STARTER_STINT_CLOSE_GAME = 12 * 60 // 12 minutes in close games
-export const MAX_STARTER_STINT_NORMAL_GAME = 9 * 60 // 9 minutes in normal games
+export const MAX_STARTER_STINT_CLOSE_GAME = 12 * 60
+export const MAX_STARTER_STINT_NORMAL_GAME = 9 * 60
 export const MAX_BENCH_STINT = 8 * 60 // 8 minutes
 
 // Minimum rest time between stints (in seconds)
-export const MIN_REST_TIME = 3 * 60 // 3 minutes
-export const MIN_REST_TIME_CLOSE_GAME = 2 * 60 // 2 minutes in close games
+export const MIN_REST_TIME = 3 * 60
+export const MIN_REST_TIME_CLOSE_GAME = 2 * 60
 
 // Bench player limits
-export const BENCH_MINUTES_BUFFER = 5 * 60 // 5 minute buffer
+export const BENCH_MINUTES_BUFFER = 5 * 60
 
 // Performance-based thresholds
 export const MIN_SHOTS_FOR_HOT = 4
@@ -231,7 +231,7 @@ export const STAR_SELECTION_DECAY_POWER = 0.85 // Power for diminishing returns 
 
 export const FOULS_TO_FOUL_OUT = 6
 export const FLAGRANT_FOULS_TO_EJECT = 2
-export const BONUS_FOUL_THRESHOLD = 5 // Team in bonus at 5 fouls
+export const BONUS_FOUL_THRESHOLD = 5
 export const JUMP_BALL_FIFTY_FIFTY = 50
 export const THREE_POINT_LINE_DISTANCE = 23
 
@@ -370,9 +370,9 @@ export const OFFENSE_BASE = 65
 // Elite Playmaker Bonus
 // ============================================================================
 
-export const ELITE_PLAYMAKER_THRESHOLD = 90
+export const ELITE_PLAYMAKER_THRESHOLD = 86
 export const ELITE_PLAYMAKER_SINGLE_BONUS = 1.0
-export const ELITE_PLAYMAKER_DUAL_BONUS = 2.5
+export const ELITE_PLAYMAKER_DUAL_BONUS = 3.5
 
 // ============================================================================
 // Defense Player Effect
@@ -396,8 +396,20 @@ export const DEFENSE_BUFF = 12
 // ============================================================================
 
 export const ELITE_PERIMETER_DEF_THRESHOLD = 85
-export const ELITE_PERIMETER_DEF_MIN_COUNT = 3   // Need >= 3 elite perimeter defenders to trigger
-export const ELITE_PERIMETER_DEF_BONUS = 3.0     // -3.0% to opponent shot percentage
+export const ELITE_PERIMETER_DEF_MIN_COUNT = 3
+export const ELITE_PERIMETER_DEF_BONUS = 5.0
+
+// ============================================================================
+// Elite Two-Way Defender (Lockdown Presence)
+// A player with high stlRating or blkRating, defConst, and both high interiorDefense and perimeterDefense.
+// ============================================================================
+
+export const LOCKDOWN_STL_BLK_THRESHOLD = 90
+export const LOCKDOWN_DEF_CONST_THRESHOLD = 90
+export const LOCKDOWN_INTERIOR_DEF_THRESHOLD = 80
+export const LOCKDOWN_PERIMETER_DEF_THRESHOLD = 80
+export const LOCKDOWN_DIRECT_PENALTY = 5.0
+export const LOCKDOWN_DETERRENCE_PENALTY = 2.0
 
 // ============================================================================
 // Team Offensive Spacing
@@ -409,13 +421,24 @@ export const TEAM_SPACING_MAX_BONUS = 2.0
 
 // ============================================================================
 // Elite Offensive Rotation Bonus
-// All 5 on-court players have midRating >= 80 AND threeRating >= 75
+// All 5 on-court players have high midRating AND threeRating
 // Represents a lineup with no offensive weak links - every player can shoot.
 // ============================================================================
 
 export const ELITE_ROTATION_MID_THRESHOLD = 80
 export const ELITE_ROTATION_THREE_THRESHOLD = 75
-export const ELITE_ROTATION_BONUS = 3.0 // +3.0% to team shot percentage
+export const ELITE_ROTATION_BONUS = 4.0
+
+// ============================================================================
+// Elite Inside-Out Spacing Bonus
+// 2 on-court players with high layupRating, rest with high layupRating
+// Represents elite interior threats that create spacing for the whole team.
+// ============================================================================
+
+export const INSIDE_OUT_ELITE_LAYUP = 90
+export const INSIDE_OUT_BASE_LAYUP = 80
+export const INSIDE_OUT_ELITE_COUNT = 2
+export const INSIDE_OUT_SPACING_BONUS = 6.0
 
 // ============================================================================
 // Playoff/Play-In Adjustments
@@ -431,8 +454,8 @@ export const ELITE_ROTATION_BONUS = 3.0 // +3.0% to team shot percentage
 export const PLAYOFF_PACE_SLOWDOWN = 1.0
 
 /** Playoff defense intensity - less easy looks, more contested shots */
-export const PLAYOFF_DEFENSE_EASY = 5    // Regular: 10 -> reduces easy baskets
-export const PLAYOFF_DEFENSE_HARD = 55   // Regular: 50 -> more contested shots
+export const PLAYOFF_DEFENSE_EASY = 5
+export const PLAYOFF_DEFENSE_HARD = 55
 
 // ============================================================================
 // Consistency

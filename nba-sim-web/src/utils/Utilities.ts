@@ -676,6 +676,28 @@ export function calculatePercentage(
         }
     }
 
+    // Elite two-way defender lockdown presence (skip in All-Star game)
+    if (!isAllStar && defenseTeamOnCourt) {
+        const isLockdown = (p: Player) =>
+            (p.stlRating >= Constants.LOCKDOWN_STL_BLK_THRESHOLD || p.blkRating >= Constants.LOCKDOWN_STL_BLK_THRESHOLD) &&
+            p.defConst >= Constants.LOCKDOWN_DEF_CONST_THRESHOLD &&
+            p.interiorDefense >= Constants.LOCKDOWN_INTERIOR_DEF_THRESHOLD &&
+            p.perimeterDefense >= Constants.LOCKDOWN_PERIMETER_DEF_THRESHOLD
+
+        // Check if direct defender is a lockdown defender
+        if (isLockdown(defensePlayer)) {
+            percentage -= Constants.LOCKDOWN_DIRECT_PENALTY
+        } else {
+            // Check if any other on-court defender is a lockdown defender (off-ball deterrence)
+            for (const player of defenseTeamOnCourt.values()) {
+                if (player.position !== defensePlayer.position && isLockdown(player)) {
+                    percentage -= Constants.LOCKDOWN_DETERRENCE_PENALTY
+                    break
+                }
+            }
+        }
+    }
+
     // Offensive consistency bonus (higher offConst = better)
     let offConsistencyBonus = Constants.OFF_CONSISTENCY_COFF * (offensePlayer.offConst - Constants.CONSISTENCY_BASE)
     if (offConsistencyBonus > Constants.OFF_CONSISTENCY_MAX_BONUS) offConsistencyBonus = Constants.OFF_CONSISTENCY_MAX_BONUS
@@ -734,6 +756,23 @@ export function calculatePercentage(
         }
         if (allEliteShooters) {
             percentage += Constants.ELITE_ROTATION_BONUS
+        }
+    }
+
+    // Elite inside-out spacing bonus - 2 elite layup + all 80+ layup (skip in All-Star game)
+    if (!isAllStar) {
+        let eliteLayupCount = 0
+        let allAboveBaseLine = true
+        for (const player of offenseTeamOnCourt.values()) {
+            if (player.layupRating >= Constants.INSIDE_OUT_ELITE_LAYUP) {
+                eliteLayupCount++
+            }
+            if (player.layupRating < Constants.INSIDE_OUT_BASE_LAYUP) {
+                allAboveBaseLine = false
+            }
+        }
+        if (eliteLayupCount >= Constants.INSIDE_OUT_ELITE_COUNT && allAboveBaseLine) {
+            percentage += Constants.INSIDE_OUT_SPACING_BONUS
         }
     }
 
