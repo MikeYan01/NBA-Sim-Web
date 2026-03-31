@@ -372,7 +372,7 @@ export const OFFENSE_BASE = 65
 
 export const ELITE_PLAYMAKER_THRESHOLD = 86
 export const ELITE_PLAYMAKER_SINGLE_BONUS = 1.0
-export const ELITE_PLAYMAKER_DUAL_BONUS = 3.5
+export const ELITE_PLAYMAKER_DUAL_BONUS = 4.0
 
 // ============================================================================
 // Defense Player Effect
@@ -397,7 +397,7 @@ export const DEFENSE_BUFF = 12
 
 export const ELITE_PERIMETER_DEF_THRESHOLD = 85
 export const ELITE_PERIMETER_DEF_MIN_COUNT = 3
-export const ELITE_PERIMETER_DEF_BONUS = 5.0
+export const ELITE_PERIMETER_DEF_BONUS = 4.0
 
 // ============================================================================
 // Elite Two-Way Defender (Lockdown Presence)
@@ -427,7 +427,7 @@ export const TEAM_SPACING_MAX_BONUS = 2.0
 
 export const ELITE_ROTATION_MID_THRESHOLD = 80
 export const ELITE_ROTATION_THREE_THRESHOLD = 75
-export const ELITE_ROTATION_BONUS = 4.0
+export const ELITE_ROTATION_BONUS = 5.0
 
 // ============================================================================
 // Elite Inside-Out Spacing Bonus
@@ -438,7 +438,7 @@ export const ELITE_ROTATION_BONUS = 4.0
 export const INSIDE_OUT_ELITE_LAYUP = 90
 export const INSIDE_OUT_BASE_LAYUP = 80
 export const INSIDE_OUT_ELITE_COUNT = 2
-export const INSIDE_OUT_SPACING_BONUS = 6.0
+export const INSIDE_OUT_SPACING_BONUS = 5.0
 
 // ============================================================================
 // Playoff/Play-In Adjustments
