@@ -744,17 +744,28 @@ export function calculatePercentage(
         percentage += calculateTeamSpacingBonus(offenseTeamOnCourt)
     }
 
-    // Elite offensive rotation bonus - all 5 on-court players can shoot (skip in All-Star game)
+    // Elite offensive rotation bonus (skip in All-Star game)
+    // Path 1: all mid>=80 & three>=75 & >=3 offConst>=90 (balanced elite shooting + consistency)
+    // Path 2: average threeRating>=85 (pure three-point shooting lineup)
     if (!isAllStar) {
         let allEliteShooters = true
+        let highOffConstCount = 0
+        let threeSum = 0
+        let playerCount = 0
         for (const player of offenseTeamOnCourt.values()) {
             if (player.midRating < Constants.ELITE_ROTATION_MID_THRESHOLD ||
                 player.threeRating < Constants.ELITE_ROTATION_THREE_THRESHOLD) {
                 allEliteShooters = false
-                break
             }
+            if (player.offConst >= Constants.ELITE_ROTATION_OFF_CONST_THRESHOLD) {
+                highOffConstCount++
+            }
+            threeSum += player.threeRating
+            playerCount++
         }
-        if (allEliteShooters) {
+        const avgThree = playerCount > 0 ? threeSum / playerCount : 0
+        if ((allEliteShooters && highOffConstCount >= Constants.ELITE_ROTATION_OFF_CONST_MIN_COUNT) ||
+            avgThree >= Constants.ELITE_ROTATION_AVG_THREE_THRESHOLD) {
             percentage += Constants.ELITE_ROTATION_BONUS
         }
     }

@@ -397,7 +397,7 @@ export const DEFENSE_BUFF = 12
 
 export const ELITE_PERIMETER_DEF_THRESHOLD = 85
 export const ELITE_PERIMETER_DEF_MIN_COUNT = 3
-export const ELITE_PERIMETER_DEF_BONUS = 4.0
+export const ELITE_PERIMETER_DEF_BONUS = 5.0
 
 // ============================================================================
 // Elite Two-Way Defender (Lockdown Presence)
@@ -427,7 +427,10 @@ export const TEAM_SPACING_MAX_BONUS = 2.0
 
 export const ELITE_ROTATION_MID_THRESHOLD = 80
 export const ELITE_ROTATION_THREE_THRESHOLD = 75
-export const ELITE_ROTATION_BONUS = 5.0
+export const ELITE_ROTATION_OFF_CONST_THRESHOLD = 90
+export const ELITE_ROTATION_OFF_CONST_MIN_COUNT = 3
+export const ELITE_ROTATION_AVG_THREE_THRESHOLD = 85
+export const ELITE_ROTATION_BONUS = 4.0
 
 // ============================================================================
 // Elite Inside-Out Spacing Bonus
