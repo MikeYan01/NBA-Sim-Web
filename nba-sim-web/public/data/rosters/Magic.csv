@@ -1,11 +1,11 @@
 name,englishName,position,playerType,rotationType,rating,insideRating,midRating,threeRating,freeThrowPercent,interiorDefense,perimeterDefense,orbRating,drbRating,astRating,stlRating,blkRating,layupRating,standDunk,drivingDunk,athleticism,durability,offConst,defConst,drawFoul
+保罗·班切罗,Paolo Banchero,PF,1,1,88,88,75,78,78,68,66,43,83,76,36,55,90,75,85,82,80,95,45,96
 弗朗茨·瓦格纳,Franz Wagner,SF,1,1,87,85,90,80,83,56,73,48,64,76,49,50,93,55,80,75,80,90,70,95
-保罗·班切罗,Paolo Banchero,PF,1,1,86,82,75,78,78,68,66,43,83,74,36,55,90,75,85,82,80,85,45,89
 德斯蒙德·贝恩,Desmond Bane,SG,1,1,86,93,83,86,92,59,79,44,49,72,42,51,89,35,75,77,78,95,70,43
 安东尼·布莱克,Anthony Black,PG,1,2,82,82,75,77,73,63,84,37,53,74,66,60,88,35,75,79,80,85,80,74
-杰伦·萨格斯,Jalen Suggs,PG,5,1,82,97,90,77,85,55,91,37,60,76,97,63,82,40,80,83,80,60,85,55
+杰伦·萨格斯,Jalen Suggs,PG,5,1,81,87,90,76,85,55,91,37,60,75,97,63,77,40,80,83,80,50,85,50
 小温德尔·卡特,Wendell Carter Jr.,C,1,1,80,86,86,75,81,78,47,63,78,55,41,58,78,80,75,74,81,60,70,75
-特里斯坦·达·席尔瓦,Tristan da Silva,PF,4,2,79,91,49,82,89,64,64,41,59,56,53,51,81,60,65,76,80,80,50,55
+特里斯坦·达·席尔瓦,Tristan da Silva,PF,4,2,78,90,49,80,89,64,64,41,59,56,53,51,78,60,65,76,80,70,50,55
 戈加·比塔泽,Goga Bitadze,C,2,3,77,98,72,69,71,78,25,91,76,56,53,86,50,75,65,66,80,40,80,40
 莫里茨·瓦格纳,Moritz Wagner,C,1,2,77,80,84,75,82,58,40,58,83,49,59,32,75,75,65,76,81,80,35,40
 杰文·卡特,Jevon Carter,PG,5,3,75,66,93,79,82,34,79,33,47,67,66,50,75,25,35,75,81,65,70,40
