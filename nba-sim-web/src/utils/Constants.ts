@@ -408,7 +408,7 @@ export const LOCKDOWN_STL_BLK_THRESHOLD = 90
 export const LOCKDOWN_DEF_CONST_THRESHOLD = 90
 export const LOCKDOWN_INTERIOR_DEF_THRESHOLD = 80
 export const LOCKDOWN_PERIMETER_DEF_THRESHOLD = 80
-export const LOCKDOWN_DIRECT_PENALTY = 5.0
+export const LOCKDOWN_DIRECT_PENALTY = 6.0
 export const LOCKDOWN_DETERRENCE_PENALTY = 2.0
 
 // ============================================================================
@@ -430,7 +430,7 @@ export const ELITE_ROTATION_THREE_THRESHOLD = 75
 export const ELITE_ROTATION_OFF_CONST_THRESHOLD = 90
 export const ELITE_ROTATION_OFF_CONST_MIN_COUNT = 3
 export const ELITE_ROTATION_AVG_THREE_THRESHOLD = 85
-export const ELITE_ROTATION_BONUS = 4.0
+export const ELITE_ROTATION_BONUS = 3.0
 
 // ============================================================================
 // Elite Inside-Out Spacing Bonus
@@ -439,7 +439,7 @@ export const ELITE_ROTATION_BONUS = 4.0
 // ============================================================================
 
 export const INSIDE_OUT_ELITE_LAYUP = 90
-export const INSIDE_OUT_BASE_LAYUP = 80
+export const INSIDE_OUT_BASE_LAYUP = 79
 export const INSIDE_OUT_ELITE_COUNT = 2
 export const INSIDE_OUT_SPACING_BONUS = 5.0
 
