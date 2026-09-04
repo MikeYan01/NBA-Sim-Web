@@ -663,15 +663,25 @@ export function calculatePercentage(
     }
 
     // Elite perimeter defense bonus (switching defense)
-    // >= 3 elite perimeter defenders on court enables switch-everything scheme
+    // Either >= 3 elite defenders or an average perimeter defense >= 80 enables it.
     if (!isAllStar && defenseTeamOnCourt) {
         let eliteDefCount = 0
+        let perimeterDefenseTotal = 0
+        let defenderCount = 0
         for (const player of defenseTeamOnCourt.values()) {
             if (player.perimeterDefense >= Constants.ELITE_PERIMETER_DEF_THRESHOLD) {
                 eliteDefCount++
             }
+            perimeterDefenseTotal += player.perimeterDefense
+            defenderCount++
         }
-        if (eliteDefCount >= Constants.ELITE_PERIMETER_DEF_MIN_COUNT) {
+        const averagePerimeterDefense = defenderCount > 0
+            ? perimeterDefenseTotal / defenderCount
+            : 0
+        if (
+            eliteDefCount >= Constants.ELITE_PERIMETER_DEF_MIN_COUNT ||
+            averagePerimeterDefense >= Constants.ELITE_PERIMETER_DEF_AVG_THRESHOLD
+        ) {
             percentage -= Constants.ELITE_PERIMETER_DEF_BONUS
         }
     }
@@ -726,16 +736,15 @@ export function calculatePercentage(
         percentage *= clutchPenalty
     }
 
-    // Elite playmaker bonus - count 90+ astRating players on court
-    let elitePlaymakerCount = 0
+    // Elite playmaker bonus - one or more elite passers provide the same team bonus
+    let hasElitePlaymaker = false
     for (const player of offenseTeamOnCourt.values()) {
         if (player.astRating >= Constants.ELITE_PLAYMAKER_THRESHOLD) {
-            elitePlaymakerCount++
+            hasElitePlaymaker = true
+            break
         }
     }
-    if (elitePlaymakerCount >= 2) {
-        percentage += Constants.ELITE_PLAYMAKER_DUAL_BONUS
-    } else if (elitePlaymakerCount === 1) {
+    if (hasElitePlaymaker) {
         percentage += Constants.ELITE_PLAYMAKER_SINGLE_BONUS
     }
 
@@ -745,13 +754,10 @@ export function calculatePercentage(
     }
 
     // Elite offensive rotation bonus (skip in All-Star game)
-    // Path 1: all mid>=80 & three>=75 & >=3 offConst>=90 (balanced elite shooting + consistency)
-    // Path 2: average threeRating>=85 (pure three-point shooting lineup)
+    // All five players must meet the shooting floors, with at least three highly consistent scorers.
     if (!isAllStar) {
         let allEliteShooters = true
         let highOffConstCount = 0
-        let threeSum = 0
-        let playerCount = 0
         for (const player of offenseTeamOnCourt.values()) {
             if (player.midRating < Constants.ELITE_ROTATION_MID_THRESHOLD ||
                 player.threeRating < Constants.ELITE_ROTATION_THREE_THRESHOLD) {
@@ -760,30 +766,9 @@ export function calculatePercentage(
             if (player.offConst >= Constants.ELITE_ROTATION_OFF_CONST_THRESHOLD) {
                 highOffConstCount++
             }
-            threeSum += player.threeRating
-            playerCount++
         }
-        const avgThree = playerCount > 0 ? threeSum / playerCount : 0
-        if ((allEliteShooters && highOffConstCount >= Constants.ELITE_ROTATION_OFF_CONST_MIN_COUNT) ||
-            avgThree >= Constants.ELITE_ROTATION_AVG_THREE_THRESHOLD) {
+        if (allEliteShooters && highOffConstCount >= Constants.ELITE_ROTATION_OFF_CONST_MIN_COUNT) {
             percentage += Constants.ELITE_ROTATION_BONUS
-        }
-    }
-
-    // Elite inside-out spacing bonus - 2 elite layup + all 80+ layup (skip in All-Star game)
-    if (!isAllStar) {
-        let eliteLayupCount = 0
-        let allAboveBaseLine = true
-        for (const player of offenseTeamOnCourt.values()) {
-            if (player.layupRating >= Constants.INSIDE_OUT_ELITE_LAYUP) {
-                eliteLayupCount++
-            }
-            if (player.layupRating < Constants.INSIDE_OUT_BASE_LAYUP) {
-                allAboveBaseLine = false
-            }
-        }
-        if (eliteLayupCount >= Constants.INSIDE_OUT_ELITE_COUNT && allAboveBaseLine) {
-            percentage += Constants.INSIDE_OUT_SPACING_BONUS
         }
     }
 

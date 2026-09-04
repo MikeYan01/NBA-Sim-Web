@@ -31,6 +31,10 @@ dist
 dist-ssr
 build
 *.local
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
 
 # Coverage
 coverage

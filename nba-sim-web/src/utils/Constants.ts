@@ -31,9 +31,7 @@ export const PLAYER_STAR_LB = 90
 /** Veteran star players who need load management in regular season */
 export const VETERAN_STAR_PLAYERS = [
     'Stephen Curry',
-    'Kevin Durant',
-    'LeBron James',
-    'James Harden'
+    'Kevin Durant'
 ]
 
 /** Probability (%) to redirect shot to teammate when veteran star is selected */
@@ -372,7 +370,6 @@ export const OFFENSE_BASE = 65
 
 export const ELITE_PLAYMAKER_THRESHOLD = 86
 export const ELITE_PLAYMAKER_SINGLE_BONUS = 1.0
-export const ELITE_PLAYMAKER_DUAL_BONUS = 4.0
 
 // ============================================================================
 // Defense Player Effect
@@ -391,13 +388,14 @@ export const DEFENSE_BUFF = 12
 
 // ============================================================================
 // Elite Perimeter Defense Bonus (Switching Defense)
-// When multiple on-court defenders have perimeterDefense >= threshold,
-// the team can switch everything, reducing opponent shot percentage.
+// A lineup can switch everything through either multiple elite perimeter
+// defenders or strong five-player perimeter defense overall.
 // ============================================================================
 
 export const ELITE_PERIMETER_DEF_THRESHOLD = 85
 export const ELITE_PERIMETER_DEF_MIN_COUNT = 3
-export const ELITE_PERIMETER_DEF_BONUS = 5.0
+export const ELITE_PERIMETER_DEF_AVG_THRESHOLD = 80
+export const ELITE_PERIMETER_DEF_BONUS = 3.0
 
 // ============================================================================
 // Elite Two-Way Defender (Lockdown Presence)
@@ -425,23 +423,11 @@ export const TEAM_SPACING_MAX_BONUS = 2.0
 // Represents a lineup with no offensive weak links - every player can shoot.
 // ============================================================================
 
-export const ELITE_ROTATION_MID_THRESHOLD = 80
+export const ELITE_ROTATION_MID_THRESHOLD = 75
 export const ELITE_ROTATION_THREE_THRESHOLD = 75
 export const ELITE_ROTATION_OFF_CONST_THRESHOLD = 90
 export const ELITE_ROTATION_OFF_CONST_MIN_COUNT = 3
-export const ELITE_ROTATION_AVG_THREE_THRESHOLD = 85
 export const ELITE_ROTATION_BONUS = 3.0
-
-// ============================================================================
-// Elite Inside-Out Spacing Bonus
-// 2 on-court players with high layupRating, rest with high layupRating
-// Represents elite interior threats that create spacing for the whole team.
-// ============================================================================
-
-export const INSIDE_OUT_ELITE_LAYUP = 90
-export const INSIDE_OUT_BASE_LAYUP = 79
-export const INSIDE_OUT_ELITE_COUNT = 2
-export const INSIDE_OUT_SPACING_BONUS = 5.0
 
 // ============================================================================
 // Playoff/Play-In Adjustments

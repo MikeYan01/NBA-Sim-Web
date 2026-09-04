@@ -1,0 +1,4590 @@
+{
+  "version": 1,
+  "players": [
+    {
+      "name": "阿龙·戈登",
+      "englishName": "Aaron Gordon",
+      "position": "PF",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "阿隆·霍勒迪",
+      "englishName": "Aaron Holiday",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "亚伦·内史密斯",
+      "englishName": "Aaron Nesmith",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "1"
+    },
+    {
+      "name": "阿伦·威金斯",
+      "englishName": "Aaron Wiggins",
+      "position": "PF",
+      "playerType": "5",
+      "rotationType": "2"
+    },
+    {
+      "name": "艾斯·贝利",
+      "englishName": "Ace Bailey",
+      "position": "SF",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "阿达玛·巴尔",
+      "englishName": "Adama Bal",
+      "position": "PG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "亚当·弗拉格勒",
+      "englishName": "Adam Flagler",
+      "position": "PG",
+      "playerType": "3",
+      "rotationType": "3"
+    },
+    {
+      "name": "阿代·马拉",
+      "englishName": "Aday Mara",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "3"
+    },
+    {
+      "name": "阿德姆·博纳",
+      "englishName": "Adem Bona",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "2"
+    },
+    {
+      "name": "阿杜·蒂埃罗",
+      "englishName": "Adou Thiero",
+      "position": "SG",
+      "playerType": "2",
+      "rotationType": "3"
+    },
+    {
+      "name": "阿杰·米切尔",
+      "englishName": "Ajay Mitchell",
+      "position": "SG",
+      "playerType": "1",
+      "rotationType": "1"
+    },
+    {
+      "name": "AJ·迪班萨",
+      "englishName": "AJ Dybantsa",
+      "position": "SF",
+      "playerType": "3",
+      "rotationType": "2"
+    },
+    {
+      "name": "A.J·格林",
+      "englishName": "AJ Green",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "2"
+    },
+    {
+      "name": "AJ·约翰逊",
+      "englishName": "AJ Johnson",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "A.J.·劳森",
+      "englishName": "A.J. Lawson",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "阿克·奥克雷克",
+      "englishName": "AK Okereke",
+      "position": "PF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "亚历山大·萨尔",
+      "englishName": "Alexandre Sarr",
+      "position": "C",
+      "playerType": "1",
+      "rotationType": "1"
+    },
+    {
+      "name": "亚历克斯·阿德托昆博",
+      "englishName": "Alex Antetokounmpo",
+      "position": "SF",
+      "playerType": "1",
+      "rotationType": "3"
+    },
+    {
+      "name": "亚历克斯·卡鲁索",
+      "englishName": "Alex Caruso",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "1"
+    },
+    {
+      "name": "亚历克斯·卡拉班",
+      "englishName": "Alex Karaban",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "亚历克斯·莫拉莱斯",
+      "englishName": "Alex Morales",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "阿尔·霍福德",
+      "englishName": "Al Horford",
+      "position": "C",
+      "playerType": "5",
+      "rotationType": "2"
+    },
+    {
+      "name": "阿利亚·马丁",
+      "englishName": "Alijah Martin",
+      "position": "SG",
+      "playerType": "1",
+      "rotationType": "3"
+    },
+    {
+      "name": "阿伦·格雷夫斯",
+      "englishName": "Allen Graves",
+      "position": "PF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "阿尔佩伦·申京",
+      "englishName": "Alperen Sengun",
+      "position": "C",
+      "playerType": "3",
+      "rotationType": "1"
+    },
+    {
+      "name": "阿尔法·迪亚洛",
+      "englishName": "Alpha Diallo",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "阿马里·威廉姆斯",
+      "englishName": "Amari Williams",
+      "position": "PF",
+      "playerType": "2",
+      "rotationType": "3"
+    },
+    {
+      "name": "阿门·汤普森",
+      "englishName": "Amen Thompson",
+      "position": "SG",
+      "playerType": "3",
+      "rotationType": "1"
+    },
+    {
+      "name": "阿米尔·科菲",
+      "englishName": "Amir Coffey",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "安德森·加西亚",
+      "englishName": "Andersson Garcia",
+      "position": "PF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "安德烈·德拉蒙德",
+      "englishName": "Andre Drummond",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "2"
+    },
+    {
+      "name": "小安德烈·杰克逊",
+      "englishName": "Andre Jackson Jr.",
+      "position": "SF",
+      "playerType": "1",
+      "rotationType": "3"
+    },
+    {
+      "name": "安德鲁·内姆哈德",
+      "englishName": "Andrew Nembhard",
+      "position": "SG",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "安德鲁·威金斯",
+      "englishName": "Andrew Wiggins",
+      "position": "SF",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "安芬尼·西蒙斯",
+      "englishName": "Anfernee Simons",
+      "position": "PG",
+      "playerType": "5",
+      "rotationType": "2"
+    },
+    {
+      "name": "安东尼·布莱克",
+      "englishName": "Anthony Black",
+      "position": "PG",
+      "playerType": "1",
+      "rotationType": "2"
+    },
+    {
+      "name": "安东尼·戴维斯",
+      "englishName": "Anthony Davis",
+      "position": "PF",
+      "playerType": "3",
+      "rotationType": "1"
+    },
+    {
+      "name": "安东尼·爱德华兹",
+      "englishName": "Anthony Edwards",
+      "position": "SF",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "安东尼·吉尔",
+      "englishName": "Anthony Gill",
+      "position": "SF",
+      "playerType": "3",
+      "rotationType": "3"
+    },
+    {
+      "name": "安东尼奥·里夫斯",
+      "englishName": "Antonio Reeves",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "阿里尔·胡克波蒂",
+      "englishName": "Ariel Hukporti",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "3"
+    },
+    {
+      "name": "阿瑟·卡卢马",
+      "englishName": "Arthur Kaluma",
+      "position": "SF",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "阿萨·纽厄尔",
+      "englishName": "Asa Newell",
+      "position": "PF",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "奥萨·汤普森",
+      "englishName": "Ausar Thompson",
+      "position": "SF",
+      "playerType": "2",
+      "rotationType": "1"
+    },
+    {
+      "name": "奥斯汀·里夫斯",
+      "englishName": "Austin Reaves",
+      "position": "SG",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "阿约·多苏穆",
+      "englishName": "Ayo Dosunmu",
+      "position": "PG",
+      "playerType": "1",
+      "rotationType": "2"
+    },
+    {
+      "name": "巴巴·米勒",
+      "englishName": "Baba Miller",
+      "position": "PF",
+      "playerType": "2",
+      "rotationType": "3"
+    },
+    {
+      "name": "巴姆·阿德巴约",
+      "englishName": "Bam Adebayo",
+      "position": "C",
+      "playerType": "1",
+      "rotationType": "1"
+    },
+    {
+      "name": "贝勒·谢尔曼",
+      "englishName": "Baylor Scheierman",
+      "position": "PG",
+      "playerType": "5",
+      "rotationType": "2"
+    },
+    {
+      "name": "本尼迪克特·马瑟林",
+      "englishName": "Bennedict Mathurin",
+      "position": "SG",
+      "playerType": "1",
+      "rotationType": "2"
+    },
+    {
+      "name": "本内特·斯特茨",
+      "englishName": "Bennett Stirtz",
+      "position": "PG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "本·萨拉夫",
+      "englishName": "Ben Saraf",
+      "position": "SG",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "本·谢泼德",
+      "englishName": "Ben Sheppard",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "2"
+    },
+    {
+      "name": "贝兹·姆本",
+      "englishName": "Bez Mbeng",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "比拉尔·库利巴利",
+      "englishName": "Bilal Coulibaly",
+      "position": "SG",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "俾斯麦·比永博",
+      "englishName": "Bismack Biyombo",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "3"
+    },
+    {
+      "name": "布莱克·欣森",
+      "englishName": "Blake Hinson",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "布莱克·韦斯利",
+      "englishName": "Blake Wesley",
+      "position": "PG",
+      "playerType": "1",
+      "rotationType": "3"
+    },
+    {
+      "name": "鲍比·波蒂斯",
+      "englishName": "Bobby Portis Jr.",
+      "position": "C",
+      "playerType": "4",
+      "rotationType": "2"
+    },
+    {
+      "name": "博比·克林特曼",
+      "englishName": "Bobi Klintman",
+      "position": "PF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "波格丹·博格丹诺维奇",
+      "englishName": "Bogdan Bogdanovic",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "2"
+    },
+    {
+      "name": "博戈柳布·马尔科维奇",
+      "englishName": "Bogoljub Markovic",
+      "position": "C",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "邦斯·海兰德",
+      "englishName": "Bones Hyland",
+      "position": "PG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "布雷登·史密斯",
+      "englishName": "Braden Smith",
+      "position": "PG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "布拉德利·比尔",
+      "englishName": "Bradley Beal",
+      "position": "SF",
+      "playerType": "4",
+      "rotationType": "2"
+    },
+    {
+      "name": "布兰登·卡尔森",
+      "englishName": "Branden Carlson",
+      "position": "C",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "布兰丁·波杰姆斯基",
+      "englishName": "Brandin Podziemski",
+      "position": "SG",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "布兰登·克拉克",
+      "englishName": "Brandon Clarke",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "2"
+    },
+    {
+      "name": "布兰登·英格拉姆",
+      "englishName": "Brandon Ingram",
+      "position": "SF",
+      "playerType": "1",
+      "rotationType": "1"
+    },
+    {
+      "name": "布兰登·米勒",
+      "englishName": "Brandon Miller",
+      "position": "SG",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "布兰登·威廉姆斯",
+      "englishName": "Brandon Williams",
+      "position": "PG",
+      "playerType": "1",
+      "rotationType": "2"
+    },
+    {
+      "name": "布雷登·伯瑞斯",
+      "englishName": "Brayden Burries",
+      "position": "SG",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "布赖斯·森萨博",
+      "englishName": "Brice Sensabaugh",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "2"
+    },
+    {
+      "name": "布朗尼·詹姆斯",
+      "englishName": "Bronny James Jr.",
+      "position": "PG",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "布鲁克·洛佩斯",
+      "englishName": "Brook Lopez",
+      "position": "C",
+      "playerType": "5",
+      "rotationType": "1"
+    },
+    {
+      "name": "布鲁克斯·巴恩希泽",
+      "englishName": "Brooks Barnhizer",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "布鲁斯·布朗",
+      "englishName": "Bruce Brown",
+      "position": "PG",
+      "playerType": "1",
+      "rotationType": "2"
+    },
+    {
+      "name": "布鲁斯·桑顿",
+      "englishName": "Bruce Thornton",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "布莱斯·霍普金斯",
+      "englishName": "Bryce Hopkins",
+      "position": "SF",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "布莱斯·麦高文斯",
+      "englishName": "Bryce McGowens",
+      "position": "SF",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "布布·卡灵顿",
+      "englishName": "Bub Carrington",
+      "position": "PG",
+      "playerType": "4",
+      "rotationType": "2"
+    },
+    {
+      "name": "巴迪·伯海姆",
+      "englishName": "Buddy Boeheim",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "巴迪·希尔德",
+      "englishName": "Buddy Hield",
+      "position": "SG",
+      "playerType": "4",
+      "rotationType": "2"
+    },
+    {
+      "name": "凯德·坎宁安",
+      "englishName": "Cade Cunningham",
+      "position": "PG",
+      "playerType": "1",
+      "rotationType": "1"
+    },
+    {
+      "name": "凯莱布·豪斯顿",
+      "englishName": "Caleb Houstan",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "凯莱布·勒夫",
+      "englishName": "Caleb Love",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "凯莱布·马丁",
+      "englishName": "Caleb Martin",
+      "position": "PF",
+      "playerType": "1",
+      "rotationType": "3"
+    },
+    {
+      "name": "凯莱布·威尔逊",
+      "englishName": "Caleb Wilson",
+      "position": "PF",
+      "playerType": "3",
+      "rotationType": "2"
+    },
+    {
+      "name": "卡姆·克里斯蒂",
+      "englishName": "Cam Christie",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "卡梅伦·布泽尔",
+      "englishName": "Cameron Boozer",
+      "position": "PF",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "卡梅隆·卡尔",
+      "englishName": "Cameron Carr",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "卡梅隆·约翰逊",
+      "englishName": "Cameron Johnson",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "1"
+    },
+    {
+      "name": "卡梅伦·佩恩",
+      "englishName": "Cameron Payne",
+      "position": "PG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "卡梅隆·托马斯",
+      "englishName": "Cameron Thomas",
+      "position": "PG",
+      "playerType": "1",
+      "rotationType": "1"
+    },
+    {
+      "name": "卡姆·斯宾塞",
+      "englishName": "Cam Spencer",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "2"
+    },
+    {
+      "name": "卡梅伦·托马斯",
+      "englishName": "Cam Thomas",
+      "position": "PG",
+      "playerType": "1",
+      "rotationType": "2"
+    },
+    {
+      "name": "卡姆·惠特莫尔",
+      "englishName": "Cam Whitmore",
+      "position": "PF",
+      "playerType": "5",
+      "rotationType": "2"
+    },
+    {
+      "name": "卡里斯·勒韦尔",
+      "englishName": "Caris LeVert",
+      "position": "SF",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "卡特·布莱恩特",
+      "englishName": "Carter Bryant",
+      "position": "PF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "卡森·华莱士",
+      "englishName": "Cason Wallace",
+      "position": "SG",
+      "playerType": "4",
+      "rotationType": "2"
+    },
+    {
+      "name": "塞德里克·考沃德",
+      "englishName": "Cedric Coward",
+      "position": "SG",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "钱尼·约翰逊",
+      "englishName": "Chaney Johnson",
+      "position": "SF",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "查尔斯·巴西",
+      "englishName": "Charles Bassey",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "3"
+    },
+    {
+      "name": "查兹·拉尼尔",
+      "englishName": "Chaz Lanier",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "切特·霍姆格伦",
+      "englishName": "Chet Holmgren",
+      "position": "C",
+      "playerType": "1",
+      "rotationType": "1"
+    },
+    {
+      "name": "克里斯·布歇",
+      "englishName": "Chris Boucher",
+      "position": "C",
+      "playerType": "1",
+      "rotationType": "3"
+    },
+    {
+      "name": "小克里斯·塞纳克",
+      "englishName": "Chris Cenac Jr.",
+      "position": "PF",
+      "playerType": "3",
+      "rotationType": "3"
+    },
+    {
+      "name": "克里斯·利文斯顿",
+      "englishName": "Chris Livingston",
+      "position": "PF",
+      "playerType": "1",
+      "rotationType": "3"
+    },
+    {
+      "name": "克里斯·马农",
+      "englishName": "Chris Manon",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "克里斯·保罗",
+      "englishName": "Chris Paul",
+      "position": "PG",
+      "playerType": "1",
+      "rotationType": "3"
+    },
+    {
+      "name": "克里斯蒂安·安德森",
+      "englishName": "Christian Anderson",
+      "position": "PG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "克里斯蒂安·布劳恩",
+      "englishName": "Christian Braun",
+      "position": "SG",
+      "playerType": "1",
+      "rotationType": "2"
+    },
+    {
+      "name": "克里斯蒂安·科科洛",
+      "englishName": "Christian Koloko",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "3"
+    },
+    {
+      "name": "克里斯·扬布拉德",
+      "englishName": "Chris Youngblood",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "查基·赫普本",
+      "englishName": "Chucky Hepburn",
+      "position": "PG",
+      "playerType": "1",
+      "rotationType": "3"
+    },
+    {
+      "name": "CJ·亨特利",
+      "englishName": "CJ Huntley",
+      "position": "PF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "CJ·麦科勒姆",
+      "englishName": "C.J. McCollum",
+      "position": "PG",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "克林特·卡佩拉",
+      "englishName": "Clint Capela",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "2"
+    },
+    {
+      "name": "科比·怀特",
+      "englishName": "Coby White",
+      "position": "PG",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "科迪·威廉姆斯",
+      "englishName": "Cody Williams",
+      "position": "SF",
+      "playerType": "1",
+      "rotationType": "2"
+    },
+    {
+      "name": "科尔·安东尼",
+      "englishName": "Cole Anthony",
+      "position": "PG",
+      "playerType": "4",
+      "rotationType": "2"
+    },
+    {
+      "name": "科林·卡斯尔顿",
+      "englishName": "Colin Castleton",
+      "position": "C",
+      "playerType": "1",
+      "rotationType": "3"
+    },
+    {
+      "name": "科林·吉莱斯皮",
+      "englishName": "Collin Gillespie",
+      "position": "PG",
+      "playerType": "5",
+      "rotationType": "1"
+    },
+    {
+      "name": "科林·默里-博伊尔斯",
+      "englishName": "Collin Murray-Boyles",
+      "position": "C",
+      "playerType": "3",
+      "rotationType": "1"
+    },
+    {
+      "name": "克林·塞克斯顿",
+      "englishName": "Collin Sexton",
+      "position": "PG",
+      "playerType": "4",
+      "rotationType": "2"
+    },
+    {
+      "name": "库珀·弗拉格",
+      "englishName": "Cooper Flagg",
+      "position": "SF",
+      "playerType": "3",
+      "rotationType": "1"
+    },
+    {
+      "name": "科里·基斯珀特",
+      "englishName": "Corey Kispert",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "科马克·瑞安",
+      "englishName": "Cormac Ryan",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "小克雷格·波特",
+      "englishName": "Craig Porter Jr.",
+      "position": "PG",
+      "playerType": "1",
+      "rotationType": "2"
+    },
+    {
+      "name": "柯蒂斯·琼斯",
+      "englishName": "Curtis Jones",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "德奎昂·普劳登",
+      "englishName": "Daeqwon Plowden",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "2"
+    },
+    {
+      "name": "戴林·斯温",
+      "englishName": "Dailyn Swain",
+      "position": "PG",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "达拉诺·班顿",
+      "englishName": "Dalano Banton",
+      "position": "PG",
+      "playerType": "3",
+      "rotationType": "3"
+    },
+    {
+      "name": "达伦·特里",
+      "englishName": "Dalen Terry",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "道尔顿·克内克特",
+      "englishName": "Dalton Knecht",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "2"
+    },
+    {
+      "name": "达米安·利拉德",
+      "englishName": "Damian Lillard",
+      "position": "PG",
+      "playerType": "5",
+      "rotationType": "1"
+    },
+    {
+      "name": "德安吉洛·拉塞尔",
+      "englishName": "D’Angelo Russell",
+      "position": "PG",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "丹尼尔·加福德",
+      "englishName": "Daniel Gafford",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "1"
+    },
+    {
+      "name": "达尼斯·詹金斯",
+      "englishName": "Daniss Jenkins",
+      "position": "PG",
+      "playerType": "4",
+      "rotationType": "2"
+    },
+    {
+      "name": "丹尼·沃尔夫",
+      "englishName": "Danny Wolf",
+      "position": "SF",
+      "playerType": "4",
+      "rotationType": "2"
+    },
+    {
+      "name": "丹特·埃克萨姆",
+      "englishName": "Dante Exum",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "达坎·杰弗里斯",
+      "englishName": "DaQuan Jeffries",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "达里奥·沙里奇",
+      "englishName": "Dario Saric",
+      "position": "PF",
+      "playerType": "1",
+      "rotationType": "3"
+    },
+    {
+      "name": "达里克·怀特黑德",
+      "englishName": "Dariq Whitehead",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "达里乌斯·阿卡夫",
+      "englishName": "Darius Acuff Jr.",
+      "position": "PG",
+      "playerType": "4",
+      "rotationType": "2"
+    },
+    {
+      "name": "达利乌斯·加兰",
+      "englishName": "Darius Garland",
+      "position": "PG",
+      "playerType": "5",
+      "rotationType": "1"
+    },
+    {
+      "name": "达龙·霍姆斯二世",
+      "englishName": "DaRon Holmes II",
+      "position": "PF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "达林·彼得森",
+      "englishName": "Darryn Peterson",
+      "position": "PG",
+      "playerType": "4",
+      "rotationType": "2"
+    },
+    {
+      "name": "大卫·琼斯-加西亚",
+      "englishName": "David Jones-Garcia",
+      "position": "PG",
+      "playerType": "1",
+      "rotationType": "3"
+    },
+    {
+      "name": "大卫·罗迪",
+      "englishName": "David Roddy",
+      "position": "PF",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "达维翁·米切尔",
+      "englishName": "Davion Mitchell",
+      "position": "PG",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "戴伦·夏普",
+      "englishName": "Day’Ron Sharpe",
+      "position": "C",
+      "playerType": "3",
+      "rotationType": "2"
+    },
+    {
+      "name": "迪伦·福克斯",
+      "englishName": "De’Aaron Fox",
+      "position": "PG",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "德安德烈·艾顿",
+      "englishName": "Deandre Ayton",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "2"
+    },
+    {
+      "name": "德安德烈·亨特",
+      "englishName": "De’Andre Hunter",
+      "position": "SF",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "德安德烈·乔丹",
+      "englishName": "DeAndre Jordan",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "3"
+    },
+    {
+      "name": "德安东尼·梅尔顿",
+      "englishName": "De’Anthony Melton",
+      "position": "SG",
+      "playerType": "4",
+      "rotationType": "2"
+    },
+    {
+      "name": "迪恩·韦德",
+      "englishName": "Dean Wade",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "2"
+    },
+    {
+      "name": "德容·加雷乌",
+      "englishName": "DeJon Jarreau",
+      "position": "PG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "德章泰·穆雷",
+      "englishName": "Dejounte Murray",
+      "position": "PG",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "德马尔·德罗赞",
+      "englishName": "DeMar DeRozan",
+      "position": "SG",
+      "playerType": "3",
+      "rotationType": "1"
+    },
+    {
+      "name": "丹尼·阿夫迪亚",
+      "englishName": "Deni Avdija",
+      "position": "SF",
+      "playerType": "1",
+      "rotationType": "1"
+    },
+    {
+      "name": "丹尼斯·施罗德",
+      "englishName": "Dennis Schroder",
+      "position": "PG",
+      "playerType": "1",
+      "rotationType": "2"
+    },
+    {
+      "name": "德里克·莱夫利二世",
+      "englishName": "Dereck Lively II",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "2"
+    },
+    {
+      "name": "德里克·奎恩",
+      "englishName": "Derik Queen",
+      "position": "C",
+      "playerType": "3",
+      "rotationType": "1"
+    },
+    {
+      "name": "小德里克·琼斯",
+      "englishName": "Derrick Jones Jr.",
+      "position": "PF",
+      "playerType": "4",
+      "rotationType": "2"
+    },
+    {
+      "name": "德里克·怀特",
+      "englishName": "Derrick White",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "1"
+    },
+    {
+      "name": "德斯蒙德·贝恩",
+      "englishName": "Desmond Bane",
+      "position": "SG",
+      "playerType": "1",
+      "rotationType": "1"
+    },
+    {
+      "name": "德文·布克",
+      "englishName": "Devin Booker",
+      "position": "SG",
+      "playerType": "1",
+      "rotationType": "1"
+    },
+    {
+      "name": "德文·卡特",
+      "englishName": "Devin Carter",
+      "position": "PG",
+      "playerType": "4",
+      "rotationType": "2"
+    },
+    {
+      "name": "德文·瓦塞尔",
+      "englishName": "Devin Vassell",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "1"
+    },
+    {
+      "name": "狄龙·布鲁克斯",
+      "englishName": "Dillon Brooks",
+      "position": "SF",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "迪伦·琼斯",
+      "englishName": "Dillon Jones",
+      "position": "PF",
+      "playerType": "2",
+      "rotationType": "3"
+    },
+    {
+      "name": "狄龙·米切尔",
+      "englishName": "Dillon Mitchell",
+      "position": "SF",
+      "playerType": "2",
+      "rotationType": "3"
+    },
+    {
+      "name": "多曼塔斯·萨博尼斯",
+      "englishName": "Domantas Sabonis",
+      "position": "C",
+      "playerType": "3",
+      "rotationType": "1"
+    },
+    {
+      "name": "多米尼克·巴洛",
+      "englishName": "Dominick Barlow",
+      "position": "PF",
+      "playerType": "3",
+      "rotationType": "2"
+    },
+    {
+      "name": "多诺万·克林根",
+      "englishName": "Donovan Clingan",
+      "position": "C",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "多诺万·米切尔",
+      "englishName": "Donovan Mitchell",
+      "position": "SG",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "唐特·迪文琴佐",
+      "englishName": "Donte DiVincenzo",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "1"
+    },
+    {
+      "name": "多里安·芬尼-史密斯",
+      "englishName": "Dorian Finney-Smith",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "2"
+    },
+    {
+      "name": "道格·麦克德莫特",
+      "englishName": "Doug McDermott",
+      "position": "PF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "德雷克·鲍威尔",
+      "englishName": "Drake Powell",
+      "position": "PG",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "德雷蒙德·格林",
+      "englishName": "Draymond Green",
+      "position": "PF",
+      "playerType": "5",
+      "rotationType": "1"
+    },
+    {
+      "name": "德鲁·尤班克斯",
+      "englishName": "Drew Eubanks",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "3"
+    },
+    {
+      "name": "德鲁·彼得森",
+      "englishName": "Drew  Peterson",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "德鲁·蒂米",
+      "englishName": "Drew Timme",
+      "position": "C",
+      "playerType": "1",
+      "rotationType": "3"
+    },
+    {
+      "name": "德鲁·史密斯",
+      "englishName": "Dru Smith",
+      "position": "PG",
+      "playerType": "4",
+      "rotationType": "2"
+    },
+    {
+      "name": "邓肯·罗宾逊",
+      "englishName": "Duncan Robinson",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "1"
+    },
+    {
+      "name": "杜奥普·里斯",
+      "englishName": "Duop Reath",
+      "position": "PF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "德怀特·鲍威尔",
+      "englishName": "Dwight Powell",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "3"
+    },
+    {
+      "name": "迪伦·卡德韦尔",
+      "englishName": "Dylan Cardwell",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "3"
+    },
+    {
+      "name": "迪伦·哈珀",
+      "englishName": "Dylan Harper",
+      "position": "PG",
+      "playerType": "1",
+      "rotationType": "2"
+    },
+    {
+      "name": "戴森·丹尼尔斯",
+      "englishName": "Dyson Daniels",
+      "position": "SF",
+      "playerType": "3",
+      "rotationType": "1"
+    },
+    {
+      "name": "埃布卡·奥科里",
+      "englishName": "Ebuka Okorie",
+      "position": "PG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "埃戈尔·德明",
+      "englishName": "Egor Demin",
+      "position": "PG",
+      "playerType": "5",
+      "rotationType": "1"
+    },
+    {
+      "name": "E.J.·利德尔",
+      "englishName": "E.J. Liddell",
+      "position": "C",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "以利亚·哈克利斯",
+      "englishName": "Elijah Harkless",
+      "position": "PG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "埃利·恩迪亚耶",
+      "englishName": "Eli N’Diaye",
+      "position": "PF",
+      "playerType": "1",
+      "rotationType": "3"
+    },
+    {
+      "name": "伊曼纽尔·米勒",
+      "englishName": "Emanuel Miller",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "伊曼纽尔·夏普",
+      "englishName": "Emanuel Sharp",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "恩里克·弗里曼",
+      "englishName": "Enrique Freeman",
+      "position": "PF",
+      "playerType": "1",
+      "rotationType": "3"
+    },
+    {
+      "name": "埃里克·戈登",
+      "englishName": "Eric Gordon",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "小埃内斯特·乌德",
+      "englishName": "Ernest Udeh Jr.",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "3"
+    },
+    {
+      "name": "伊森·汤普森",
+      "englishName": "Ethan Thompson",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "埃文·莫布里",
+      "englishName": "Evan Mobley",
+      "position": "PF",
+      "playerType": "1",
+      "rotationType": "1"
+    },
+    {
+      "name": "菲利克斯·奥克帕拉",
+      "englishName": "Felix Okpara",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "3"
+    },
+    {
+      "name": "弗朗茨·瓦格纳",
+      "englishName": "Franz Wagner",
+      "position": "SF",
+      "playerType": "1",
+      "rotationType": "1"
+    },
+    {
+      "name": "弗雷德·范弗里特",
+      "englishName": "Fred VanVleet",
+      "position": "PG",
+      "playerType": "5",
+      "rotationType": "2"
+    },
+    {
+      "name": "加布-麦格罗桑",
+      "englishName": "Gabe McGlothan",
+      "position": "PF",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "盖布·文森特",
+      "englishName": "Gabe Vincent",
+      "position": "PG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "加勒特·坦普尔",
+      "englishName": "Garrett Temple",
+      "position": "SG",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "加里森·马修斯",
+      "englishName": "Garrison Mathews",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "加里·哈里斯",
+      "englishName": "Gary Harris",
+      "position": "PG",
+      "playerType": "1",
+      "rotationType": "3"
+    },
+    {
+      "name": "加里·佩顿二世",
+      "englishName": "Gary Payton II",
+      "position": "SF",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "小加里·特伦特",
+      "englishName": "Gary Trent Jr.",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "乔治·尼昂",
+      "englishName": "Georges Niang",
+      "position": "PF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "GG·杰克逊",
+      "englishName": "GG Jackson",
+      "position": "PF",
+      "playerType": "5",
+      "rotationType": "2"
+    },
+    {
+      "name": "扬尼斯·阿德托昆博",
+      "englishName": "Giannis Antetokounmpo",
+      "position": "PF",
+      "playerType": "1",
+      "rotationType": "1"
+    },
+    {
+      "name": "戈加·比塔泽",
+      "englishName": "Goga Bitadze",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "3"
+    },
+    {
+      "name": "格雷迪·迪克",
+      "englishName": "Gradey Dick",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "格兰特·尼尔森",
+      "englishName": "Grant Nelson",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "3"
+    },
+    {
+      "name": "格兰特·威廉姆斯",
+      "englishName": "Grant Williams",
+      "position": "PF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "格雷森·阿伦",
+      "englishName": "Grayson Allen",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "2"
+    },
+    {
+      "name": "盖尔雄·亚布塞莱",
+      "englishName": "Guerschon Yabusele",
+      "position": "PF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "吉·桑托斯",
+      "englishName": "Gui Santos",
+      "position": "PF",
+      "playerType": "4",
+      "rotationType": "2"
+    },
+    {
+      "name": "汉内斯·施泰因巴赫",
+      "englishName": "Hannes Steinbach",
+      "position": "C",
+      "playerType": "3",
+      "rotationType": "3"
+    },
+    {
+      "name": "哈里森·巴恩斯",
+      "englishName": "Harrison Barnes",
+      "position": "SF",
+      "playerType": "4",
+      "rotationType": "2"
+    },
+    {
+      "name": "哈里森·英格拉姆",
+      "englishName": "Harrison Ingram",
+      "position": "PF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "海登·格雷",
+      "englishName": "Hayden Gray",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "海伍德·海史密斯",
+      "englishName": "Haywood Highsmith",
+      "position": "SF",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "亨里·韦萨尔",
+      "englishName": "Henri Veesaar",
+      "position": "PF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "赫伯特·琼斯",
+      "englishName": "Herbert Jones",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "2"
+    },
+    {
+      "name": "雨果·冈萨雷斯",
+      "englishName": "Hugo Gonzalez",
+      "position": "SG",
+      "playerType": "4",
+      "rotationType": "2"
+    },
+    {
+      "name": "亨特·迪金森",
+      "englishName": "Hunter Dickinson",
+      "position": "PF",
+      "playerType": "3",
+      "rotationType": "3"
+    },
+    {
+      "name": "亨特·萨利斯",
+      "englishName": "Hunter Sallis",
+      "position": "SG",
+      "playerType": "1",
+      "rotationType": "3"
+    },
+    {
+      "name": "亨特·泰森",
+      "englishName": "Hunter Tyson",
+      "position": "PF",
+      "playerType": "1",
+      "rotationType": "3"
+    },
+    {
+      "name": "伊曼纽尔·奎克利",
+      "englishName": "Immanuel Quickley",
+      "position": "PG",
+      "playerType": "5",
+      "rotationType": "1"
+    },
+    {
+      "name": "艾萨克·琼斯",
+      "englishName": "Isaac Jones",
+      "position": "PF",
+      "playerType": "2",
+      "rotationType": "3"
+    },
+    {
+      "name": "伊萨克·奥科罗",
+      "englishName": "Isaac Okoro",
+      "position": "SG",
+      "playerType": "4",
+      "rotationType": "2"
+    },
+    {
+      "name": "以赛亚·科利尔",
+      "englishName": "Isaiah Collier",
+      "position": "PG",
+      "playerType": "3",
+      "rotationType": "1"
+    },
+    {
+      "name": "以赛亚·克劳福德",
+      "englishName": "Isaiah Crawford",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "以赛亚·埃文斯",
+      "englishName": "Isaiah Evans",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "以赛亚·哈滕斯坦",
+      "englishName": "Isaiah Hartenstein",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "2"
+    },
+    {
+      "name": "以赛亚·杰克逊",
+      "englishName": "Isaiah Jackson",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "2"
+    },
+    {
+      "name": "以赛亚·乔",
+      "englishName": "Isaiah Joe",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "2"
+    },
+    {
+      "name": "以赛亚·利弗斯",
+      "englishName": "Isaiah Livers",
+      "position": "PF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "以赛亚·史蒂文斯",
+      "englishName": "Isaiah Stevens",
+      "position": "PG",
+      "playerType": "1",
+      "rotationType": "3"
+    },
+    {
+      "name": "以赛亚·斯图尔特",
+      "englishName": "Isaiah Stewart",
+      "position": "C",
+      "playerType": "1",
+      "rotationType": "2"
+    },
+    {
+      "name": "伊维察·祖巴茨",
+      "englishName": "Ivica Zubac",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "1"
+    },
+    {
+      "name": "艾泽亚·尼尔森",
+      "englishName": "Izaiyah Nelson",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "3"
+    },
+    {
+      "name": "小贾巴里·史密斯",
+      "englishName": "Jabari Smith Jr.",
+      "position": "PF",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "贾巴里·沃克",
+      "englishName": "Jabari Walker",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "杰登·布拉德利",
+      "englishName": "Jaden Bradley",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "杰登·哈迪",
+      "englishName": "Jaden Hardy",
+      "position": "PG",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "杰登·艾维",
+      "englishName": "Jaden Ivey",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "1"
+    },
+    {
+      "name": "杰登·麦克丹尼尔斯",
+      "englishName": "Jaden McDaniels",
+      "position": "PF",
+      "playerType": "1",
+      "rotationType": "1"
+    },
+    {
+      "name": "杰肖恩·泰特",
+      "englishName": "Jae’Sean Tate",
+      "position": "PF",
+      "playerType": "1",
+      "rotationType": "3"
+    },
+    {
+      "name": "贾迈·马沙克",
+      "englishName": "Jahmai Mashack",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "贾米尔·杨",
+      "englishName": "Jahmir Young",
+      "position": "PG",
+      "playerType": "1",
+      "rotationType": "3"
+    },
+    {
+      "name": "小海梅·哈克斯",
+      "englishName": "Jaime Jaquez Jr.",
+      "position": "PF",
+      "playerType": "3",
+      "rotationType": "2"
+    },
+    {
+      "name": "杰克·拉拉维亚",
+      "englishName": "Jake LaRavia",
+      "position": "SF",
+      "playerType": "4",
+      "rotationType": "2"
+    },
+    {
+      "name": "贾科比·沃尔特",
+      "englishName": "Ja’Kobe Walter",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "2"
+    },
+    {
+      "name": "贾科比·吉莱斯皮",
+      "englishName": "Ja’Kobi Gillespie",
+      "position": "PG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "雅各布·珀尔特尔",
+      "englishName": "Jakob Poeltl",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "2"
+    },
+    {
+      "name": "杰伦·布伦森",
+      "englishName": "Jalen Brunson",
+      "position": "PG",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "贾伦·杜伦",
+      "englishName": "Jalen Duren",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "1"
+    },
+    {
+      "name": "杰伦·格林",
+      "englishName": "Jalen Green",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "2"
+    },
+    {
+      "name": "杰伦·约翰逊",
+      "englishName": "Jalen Johnson",
+      "position": "PF",
+      "playerType": "1",
+      "rotationType": "1"
+    },
+    {
+      "name": "杰伦·皮凯特",
+      "englishName": "Jalen Pickett",
+      "position": "PG",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "杰伦·斯劳森",
+      "englishName": "Jalen Slawson",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "贾伦·史密斯",
+      "englishName": "Jalen Smith",
+      "position": "C",
+      "playerType": "4",
+      "rotationType": "2"
+    },
+    {
+      "name": "杰伦·萨格斯",
+      "englishName": "Jalen Suggs",
+      "position": "PG",
+      "playerType": "5",
+      "rotationType": "1"
+    },
+    {
+      "name": "杰伦·威廉姆斯",
+      "englishName": "Jalen Williams",
+      "position": "PF",
+      "playerType": "3",
+      "rotationType": "1"
+    },
+    {
+      "name": "贾伦·威尔逊",
+      "englishName": "Jalen Wilson",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "贾马尔·凯恩",
+      "englishName": "Jamal Cain",
+      "position": "SF",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "贾马尔·穆雷",
+      "englishName": "Jamal Murray",
+      "position": "PG",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "贾马尔·希德",
+      "englishName": "Jamal Shead",
+      "position": "PG",
+      "playerType": "4",
+      "rotationType": "2"
+    },
+    {
+      "name": "贾马雷·布耶",
+      "englishName": "Jamaree Bouyea",
+      "position": "PG",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "贾马里昂·夏普",
+      "englishName": "Jamarion Sharp",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "3"
+    },
+    {
+      "name": "詹姆斯·哈登",
+      "englishName": "James Harden",
+      "position": "PG",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "贾米尔·沃特金斯",
+      "englishName": "Jamir Watkins",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "贾米森·巴特尔",
+      "englishName": "Jamison Battle",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "2"
+    },
+    {
+      "name": "贾·莫兰特",
+      "englishName": "Ja Morant",
+      "position": "SG",
+      "playerType": "1",
+      "rotationType": "1"
+    },
+    {
+      "name": "贾拉斯·沃克",
+      "englishName": "Jarace Walker",
+      "position": "PF",
+      "playerType": "4",
+      "rotationType": "2"
+    },
+    {
+      "name": "贾里德·麦凯恩",
+      "englishName": "Jared McCain",
+      "position": "PG",
+      "playerType": "4",
+      "rotationType": "2"
+    },
+    {
+      "name": "小贾伦·杰克逊",
+      "englishName": "Jaren Jackson Jr.",
+      "position": "C",
+      "playerType": "1",
+      "rotationType": "1"
+    },
+    {
+      "name": "小贾伦·皮埃尔",
+      "englishName": "Jaron Pierre Jr.",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "贾里德·范德比尔特",
+      "englishName": "Jarred Vanderbilt",
+      "position": "PF",
+      "playerType": "5",
+      "rotationType": "1"
+    },
+    {
+      "name": "贾莱特·阿伦",
+      "englishName": "Jarrett Allen",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "1"
+    },
+    {
+      "name": "杰斯·理查德森",
+      "englishName": "Jase Richardson",
+      "position": "SG",
+      "playerType": "4",
+      "rotationType": "2"
+    },
+    {
+      "name": "贾冯·斯莫尔",
+      "englishName": "Javon Small",
+      "position": "PG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "贾文特·库克",
+      "englishName": "Javonte Cooke",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "贾文特·格林",
+      "englishName": "Javonte Green",
+      "position": "PF",
+      "playerType": "5",
+      "rotationType": "2"
+    },
+    {
+      "name": "贾克森·海耶斯",
+      "englishName": "Jaxson Hayes",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "2"
+    },
+    {
+      "name": "杰登·奎因坦斯",
+      "englishName": "Jayden Quaintance",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "3"
+    },
+    {
+      "name": "杰伊·赫夫",
+      "englishName": "Jay Huff",
+      "position": "C",
+      "playerType": "5",
+      "rotationType": "2"
+    },
+    {
+      "name": "杰伦·布朗",
+      "englishName": "Jaylen Brown",
+      "position": "SF",
+      "playerType": "1",
+      "rotationType": "1"
+    },
+    {
+      "name": "杰伦·克拉克",
+      "englishName": "Jaylen Clark",
+      "position": "SG",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "杰伦·威尔斯",
+      "englishName": "Jaylen Wells",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "2"
+    },
+    {
+      "name": "杰林·塞勒斯",
+      "englishName": "Jaylin Sellers",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "杰林·威廉姆斯",
+      "englishName": "Jaylin Williams",
+      "position": "PF",
+      "playerType": "5",
+      "rotationType": "2"
+    },
+    {
+      "name": "杰伦·泰森",
+      "englishName": "Jaylon Tyson",
+      "position": "PF",
+      "playerType": "4",
+      "rotationType": "2"
+    },
+    {
+      "name": "杰森·肯特",
+      "englishName": "Jayson Kent",
+      "position": "SF",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "杰森·塔图姆",
+      "englishName": "Jayson Tatum",
+      "position": "PF",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "JD·戴维森",
+      "englishName": "JD Davison",
+      "position": "PG",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "杰夫·格林",
+      "englishName": "Jeff Green",
+      "position": "PF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "杰拉米·格兰特",
+      "englishName": "Jerami Grant",
+      "position": "SF",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "杰里迈亚·菲尔斯",
+      "englishName": "Jeremiah Fears",
+      "position": "PG",
+      "playerType": "1",
+      "rotationType": "2"
+    },
+    {
+      "name": "杰里迈亚·罗宾逊-厄尔",
+      "englishName": "Jeremiah Robinson-Earl",
+      "position": "PF",
+      "playerType": "1",
+      "rotationType": "3"
+    },
+    {
+      "name": "杰里米·索汉",
+      "englishName": "Jeremy Sochan",
+      "position": "PF",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "杰里科·西姆斯",
+      "englishName": "Jericho Sims",
+      "position": "C",
+      "playerType": "1",
+      "rotationType": "2"
+    },
+    {
+      "name": "杰特·霍华德",
+      "englishName": "Jett Howard",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "杰文·卡特",
+      "englishName": "Jevon Carter",
+      "position": "PG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "吉米·巴特勒",
+      "englishName": "Jimmy Butler",
+      "position": "SF",
+      "playerType": "3",
+      "rotationType": "1"
+    },
+    {
+      "name": "乔安·贝林格",
+      "englishName": "Joan Beringer",
+      "position": "PF",
+      "playerType": "2",
+      "rotationType": "3"
+    },
+    {
+      "name": "乔克·兰代尔",
+      "englishName": "Jock Landale",
+      "position": "C",
+      "playerType": "4",
+      "rotationType": "2"
+    },
+    {
+      "name": "乔·英格尔斯",
+      "englishName": "Joe Ingles",
+      "position": "PF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "乔尔·恩比德",
+      "englishName": "Joel Embiid",
+      "position": "C",
+      "playerType": "1",
+      "rotationType": "1"
+    },
+    {
+      "name": "约翰·柯林斯",
+      "englishName": "John Collins",
+      "position": "PF",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "约翰尼·布鲁姆",
+      "englishName": "Johni Broome",
+      "position": "PF",
+      "playerType": "3",
+      "rotationType": "3"
+    },
+    {
+      "name": "约翰·康查尔",
+      "englishName": "John Konchar",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "约翰尼·弗菲",
+      "englishName": "Johnny Furphy",
+      "position": "PF",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "约翰尼·朱赞",
+      "englishName": "Johnny Juzang",
+      "position": "SG",
+      "playerType": "1",
+      "rotationType": "3"
+    },
+    {
+      "name": "约翰·波拉基达斯",
+      "englishName": "John Poulakidas",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "约翰·汤杰",
+      "englishName": "John Tonje",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "约纳斯·瓦兰丘纳斯",
+      "englishName": "Jonas Valanciunas",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "2"
+    },
+    {
+      "name": "乔纳森·艾萨克",
+      "englishName": "Jonathan Isaac",
+      "position": "PF",
+      "playerType": "1",
+      "rotationType": "3"
+    },
+    {
+      "name": "乔纳森·库明加",
+      "englishName": "Jonathan Kuminga",
+      "position": "PF",
+      "playerType": "4",
+      "rotationType": "2"
+    },
+    {
+      "name": "乔纳森·莫格博",
+      "englishName": "Jonathan Mogbo",
+      "position": "PF",
+      "playerType": "2",
+      "rotationType": "3"
+    },
+    {
+      "name": "乔丹·克拉克森",
+      "englishName": "Jordan Clarkson",
+      "position": "SF",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "乔丹·古德温",
+      "englishName": "Jordan Goodwin",
+      "position": "PG",
+      "playerType": "4",
+      "rotationType": "2"
+    },
+    {
+      "name": "乔丹·霍金斯",
+      "englishName": "Jordan Hawkins",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "乔丹·麦克劳克林",
+      "englishName": "Jordan McLaughlin",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "乔丹·米勒",
+      "englishName": "Jordan Miller",
+      "position": "PF",
+      "playerType": "1",
+      "rotationType": "3"
+    },
+    {
+      "name": "乔丹·普尔",
+      "englishName": "Jordan Poole",
+      "position": "PG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "乔丹·沃尔什",
+      "englishName": "Jordan Walsh",
+      "position": "PF",
+      "playerType": "4",
+      "rotationType": "2"
+    },
+    {
+      "name": "何塞·阿尔瓦拉多",
+      "englishName": "Jose Alvarado",
+      "position": "PG",
+      "playerType": "5",
+      "rotationType": "2"
+    },
+    {
+      "name": "约什·迪克斯",
+      "englishName": "Josh Dix",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "约什·吉迪",
+      "englishName": "Josh Giddey",
+      "position": "SG",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "约什·格林",
+      "englishName": "Josh Green",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "约什·哈特",
+      "englishName": "Josh Hart",
+      "position": "SF",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "约什·米诺特",
+      "englishName": "Josh Minott",
+      "position": "PF",
+      "playerType": "5",
+      "rotationType": "2"
+    },
+    {
+      "name": "约什·奥科吉",
+      "englishName": "Josh Okogie",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "2"
+    },
+    {
+      "name": "约书亚·杰弗森",
+      "englishName": "Joshua Jefferson",
+      "position": "PF",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "朱·霍勒迪",
+      "englishName": "Jrue Holiday",
+      "position": "PG",
+      "playerType": "4",
+      "rotationType": "2"
+    },
+    {
+      "name": "朱利安·尚帕尼",
+      "englishName": "Julian Champagnie",
+      "position": "PF",
+      "playerType": "5",
+      "rotationType": "2"
+    },
+    {
+      "name": "朱利安·菲利普斯",
+      "englishName": "Julian Phillips",
+      "position": "SF",
+      "playerType": "1",
+      "rotationType": "3"
+    },
+    {
+      "name": "朱利安·瑞斯",
+      "englishName": "Julian Reese",
+      "position": "PF",
+      "playerType": "2",
+      "rotationType": "3"
+    },
+    {
+      "name": "朱利安·斯特劳瑟",
+      "englishName": "Julian Strawther",
+      "position": "PF",
+      "playerType": "4",
+      "rotationType": "2"
+    },
+    {
+      "name": "朱利叶斯·兰德尔",
+      "englishName": "Julius Randle",
+      "position": "PF",
+      "playerType": "1",
+      "rotationType": "1"
+    },
+    {
+      "name": "贾斯汀·尚帕尼",
+      "englishName": "Justin Champagnie",
+      "position": "SF",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "贾斯汀·爱德华兹",
+      "englishName": "Justin Edwards",
+      "position": "PF",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "优素福·努尔基奇",
+      "englishName": "Jusuf Nurkic",
+      "position": "C",
+      "playerType": "3",
+      "rotationType": "3"
+    },
+    {
+      "name": "卡达里·里奇蒙德",
+      "englishName": "Kadary Richmond",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "卡姆·琼斯",
+      "englishName": "Kam Jones",
+      "position": "PG",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "卡里姆·洛佩斯",
+      "englishName": "Karim López",
+      "position": "SF",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "卡尔-安东尼·唐斯",
+      "englishName": "Karl-Anthony Towns",
+      "position": "C",
+      "playerType": "1",
+      "rotationType": "1"
+    },
+    {
+      "name": "卡洛·马特科维奇",
+      "englishName": "Karlo Matkovic",
+      "position": "PF",
+      "playerType": "1",
+      "rotationType": "2"
+    },
+    {
+      "name": "卡斯帕拉斯·雅库西奥尼斯",
+      "englishName": "Kasparas Jakucionis",
+      "position": "PG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "卡瓦伊·莱昂纳德",
+      "englishName": "Kawhi Leonard",
+      "position": "SF",
+      "playerType": "1",
+      "rotationType": "1"
+    },
+    {
+      "name": "基顿·瓦格勒",
+      "englishName": "Keaton Wagler",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "2"
+    },
+    {
+      "name": "基顿·华莱士",
+      "englishName": "Keaton Wallace",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "基根·穆雷",
+      "englishName": "Keegan Murray",
+      "position": "PF",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "凯尔登·约翰逊",
+      "englishName": "Keldon Johnson",
+      "position": "SG",
+      "playerType": "1",
+      "rotationType": "2"
+    },
+    {
+      "name": "凯尔·韦尔",
+      "englishName": "Kel’el Ware",
+      "position": "PF",
+      "playerType": "1",
+      "rotationType": "1"
+    },
+    {
+      "name": "凯利·奥利尼克",
+      "englishName": "Kelly Olynyk",
+      "position": "C",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "凯利·乌布雷",
+      "englishName": "Kelly Oubre Jr.",
+      "position": "SF",
+      "playerType": "4",
+      "rotationType": "2"
+    },
+    {
+      "name": "肯尼迪·钱德勒",
+      "englishName": "Kennedy Chandler",
+      "position": "PG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "肯里奇·威廉姆斯",
+      "englishName": "Kenrich Williams",
+      "position": "SF",
+      "playerType": "4",
+      "rotationType": "2"
+    },
+    {
+      "name": "肯塔维厄斯·考德威尔-波普",
+      "englishName": "Kentavious Caldwell-Pope",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "2"
+    },
+    {
+      "name": "基恩·埃利斯",
+      "englishName": "Keon Ellis",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "1"
+    },
+    {
+      "name": "凯沙德·约翰逊",
+      "englishName": "Keshad Johnson",
+      "position": "PF",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "凯雄·吉尔伯特",
+      "englishName": "Keshon Gilbert",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "凯文·杜兰特",
+      "englishName": "Kevin Durant",
+      "position": "SF",
+      "playerType": "1",
+      "rotationType": "1"
+    },
+    {
+      "name": "凯文·赫尔特",
+      "englishName": "Kevin Huerter",
+      "position": "SF",
+      "playerType": "4",
+      "rotationType": "2"
+    },
+    {
+      "name": "凯文·乐福",
+      "englishName": "Kevin Love",
+      "position": "PF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "凯文·麦卡勒",
+      "englishName": "Kevin McCullar Jr.",
+      "position": "SG",
+      "playerType": "3",
+      "rotationType": "3"
+    },
+    {
+      "name": "小凯文·波特",
+      "englishName": "Kevin Porter Jr.",
+      "position": "PG",
+      "playerType": "1",
+      "rotationType": "2"
+    },
+    {
+      "name": "凯文·卢尼",
+      "englishName": "Kevon Looney",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "3"
+    },
+    {
+      "name": "基扬特·乔治",
+      "englishName": "Keyonte George",
+      "position": "SG",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "卡曼·马卢阿赫",
+      "englishName": "Khaman Maluach",
+      "position": "C",
+      "playerType": "1",
+      "rotationType": "3"
+    },
+    {
+      "name": "克里斯·米德尔顿",
+      "englishName": "Khris Middleton",
+      "position": "SF",
+      "playerType": "1",
+      "rotationType": "3"
+    },
+    {
+      "name": "基利安·海斯",
+      "englishName": "Killian Hayes",
+      "position": "PG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "金斯顿·弗莱明斯",
+      "englishName": "Kingston Flemings",
+      "position": "PG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "KJ·辛普森",
+      "englishName": "KJ Simpson",
+      "position": "PG",
+      "playerType": "2",
+      "rotationType": "3"
+    },
+    {
+      "name": "克莱·汤普森",
+      "englishName": "Klay Thompson",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "2"
+    },
+    {
+      "name": "科阿·皮特",
+      "englishName": "Koa Peat",
+      "position": "PF",
+      "playerType": "2",
+      "rotationType": "3"
+    },
+    {
+      "name": "科比·布雷亚",
+      "englishName": "Kobe Brea",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "科比·布朗",
+      "englishName": "Kobe Brown",
+      "position": "PF",
+      "playerType": "1",
+      "rotationType": "3"
+    },
+    {
+      "name": "科比·巴夫金",
+      "englishName": "Kobe Bufkin",
+      "position": "PG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "科比·桑德斯",
+      "englishName": "Kobe Sanders",
+      "position": "PG",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "科比·布雷亚",
+      "englishName": "Koby Brea",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "康·克努佩尔",
+      "englishName": "Kon Knueppel",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "1"
+    },
+    {
+      "name": "克里斯·邓恩",
+      "englishName": "Kris Dunn",
+      "position": "PG",
+      "playerType": "1",
+      "rotationType": "2"
+    },
+    {
+      "name": "克里斯·穆雷",
+      "englishName": "Kris Murray",
+      "position": "PF",
+      "playerType": "1",
+      "rotationType": "3"
+    },
+    {
+      "name": "克里斯塔普斯·波尔津吉斯",
+      "englishName": "Kristaps Porzingis",
+      "position": "C",
+      "playerType": "1",
+      "rotationType": "1"
+    },
+    {
+      "name": "凯兰·博斯威尔",
+      "englishName": "Kylan Boswell",
+      "position": "PG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "凯尔·安德森",
+      "englishName": "Kyle Anderson",
+      "position": "PF",
+      "playerType": "4",
+      "rotationType": "2"
+    },
+    {
+      "name": "凯尔·菲利波夫斯基",
+      "englishName": "Kyle Filipowski",
+      "position": "PF",
+      "playerType": "1",
+      "rotationType": "2"
+    },
+    {
+      "name": "凯尔·库兹马",
+      "englishName": "Kyle Kuzma",
+      "position": "SF",
+      "playerType": "1",
+      "rotationType": "2"
+    },
+    {
+      "name": "凯尔·洛瑞",
+      "englishName": "Kyle Lowry",
+      "position": "PG",
+      "playerType": "5",
+      "rotationType": "2"
+    },
+    {
+      "name": "凯尔·曼加斯",
+      "englishName": "Kyle Mangas",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "凯里·欧文",
+      "englishName": "Kyrie Irving",
+      "position": "PG",
+      "playerType": "1",
+      "rotationType": "1"
+    },
+    {
+      "name": "凯肖恩·乔治",
+      "englishName": "KyShawn George",
+      "position": "SF",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "小拉巴隆·菲隆",
+      "englishName": "Labaron Philon Jr.",
+      "position": "PG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "拉克兰·奥尔布里奇",
+      "englishName": "Lachlan Olbrich",
+      "position": "PF",
+      "playerType": "3",
+      "rotationType": "3"
+    },
+    {
+      "name": "拉梅洛·鲍尔",
+      "englishName": "LaMelo Ball",
+      "position": "PG",
+      "playerType": "5",
+      "rotationType": "1"
+    },
+    {
+      "name": "兰德里·沙梅特",
+      "englishName": "Landry Shamet",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "2"
+    },
+    {
+      "name": "小拉里·南斯",
+      "englishName": "Larry Nance Jr.",
+      "position": "C",
+      "playerType": "1",
+      "rotationType": "3"
+    },
+    {
+      "name": "劳里·马尔卡宁",
+      "englishName": "Lauri Markkanen",
+      "position": "PF",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "劳森·洛夫林",
+      "englishName": "Lawson Lovering",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "3"
+    },
+    {
+      "name": "勒布朗·詹姆斯",
+      "englishName": "LeBron James",
+      "position": "PF",
+      "playerType": "1",
+      "rotationType": "1"
+    },
+    {
+      "name": "莱昂纳德·米勒",
+      "englishName": "Leonard Miller",
+      "position": "SF",
+      "playerType": "4",
+      "rotationType": "2"
+    },
+    {
+      "name": "利亚姆·麦克尼利",
+      "englishName": "Liam McNeeley",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "林迪·沃特斯三世",
+      "englishName": "Lindy Waters III",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "2"
+    },
+    {
+      "name": "LJ·克莱尔",
+      "englishName": "LJ Cryer",
+      "position": "PG",
+      "playerType": "1",
+      "rotationType": "3"
+    },
+    {
+      "name": "朗尼·沃克四世",
+      "englishName": "Lonnie Walker IV",
+      "position": "SF",
+      "playerType": "1",
+      "rotationType": "2"
+    },
+    {
+      "name": "朗佐·鲍尔",
+      "englishName": "Lonzo Ball",
+      "position": "PG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "吕冈茨·多尔特",
+      "englishName": "Luguentz Dort",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "2"
+    },
+    {
+      "name": "卢卡·东契奇",
+      "englishName": "Luka Doncic",
+      "position": "PG",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "卢卡·加尔扎",
+      "englishName": "Luka Garza",
+      "position": "C",
+      "playerType": "1",
+      "rotationType": "3"
+    },
+    {
+      "name": "卢克·肯纳德",
+      "englishName": "Luke Kennard",
+      "position": "SG",
+      "playerType": "4",
+      "rotationType": "2"
+    },
+    {
+      "name": "卢克·科内特",
+      "englishName": "Luke Kornet",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "2"
+    },
+    {
+      "name": "卢克·特拉弗斯",
+      "englishName": "Luke Travers",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "马克·麦克朗",
+      "englishName": "Mac McClung",
+      "position": "SG",
+      "playerType": "1",
+      "rotationType": "3"
+    },
+    {
+      "name": "马拉基·史密斯",
+      "englishName": "Malachi Smith",
+      "position": "PG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "马拉基·布兰汉姆",
+      "englishName": "Malaki Branham",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "马莱维·莱昂斯",
+      "englishName": "Malevy Leons",
+      "position": "C",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "马利克·迪亚",
+      "englishName": "Malik Dia",
+      "position": "PF",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "马利克·蒙克",
+      "englishName": "Malik Monk",
+      "position": "PG",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "马利克·布朗",
+      "englishName": "Maliq Brown",
+      "position": "PF",
+      "playerType": "2",
+      "rotationType": "3"
+    },
+    {
+      "name": "马库斯·萨瑟",
+      "englishName": "Marcus Sasser",
+      "position": "PG",
+      "playerType": "5",
+      "rotationType": "2"
+    },
+    {
+      "name": "马库斯·斯玛特",
+      "englishName": "Marcus Smart",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "2"
+    },
+    {
+      "name": "马里奥·海佐尼亚",
+      "englishName": "Mario Hezonja",
+      "position": "SF",
+      "playerType": "4",
+      "rotationType": "2"
+    },
+    {
+      "name": "马尔姜·博钱普",
+      "englishName": "MarJon Beauchamp",
+      "position": "PG",
+      "playerType": "1",
+      "rotationType": "3"
+    },
+    {
+      "name": "马克尔·富尔茨",
+      "englishName": "Markelle Fultz",
+      "position": "PG",
+      "playerType": "3",
+      "rotationType": "3"
+    },
+    {
+      "name": "马克·西尔斯",
+      "englishName": "Mark Sears",
+      "position": "PG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "马克·威廉姆斯",
+      "englishName": "Mark Williams",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "1"
+    },
+    {
+      "name": "马文·巴格利三世",
+      "englishName": "Marvin Bagley III",
+      "position": "C",
+      "playerType": "3",
+      "rotationType": "2"
+    },
+    {
+      "name": "梅森·普拉姆利",
+      "englishName": "Mason Plumlee",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "3"
+    },
+    {
+      "name": "马塔斯·布泽利斯",
+      "englishName": "Matas Buzelis",
+      "position": "PF",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "马蒂斯·塞布尔",
+      "englishName": "Matisse Thybulle",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "马克斯·克里斯蒂",
+      "englishName": "Max Christie",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "2"
+    },
+    {
+      "name": "马克西·克勒贝尔",
+      "englishName": "Maxi Kleber",
+      "position": "PF",
+      "playerType": "1",
+      "rotationType": "3"
+    },
+    {
+      "name": "马克西姆·雷诺",
+      "englishName": "Maxime Raynaud",
+      "position": "C",
+      "playerType": "3",
+      "rotationType": "2"
+    },
+    {
+      "name": "马克斯·舒尔加",
+      "englishName": "Max Shulga",
+      "position": "PG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "马克斯·斯特鲁斯",
+      "englishName": "Max Strus",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "1"
+    },
+    {
+      "name": "梅利克·托马斯",
+      "englishName": "Meleek Thomas",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "米卡·皮维",
+      "englishName": "Micah Peavy",
+      "position": "PG",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "迈卡·波特",
+      "englishName": "Micah Potter",
+      "position": "PF",
+      "playerType": "5",
+      "rotationType": "2"
+    },
+    {
+      "name": "迈克尔·阿贾伊",
+      "englishName": "Michael Ajayi",
+      "position": "PF",
+      "playerType": "1",
+      "rotationType": "3"
+    },
+    {
+      "name": "迈克尔·波特",
+      "englishName": "Michael Porter Jr.",
+      "position": "SF",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "米卡尔·布里奇斯",
+      "englishName": "Mikal Bridges",
+      "position": "SG",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "迈克·康利",
+      "englishName": "Mike Conley",
+      "position": "PG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "小米克尔·布朗",
+      "englishName": "Mikel Brown Jr.",
+      "position": "PG",
+      "playerType": "4",
+      "rotationType": "2"
+    },
+    {
+      "name": "迈尔斯·布里奇斯",
+      "englishName": "Miles Bridges",
+      "position": "PF",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "迈尔斯·凯利",
+      "englishName": "Miles Kelly",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "迈尔斯·麦克布莱德",
+      "englishName": "Miles McBride",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "2"
+    },
+    {
+      "name": "米切尔·罗宾逊",
+      "englishName": "Mitchell Robinson",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "1"
+    },
+    {
+      "name": "穆罕默德·班巴",
+      "englishName": "Mo Bamba",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "3"
+    },
+    {
+      "name": "穆罕默德·迪亚瓦拉",
+      "englishName": "Mohamed Diawara",
+      "position": "PF",
+      "playerType": "5",
+      "rotationType": "2"
+    },
+    {
+      "name": "莫雷兹·约翰逊",
+      "englishName": "Morez Johnson Jr.",
+      "position": "PF",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "莫里茨·瓦格纳",
+      "englishName": "Moritz Wagner",
+      "position": "C",
+      "playerType": "1",
+      "rotationType": "3"
+    },
+    {
+      "name": "摩西·穆迪",
+      "englishName": "Moses Moody",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "2"
+    },
+    {
+      "name": "穆罕默德·盖耶",
+      "englishName": "Mouhamed Gueye",
+      "position": "PF",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "穆萨·西塞",
+      "englishName": "Moussa Cisse",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "3"
+    },
+    {
+      "name": "穆萨·迪亚巴特",
+      "englishName": "Moussa Diabate",
+      "position": "PF",
+      "playerType": "2",
+      "rotationType": "1"
+    },
+    {
+      "name": "迈尔斯·特纳",
+      "englishName": "Myles Turner",
+      "position": "C",
+      "playerType": "5",
+      "rotationType": "1"
+    },
+    {
+      "name": "迈伦·加德纳",
+      "englishName": "Myron Gardner",
+      "position": "SF",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "奈夸恩·汤姆林",
+      "englishName": "Nae’Qwan Tomlin",
+      "position": "PF",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "纳吉·马绍尔",
+      "englishName": "Naji Marshall",
+      "position": "SG",
+      "playerType": "1",
+      "rotationType": "1"
+    },
+    {
+      "name": "内特·埃门特",
+      "englishName": "Nate Ament",
+      "position": "PF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "内特·威廉姆斯",
+      "englishName": "Nate Williams",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "纳兹·里德",
+      "englishName": "Naz Reid",
+      "position": "C",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "尼米亚斯·奎塔",
+      "englishName": "Neemias Queta",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "2"
+    },
+    {
+      "name": "恩法利·但特",
+      "englishName": "N’Faly Dante",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "3"
+    },
+    {
+      "name": "尼古拉斯·克拉克斯顿",
+      "englishName": "Nic Claxton",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "1"
+    },
+    {
+      "name": "尼克尔·亚历山大-沃克",
+      "englishName": "Nickeil Alexander-Walker",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "1"
+    },
+    {
+      "name": "尼克·马丁内利",
+      "englishName": "Nick Martinelli",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "尼克·理查兹",
+      "englishName": "Nick Richards",
+      "position": "C",
+      "playerType": "3",
+      "rotationType": "3"
+    },
+    {
+      "name": "小尼克·史密斯",
+      "englishName": "Nick Smith Jr.",
+      "position": "PG",
+      "playerType": "4",
+      "rotationType": "2"
+    },
+    {
+      "name": "尼古拉斯·巴图姆",
+      "englishName": "Nicolas Batum",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "奈杰尔·海斯-戴维斯",
+      "englishName": "Nigel Hayes-Davis",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "尼古拉·朱里西奇",
+      "englishName": "Nikola Djurisic",
+      "position": "SF",
+      "playerType": "1",
+      "rotationType": "3"
+    },
+    {
+      "name": "尼古拉·约基奇",
+      "englishName": "Nikola Jokic",
+      "position": "C",
+      "playerType": "1",
+      "rotationType": "1"
+    },
+    {
+      "name": "尼古拉·约维奇",
+      "englishName": "Nikola Jovic",
+      "position": "PF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "尼古拉·托皮奇",
+      "englishName": "Nikola Topic",
+      "position": "PG",
+      "playerType": "1",
+      "rotationType": "3"
+    },
+    {
+      "name": "尼古拉·武切维奇",
+      "englishName": "Nikola Vucevic",
+      "position": "C",
+      "playerType": "1",
+      "rotationType": "2"
+    },
+    {
+      "name": "尼克·克利福德",
+      "englishName": "Nique Clifford",
+      "position": "SG",
+      "playerType": "4",
+      "rotationType": "2"
+    },
+    {
+      "name": "诺阿·埃森盖",
+      "englishName": "Noa Essengue",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "诺阿·克朗尼",
+      "englishName": "Noah Clowney",
+      "position": "C",
+      "playerType": "5",
+      "rotationType": "1"
+    },
+    {
+      "name": "诺亚·彭达",
+      "englishName": "Noah Penda",
+      "position": "SF",
+      "playerType": "4",
+      "rotationType": "2"
+    },
+    {
+      "name": "诺兰·特拉奥雷",
+      "englishName": "Nolan Traore",
+      "position": "SG",
+      "playerType": "4",
+      "rotationType": "2"
+    },
+    {
+      "name": "诺恰德·奥米尔",
+      "englishName": "Norchad Omier",
+      "position": "PF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "诺曼·鲍威尔",
+      "englishName": "Norman Powell",
+      "position": "SF",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "奥比·托平",
+      "englishName": "Obi Toppin",
+      "position": "PF",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "奥查伊·阿巴吉",
+      "englishName": "Ochai Agbaji",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "2"
+    },
+    {
+      "name": "OG·阿努诺比",
+      "englishName": "OG Anunoby",
+      "position": "PF",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "奥利维耶-马克森斯·普罗斯珀",
+      "englishName": "Olivier-Maxence Prosper",
+      "position": "PF",
+      "playerType": "1",
+      "rotationType": "3"
+    },
+    {
+      "name": "奥默·尤尔特塞文",
+      "englishName": "Omer Yurtseven",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "3"
+    },
+    {
+      "name": "奥涅卡·奥孔古",
+      "englishName": "Onyeka Okongwu",
+      "position": "C",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "奥兰多·罗宾逊",
+      "englishName": "Orlando Robinson",
+      "position": "C",
+      "playerType": "1",
+      "rotationType": "3"
+    },
+    {
+      "name": "奥斯卡·奇布维",
+      "englishName": "Oscar Tshiebwe",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "3"
+    },
+    {
+      "name": "奥索·伊戈达罗",
+      "englishName": "Oso Ighodaro",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "2"
+    },
+    {
+      "name": "奥特加·欧威",
+      "englishName": "Otega Oweh",
+      "position": "SF",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "乌斯曼·迪昂",
+      "englishName": "Ousmane Dieng",
+      "position": "PF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "帕科姆·达迪耶",
+      "englishName": "Pacome Dadiet",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "保罗·班切罗",
+      "englishName": "Paolo Banchero",
+      "position": "PF",
+      "playerType": "1",
+      "rotationType": "1"
+    },
+    {
+      "name": "帕斯卡尔·西亚卡姆",
+      "englishName": "Pascal Siakam",
+      "position": "PF",
+      "playerType": "1",
+      "rotationType": "1"
+    },
+    {
+      "name": "帕特·康诺顿",
+      "englishName": "Pat Connaughton",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "小帕特里克·鲍德温",
+      "englishName": "Patrick Baldwin Jr.",
+      "position": "PF",
+      "playerType": "1",
+      "rotationType": "3"
+    },
+    {
+      "name": "帕特里克·威廉姆斯",
+      "englishName": "Patrick Williams",
+      "position": "PF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "帕特·斯潘塞",
+      "englishName": "Pat Spencer",
+      "position": "PG",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "保罗·乔治",
+      "englishName": "Paul George",
+      "position": "SF",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "保罗·里德",
+      "englishName": "Paul Reed",
+      "position": "C",
+      "playerType": "3",
+      "rotationType": "2"
+    },
+    {
+      "name": "佩顿·普理查德",
+      "englishName": "Payton Pritchard",
+      "position": "PG",
+      "playerType": "5",
+      "rotationType": "1"
+    },
+    {
+      "name": "佩顿·桑德福特",
+      "englishName": "Payton Sandfort",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "佩莱·拉尔森",
+      "englishName": "Pelle Larsson",
+      "position": "SG",
+      "playerType": "1",
+      "rotationType": "2"
+    },
+    {
+      "name": "皮特·南斯",
+      "englishName": "Pete Nance",
+      "position": "PF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "佩顿·沃森",
+      "englishName": "Peyton Watson",
+      "position": "SF",
+      "playerType": "1",
+      "rotationType": "1"
+    },
+    {
+      "name": "PJ·霍尔",
+      "englishName": "PJ Hall",
+      "position": "C",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "P.J·华盛顿",
+      "englishName": "P.J. Washington",
+      "position": "PF",
+      "playerType": "1",
+      "rotationType": "1"
+    },
+    {
+      "name": "普雷修斯·阿丘瓦",
+      "englishName": "Precious Achiuwa",
+      "position": "PF",
+      "playerType": "3",
+      "rotationType": "2"
+    },
+    {
+      "name": "夸迪尔·科普兰",
+      "englishName": "Quadir Copeland",
+      "position": "PG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "昆汀·格莱姆斯",
+      "englishName": "Quentin Grimes",
+      "position": "SF",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "昆顿·杰克逊",
+      "englishName": "Quenton Jackson",
+      "position": "SG",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "昆腾·波斯特",
+      "englishName": "Quinten Post",
+      "position": "PF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "拉希尔·弗莱明",
+      "englishName": "Rasheer Fleming",
+      "position": "PF",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "拉扬·吕佩尔",
+      "englishName": "Rayan Rupert",
+      "position": "SG",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "雷杰·丹尼斯",
+      "englishName": "RayJ Dennis",
+      "position": "PG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "里德·谢泼德",
+      "englishName": "Reed Sheppard",
+      "position": "PG",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "莱利·米尼克斯",
+      "englishName": "Riley Minix",
+      "position": "PF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "RJ·巴雷特",
+      "englishName": "R.J. Barrett",
+      "position": "SG",
+      "playerType": "1",
+      "rotationType": "1"
+    },
+    {
+      "name": "罗伯特·迪林厄姆",
+      "englishName": "Rob Dillingham",
+      "position": "PG",
+      "playerType": "1",
+      "rotationType": "2"
+    },
+    {
+      "name": "罗伯特·威廉姆斯三世",
+      "englishName": "Robert Williams III",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "2"
+    },
+    {
+      "name": "罗科·齐卡尔斯基",
+      "englishName": "Rocco Zikarsky",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "3"
+    },
+    {
+      "name": "小罗恩·哈珀",
+      "englishName": "Ron Harper Jr.",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "朗·霍兰德",
+      "englishName": "Ron Holland",
+      "position": "SF",
+      "playerType": "1",
+      "rotationType": "3"
+    },
+    {
+      "name": "罗伊斯·奥尼尔",
+      "englishName": "Royce O’Neale",
+      "position": "PF",
+      "playerType": "5",
+      "rotationType": "2"
+    },
+    {
+      "name": "鲁迪·戈贝尔",
+      "englishName": "Rudy Gobert",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "1"
+    },
+    {
+      "name": "八村塁",
+      "englishName": "Rui Hachimura",
+      "position": "PF",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "拉塞尔·威斯布鲁克",
+      "englishName": "Russell Westbrook",
+      "position": "PG",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "瑞安·康韦尔",
+      "englishName": "Ryan Conwell",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "瑞安·邓恩",
+      "englishName": "Ryan Dunn",
+      "position": "PF",
+      "playerType": "4",
+      "rotationType": "2"
+    },
+    {
+      "name": "瑞安·卡尔克布伦纳",
+      "englishName": "Ryan Kalkbrenner",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "2"
+    },
+    {
+      "name": "瑞安·内姆布哈德",
+      "englishName": "Ryan Nembhard",
+      "position": "PG",
+      "playerType": "1",
+      "rotationType": "3"
+    },
+    {
+      "name": "瑞恩·罗林斯",
+      "englishName": "Ryan Rollins",
+      "position": "PG",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "萨迪克·贝",
+      "englishName": "Saddiq Bey",
+      "position": "SF",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "萨姆·豪瑟",
+      "englishName": "Sam Hauser",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "2"
+    },
+    {
+      "name": "萨姆·梅里尔",
+      "englishName": "Sam Merrill",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "2"
+    },
+    {
+      "name": "桑德罗·马穆凯拉什维利",
+      "englishName": "Sandro Mamukelashvili",
+      "position": "C",
+      "playerType": "4",
+      "rotationType": "2"
+    },
+    {
+      "name": "桑蒂·阿尔达马",
+      "englishName": "Santi Aldama",
+      "position": "PF",
+      "playerType": "4",
+      "rotationType": "2"
+    },
+    {
+      "name": "斯库特·亨德森",
+      "englishName": "Scoot Henderson",
+      "position": "PG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "斯科蒂·巴恩斯",
+      "englishName": "Scottie Barnes",
+      "position": "PF",
+      "playerType": "1",
+      "rotationType": "1"
+    },
+    {
+      "name": "小斯科蒂·皮蓬",
+      "englishName": "Scotty Pippen Jr.",
+      "position": "PG",
+      "playerType": "4",
+      "rotationType": "2"
+    },
+    {
+      "name": "肖恩·佩杜拉",
+      "englishName": "Sean Pedulla",
+      "position": "PG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "塞尔吉奥·德拉雷亚",
+      "englishName": "Sergio De Larrea",
+      "position": "PG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "赛斯·库里",
+      "englishName": "Seth Curry",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "谢顿·夏普",
+      "englishName": "Shaedon Sharpe",
+      "position": "SG",
+      "playerType": "1",
+      "rotationType": "2"
+    },
+    {
+      "name": "谢伊·吉尔杰斯·亚历山大",
+      "englishName": "Shai Gilgeous-Alexander",
+      "position": "PG",
+      "playerType": "1",
+      "rotationType": "1"
+    },
+    {
+      "name": "沙里夫·库珀",
+      "englishName": "Sharife Cooper",
+      "position": "PG",
+      "playerType": "1",
+      "rotationType": "3"
+    },
+    {
+      "name": "西迪·西索科",
+      "englishName": "Sidy Cissoko",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "西蒙尼·方特基奥",
+      "englishName": "Simone Fontecchio",
+      "position": "PF",
+      "playerType": "5",
+      "rotationType": "2"
+    },
+    {
+      "name": "赛昂·詹姆斯",
+      "englishName": "Sion James",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "斯卡尔·拉比西埃",
+      "englishName": "Skal Labissiere",
+      "position": "C",
+      "playerType": "1",
+      "rotationType": "3"
+    },
+    {
+      "name": "斯宾塞·琼斯",
+      "englishName": "Spencer Jones",
+      "position": "SF",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "斯坦利·乌穆德",
+      "englishName": "Stanley Umude",
+      "position": "SF",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "斯蒂芬·库里",
+      "englishName": "Stephen Curry",
+      "position": "PG",
+      "playerType": "5",
+      "rotationType": "1"
+    },
+    {
+      "name": "斯蒂芬·卡斯尔",
+      "englishName": "Stephon Castle",
+      "position": "SG",
+      "playerType": "1",
+      "rotationType": "1"
+    },
+    {
+      "name": "史蒂文·亚当斯",
+      "englishName": "Steven Adams",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "3"
+    },
+    {
+      "name": "斯维·米哈伊柳克",
+      "englishName": "Svi Mykhailiuk",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "泰伦·彼得",
+      "englishName": "Taelon Peter",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "泰·吉布森",
+      "englishName": "Taj Gibson",
+      "position": "C",
+      "playerType": "3",
+      "rotationType": "3"
+    },
+    {
+      "name": "塔马尔·贝茨",
+      "englishName": "Tamar Bates",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "塔里·伊森",
+      "englishName": "Tari Eason",
+      "position": "PF",
+      "playerType": "4",
+      "rotationType": "2"
+    },
+    {
+      "name": "塔里克·比贝罗维奇",
+      "englishName": "Tarik Biberovic",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "小塔里斯·里德",
+      "englishName": "Tarris Reed Jr.",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "3"
+    },
+    {
+      "name": "托里恩·普林斯",
+      "englishName": "Taurean Prince",
+      "position": "PF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "泰勒·亨德里克斯",
+      "englishName": "Taylor Hendricks",
+      "position": "PF",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "特伦斯·曼",
+      "englishName": "Terance Mann",
+      "position": "SG",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "小特伦斯·香农",
+      "englishName": "Terrence Shannon Jr.",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "2"
+    },
+    {
+      "name": "特里·罗齐尔三世",
+      "englishName": "Terry Rozier III",
+      "position": "SG",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "萨纳西斯·阿德托昆博",
+      "englishName": "Thanasis Antetokounmpo",
+      "position": "PF",
+      "playerType": "3",
+      "rotationType": "3"
+    },
+    {
+      "name": "托马斯·布莱恩特",
+      "englishName": "Thomas Bryant",
+      "position": "C",
+      "playerType": "4",
+      "rotationType": "2"
+    },
+    {
+      "name": "托马斯·索尔贝",
+      "englishName": "Thomas Sorber",
+      "position": "PF",
+      "playerType": "2",
+      "rotationType": "3"
+    },
+    {
+      "name": "蒂德扎内·萨劳恩",
+      "englishName": "Tidjane Salaun",
+      "position": "PF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "小蒂姆·哈达威",
+      "englishName": "Tim Hardaway Jr.",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "1"
+    },
+    {
+      "name": "TJ·麦康奈尔",
+      "englishName": "T.J. McConnell",
+      "position": "PG",
+      "playerType": "3",
+      "rotationType": "2"
+    },
+    {
+      "name": "托比·阿瓦卡",
+      "englishName": "Tobe Awaka",
+      "position": "PF",
+      "playerType": "2",
+      "rotationType": "3"
+    },
+    {
+      "name": "托拜厄斯·哈里斯",
+      "englishName": "Tobias Harris",
+      "position": "PF",
+      "playerType": "1",
+      "rotationType": "1"
+    },
+    {
+      "name": "托比·拉瓦尔",
+      "englishName": "Tobi Lawal",
+      "position": "PF",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "托卢·史密斯",
+      "englishName": "Tolu Smith",
+      "position": "PF",
+      "playerType": "2",
+      "rotationType": "3"
+    },
+    {
+      "name": "托尼·布拉德利",
+      "englishName": "Tony Bradley",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "3"
+    },
+    {
+      "name": "托桑·埃沃马",
+      "englishName": "Tosan Evbuomwan",
+      "position": "SF",
+      "playerType": "1",
+      "rotationType": "3"
+    },
+    {
+      "name": "图马尼·卡马拉",
+      "englishName": "Toumani Camara",
+      "position": "PF",
+      "playerType": "5",
+      "rotationType": "1"
+    },
+    {
+      "name": "特雷·杨",
+      "englishName": "Trae Young",
+      "position": "PG",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "特雷斯·杰克逊-戴维斯",
+      "englishName": "Trayce Jackson-Davis",
+      "position": "PF",
+      "playerType": "2",
+      "rotationType": "3"
+    },
+    {
+      "name": "特雷·唐纳森",
+      "englishName": "Tre Donaldson",
+      "position": "PG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "特雷·约翰逊",
+      "englishName": "Tre Johnson",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "2"
+    },
+    {
+      "name": "特雷·琼斯",
+      "englishName": "Tre Jones",
+      "position": "PG",
+      "playerType": "3",
+      "rotationType": "1"
+    },
+    {
+      "name": "特雷·曼恩",
+      "englishName": "Tre Mann",
+      "position": "PG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "特伦登·沃特福德",
+      "englishName": "Trendon Watford",
+      "position": "SF",
+      "playerType": "3",
+      "rotationType": "3"
+    },
+    {
+      "name": "特伦廷·弗劳尔斯",
+      "englishName": "Trentyn Flowers",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "特雷冯·布拉齐尔",
+      "englishName": "Trevon Brazile",
+      "position": "PF",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "特雷旺·斯科特",
+      "englishName": "Trevon Scott",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "特雷弗·基尔斯",
+      "englishName": "Trevor Keels",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "特雷·亚历山大",
+      "englishName": "Trey Alexander",
+      "position": "PG",
+      "playerType": "1",
+      "rotationType": "3"
+    },
+    {
+      "name": "特雷·杰米森",
+      "englishName": "Trey Jemison III",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "3"
+    },
+    {
+      "name": "特雷·莱尔斯",
+      "englishName": "Trey Lyles",
+      "position": "C",
+      "playerType": "4",
+      "rotationType": "2"
+    },
+    {
+      "name": "特雷·墨菲三世",
+      "englishName": "Trey Murphy III",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "1"
+    },
+    {
+      "name": "特里斯坦·达·席尔瓦",
+      "englishName": "Tristan da Silva",
+      "position": "PF",
+      "playerType": "4",
+      "rotationType": "2"
+    },
+    {
+      "name": "特里斯坦·伊纳鲁纳",
+      "englishName": "Tristan Enaruna",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "特里斯坦·武克切维奇",
+      "englishName": "Tristan Vukcevic",
+      "position": "PF",
+      "playerType": "1",
+      "rotationType": "3"
+    },
+    {
+      "name": "特里斯坦·牛顿",
+      "englishName": "Tristen Newton",
+      "position": "PG",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "泰·杰罗姆",
+      "englishName": "Ty Jerome",
+      "position": "PG",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "泰勒·比洛多",
+      "englishName": "Tyler Bilodeau",
+      "position": "C",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "泰勒·伯顿",
+      "englishName": "Tyler Burton",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "泰勒·希罗",
+      "englishName": "Tyler Herro",
+      "position": "SG",
+      "playerType": "1",
+      "rotationType": "1"
+    },
+    {
+      "name": "泰勒·科莱克",
+      "englishName": "Tyler Kolek",
+      "position": "PG",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "泰勒·史密斯",
+      "englishName": "Tyler Smith",
+      "position": "C",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "泰里斯·哈利伯顿",
+      "englishName": "Tyrese Haliburton",
+      "position": "PG",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "泰雷斯·马丁",
+      "englishName": "Tyrese Martin",
+      "position": "SG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "泰雷斯·马克西",
+      "englishName": "Tyrese Maxey",
+      "position": "PG",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "泰里斯·普罗克特",
+      "englishName": "Tyrese Proctor",
+      "position": "PG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "泰森·艾蒂安",
+      "englishName": "Tyson Etienne",
+      "position": "PG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "泰泰·华盛顿",
+      "englishName": "TyTy Washington",
+      "position": "PG",
+      "playerType": "1",
+      "rotationType": "3"
+    },
+    {
+      "name": "泰厄斯·琼斯",
+      "englishName": "Tyus Jones",
+      "position": "PG",
+      "playerType": "4",
+      "rotationType": "2"
+    },
+    {
+      "name": "乌戈纳·奥尼恩索",
+      "englishName": "Ugonna Onyenso",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "3"
+    },
+    {
+      "name": "维克托·文班亚马",
+      "englishName": "Victor Wembanyama",
+      "position": "C",
+      "playerType": "1",
+      "rotationType": "1"
+    },
+    {
+      "name": "小文斯·威廉姆斯",
+      "englishName": "Vince Williams Jr.",
+      "position": "PG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "维特·克雷伊奇",
+      "englishName": "Vit Krejci",
+      "position": "SF",
+      "playerType": "5",
+      "rotationType": "2"
+    },
+    {
+      "name": "VJ·埃奇科姆",
+      "englishName": "VJ Edgecombe",
+      "position": "SG",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "弗拉迪斯拉夫·戈尔丁",
+      "englishName": "Vladislav Goldin",
+      "position": "C",
+      "playerType": "1",
+      "rotationType": "3"
+    },
+    {
+      "name": "沃克·凯斯勒",
+      "englishName": "Walker Kessler",
+      "position": "C",
+      "playerType": "3",
+      "rotationType": "1"
+    },
+    {
+      "name": "小沃尔特·克莱顿",
+      "englishName": "Walter Clayton Jr.",
+      "position": "PG",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "小温德尔·卡特",
+      "englishName": "Wendell Carter Jr.",
+      "position": "C",
+      "playerType": "1",
+      "rotationType": "1"
+    },
+    {
+      "name": "小温德尔·摩尔",
+      "englishName": "Wendell Moore Jr.",
+      "position": "SG",
+      "playerType": "2",
+      "rotationType": "3"
+    },
+    {
+      "name": "威尔·理查德",
+      "englishName": "Will Richard",
+      "position": "SF",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "威尔·莱利",
+      "englishName": "Will Riley",
+      "position": "PF",
+      "playerType": "4",
+      "rotationType": "2"
+    },
+    {
+      "name": "泽维尔·蒂尔曼",
+      "englishName": "Xavier Tillman Sr.",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "3"
+    },
+    {
+      "name": "杨瀚森",
+      "englishName": "Yang Hansen",
+      "position": "C",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "雅尼克·科南·尼德豪瑟",
+      "englishName": "Yanic Konan Niederhauser",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "3"
+    },
+    {
+      "name": "亚克瑟尔·伦德伯格",
+      "englishName": "Yaxel Lendeborg",
+      "position": "PF",
+      "playerType": "4",
+      "rotationType": "3"
+    },
+    {
+      "name": "河村勇辉",
+      "englishName": "Yuki  Kawamura",
+      "position": "PG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "伊夫·米西",
+      "englishName": "Yves Missi",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "2"
+    },
+    {
+      "name": "扎卡里·里萨谢",
+      "englishName": "Zaccharie Risacher",
+      "position": "SF",
+      "playerType": "4",
+      "rotationType": "2"
+    },
+    {
+      "name": "扎克·科林斯",
+      "englishName": "Zach Collins",
+      "position": "C",
+      "playerType": "1",
+      "rotationType": "3"
+    },
+    {
+      "name": "扎克·伊迪",
+      "englishName": "Zach Edey",
+      "position": "C",
+      "playerType": "3",
+      "rotationType": "1"
+    },
+    {
+      "name": "扎克·拉文",
+      "englishName": "Zach LaVine",
+      "position": "SG",
+      "playerType": "4",
+      "rotationType": "1"
+    },
+    {
+      "name": "泽科·纳吉",
+      "englishName": "Zeke Nnaji",
+      "position": "C",
+      "playerType": "1",
+      "rotationType": "3"
+    },
+    {
+      "name": "齐艾尔·威廉姆斯",
+      "englishName": "Ziaire Williams",
+      "position": "PF",
+      "playerType": "5",
+      "rotationType": "2"
+    },
+    {
+      "name": "锡安·威廉森",
+      "englishName": "Zion Williamson",
+      "position": "PF",
+      "playerType": "3",
+      "rotationType": "1"
+    },
+    {
+      "name": "祖比·埃吉奥尔夫",
+      "englishName": "Zuby Ejiofor",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "3"
+    },
+    {
+      "name": "锡恩·普林",
+      "englishName": "Zyon Pullin",
+      "position": "PG",
+      "playerType": "5",
+      "rotationType": "3"
+    },
+    {
+      "name": "河村勇辉",
+      "englishName": "河村勇辉",
+      "position": "PG",
+      "playerType": "5",
+      "rotationType": "3"
+    }
+  ]
+}

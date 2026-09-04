@@ -527,6 +527,194 @@ describe('Utilities', () => {
                 expect(percent).toBeLessThanOrEqual(100)
             }
         })
+
+        it('should not increase the bonus for a second elite playmaker', () => {
+            const mockTeam1 = { totalScore: 50 } as Team
+            const mockTeam2 = { totalScore: 48 } as Team
+            const zeroPlaymakers = new Map(offenseTeamOnCourt)
+            zeroPlaymakers.set(
+                'PG',
+                createPlayer(createMockPlayer({ position: 'PG', astRating: '85' }), 'Lakers')
+            )
+            const twoPlaymakers = new Map(offenseTeamOnCourt)
+            twoPlaymakers.set(
+                'SF',
+                createPlayer(createMockPlayer({ position: 'SF', astRating: '86' }), 'Lakers')
+            )
+
+            const calculate = (seed: number, lineup: Map<string, Player>) =>
+                Utilities.calculatePercentage(
+                    new SeededRandom(seed),
+                    15,
+                    offensePlayer,
+                    defensePlayer,
+                    lineup,
+                    ShotType.JUMPER,
+                    360,
+                    2,
+                    mockTeam1,
+                    mockTeam2
+                )
+
+            const withoutPlaymaker = calculate(12345, zeroPlaymakers)
+            const withOnePlaymaker = calculate(12345, offenseTeamOnCourt)
+            const withTwoPlaymakers = calculate(12345, twoPlaymakers)
+
+            expect(withOnePlaymaker - withoutPlaymaker).toBeCloseTo(1, 10)
+            expect(withTwoPlaymakers).toBeCloseTo(withOnePlaymaker, 10)
+        })
+
+        it('should require the full elite rotation criteria instead of average three-point rating', () => {
+            const mockTeam1 = { totalScore: 50 } as Team
+            const mockTeam2 = { totalScore: 48 } as Team
+            const shooter = createPlayer(
+                createMockPlayer({
+                    position: 'SG',
+                    midRating: '85',
+                    threeRating: '85',
+                    layupRating: '70',
+                    offConst: '80',
+                    astRating: '70',
+                }),
+                'Lakers'
+            )
+            const createLineupPlayer = (position: string, offConst: string) =>
+                createPlayer(
+                    createMockPlayer({
+                        position,
+                        midRating: '85',
+                        threeRating: '85',
+                        layupRating: '70',
+                        offConst,
+                        astRating: '70',
+                    }),
+                    'Lakers'
+                )
+            const averageThreeOnly = new Map([
+                ['PG', createLineupPlayer('PG', '80')],
+                ['SG', shooter],
+                ['SF', createLineupPlayer('SF', '80')],
+                ['PF', createLineupPlayer('PF', '80')],
+                ['C', createLineupPlayer('C', '80')],
+            ])
+            const fullEliteRotation = new Map([
+                ['PG', createLineupPlayer('PG', '90')],
+                ['SG', shooter],
+                ['SF', createLineupPlayer('SF', '90')],
+                ['PF', createLineupPlayer('PF', '90')],
+                ['C', createLineupPlayer('C', '80')],
+            ])
+
+            const calculate = (lineup: Map<string, Player>) =>
+                Utilities.calculatePercentage(
+                    new SeededRandom(12345),
+                    15,
+                    shooter,
+                    defensePlayer,
+                    lineup,
+                    ShotType.JUMPER,
+                    360,
+                    2,
+                    mockTeam1,
+                    mockTeam2
+                )
+
+            expect(calculate(fullEliteRotation) - calculate(averageThreeOnly)).toBeCloseTo(3, 10)
+        })
+
+        it('should apply the elite rotation bonus at the 75 mid-range threshold', () => {
+            const mockTeam1 = { totalScore: 50 } as Team
+            const mockTeam2 = { totalScore: 48 } as Team
+            const shooter = createPlayer(
+                createMockPlayer({
+                    position: 'SG',
+                    midRating: '75',
+                    threeRating: '75',
+                    offConst: '90',
+                    astRating: '70',
+                }),
+                'Lakers'
+            )
+            const createLineup = (centerMidRating: string) => new Map([
+                ['PG', createPlayer(createMockPlayer({ position: 'PG', midRating: '75', threeRating: '75', offConst: '90', astRating: '70' }), 'Lakers')],
+                ['SG', shooter],
+                ['SF', createPlayer(createMockPlayer({ position: 'SF', midRating: '75', threeRating: '75', offConst: '90', astRating: '70' }), 'Lakers')],
+                ['PF', createPlayer(createMockPlayer({ position: 'PF', midRating: '75', threeRating: '75', offConst: '80', astRating: '70' }), 'Lakers')],
+                ['C', createPlayer(createMockPlayer({ position: 'C', midRating: centerMidRating, threeRating: '75', offConst: '80', astRating: '70' }), 'Lakers')],
+            ])
+
+            const calculate = (lineup: Map<string, Player>) =>
+                Utilities.calculatePercentage(
+                    new SeededRandom(12345),
+                    15,
+                    shooter,
+                    defensePlayer,
+                    lineup,
+                    ShotType.JUMPER,
+                    360,
+                    2,
+                    mockTeam1,
+                    mockTeam2
+                )
+
+            expect(calculate(createLineup('75')) - calculate(createLineup('74'))).toBeCloseTo(3, 10)
+        })
+
+        it('should apply one reduced switching penalty for either perimeter defense trigger', () => {
+            const mockTeam1 = { totalScore: 50 } as Team
+            const mockTeam2 = { totalScore: 48 } as Team
+            const createDefender = (position: string, perimeterDefense: string) =>
+                createPlayer(
+                    createMockPlayer({
+                        position,
+                        perimeterDefense,
+                        interiorDefense: '60',
+                        stlRating: '72',
+                        blkRating: '65',
+                        defConst: '70',
+                    }),
+                    'Celtics'
+                )
+            const createDefenseLineup = (
+                pg: string,
+                sf: string,
+                pf: string,
+                center: string
+            ) => new Map([
+                ['PG', createDefender('PG', pg)],
+                ['SG', defensePlayer],
+                ['SF', createDefender('SF', sf)],
+                ['PF', createDefender('PF', pf)],
+                ['C', createDefender('C', center)],
+            ])
+            const baseline = createDefenseLineup('70', '70', '70', '70')
+            const threeEliteDefenders = createDefenseLineup('85', '85', '85', '50')
+            const averageDefense = createDefenseLineup('83', '83', '83', '83')
+            const bothTriggers = createDefenseLineup('90', '90', '90', '90')
+
+            const calculate = (lineup: Map<string, Player>) =>
+                Utilities.calculatePercentage(
+                    new SeededRandom(12345),
+                    15,
+                    offensePlayer,
+                    defensePlayer,
+                    offenseTeamOnCourt,
+                    ShotType.JUMPER,
+                    360,
+                    2,
+                    mockTeam1,
+                    mockTeam2,
+                    false,
+                    false,
+                    false,
+                    lineup
+                )
+
+            const baselinePercentage = calculate(baseline)
+            expect(baselinePercentage - calculate(threeEliteDefenders)).toBeCloseTo(3, 10)
+            expect(baselinePercentage - calculate(averageDefense)).toBeCloseTo(3, 10)
+            expect(baselinePercentage - calculate(bothTriggers)).toBeCloseTo(3, 10)
+        })
     })
 
     describe('updatePlayerMinutes', () => {
