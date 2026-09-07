@@ -261,7 +261,8 @@ export class SeasonManager {
                     this.standings,
                     this.teams,
                     allStarRandom,
-                    this.language
+                    this.language,
+                    game.date
                 )
                 if (result) {
                     allStarRecap = result

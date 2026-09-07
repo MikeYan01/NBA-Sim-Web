@@ -15,12 +15,6 @@ import { SeededRandom } from '../utils/SeededRandom'
 import { EAST_TEAMS_EN, WEST_TEAMS_EN } from '../utils/Constants'
 
 // =============================================================================
-// Constants
-// =============================================================================
-
-const ALL_STAR_DATE = '02-14'
-
-// =============================================================================
 // All-Star Selection
 // =============================================================================
 
@@ -275,7 +269,8 @@ export function hostAllStarGame(
     standings: StandingsManager,
     teams: Map<string, Team>,
     random: SeededRandom,
-    language: Language
+    language: Language,
+    date: string
 ): GameRecapData | null {
     // Select All-Star players
     const eastCandidates = selectConferenceAllStars(Conference.EAST, stats, standings, teams)
@@ -291,7 +286,7 @@ export function hostAllStarGame(
     const westTeam = buildAllStarTeam('West All-Stars', westCandidates, teams)
 
     // Host the game (West=away/team1, East=home/team2, not playoff, is All-Star)
-    const result = hostGame(westTeam, eastTeam, random, language, ALL_STAR_DATE, false, true)
+    const result = hostGame(westTeam, eastTeam, random, language, date, false, true)
 
     // Mark recap as All-Star
     if (result.recap) {

@@ -240,6 +240,33 @@ describe('Season Module', () => {
         })
 
         describe('hostRegularSeason', () => {
+            it.each(['02-21', '02-22'])('uses the scheduled All-Star date %s in its recap', async (date) => {
+                vi.mocked(ResourceLoader.loadCSV).mockImplementation(async (path: string) => {
+                    const teamName = path.match(/\/rosters\/(.+)\.csv/)?.[1]
+                    if (!teamName) throw new Error(`Invalid roster path: ${path}`)
+                    return createMockRoster(teamName)
+                })
+
+                const games: ScheduleGame[] = [
+                    { date: '01-01', awayTeam: 'Lakers', homeTeam: 'Celtics' },
+                    { date: '01-02', awayTeam: 'Warriors', homeTeam: 'Bucks' },
+                    { date: '01-03', awayTeam: 'Nuggets', homeTeam: 'Knicks' },
+                    { date, awayTeam: 'ALL-STAR', homeTeam: 'ALL-STAR' },
+                ]
+                const manager = new SeasonManager({ seed: 42 })
+                const result = await manager.hostRegularSeason({
+                    games,
+                    totalGames: 3,
+                    startDate: '01-01',
+                    endDate: date,
+                })
+
+                expect(result.allStarRecap?.date).toBe(date)
+                expect(result.allStarRecap?.isAllStar).toBe(true)
+                expect(result.gamesPlayed).toBe(3)
+                expect(result.recaps).toHaveLength(3)
+            })
+
             it('should simulate all games in schedule', async () => {
                 vi.mocked(ResourceLoader.loadCSV).mockImplementation(async (_path: string) => {
                     const match = _path.match(/\/rosters\/(.+)\.csv/)
