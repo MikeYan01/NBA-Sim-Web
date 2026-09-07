@@ -30,7 +30,6 @@ Browser-based NBA basketball simulator migrated from Java to TypeScript/React. F
 - Monte Carlo simulation for championship probabilities
 - Run N simulations to predict champions
 - Optimized fast simulation mode
-- Web Worker for non-blocking background processing
 - Progress indicator during prediction
 
 ### Bilingual Support

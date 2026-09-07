@@ -2,10 +2,16 @@ import csv
 import json
 import re
 import shutil
+import sys
 import tempfile
 import unittest
 from pathlib import Path
 from unittest.mock import patch
+
+SCRIPT_DIR = (
+    Path(__file__).resolve().parents[2] / ".claude" / "skills" / "fetchRoster" / "scripts"
+)
+sys.path.insert(0, str(SCRIPT_DIR))
 
 import process_roster as roster_processor
 from process_roster import (
@@ -86,6 +92,14 @@ def read_csv(path):
 
 
 class ProcessRosterTests(unittest.TestCase):
+    def test_default_paths_point_to_application_rosters(self):
+        roster_dir = Path(__file__).resolve().parents[1] / "public" / "data" / "rosters"
+        args = roster_processor.parse_args([])
+
+        self.assertEqual(Path(roster_processor.__file__).resolve(), SCRIPT_DIR / "process_roster.py")
+        self.assertEqual(args.input, roster_dir / "temp.json")
+        self.assertEqual(args.output_dir, roster_dir)
+
     def test_maps_ability_data_and_preserves_transfer_metadata(self):
         mapping = {"Alpha Team": "Alpha", "Beta Team": "Beta"}
         alpha_rows = [make_existing_row(number, "Alpha") for number in range(10)]

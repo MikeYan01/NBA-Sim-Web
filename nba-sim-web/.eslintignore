@@ -1,7 +1,0 @@
-node_modules
-coverage
-dist
-build
-.vite
-*.min.js
-*.bundle.js

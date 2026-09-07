@@ -155,37 +155,6 @@ export type Position = 'PG' | 'SG' | 'SF' | 'PF' | 'C';
 export const POSITIONS: Position[] = ['PG', 'SG', 'SF', 'PF', 'C'];
 
 /**
- * CSV row structure for player data.
- */
-export interface PlayerCSVRow {
-    name: string;
-    englishName: string;
-    position: Position;
-    playerType: number;
-    rotationType: number;
-    rating: number;
-    insideRating: number;
-    midRating: number;
-    threeRating: number;
-    freeThrowPercent: number;
-    interiorDefense: number;
-    perimeterDefense: number;
-    orbRating: number;
-    drbRating: number;
-    astRating: number;
-    stlRating: number;
-    blkRating: number;
-    layupRating: number;
-    standDunk: number;
-    drivingDunk: number;
-    athleticism: number;
-    durability: number;
-    offConst: number;
-    defConst: number;
-    drawFoul: number;
-}
-
-/**
  * Game statistics tracked for each player during a game.
  */
 export interface PlayerGameStats {
@@ -253,68 +222,6 @@ export interface TeamGameState {
 }
 
 /**
- * Result of a completed game.
- */
-export interface GameResult {
-    team1Name: string;
-    team2Name: string;
-    team1Score: number;
-    team2Score: number;
-    isOvertime: boolean;
-    overtimePeriods: number;
-    winner: string;
-    loser: string;
-    mvp?: string;
-}
-
-/**
- * Box score entry for a player.
- */
-export interface BoxScoreEntry {
-    playerName: string;
-    englishName: string;
-    position: Position;
-    minutes: string;
-    points: number;
-    rebounds: number;
-    assists: number;
-    steals: number;
-    blocks: number;
-    turnovers: number;
-    fouls: number;
-    fieldGoalsMade: number;
-    fieldGoalsAttempted: number;
-    threePointersMade: number;
-    threePointersAttempted: number;
-    freeThrowsMade: number;
-    freeThrowsAttempted: number;
-    plusMinus?: number;
-}
-
-/**
- * Complete box score for a game.
- */
-export interface BoxScore {
-    team1Name: string;
-    team2Name: string;
-    team1Score: number;
-    team2Score: number;
-    team1Players: BoxScoreEntry[];
-    team2Players: BoxScoreEntry[];
-    gameResult: GameResult;
-}
-
-/**
- * Game flow insights for display.
- */
-export interface GameFlowInsights {
-    team1LargestLead: number;
-    team2LargestLead: number;
-    leadChanges: number;
-    timesTied: number;
-}
-
-/**
  * Standing entry for season standings.
  */
 export interface StandingEntry {
@@ -325,69 +232,4 @@ export interface StandingEntry {
     winPercentage: number;
     gamesBack: number;
     conference: Conference;
-}
-
-/**
- * Stat entry for leaderboards.
- */
-export interface StatEntry {
-    rank: number;
-    playerName: string;
-    englishName: string;
-    teamName: string;
-    value: number;
-    gamesPlayed: number;
-    perGame?: number;
-}
-
-/**
- * Team stat entry for team leaderboards.
- */
-export interface TeamStatEntry {
-    rank: number;
-    teamName: string;
-    value: number;
-    gamesPlayed: number;
-    perGame?: number;
-}
-
-/**
- * Schedule entry for a game.
- */
-export interface ScheduleEntry {
-    date: string;
-    awayTeam: string;
-    homeTeam: string;
-}
-
-/**
- * Prediction result for championship prediction mode.
- */
-export interface PredictionResult {
-    teamName: string;
-    championships: number;
-    percentage: number;
-}
-
-/**
- * Series result for playoffs.
- */
-export interface SeriesResult {
-    team1Name: string;
-    team2Name: string;
-    team1Wins: number;
-    team2Wins: number;
-    winner: string;
-    loser: string;
-    seriesMVP?: string;
-    games: GameResult[];
-}
-
-/**
- * Playoff bracket structure.
- */
-export interface PlayoffBracket {
-    round: number;
-    conference: Conference;
-    series: SeriesResult[];
 }

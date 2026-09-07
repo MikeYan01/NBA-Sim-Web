@@ -2,12 +2,10 @@ import { useState } from 'react'
 import { PlayoffBracketResult, SeriesResult, PlayInResult, PlayInGameResult } from '../../models/Playoffs'
 import { useLocalization } from '../../hooks/useLocalization'
 import { getLocalizedTeamName } from '../../utils/Constants'
-import { MessageSquareText, Trophy, BarChart2, TrendingUp, X } from 'lucide-react'
+import { Trophy, X } from 'lucide-react'
 import { clsx } from 'clsx'
 import { SeriesModal } from './SeriesModal'
-import { BoxScore as BoxScoreComponent } from '../BoxScore/BoxScore'
-import { ScoreDifferentialChart } from '../GameView/ScoreDifferentialChart'
-import { getTeamColors } from '../../utils/teamColors'
+import { GameDetails, type GameDetailsTab } from '../GameView/GameDetails'
 
 interface PlayoffBracketProps {
     playoffs: PlayoffBracketResult
@@ -309,14 +307,10 @@ const PlayInSection = ({ title, playIn }: { title: string; playIn: PlayInResult 
 const PlayInGameCard = ({ game }: { game: PlayInGameResult }) => {
     const { t, language } = useLocalization()
     const [showModal, setShowModal] = useState(false)
-    const [activeTab, setActiveTab] = useState<'commentary' | 'boxscore' | 'differential'>('commentary')
+    const [activeTab, setActiveTab] = useState<GameDetailsTab>('commentary')
     const gameResult = game.gameResult
     const awayWon = game.winner === game.awayTeam
     const otSuffix = gameResult.finalQuarter && gameResult.finalQuarter > 4 ? ` (${gameResult.finalQuarter - 4}OT)` : ''
-
-    // Get team colors for the chart
-    const team1Colors = getTeamColors(game.awayTeam)
-    const team2Colors = getTeamColors(game.homeTeam)
 
     // Localize the round name
     const getLocalizedRoundName = (roundName: string): string => {
@@ -438,72 +432,13 @@ const PlayInGameCard = ({ game }: { game: PlayInGameResult }) => {
                             </button>
                         </div>
 
-                        {/* Tab Navigation */}
-                        <div className="flex border-b border-slate-100 bg-slate-50">
-                            <button
-                                onClick={() => setActiveTab('commentary')}
-                                className={clsx(
-                                    "flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors",
-                                    activeTab === 'commentary'
-                                        ? "text-indigo-600 border-b-2 border-indigo-600 bg-white"
-                                        : "text-slate-500 hover:text-slate-700"
-                                )}
-                            >
-                                <MessageSquareText className="w-4 h-4" />
-                                {t('ui.season.recaps.commentary')}
-                            </button>
-                            {gameResult.boxScore && (
-                                <button
-                                    onClick={() => setActiveTab('boxscore')}
-                                    className={clsx(
-                                        "flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors",
-                                        activeTab === 'boxscore'
-                                            ? "text-indigo-600 border-b-2 border-indigo-600 bg-white"
-                                            : "text-slate-500 hover:text-slate-700"
-                                    )}
-                                >
-                                    <BarChart2 className="w-4 h-4" />
-                                    {t('ui.boxScore.title')}
-                                </button>
-                            )}
-                            {gameResult.scoreSnapshots && gameResult.scoreSnapshots.length > 0 && (
-                                <button
-                                    onClick={() => setActiveTab('differential')}
-                                    className={clsx(
-                                        "flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors",
-                                        activeTab === 'differential'
-                                            ? "text-indigo-600 border-b-2 border-indigo-600 bg-white"
-                                            : "text-slate-500 hover:text-slate-700"
-                                    )}
-                                >
-                                    <TrendingUp className="w-4 h-4" />
-                                    {t('game.score_differential_title')}
-                                </button>
-                            )}
-                        </div>
-
-                        {/* Content */}
-                        <div className="flex-1 overflow-y-auto p-4">
-                            {activeTab === 'commentary' && gameResult.playByPlayLog && (
-                                <div className="text-sm text-slate-600 whitespace-pre-line leading-relaxed">
-                                    {gameResult.playByPlayLog.join('\n')}
-                                </div>
-                            )}
-                            {activeTab === 'boxscore' && gameResult.boxScore && (
-                                <BoxScoreComponent boxScore={gameResult.boxScore} />
-                            )}
-                            {activeTab === 'differential' && gameResult.scoreSnapshots && gameResult.scoreSnapshots.length > 0 && (
-                                <ScoreDifferentialChart
-                                    scoreSnapshots={gameResult.scoreSnapshots}
-                                    timeSnapshots={gameResult.timeSnapshots || []}
-                                    visibleCount={gameResult.scoreSnapshots.length}
-                                    team1Name={getLocalizedTeamName(game.awayTeam, language)}
-                                    team2Name={getLocalizedTeamName(game.homeTeam, language)}
-                                    team1Color={team1Colors.primary}
-                                    team2Color={team2Colors.primary}
-                                />
-                            )}
-                        </div>
+                        <GameDetails
+                            game={gameResult}
+                            awayTeam={game.awayTeam}
+                            homeTeam={game.homeTeam}
+                            activeTab={activeTab}
+                            onTabChange={setActiveTab}
+                        />
 
                         {/* Footer */}
                         <div className="px-6 py-3 border-t border-slate-200 bg-slate-50 flex justify-end">

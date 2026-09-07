@@ -2,11 +2,9 @@ import { useState, useMemo } from 'react'
 import { GameRecapData } from '../../models/Game'
 import { useLocalization } from '../../hooks/useLocalization'
 import { getLocalizedTeamName } from '../../utils/Constants'
-import { ChevronDown, ChevronRight, MessageSquareText, BarChart2, TrendingUp, X, Star } from 'lucide-react'
+import { ChevronDown, ChevronRight, X, Star } from 'lucide-react'
 import { clsx } from 'clsx'
-import { BoxScore as BoxScoreComponent } from '../BoxScore/BoxScore'
-import { ScoreDifferentialChart } from '../GameView/ScoreDifferentialChart'
-import { getTeamColors } from '../../utils/teamColors'
+import { GameDetails, type GameDetailsTab } from '../GameView/GameDetails'
 
 interface GameRecapsProps {
     recaps: GameRecapData[]
@@ -75,13 +73,9 @@ export const GameRecaps = ({ recaps }: GameRecapsProps) => {
 export const GameRecapCard = ({ recap }: { recap: GameRecapData }) => {
     const { t, language } = useLocalization()
     const [showModal, setShowModal] = useState(false)
-    const [activeTab, setActiveTab] = useState<'commentary' | 'boxscore' | 'differential'>('commentary')
+    const [activeTab, setActiveTab] = useState<GameDetailsTab>('commentary')
     const awayWon = recap.awayScore > recap.homeScore
     const otSuffix = recap.finalQuarter > 4 ? ` (${recap.finalQuarter - 4}OT)` : ''
-
-    // Get team colors for the chart
-    const awayTeamColors = getTeamColors(recap.awayTeam)
-    const homeTeamColors = getTeamColors(recap.homeTeam)
 
     // Format player stats with enhanced info (steals, blocks, FG% when notable)
     const formatPlayerStats = (p: typeof recap.awayTopPlayers[0]) => {
@@ -213,76 +207,13 @@ export const GameRecapCard = ({ recap }: { recap: GameRecapData }) => {
                             </button>
                         </div>
 
-                        {/* Tab Navigation */}
-                        <div className="flex border-b border-slate-100 bg-slate-50">
-                            <button
-                                onClick={() => setActiveTab('commentary')}
-                                className={clsx(
-                                    "flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors",
-                                    activeTab === 'commentary'
-                                        ? "text-indigo-600 border-b-2 border-indigo-600 bg-white"
-                                        : "text-slate-500 hover:text-slate-700"
-                                )}
-                            >
-                                <MessageSquareText className="w-4 h-4" />
-                                {t('ui.season.recaps.commentary')}
-                            </button>
-                            {recap.boxScore && (
-                                <button
-                                    onClick={() => setActiveTab('boxscore')}
-                                    className={clsx(
-                                        "flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors",
-                                        activeTab === 'boxscore'
-                                            ? "text-indigo-600 border-b-2 border-indigo-600 bg-white"
-                                            : "text-slate-500 hover:text-slate-700"
-                                    )}
-                                >
-                                    <BarChart2 className="w-4 h-4" />
-                                    {t('ui.boxScore.title')}
-                                </button>
-                            )}
-                            {recap.scoreSnapshots && recap.scoreSnapshots.length > 0 && (
-                                <button
-                                    onClick={() => setActiveTab('differential')}
-                                    className={clsx(
-                                        "flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors",
-                                        activeTab === 'differential'
-                                            ? "text-indigo-600 border-b-2 border-indigo-600 bg-white"
-                                            : "text-slate-500 hover:text-slate-700"
-                                    )}
-                                >
-                                    <TrendingUp className="w-4 h-4" />
-                                    {t('game.score_differential_title')}
-                                </button>
-                            )}
-                        </div>
-
-                        {/* Content - all tabs stay mounted to preserve scroll position */}
-                        <div className={clsx("flex-1 overflow-y-auto p-4", activeTab !== 'commentary' && "hidden")}>
-                            {recap.playByPlayLog && (
-                                <div className="text-sm text-slate-600 whitespace-pre-line leading-relaxed">
-                                    {recap.playByPlayLog.join('\n')}
-                                </div>
-                            )}
-                        </div>
-                        <div className={clsx("flex-1 overflow-y-auto p-4", activeTab !== 'boxscore' && "hidden")}>
-                            {recap.boxScore && (
-                                <BoxScoreComponent boxScore={recap.boxScore} />
-                            )}
-                        </div>
-                        <div className={clsx("flex-1 overflow-y-auto p-4", activeTab !== 'differential' && "hidden")}>
-                            {recap.scoreSnapshots && recap.scoreSnapshots.length > 0 && (
-                                <ScoreDifferentialChart
-                                    scoreSnapshots={recap.scoreSnapshots}
-                                    timeSnapshots={recap.timeSnapshots || []}
-                                    visibleCount={recap.scoreSnapshots.length}
-                                    team1Name={getLocalizedTeamName(recap.awayTeam, language)}
-                                    team2Name={getLocalizedTeamName(recap.homeTeam, language)}
-                                    team1Color={awayTeamColors.primary}
-                                    team2Color={homeTeamColors.primary}
-                                />
-                            )}
-                        </div>
+                        <GameDetails
+                            game={recap}
+                            awayTeam={recap.awayTeam}
+                            homeTeam={recap.homeTeam}
+                            activeTab={activeTab}
+                            onTabChange={setActiveTab}
+                        />
 
                         {/* Footer */}
                         <div className="px-6 py-3 border-t border-slate-200 bg-slate-50 flex justify-end">

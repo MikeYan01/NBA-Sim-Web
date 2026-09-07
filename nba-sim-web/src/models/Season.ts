@@ -19,8 +19,6 @@ import { hostAllStarGame } from './AllStar'
 import { SeededRandom } from '../utils/SeededRandom'
 import { EAST_TEAMS_EN, WEST_TEAMS_EN } from '../utils/Constants'
 import { loadSchedule, SeasonSchedule, ScheduleGame } from '../services/ResourceLoader'
-import { initComments, isInitialized as isCommentsInitialized } from '../services/CommentLoader'
-import { initLocalization, isInitialized as isLocalizationInitialized } from '../services/LocalizationService'
 
 // =============================================================================
 // Types and Interfaces
@@ -319,7 +317,7 @@ export class SeasonManager {
         })
 
         // Cache all teams for playoffs
-        for (const [_, team] of this.teams) {
+        for (const team of this.teams.values()) {
             playoffManager.cacheTeam(team)
         }
 
@@ -351,42 +349,6 @@ export class SeasonManager {
     getStats(): SeasonStats {
         return this.stats
     }
-}
-
-// =============================================================================
-// Convenience Functions
-// =============================================================================
-
-/**
- * Run a complete season simulation and return the champion
- */
-export async function runSeason(options: SeasonOptions = {}): Promise<SeasonResult> {
-    // Initialize comments and localization before running the season
-    if (!isCommentsInitialized()) {
-        await initComments()
-    }
-    if (!isLocalizationInitialized()) {
-        await initLocalization()
-    }
-
-    const manager = new SeasonManager(options)
-    return manager.hostSeason()
-}
-
-/**
- * Run just the regular season
- */
-export async function runRegularSeason(options: SeasonOptions = {}): Promise<RegularSeasonResult> {
-    // Initialize comments and localization before running the season
-    if (!isCommentsInitialized()) {
-        await initComments()
-    }
-    if (!isLocalizationInitialized()) {
-        await initLocalization()
-    }
-
-    const manager = new SeasonManager(options)
-    return manager.hostRegularSeason()
 }
 
 // =============================================================================

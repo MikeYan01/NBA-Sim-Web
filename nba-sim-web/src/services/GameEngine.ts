@@ -9,14 +9,8 @@
 
 import { Team } from '../models/Team'
 import { Language } from '../models/types'
-import { SeededRandom } from '../utils/SeededRandom'
 import { initComments, isInitialized as isCommentsInitialized } from './CommentLoader'
 import { initLocalization, isInitialized as isLocalizationInitialized } from './LocalizationService'
-import {
-    hostGame,
-    hostGameByName,
-    type GameResult,
-} from '../models/Game'
 import { runSeasonFast } from '../models/Season'
 
 // =============================================================================
@@ -61,104 +55,6 @@ export async function initGameEngine(): Promise<void> {
 
     initialized = true
 }
-
-/**
- * Check if the game engine is initialized.
- */
-export function isGameEngineInitialized(): boolean {
-    return initialized
-}
-
-// =============================================================================
-// Game Simulation
-// =============================================================================
-
-/**
- * Simulate a single game between two teams.
- *
- * @param team1 - First team (home)
- * @param team2 - Second team (away)
- * @param options - Game options
- * @returns Game result including scores, box score, and play-by-play
- */
-export async function simulateGame(
-    team1: Team,
-    team2: Team,
-    options: Partial<SimulationOptions> = {}
-): Promise<GameResult> {
-    await initGameEngine()
-
-    const {
-        seed = Date.now(),
-        language = Language.ENGLISH,
-    } = options
-
-    const random = new SeededRandom(BigInt(seed))
-    return hostGame(team1, team2, random, language)
-}
-
-/**
- * Simulate a single game by team names.
- *
- * @param team1Name - First team name
- * @param team2Name - Second team name
- * @param options - Game options
- * @returns Game result including scores, box score, and play-by-play
- */
-export async function simulateGameByName(
-    team1Name: string,
-    team2Name: string,
-    options: Partial<SimulationOptions> = {}
-): Promise<GameResult> {
-    await initGameEngine()
-
-    const {
-        seed = Date.now(),
-        language = Language.ENGLISH,
-    } = options
-
-    return hostGameByName(team1Name, team2Name, { seed, language })
-}
-
-// =============================================================================
-// Team Loading
-// =============================================================================
-
-/**
- * Load a team from the roster CSV files.
- *
- * @param teamName - Team name (e.g., "Lakers", "Celtics")
- * @returns Loaded team
- */
-export async function loadTeam(teamName: string): Promise<Team> {
-    return Team.loadFromCSV(teamName)
-}
-
-// =============================================================================
-// Types
-// =============================================================================
-
-/**
- * Options for game simulation.
- */
-export interface SimulationOptions {
-    /** Random seed for deterministic results */
-    seed: number
-    /** Language for commentary and display */
-    language: Language
-}
-
-// =============================================================================
-// Re-exports
-// =============================================================================
-
-export type {
-    GameResult,
-    GameOptions,
-    BoxScore,
-} from '../models/Game'
-
-export { Language } from '../models/types'
 
 // =============================================================================
 // Prediction Types
@@ -288,28 +184,4 @@ function generateRankings(
         championships,
         probability: (championships / totalSimulations) * 100,
     }))
-}
-
-/**
- * Format prediction results for display.
- *
- * @param result - Prediction result
- * @returns Formatted string for display
- */
-export function formatPredictionResults(result: PredictionResult): string {
-    const lines: string[] = []
-
-    lines.push(`Championship Prediction (${result.totalSimulations} simulations)`)
-    lines.push('='.repeat(50))
-
-    for (const ranking of result.rankings) {
-        lines.push(
-            `${ranking.rank}. ${ranking.teamName}: ${ranking.championships} wins (${ranking.probability.toFixed(1)}%)`
-        )
-    }
-
-    lines.push('')
-    lines.push(`Time elapsed: ${(result.timeElapsed / 1000).toFixed(2)} seconds`)
-
-    return lines.join('\n')
 }

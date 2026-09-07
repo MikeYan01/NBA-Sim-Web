@@ -28,7 +28,7 @@ from every fetched page.
 Run:
 
 ```bash
-python3 nba-sim-web/process_roster.py
+python3 .claude/skills/fetchRoster/scripts/process_roster.py
 ```
 
 The processor maps and validates NBA2K ability ratings from the nested JSON

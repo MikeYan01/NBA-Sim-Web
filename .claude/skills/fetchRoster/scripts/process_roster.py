@@ -116,7 +116,7 @@ PLAYER_NAME_ALIASES = {
     "sviatoslavmykhailiuk": "svimykhailiuk",
 }
 
-APP_DIR = Path(__file__).resolve().parent
+APP_DIR = Path(__file__).resolve().parents[4] / "nba-sim-web"
 DEFAULT_INPUT = APP_DIR / "public" / "data" / "rosters" / "temp.json"
 DEFAULT_OUTPUT_DIR = APP_DIR / "public" / "data" / "rosters"
 
