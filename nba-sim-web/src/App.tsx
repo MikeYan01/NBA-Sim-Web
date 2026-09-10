@@ -16,7 +16,7 @@ const Settings = lazy(() => import('./components/Settings/Settings').then(m => (
 // Loading component for Suspense fallback
 const PageLoader = () => (
   <div className="flex items-center justify-center min-h-[50vh]">
-    <Loader2 className="w-8 h-8 text-indigo-500 animate-spin" />
+    <Loader2 className="w-8 h-8 text-accent animate-spin" />
   </div>
 )
 
@@ -67,8 +67,8 @@ function App() {
 
   if (loading || !isInitialized) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50">
-        <Loader2 className="w-8 h-8 animate-spin text-indigo-500" />
+      <div className="min-h-screen flex items-center justify-center bg-canvas">
+        <Loader2 className="w-8 h-8 animate-spin text-accent" />
       </div>
     )
   }

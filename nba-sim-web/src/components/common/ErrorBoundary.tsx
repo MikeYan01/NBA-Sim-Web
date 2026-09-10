@@ -67,47 +67,47 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
             // Default error UI
             return (
                 <div className="min-h-[400px] flex items-center justify-center p-8">
-                    <div className="max-w-md w-full bg-white rounded-xl border border-slate-200 shadow-lg p-6 text-center">
-                        <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <AlertTriangle className="w-8 h-8 text-red-500" />
+                    <div className="ui-panel max-w-md w-full p-6 text-center">
+                        <div className="w-16 h-16 bg-danger/10 border border-danger/25 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <AlertTriangle className="w-8 h-8 text-danger" />
                         </div>
 
-                        <h2 className="text-xl font-bold text-slate-900 mb-2">
+                        <h2 className="text-xl font-medium text-ink mb-2">
                             Something went wrong
                         </h2>
 
-                        <p className="text-slate-600 mb-6">
+                        <p className="text-muted text-sm leading-7 mb-6">
                             An unexpected error occurred. Please try again or return to the home page.
                         </p>
 
                         {/* Error details in development */}
                         {import.meta.env.DEV && this.state.error && (
-                            <details className="text-left mb-6 bg-slate-50 rounded-lg p-3 text-xs">
-                                <summary className="text-slate-600 cursor-pointer font-medium">
+                            <details className="text-left mb-6 bg-canvas border border-line rounded-lg p-3 text-xs">
+                                <summary className="text-muted cursor-pointer font-medium">
                                     Error Details
                                 </summary>
-                                <pre className="mt-2 text-red-600 overflow-auto max-h-32">
+                                <pre className="mt-2 text-danger overflow-auto max-h-32">
                                     {this.state.error.message}
                                 </pre>
                                 {this.state.errorInfo && (
-                                    <pre className="mt-2 text-slate-500 overflow-auto max-h-32">
+                                    <pre className="mt-2 text-muted overflow-auto max-h-32">
                                         {this.state.errorInfo.componentStack}
                                     </pre>
                                 )}
                             </details>
                         )}
 
-                        <div className="flex gap-3 justify-center">
+                        <div className="flex flex-wrap gap-3 justify-center">
                             <button
                                 onClick={this.handleReset}
-                                className="flex items-center gap-2 px-4 py-2 bg-slate-100 text-slate-700 rounded-lg hover:bg-slate-200 transition-colors"
+                                className="ui-button ui-button-secondary"
                             >
                                 <RefreshCw className="w-4 h-4" />
                                 Try Again
                             </button>
                             <button
                                 onClick={this.handleGoHome}
-                                className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
+                                className="ui-button ui-button-primary"
                             >
                                 <Home className="w-4 h-4" />
                                 Go Home

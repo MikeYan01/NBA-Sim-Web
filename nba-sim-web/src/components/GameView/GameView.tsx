@@ -133,78 +133,84 @@ export const GameView = () => {
   const matchupColors = useMatchupColors(currentGame.team2Name, currentGame.team1Name) // home, away
 
   return (
-    <div className="max-w-6xl mx-auto">
+    <div className="ui-page mx-auto w-full max-w-[1320px]">
       {/* Back Button */}
       <button
         onClick={() => navigate('/single-game')}
-        className="inline-flex items-center gap-2 text-slate-500 hover:text-slate-900 mb-6 transition-colors text-sm font-medium"
+        className="ui-button ui-button-ghost mb-5 -ml-3 px-3 sm:mb-7"
       >
         <ArrowLeft className="w-4 h-4" />
         {t('ui.gameView.backToSelection')}
       </button>
 
       {/* Scoreboard with Team Colors */}
-      <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden mb-6">
+      <div className="ui-panel mb-6 overflow-hidden sm:mb-7">
         {/* Team Color Header Bar */}
         {matchupColors && (
           <div
-            className="h-2"
+            className="h-1"
             style={{ background: matchupColors.matchupGradient }}
           />
         )}
 
-        <div className="p-6 sm:p-8">
-          <div className="text-center mb-6">
+        <div className="p-4 sm:p-8 lg:px-12 lg:py-9">
+          <div className="mb-6 text-center sm:mb-8">
             <span className={clsx(
-              "inline-block px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide",
+              "inline-block rounded-full border px-3 py-1 text-[10px] font-medium uppercase tracking-[0.12em]",
               isFinished
-                ? "bg-slate-100 text-slate-600"
-                : "bg-green-100 text-green-700"
+                ? "border-line bg-surface-raised text-muted"
+                : "border-success/25 bg-success/10 text-success"
             )}>
               {isFinished ? t('ui.gameView.finalScore') : t('ui.gameView.liveSimulation')}
             </span>
           </div>
 
-          <div className="flex items-center justify-center gap-4 sm:gap-8">
+          <div className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-2 sm:gap-8">
             {/* Team 1 (Away) */}
-            <div className="flex-1 text-center">
+            <div className="min-w-0 text-center">
               <div
                 className={clsx(
-                  "text-4xl sm:text-5xl lg:text-6xl font-bold mb-2 tabular-nums rounded-xl py-2 px-4 inline-block min-w-[120px]",
-                  isFinished && displayScore1 > displayScore2 ? "ring-2 ring-yellow-400" : ""
+                  "mb-3 inline-block min-w-[72px] max-w-full rounded-xl border border-line bg-surface-raised px-2 py-3 text-4xl font-medium leading-none tracking-[-0.05em] text-ink tabular-nums sm:min-w-[132px] sm:px-5 sm:py-4 sm:text-5xl lg:text-6xl",
+                  isFinished && displayScore1 > displayScore2 ? "ring-2 ring-accent/80 ring-offset-4 ring-offset-surface" : ""
                 )}
-                style={matchupColors?.awayScoreStyle}
+                style={matchupColors ? {
+                  backgroundColor: `color-mix(in srgb, ${matchupColors.away.colors.primary} 16%, var(--ui-panel-raised))`,
+                  borderColor: `color-mix(in srgb, ${matchupColors.away.colors.primary} 45%, var(--ui-border-strong))`,
+                } : undefined}
               >
                 {displayScore1}
               </div>
-              <div className="text-base sm:text-lg text-slate-600 font-medium">{team1LocalName}</div>
-              <div className="text-xs text-slate-400 mt-1">{t('game.away')}</div>
+              <div className="break-words text-sm font-medium tracking-tight text-ink sm:text-lg">{team1LocalName}</div>
+              <div className="mt-1.5 text-[11px] text-muted">{t('game.away')}</div>
             </div>
 
             {/* Divider with Time Display */}
-            <div className="flex flex-col items-center gap-1 px-4">
+            <div className="flex min-w-0 flex-col items-center gap-1 px-0 sm:px-3">
               {!isFinished ? (
-                <span className="text-slate-500 text-sm font-mono tabular-nums bg-slate-100 px-2 py-1 rounded">
+                <span className="whitespace-nowrap rounded-lg border border-line bg-canvas px-2 py-2 text-[10px] font-medium text-muted tabular-nums sm:px-3 sm:text-sm">
                   {formatTimeDisplay(displayQuarter, displayTimeRemaining)}
                 </span>
               ) : (
-                <span className="text-slate-300 text-lg font-medium">—</span>
+                <span className="text-lg font-medium text-faint">—</span>
               )}
             </div>
 
             {/* Team 2 (Home) */}
-            <div className="flex-1 text-center">
+            <div className="min-w-0 text-center">
               <div
                 className={clsx(
-                  "text-4xl sm:text-5xl lg:text-6xl font-bold mb-2 tabular-nums rounded-xl py-2 px-4 inline-block min-w-[120px]",
-                  isFinished && displayScore2 > displayScore1 ? "ring-2 ring-yellow-400" : ""
+                  "mb-3 inline-block min-w-[72px] max-w-full rounded-xl border border-line bg-surface-raised px-2 py-3 text-4xl font-medium leading-none tracking-[-0.05em] text-ink tabular-nums sm:min-w-[132px] sm:px-5 sm:py-4 sm:text-5xl lg:text-6xl",
+                  isFinished && displayScore2 > displayScore1 ? "ring-2 ring-accent/80 ring-offset-4 ring-offset-surface" : ""
                 )}
-                style={matchupColors?.homeScoreStyle}
+                style={matchupColors ? {
+                  backgroundColor: `color-mix(in srgb, ${matchupColors.home.colors.primary} 16%, var(--ui-panel-raised))`,
+                  borderColor: `color-mix(in srgb, ${matchupColors.home.colors.primary} 45%, var(--ui-border-strong))`,
+                } : undefined}
               >
                 {displayScore2}
               </div>
-              <div className="text-base sm:text-lg text-slate-600 font-medium">{team2LocalName}</div>
-              <div className="text-xs text-slate-400 mt-1">{t('game.home')}</div>
+              <div className="break-words text-sm font-medium tracking-tight text-ink sm:text-lg">{team2LocalName}</div>
+              <div className="mt-1.5 text-[11px] text-muted">{t('game.home')}</div>
             </div>
           </div>
         </div>
@@ -226,19 +232,19 @@ export const GameView = () => {
       )}
 
       {/* Content - Vertical Layout */}
-      <div className="flex flex-col gap-6">
+      <div className="flex min-w-0 flex-col gap-6">
         {/* Play-by-Play */}
-        <div className="flex flex-col gap-4">
+        <div className="flex min-w-0 flex-col gap-4">
           {/* Playback Controls */}
-          <div className="bg-white p-3 rounded-xl border border-slate-200 flex items-center justify-between">
+          <div className="ui-panel flex flex-wrap items-center justify-between gap-3 p-3 sm:p-4">
             <div className="flex gap-1">
               <button
                 onClick={togglePlay}
                 className={clsx(
-                  "p-2 rounded-lg transition-colors",
+                  "ui-button size-11 p-0",
                   isFinished
-                    ? "bg-indigo-100 text-indigo-600 hover:bg-indigo-200"
-                    : "hover:bg-slate-100 text-slate-700"
+                    ? "ui-button-primary"
+                    : "ui-button-secondary"
                 )}
                 title={isFinished ? t('ui.gameView.controls.restart') : (isPlaying ? t('ui.gameView.controls.pause') : t('ui.gameView.controls.play'))}
               >
@@ -246,7 +252,7 @@ export const GameView = () => {
               </button>
             </div>
 
-            <div className="flex bg-slate-100 rounded-lg p-0.5">
+            <div className="order-3 grid w-full min-w-0 grid-cols-4 gap-1 rounded-xl border border-line bg-canvas p-1 sm:order-none sm:flex sm:w-auto">
               {[
                 { label: '1x', value: 800 },
                 { label: '2x', value: 400 },
@@ -260,10 +266,10 @@ export const GameView = () => {
                   key={speed.label}
                   onClick={() => setSpeed(speed.value)}
                   className={clsx(
-                    "px-2.5 py-1 text-xs font-medium rounded-md transition-all",
+                    "ui-tab min-w-11 px-2 tabular-nums sm:px-2.5",
                     playbackSpeed === speed.value
-                      ? "bg-white text-slate-900 shadow-sm"
-                      : "text-slate-500 hover:text-slate-700"
+                      ? "ui-tab-active"
+                      : "text-muted"
                   )}
                 >
                   {speed.label}
@@ -273,7 +279,7 @@ export const GameView = () => {
 
             <button
               onClick={skipToEnd}
-              className="p-2 hover:bg-slate-100 rounded-lg text-slate-500 hover:text-slate-700 transition-colors"
+              className="ui-icon-button"
               title={t('ui.gameView.controls.skipToEnd')}
             >
               <SkipForward className="w-4 h-4" />

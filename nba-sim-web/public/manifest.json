@@ -4,8 +4,8 @@
     "description": "Experience realistic basketball simulation with authentic play-by-play commentary",
     "start_url": "/",
     "display": "standalone",
-    "background_color": "#f8fafc",
-    "theme_color": "#1d428a",
+    "background_color": "#101512",
+    "theme_color": "#101512",
     "orientation": "any",
     "icons": [
         {

@@ -18,38 +18,38 @@ export const SeriesModal = ({ series, seriesTitle, onClose }: SeriesModalProps) 
 
     return (
         <div
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60"
+            className="ui-modal-backdrop fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4"
             onClick={onClose}
         >
             <div
-                className="bg-white rounded-2xl shadow-2xl w-full max-w-5xl max-h-[92vh] flex flex-col overflow-hidden"
+                className="ui-modal-panel flex max-h-[92vh] w-full max-w-5xl flex-col overflow-hidden tabular-nums"
                 onClick={(e) => e.stopPropagation()}
             >
                 {/* Header */}
-                <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 bg-gradient-to-r from-slate-50 to-slate-100">
-                    <div>
-                        <div className="text-sm text-slate-500 mb-1">{seriesTitle}</div>
-                        <div className="flex items-center gap-4">
+                <div className="flex max-h-[40vh] shrink-0 items-start justify-between gap-3 overflow-y-auto border-b border-line bg-surface-raised px-4 py-4 sm:px-6">
+                    <div className="min-w-0">
+                        <div className="mb-2 text-xs text-muted">{seriesTitle}</div>
+                        <div className="flex min-w-0 flex-wrap items-center gap-x-4 gap-y-2">
                             <span className={clsx(
-                                "text-xl font-bold",
-                                series.winner === series.team1 ? "text-green-600" : "text-slate-700"
+                                "min-w-0 text-lg font-medium tracking-tight break-words sm:text-xl",
+                                series.winner === series.team1 ? "text-success" : "text-muted"
                             )}>
                                 {getLocalizedTeamName(series.team1, language)}
                             </span>
-                            <span className="text-2xl font-bold text-slate-900 tabular-nums">
+                            <span className="text-2xl font-semibold tracking-tight whitespace-nowrap text-ink tabular-nums">
                                 {series.team1Wins} - {series.team2Wins}
                             </span>
                             <span className={clsx(
-                                "text-xl font-bold",
-                                series.winner === series.team2 ? "text-green-600" : "text-slate-700"
+                                "min-w-0 text-lg font-medium tracking-tight break-words sm:text-xl",
+                                series.winner === series.team2 ? "text-success" : "text-muted"
                             )}>
                                 {getLocalizedTeamName(series.team2, language)}
                             </span>
                         </div>
                         {series.seriesMVP && (
-                            <div className="text-sm text-indigo-600 mt-2">
+                            <div className="mt-3 text-sm leading-relaxed text-accent">
                                 <span className="font-medium">🏅 {t('ui.season.playoffs.seriesMvp')}: {series.seriesMVP.playerName}</span>
-                                <span className="ml-2 text-xs text-slate-500 font-normal">
+                                <span className="mt-1 block text-xs leading-relaxed font-normal text-muted sm:mt-0 sm:ml-2 sm:inline">
                                     {series.seriesMVP.avgPoints.toFixed(1)} {t('stat.abbr.pts')} | {series.seriesMVP.avgRebounds.toFixed(1)} {t('stat.abbr.reb')} | {series.seriesMVP.avgAssists.toFixed(1)} {t('stat.abbr.ast')} | {series.seriesMVP.avgSteals.toFixed(1)} {t('stat.abbr.stl')} | {series.seriesMVP.avgBlocks.toFixed(1)} {t('stat.abbr.blk')} | {series.seriesMVP.fgAttempted > 0 ? ((series.seriesMVP.fgMade / series.seriesMVP.fgAttempted) * 100).toFixed(1) : '0.0'}% FG | {series.seriesMVP.threeAttempted > 0 ? ((series.seriesMVP.threeMade / series.seriesMVP.threeAttempted) * 100).toFixed(1) : '0.0'}% 3P
                                 </span>
                             </div>
@@ -57,24 +57,24 @@ export const SeriesModal = ({ series, seriesTitle, onClose }: SeriesModalProps) 
                     </div>
                     <button
                         onClick={onClose}
-                        className="p-2 rounded-full hover:bg-slate-200 transition-colors text-slate-500 hover:text-slate-700"
+                        className="ui-icon-button"
                     >
                         <X className="w-6 h-6" />
                     </button>
                 </div>
 
                 {/* Games List */}
-                <div className="flex-1 overflow-y-auto p-4 space-y-3">
+                <div className="min-h-0 flex-1 space-y-3 overflow-y-auto p-3 sm:p-4">
                     {series.games.map((game, i) => (
                         <GameCard key={i} game={game} gameNumber={i + 1} />
                     ))}
                 </div>
 
                 {/* Footer with close button */}
-                <div className="px-6 py-3 border-t border-slate-200 bg-slate-50 flex justify-end">
+                <div className="flex shrink-0 justify-end border-t border-line bg-canvas/60 px-4 py-3 sm:px-6">
                     <button
                         onClick={onClose}
-                        className="px-6 py-2 bg-slate-700 text-white rounded-lg hover:bg-slate-800 transition-colors font-medium"
+                        className="ui-button ui-button-secondary px-6"
                     >
                         {t('ui.common.close')}
                     </button>
@@ -108,52 +108,52 @@ const GameCard = ({ game, gameNumber }: GameCardProps) => {
     const otSuffix = game.finalQuarter > 4 ? ` (${game.finalQuarter - 4}OT)` : ''
 
     return (
-        <div ref={cardRef} className="border border-slate-200 rounded-xl overflow-hidden bg-white shadow-sm">
+        <div ref={cardRef} className="ui-panel-raised min-w-0 overflow-hidden">
             {/* Game Header - Always visible */}
             <button
                 onClick={() => setExpanded(!expanded)}
-                className="w-full px-4 py-3 flex items-center justify-between hover:bg-slate-50 transition-colors"
+                className="flex min-h-[72px] w-full flex-wrap items-center justify-between gap-3 px-4 py-4 text-left transition-colors hover:bg-surface-hover focus-visible:outline-offset-[-3px]"
             >
-                <div className="flex items-center gap-4">
-                    <span className="text-sm font-medium text-slate-400 w-8">G{gameNumber}</span>
-                    <div className="flex items-center gap-3">
+                <div className="flex min-w-0 flex-1 items-start gap-3 sm:items-center sm:gap-4">
+                    <span className="w-8 shrink-0 text-xs font-medium text-faint">G{gameNumber}</span>
+                    <div className="flex min-w-0 flex-wrap items-center gap-x-3 gap-y-1.5">
                         <span className={clsx(
-                            "font-medium",
-                            t1Won ? "text-green-600 font-bold" : "text-slate-600"
+                            "min-w-0 text-sm font-medium break-words",
+                            t1Won ? "font-semibold text-success" : "text-muted"
                         )}>
                             {getLocalizedTeamName(game.team1Name, language)}
                         </span>
-                        <span className="text-lg font-bold tabular-nums text-slate-900">
+                        <span className="text-lg font-semibold tracking-tight whitespace-nowrap text-ink tabular-nums">
                             {game.team1Score} - {game.team2Score}
                         </span>
                         <span className={clsx(
-                            "font-medium",
-                            !t1Won ? "text-green-600 font-bold" : "text-slate-600"
+                            "min-w-0 text-sm font-medium break-words",
+                            !t1Won ? "font-semibold text-success" : "text-muted"
                         )}>
                             {getLocalizedTeamName(game.team2Name, language)}
                         </span>
                         {otSuffix && (
-                            <span className="text-xs text-orange-500 font-medium">{otSuffix}</span>
+                            <span className="text-xs font-medium text-warning">{otSuffix}</span>
                         )}
                     </div>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="ml-auto flex min-h-11 shrink-0 items-center gap-2">
                     {(game.playByPlayLog?.length > 0 || game.boxScore) && (
-                        <span className="text-xs text-slate-400">
+                        <span className="text-xs text-accent">
                             {expanded ? t('ui.common.collapse') : t('ui.common.expand')}
                         </span>
                     )}
                     {expanded ? (
-                        <ChevronDown className="w-5 h-5 text-slate-400" />
+                        <ChevronDown className="h-5 w-5 text-faint" />
                     ) : (
-                        <ChevronRight className="w-5 h-5 text-slate-400" />
+                        <ChevronRight className="h-5 w-5 text-faint" />
                     )}
                 </div>
             </button>
 
             {/* Expanded Content */}
             {expanded && (
-                <div className="border-t border-slate-200">
+                <div className="border-t border-line">
                     <GameDetails
                         game={game}
                         awayTeam={game.team1Name}

@@ -33,63 +33,63 @@ export const PlayoffBracket = ({ playoffs }: PlayoffBracketProps) => {
     const eastConfFinals = playoffs.confFinals.series[1]
 
     return (
-        <div className="space-y-4">
+        <div className="min-w-0 space-y-5 tabular-nums">
             {/* Champion Banner */}
-            <div className="bg-gradient-to-r from-amber-400 to-amber-500 rounded-xl p-4 text-center text-white shadow-lg">
-                <Trophy className="w-8 h-8 mx-auto mb-2" />
-                <div className="text-2xl font-bold">{getLocalizedTeamName(playoffs.champion, language)}</div>
+            <div className="ui-panel border-accent/30 bg-surface-raised p-6 text-center text-ink sm:p-7">
+                <Trophy className="mx-auto mb-3 h-8 w-8 text-accent" />
+                <div className="text-2xl font-medium tracking-tight break-words sm:text-3xl">{getLocalizedTeamName(playoffs.champion, language)}</div>
                 {playoffs.finalsMVP && (
-                    <div className="mt-2 text-sm">
-                        {t('ui.season.playoffs.finalsMvp')}: <span className="font-semibold">{playoffs.finalsMVP.playerName}</span>
+                    <div className="mt-3 text-sm text-muted">
+                        {t('ui.season.playoffs.finalsMvp')}: <span className="font-medium text-accent">{playoffs.finalsMVP.playerName}</span>
                     </div>
                 )}
             </div>
 
-            <details open className="bg-white rounded-xl border border-slate-200 overflow-hidden">
-                <summary className="px-4 py-3 cursor-pointer hover:bg-slate-50 font-medium text-slate-700">
+            <details open className="ui-panel min-w-0 overflow-hidden">
+                <summary className="min-h-[52px] cursor-pointer px-4 py-4 text-sm font-medium text-ink transition-colors marker:text-accent hover:bg-surface-hover focus-visible:outline-offset-[-3px] sm:px-5">
                     {t('ui.season.playoffs.playIn')}
                 </summary>
-                <div className="p-4 space-y-6 border-t border-slate-100">
+                <div className="grid gap-6 border-t border-line p-4 sm:p-5 md:grid-cols-2">
                     <PlayInSection title={t('conference.west')} playIn={playoffs.playIn.west} />
                     <PlayInSection title={t('conference.east')} playIn={playoffs.playIn.east} />
                 </div>
             </details>
 
             {/* Bracket */}
-            <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
-                <div className="px-4 py-3 border-b border-slate-100 bg-slate-50/80">
-                    <h2 className="font-semibold text-slate-900">{t('ui.season.playoffs.title')}</h2>
+            <div className="ui-panel min-w-0 overflow-hidden">
+                <div className="border-b border-line bg-canvas/60 px-4 py-4 sm:px-5">
+                    <h2 className="text-sm font-medium text-ink">{t('ui.season.playoffs.title')}</h2>
                 </div>
 
                 {/* Desktop Bracket Layout with Connecting Lines */}
-                <div className="hidden lg:block p-4 overflow-x-auto">
+                <div className="hidden overflow-x-auto p-5 lg:block">
                     <div className="relative min-w-[1000px]">
                         {/* Bracket Grid */}
                         <div className="grid grid-cols-7 gap-0" style={{ minHeight: '600px' }}>
                             {/* West First Round - Column 1 */}
                             <div className="relative flex flex-col py-2">
-                                <div className="text-xs font-medium text-slate-400 uppercase text-center absolute -top-1 left-0 right-0">{t('ui.season.playoffs.firstRound')}</div>
+                                <div className="ui-section-label absolute -top-1 right-0 left-0 text-center">{t('ui.season.playoffs.firstRound')}</div>
                                 {westFirstRound.map((series, i) => (
                                     <div key={`w-r1-${i}`} className="relative flex items-center" style={{ height: '25%' }}>
                                         <div className="flex-1 pr-2">
                                             <SeriesCard series={series} onClick={() => openSeriesModal(series, `${t('conference.west')} ${t('ui.season.playoffs.firstRound')}`)} />
                                         </div>
                                         {/* Connector line to next round */}
-                                        <div className="absolute right-0 top-1/2 w-3 h-px bg-slate-300"></div>
+                                        <div className="absolute right-0 top-1/2 h-px w-3 bg-line-strong"></div>
                                     </div>
                                 ))}
                             </div>
 
                             {/* West Semis - Column 2 - Position between first round pairs */}
                             <div className="relative flex flex-col py-2">
-                                <div className="text-xs font-medium text-slate-400 uppercase text-center absolute -top-1 left-0 right-0">{t('ui.season.playoffs.confSemis')}</div>
+                                <div className="ui-section-label absolute -top-1 right-0 left-0 text-center">{t('ui.season.playoffs.confSemis')}</div>
                                 {/* First semi - centered between 1st round matchups 1&2 (at 25% height) */}
                                 <div className="flex items-center justify-center" style={{ height: '50%' }}>
                                     <div className="relative w-full flex items-center">
                                         <div className="flex-1 px-2">
                                             <SeriesCard series={westConfSemis[0]} onClick={() => openSeriesModal(westConfSemis[0], `${t('conference.west')} ${t('ui.season.playoffs.confSemis')}`)} />
                                         </div>
-                                        <div className="absolute right-0 top-1/2 w-3 h-px bg-slate-300"></div>
+                                        <div className="absolute right-0 top-1/2 h-px w-3 bg-line-strong"></div>
                                     </div>
                                 </div>
                                 {/* Second semi - centered between 1st round matchups 3&4 (at 75% height) */}
@@ -98,72 +98,72 @@ export const PlayoffBracket = ({ playoffs }: PlayoffBracketProps) => {
                                         <div className="flex-1 px-2">
                                             <SeriesCard series={westConfSemis[1]} onClick={() => openSeriesModal(westConfSemis[1], `${t('conference.west')} ${t('ui.season.playoffs.confSemis')}`)} />
                                         </div>
-                                        <div className="absolute right-0 top-1/2 w-3 h-px bg-slate-300"></div>
+                                        <div className="absolute right-0 top-1/2 h-px w-3 bg-line-strong"></div>
                                     </div>
                                 </div>
                                 {/* Vertical connectors - span exactly between first round matchup centers */}
                                 {/* Upper pair: matchup 1 center (12.5%) to matchup 2 center (37.5%) */}
-                                <div className="absolute left-0 top-[12.5%] h-[25%] w-px bg-slate-300"></div>
+                                <div className="absolute top-[12.5%] left-0 h-[25%] w-px bg-line-strong"></div>
                                 {/* Lower pair: matchup 3 center (62.5%) to matchup 4 center (87.5%) */}
-                                <div className="absolute left-0 top-[62.5%] h-[25%] w-px bg-slate-300"></div>
+                                <div className="absolute top-[62.5%] left-0 h-[25%] w-px bg-line-strong"></div>
                                 {/* Horizontal taps at midpoints (25% and 75%) */}
-                                <div className="absolute left-0 top-[25%] w-2 h-px bg-slate-300"></div>
-                                <div className="absolute left-0 top-[75%] w-2 h-px bg-slate-300"></div>
+                                <div className="absolute top-[25%] left-0 h-px w-2 bg-line-strong"></div>
+                                <div className="absolute top-[75%] left-0 h-px w-2 bg-line-strong"></div>
                             </div>
 
                             {/* West Finals - Column 3 */}
                             <div className="relative flex flex-col justify-center py-8">
-                                <div className="text-xs font-medium text-slate-400 uppercase text-center absolute -top-1 left-0 right-0">{t('ui.season.playoffs.confFinals')}</div>
+                                <div className="ui-section-label absolute -top-1 right-0 left-0 text-center">{t('ui.season.playoffs.confFinals')}</div>
                                 <div className="relative flex items-center">
                                     {/* Input connector */}
-                                    <div className="absolute left-0 top-1/2 w-3 h-px bg-slate-300"></div>
+                                    <div className="absolute top-1/2 left-0 h-px w-3 bg-line-strong"></div>
                                     <div className="flex-1 px-2">
                                         {westConfFinals && <SeriesCard series={westConfFinals} onClick={() => openSeriesModal(westConfFinals, `${t('conference.west')} ${t('ui.season.playoffs.confFinals')}`)} />}
                                     </div>
                                     {/* Output connector */}
-                                    <div className="absolute right-0 top-1/2 w-3 h-px bg-slate-300"></div>
+                                    <div className="absolute top-1/2 right-0 h-px w-3 bg-line-strong"></div>
                                 </div>
                                 {/* Vertical connector for West Semis */}
-                                <div className="absolute left-0 top-[25%] h-[50%] w-px bg-slate-300"></div>
+                                <div className="absolute top-[25%] left-0 h-[50%] w-px bg-line-strong"></div>
                             </div>
 
                             {/* NBA Finals - Column 4 (Center) */}
                             <div className="relative flex flex-col justify-center py-8">
-                                <div className="text-xs font-medium text-amber-500 uppercase text-center absolute -top-1 left-0 right-0">{t('ui.season.playoffs.finals')}</div>
+                                <div className="ui-section-label absolute -top-1 right-0 left-0 text-center text-accent">{t('ui.season.playoffs.finals')}</div>
                                 <div className="relative flex items-center">
                                     {/* West connector */}
-                                    <div className="absolute left-0 top-1/2 w-2 h-px bg-amber-400"></div>
+                                    <div className="absolute top-1/2 left-0 h-px w-2 bg-accent/60"></div>
                                     <div className="flex-1 px-1">
                                         <SeriesCard series={playoffs.finals} highlight onClick={() => openSeriesModal(playoffs.finals, t('ui.season.playoffs.finals'))} />
                                     </div>
                                     {/* East connector */}
-                                    <div className="absolute right-0 top-1/2 w-2 h-px bg-amber-400"></div>
+                                    <div className="absolute top-1/2 right-0 h-px w-2 bg-accent/60"></div>
                                 </div>
                             </div>
 
                             {/* East Finals - Column 5 */}
                             <div className="relative flex flex-col justify-center py-8">
-                                <div className="text-xs font-medium text-slate-400 uppercase text-center absolute -top-1 left-0 right-0">{t('ui.season.playoffs.confFinals')}</div>
+                                <div className="ui-section-label absolute -top-1 right-0 left-0 text-center">{t('ui.season.playoffs.confFinals')}</div>
                                 <div className="relative flex items-center">
                                     {/* Input connector */}
-                                    <div className="absolute left-0 top-1/2 w-3 h-px bg-slate-300"></div>
+                                    <div className="absolute top-1/2 left-0 h-px w-3 bg-line-strong"></div>
                                     <div className="flex-1 px-2">
                                         {eastConfFinals && <SeriesCard series={eastConfFinals} onClick={() => openSeriesModal(eastConfFinals, `${t('conference.east')} ${t('ui.season.playoffs.confFinals')}`)} />}
                                     </div>
                                     {/* Output connector */}
-                                    <div className="absolute right-0 top-1/2 w-3 h-px bg-slate-300"></div>
+                                    <div className="absolute top-1/2 right-0 h-px w-3 bg-line-strong"></div>
                                 </div>
                                 {/* Vertical connector for East Semis */}
-                                <div className="absolute right-0 top-[25%] h-[50%] w-px bg-slate-300"></div>
+                                <div className="absolute top-[25%] right-0 h-[50%] w-px bg-line-strong"></div>
                             </div>
 
                             {/* East Semis - Column 6 - Position between first round pairs */}
                             <div className="relative flex flex-col py-2">
-                                <div className="text-xs font-medium text-slate-400 uppercase text-center absolute -top-1 left-0 right-0">{t('ui.season.playoffs.confSemis')}</div>
+                                <div className="ui-section-label absolute -top-1 right-0 left-0 text-center">{t('ui.season.playoffs.confSemis')}</div>
                                 {/* First semi - centered between 1st round matchups 1&2 (at 25% height) */}
                                 <div className="flex items-center justify-center" style={{ height: '50%' }}>
                                     <div className="relative w-full flex items-center">
-                                        <div className="absolute left-0 top-1/2 w-3 h-px bg-slate-300"></div>
+                                        <div className="absolute top-1/2 left-0 h-px w-3 bg-line-strong"></div>
                                         <div className="flex-1 px-2">
                                             <SeriesCard series={eastConfSemis[0]} onClick={() => openSeriesModal(eastConfSemis[0], `${t('conference.east')} ${t('ui.season.playoffs.confSemis')}`)} />
                                         </div>
@@ -172,7 +172,7 @@ export const PlayoffBracket = ({ playoffs }: PlayoffBracketProps) => {
                                 {/* Second semi - centered between 1st round matchups 3&4 (at 75% height) */}
                                 <div className="flex items-center justify-center" style={{ height: '50%' }}>
                                     <div className="relative w-full flex items-center">
-                                        <div className="absolute left-0 top-1/2 w-3 h-px bg-slate-300"></div>
+                                        <div className="absolute top-1/2 left-0 h-px w-3 bg-line-strong"></div>
                                         <div className="flex-1 px-2">
                                             <SeriesCard series={eastConfSemis[1]} onClick={() => openSeriesModal(eastConfSemis[1], `${t('conference.east')} ${t('ui.season.playoffs.confSemis')}`)} />
                                         </div>
@@ -180,21 +180,21 @@ export const PlayoffBracket = ({ playoffs }: PlayoffBracketProps) => {
                                 </div>
                                 {/* Vertical connectors - span exactly between first round matchup centers */}
                                 {/* Upper pair: matchup 1 center (12.5%) to matchup 2 center (37.5%) */}
-                                <div className="absolute right-0 top-[12.5%] h-[25%] w-px bg-slate-300"></div>
+                                <div className="absolute top-[12.5%] right-0 h-[25%] w-px bg-line-strong"></div>
                                 {/* Lower pair: matchup 3 center (62.5%) to matchup 4 center (87.5%) */}
-                                <div className="absolute right-0 top-[62.5%] h-[25%] w-px bg-slate-300"></div>
+                                <div className="absolute top-[62.5%] right-0 h-[25%] w-px bg-line-strong"></div>
                                 {/* Horizontal taps at midpoints (25% and 75%) */}
-                                <div className="absolute right-0 top-[25%] w-2 h-px bg-slate-300"></div>
-                                <div className="absolute right-0 top-[75%] w-2 h-px bg-slate-300"></div>
+                                <div className="absolute top-[25%] right-0 h-px w-2 bg-line-strong"></div>
+                                <div className="absolute top-[75%] right-0 h-px w-2 bg-line-strong"></div>
                             </div>
 
                             {/* East First Round - Column 7 */}
                             <div className="relative flex flex-col py-2">
-                                <div className="text-xs font-medium text-slate-400 uppercase text-center absolute -top-1 left-0 right-0">{t('ui.season.playoffs.firstRound')}</div>
+                                <div className="ui-section-label absolute -top-1 right-0 left-0 text-center">{t('ui.season.playoffs.firstRound')}</div>
                                 {eastFirstRound.map((series, i) => (
                                     <div key={`e-r1-${i}`} className="relative flex items-center" style={{ height: '25%' }}>
                                         {/* Connector line from previous round */}
-                                        <div className="absolute left-0 top-1/2 w-3 h-px bg-slate-300"></div>
+                                        <div className="absolute top-1/2 left-0 h-px w-3 bg-line-strong"></div>
                                         <div className="flex-1 pl-2">
                                             <SeriesCard series={series} onClick={() => openSeriesModal(series, `${t('conference.east')} ${t('ui.season.playoffs.firstRound')}`)} />
                                         </div>
@@ -206,17 +206,17 @@ export const PlayoffBracket = ({ playoffs }: PlayoffBracketProps) => {
                 </div>
 
                 {/* Mobile Layout */}
-                <div className="lg:hidden p-4 space-y-4">
+                <div className="space-y-5 p-4 sm:p-5 lg:hidden">
                     <RoundSection title={t('ui.season.playoffs.finals')} series={[playoffs.finals]} highlight onSeriesClick={(series, title) => openSeriesModal(series, title)} />
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                         <RoundSection title={`${t('conference.west')} ${t('ui.season.playoffs.confFinals')}`} series={westConfFinals ? [westConfFinals] : []} onSeriesClick={(series, title) => openSeriesModal(series, title)} />
                         <RoundSection title={`${t('conference.east')} ${t('ui.season.playoffs.confFinals')}`} series={eastConfFinals ? [eastConfFinals] : []} onSeriesClick={(series, title) => openSeriesModal(series, title)} />
                     </div>
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                         <RoundSection title={`${t('conference.west')} ${t('ui.season.playoffs.confSemis')}`} series={westConfSemis} onSeriesClick={(series, title) => openSeriesModal(series, title)} />
                         <RoundSection title={`${t('conference.east')} ${t('ui.season.playoffs.confSemis')}`} series={eastConfSemis} onSeriesClick={(series, title) => openSeriesModal(series, title)} />
                     </div>
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                         <RoundSection title={`${t('conference.west')} ${t('ui.season.playoffs.firstRound')}`} series={westFirstRound} onSeriesClick={(series, title) => openSeriesModal(series, title)} />
                         <RoundSection title={`${t('conference.east')} ${t('ui.season.playoffs.firstRound')}`} series={eastFirstRound} onSeriesClick={(series, title) => openSeriesModal(series, title)} />
                     </div>
@@ -241,9 +241,9 @@ const RoundSection = ({ title, series, highlight, onSeriesClick }: {
     highlight?: boolean;
     onSeriesClick?: (series: SeriesResult, seriesTitle: string) => void;
 }) => (
-    <div>
-        <div className={clsx("text-xs font-medium uppercase mb-2", highlight ? "text-amber-500" : "text-slate-400")}>{title}</div>
-        <div className="space-y-2">
+    <div className="min-w-0">
+        <div className={clsx("mb-3 text-xs font-medium tracking-wide uppercase", highlight ? "text-accent" : "text-muted")}>{title}</div>
+        <div className="space-y-2.5">
             {series.map((s, i) => (
                 <SeriesCard
                     key={i}
@@ -265,23 +265,23 @@ const SeriesCard = ({ series, highlight, onClick }: {
 
     return (
         <div className={clsx(
-            "rounded-lg border overflow-hidden cursor-pointer transition-all hover:shadow-md",
-            highlight ? "border-amber-300 bg-amber-50 hover:border-amber-400" : "border-slate-200 bg-white hover:border-slate-300"
+            "min-w-0 cursor-pointer overflow-hidden rounded-xl border transition-colors",
+            highlight ? "border-accent/40 bg-accent/10 hover:border-accent/70" : "border-line bg-surface-raised hover:border-line-strong"
         )}>
             <button
                 onClick={onClick}
-                className="w-full p-2 text-left hover:bg-slate-50/50 transition-colors"
+                className="min-h-16 w-full p-3 text-left transition-colors hover:bg-surface-hover focus-visible:outline-offset-[-3px]"
             >
                 <div className="flex items-center justify-between">
-                    <div className="flex-1 min-w-0">
-                        <div className={clsx("text-xs truncate", series.winner === series.team1 ? "font-bold text-green-600" : "text-slate-600")}>
+                    <div className="min-w-0 flex-1 space-y-1">
+                        <div className={clsx("truncate text-xs", series.winner === series.team1 ? "font-semibold text-success" : "text-muted")}>
                             {getLocalizedTeamName(series.team1, language)}
                         </div>
-                        <div className={clsx("text-xs truncate", series.winner === series.team2 ? "font-bold text-green-600" : "text-slate-600")}>
+                        <div className={clsx("truncate text-xs", series.winner === series.team2 ? "font-semibold text-success" : "text-muted")}>
                             {getLocalizedTeamName(series.team2, language)}
                         </div>
                     </div>
-                    <div className="text-sm font-bold text-slate-900 tabular-nums ml-2">
+                    <div className="ml-2 shrink-0 text-sm font-semibold text-ink tabular-nums">
                         {series.team1Wins}-{series.team2Wins}
                     </div>
                 </div>
@@ -293,9 +293,9 @@ const SeriesCard = ({ series, highlight, onClick }: {
 const PlayInSection = ({ title, playIn }: { title: string; playIn: PlayInResult }) => {
 
     return (
-        <div>
-            <div className="text-sm font-medium text-slate-700 mb-2">{title}</div>
-            <div className="space-y-2">
+        <div className="min-w-0">
+            <div className="mb-3 text-sm font-medium text-ink">{title}</div>
+            <div className="space-y-2.5">
                 {playIn.games.map((game, i) => (
                     <PlayInGameCard key={i} game={game} />
                 ))}
@@ -358,28 +358,28 @@ const PlayInGameCard = ({ game }: { game: PlayInGameResult }) => {
     return (
         <>
             <div
-                className="bg-slate-50 rounded-lg p-3 text-xs border border-slate-200 hover:border-slate-300 hover:shadow-sm cursor-pointer transition-all"
+                className="ui-panel-raised min-w-0 cursor-pointer p-4 text-xs transition-colors hover:border-line-strong hover:bg-surface-hover"
                 onClick={() => setShowModal(true)}
             >
-                <div className="text-[10px] text-slate-400 uppercase mb-1">{getLocalizedRoundName(game.roundName)}</div>
-                <div className="flex items-center justify-between">
-                    <span className={clsx(awayWon ? "font-bold text-green-600" : "text-slate-600")}>
+                <div className="ui-section-label mb-2">{getLocalizedRoundName(game.roundName)}</div>
+                <div className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-3">
+                    <span className={clsx("min-w-0 break-words", awayWon ? "font-semibold text-success" : "text-muted")}>
                         {getLocalizedTeamName(game.awayTeam, language)}
                     </span>
-                    <span className="font-bold tabular-nums">
+                    <span className="font-semibold whitespace-nowrap text-ink tabular-nums">
                         {gameResult.team1Score} - {gameResult.team2Score}
                     </span>
-                    <span className={clsx(!awayWon ? "font-bold text-green-600" : "text-slate-600")}>
+                    <span className={clsx("min-w-0 text-right break-words", !awayWon ? "font-semibold text-success" : "text-muted")}>
                         {getLocalizedTeamName(game.homeTeam, language)}
                     </span>
                 </div>
-                <div className="text-[10px] text-slate-400 mt-1">
+                <div className="mt-3 text-[11px] leading-relaxed text-muted">
                     {getLocalizedTeamName(game.winner, language)}: {getLocalizedStatus(game.winnerStatus)}
                     {game.loserStatus !== 'Eliminated' && ` • ${getLocalizedTeamName(game.loser, language)}: ${getLocalizedStatus(game.loserStatus)}`}
                 </div>
                 {/* Hint to click for details */}
                 {(gameResult.playByPlayLog?.length > 0 || gameResult.boxScore) && (
-                    <div className="text-[10px] text-indigo-500 mt-1.5 flex items-center gap-1">
+                    <div className="mt-2 flex items-center gap-1 text-[11px] text-accent">
                         <span>{t('ui.common.expand')}</span>
                     </div>
                 )}
@@ -388,45 +388,45 @@ const PlayInGameCard = ({ game }: { game: PlayInGameResult }) => {
             {/* Game Detail Modal */}
             {showModal && (
                 <div
-                    className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60"
+                    className="ui-modal-backdrop fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4"
                     onClick={() => setShowModal(false)}
                 >
                     <div
-                        className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col overflow-hidden"
+                        className="ui-modal-panel flex max-h-[90vh] w-full max-w-4xl flex-col overflow-hidden tabular-nums"
                         onClick={(e) => e.stopPropagation()}
                     >
                         {/* Header */}
-                        <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 bg-gradient-to-r from-slate-50 to-slate-100">
-                            <div>
-                                <div className="text-sm text-slate-500 mb-1">{getLocalizedRoundName(game.roundName)}</div>
-                                <div className="flex items-center gap-4">
+                        <div className="flex max-h-[40vh] shrink-0 items-start justify-between gap-3 overflow-y-auto border-b border-line bg-surface-raised px-4 py-4 sm:px-6">
+                            <div className="min-w-0">
+                                <div className="mb-2 text-xs text-muted">{getLocalizedRoundName(game.roundName)}</div>
+                                <div className="flex min-w-0 flex-wrap items-center gap-x-4 gap-y-2">
                                     <span className={clsx(
-                                        "text-lg font-bold",
-                                        awayWon ? "text-green-600" : "text-slate-700"
+                                        "min-w-0 text-base font-medium tracking-tight break-words sm:text-lg",
+                                        awayWon ? "text-success" : "text-muted"
                                     )}>
                                         {getLocalizedTeamName(game.awayTeam, language)}
                                     </span>
-                                    <span className="text-xl font-bold tabular-nums text-slate-900">
+                                    <span className="text-xl font-semibold tracking-tight whitespace-nowrap text-ink tabular-nums">
                                         {gameResult.team1Score} - {gameResult.team2Score}
                                     </span>
                                     <span className={clsx(
-                                        "text-lg font-bold",
-                                        !awayWon ? "text-green-600" : "text-slate-700"
+                                        "min-w-0 text-base font-medium tracking-tight break-words sm:text-lg",
+                                        !awayWon ? "text-success" : "text-muted"
                                     )}>
                                         {getLocalizedTeamName(game.homeTeam, language)}
                                     </span>
                                     {otSuffix && (
-                                        <span className="text-sm text-orange-500 font-medium">{otSuffix}</span>
+                                        <span className="text-xs font-medium text-warning">{otSuffix}</span>
                                     )}
                                 </div>
-                                <div className="text-xs text-slate-400 mt-1">
+                                <div className="mt-3 text-xs leading-relaxed text-muted">
                                     {getLocalizedTeamName(game.winner, language)}: {getLocalizedStatus(game.winnerStatus)}
                                     {game.loserStatus !== 'Eliminated' && ` • ${getLocalizedTeamName(game.loser, language)}: ${getLocalizedStatus(game.loserStatus)}`}
                                 </div>
                             </div>
                             <button
                                 onClick={() => setShowModal(false)}
-                                className="p-2 rounded-full hover:bg-slate-200 transition-colors text-slate-500 hover:text-slate-700"
+                                className="ui-icon-button"
                             >
                                 <X className="w-6 h-6" />
                             </button>
@@ -441,10 +441,10 @@ const PlayInGameCard = ({ game }: { game: PlayInGameResult }) => {
                         />
 
                         {/* Footer */}
-                        <div className="px-6 py-3 border-t border-slate-200 bg-slate-50 flex justify-end">
+                        <div className="flex shrink-0 justify-end border-t border-line bg-canvas/60 px-4 py-3 sm:px-6">
                             <button
                                 onClick={() => setShowModal(false)}
-                                className="px-6 py-2 bg-slate-700 text-white rounded-lg hover:bg-slate-800 transition-colors font-medium"
+                                className="ui-button ui-button-secondary px-6"
                             >
                                 {t('ui.common.close')}
                             </button>

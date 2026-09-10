@@ -26,6 +26,7 @@ describe('TeamSelection', () => {
 
     beforeEach(() => {
         vi.clearAllMocks()
+        mockSimulateGame.mockReset().mockResolvedValue(undefined)
 
         // Setup default hook returns
         vi.spyOn(GameHook, 'useGame').mockReturnValue({
@@ -88,6 +89,20 @@ describe('TeamSelection', () => {
         expect(startButton).toBeEnabled()
     })
 
+    it('preserves keyboard focus when selecting a team', () => {
+        render(
+            <MemoryRouter>
+                <TeamSelection />
+            </MemoryRouter>
+        )
+
+        const teamButton = screen.getAllByRole('button', { name: 'Lakers' })[0]
+        teamButton.focus()
+        fireEvent.click(teamButton)
+        expect(teamButton).toHaveFocus()
+        expect(teamButton).toHaveAttribute('aria-pressed', 'true')
+    })
+
     it('starts game and navigates when start button is clicked', async () => {
         render(
             <MemoryRouter>
@@ -127,5 +142,65 @@ describe('TeamSelection', () => {
 
         const startButton = screen.getByText('ui.teamSelection.startGame').closest('button')
         expect(startButton).toBeDisabled()
+    })
+
+    it('accepts the matchup chosen on the home page', async () => {
+        render(
+            <MemoryRouter initialEntries={['/single-game?away=Trail+Blazers&home=Lakers']}>
+                <TeamSelection />
+            </MemoryRouter>
+        )
+
+        const startButton = screen.getByRole('button', { name: 'ui.teamSelection.startGame' })
+        expect(startButton).toBeEnabled()
+        fireEvent.click(startButton)
+
+        await waitFor(() => {
+            expect(Team.loadFromCSV).toHaveBeenCalledWith('Trail Blazers')
+            expect(Team.loadFromCSV).toHaveBeenCalledWith('Lakers')
+            expect(mockSimulateGame).toHaveBeenCalledOnce()
+            expect(mockNavigate).toHaveBeenCalledWith('/game')
+        })
+    })
+
+    it('shows a start failure instead of navigating and can retry the same matchup', async () => {
+        const log = vi.spyOn(console, 'error').mockImplementation(() => {})
+        try {
+            mockSimulateGame.mockRejectedValueOnce(new Error('Game preparation failed'))
+            render(
+                <MemoryRouter initialEntries={['/single-game?away=Celtics&home=Lakers']}>
+                    <TeamSelection />
+                </MemoryRouter>
+            )
+            fireEvent.click(screen.getByRole('button', { name: 'ui.teamSelection.startGame' }))
+            expect(await screen.findByRole('alert')).toHaveTextContent('Game preparation failed')
+            expect(mockNavigate).not.toHaveBeenCalled()
+            expect(log).toHaveBeenCalledOnce()
+
+            fireEvent.click(screen.getByRole('button', { name: 'ui.teamSelection.startGame' }))
+            await waitFor(() => expect(mockNavigate).toHaveBeenCalledWith('/game'))
+            expect(mockSimulateGame).toHaveBeenCalledTimes(2)
+        } finally {
+            log.mockRestore()
+        }
+    })
+
+    it.each([
+        '/single-game?away=Unknown&home=Lakers',
+        '/single-game?away=Lakers&home=Lakers',
+    ])('requires a valid distinct matchup for %s', entry => {
+        const warning = vi.spyOn(console, 'warn').mockImplementation(() => {})
+        try {
+            render(
+                <MemoryRouter initialEntries={[entry]}>
+                    <TeamSelection />
+                </MemoryRouter>
+            )
+            expect(screen.getByRole('button', { name: 'ui.teamSelection.startGame' })).toBeDisabled()
+            expect(warning).toHaveBeenCalledOnce()
+            expect(Team.loadFromCSV).not.toHaveBeenCalled()
+        } finally {
+            warning.mockRestore()
+        }
     })
 })

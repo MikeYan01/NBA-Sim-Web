@@ -1,0 +1,88 @@
+.app-layout-arena {
+    display: flex;
+    flex-direction: column;
+    min-height: 100dvh;
+    background: var(--ui-bg);
+    color: var(--ui-text);
+}
+
+.app-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    border-bottom: 1px solid var(--ui-border);
+    background: var(--ui-bg);
+}
+
+.app-header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    max-width: 1320px;
+    min-height: 80px;
+    margin-inline: auto;
+    padding-inline: clamp(20px, 4vw, 52px);
+}
+
+.app-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 11px;
+    min-height: 44px;
+    color: var(--ui-text);
+    font-size: 15px;
+    font-weight: 550;
+    letter-spacing: -.04em;
+    text-decoration: none;
+}
+
+.app-brand-mark {
+    display: grid;
+    width: 34px;
+    height: 34px;
+    place-items: center;
+    border: 1px solid var(--ui-border-strong);
+    border-radius: 50%;
+    color: var(--ui-accent);
+    transition: background-color 180ms ease, border-color 180ms ease;
+}
+
+.app-main {
+    flex: 1;
+    width: 100%;
+    min-width: 0;
+    max-width: 1320px;
+    margin-inline: auto;
+    padding: clamp(28px, 4vw, 52px) clamp(20px, 4vw, 52px) 56px;
+}
+
+.app-main table {
+    font-variant-numeric: tabular-nums;
+}
+
+.app-footer {
+    border-top: 1px solid var(--ui-border);
+}
+
+.app-footer > div {
+    max-width: 1320px;
+    margin-inline: auto;
+    padding: 24px;
+    color: var(--ui-subtle);
+    font-size: 10px;
+    letter-spacing: .08em;
+    text-align: center;
+}
+
+@media (hover: hover) {
+    .app-brand:hover .app-brand-mark {
+        border-color: var(--ui-accent);
+        background: var(--ui-hover);
+    }
+}
+
+@media (max-width: 640px) {
+    .app-header-inner { min-height: 68px; padding-inline: 20px; }
+    .app-main { padding: 28px 20px 36px; }
+}

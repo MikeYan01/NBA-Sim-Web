@@ -79,16 +79,16 @@ export const Leaderboards = ({ stats }: LeaderboardsProps) => {
     }
 
     return (
-        <div className="bg-white rounded-xl border border-slate-200 overflow-hidden flex flex-col h-full">
+        <div className="ui-panel flex h-full min-w-0 flex-col overflow-hidden">
             {/* Header with Player/Team Toggle */}
-            <div className="px-4 py-3 border-b border-slate-100 bg-slate-50/80 flex items-center justify-between">
-                <h2 className="font-semibold text-slate-900">{t('ui.leaderboards.title')}</h2>
-                <div className="flex rounded-lg border border-slate-200 overflow-hidden text-xs">
+            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line px-4 py-4 sm:px-5">
+                <h2 className="font-medium tracking-tight text-ink">{t('ui.leaderboards.title')}</h2>
+                <div className="flex gap-1 rounded-xl border border-line bg-canvas p-1 text-xs">
                     <button
                         onClick={() => setViewMode('players')}
                         className={clsx(
-                            "px-3 py-1.5 font-medium transition-colors",
-                            viewMode === 'players' ? "bg-slate-900 text-white" : "bg-white text-slate-600 hover:bg-slate-50"
+                            "ui-tab px-3",
+                            viewMode === 'players' ? "ui-tab-active" : "text-muted"
                         )}
                     >
                         {t('ui.leaderboards.player')}
@@ -96,8 +96,8 @@ export const Leaderboards = ({ stats }: LeaderboardsProps) => {
                     <button
                         onClick={() => setViewMode('teams')}
                         className={clsx(
-                            "px-3 py-1.5 font-medium transition-colors",
-                            viewMode === 'teams' ? "bg-slate-900 text-white" : "bg-white text-slate-600 hover:bg-slate-50"
+                            "ui-tab px-3",
+                            viewMode === 'teams' ? "ui-tab-active" : "text-muted"
                         )}
                     >
                         {t('ui.leaderboards.teamTab')}
@@ -107,16 +107,16 @@ export const Leaderboards = ({ stats }: LeaderboardsProps) => {
 
             {/* Category Tabs */}
             {viewMode === 'players' ? (
-                <div className="flex border-b border-slate-200 overflow-x-auto no-scrollbar">
+                <div className="flex min-w-0 gap-1 overflow-x-auto border-b border-line bg-canvas/60 p-2">
                     {PLAYER_CATEGORIES.map((cat) => (
                         <button
                             key={cat.id}
                             onClick={() => setActivePlayerCategory(cat.id)}
                             className={clsx(
-                                "px-4 py-2.5 text-sm font-medium transition-all whitespace-nowrap",
+                                "ui-tab shrink-0",
                                 activePlayerCategory === cat.id
-                                    ? "bg-white text-slate-900 border-b-2 border-slate-900"
-                                    : "bg-slate-50 text-slate-500 hover:text-slate-700"
+                                    ? "ui-tab-active border-accent/30 bg-accent/10 text-accent"
+                                    : "text-muted"
                             )}
                         >
                             {t(cat.labelKey)}
@@ -124,16 +124,16 @@ export const Leaderboards = ({ stats }: LeaderboardsProps) => {
                     ))}
                 </div>
             ) : (
-                <div className="flex border-b border-slate-200 overflow-x-auto no-scrollbar">
+                <div className="flex min-w-0 gap-1 overflow-x-auto border-b border-line bg-canvas/60 p-2">
                     {TEAM_CATEGORIES.map((cat) => (
                         <button
                             key={cat.id}
                             onClick={() => setActiveTeamCategory(cat.id)}
                             className={clsx(
-                                "px-4 py-2.5 text-sm font-medium transition-all whitespace-nowrap",
+                                "ui-tab shrink-0",
                                 activeTeamCategory === cat.id
-                                    ? "bg-white text-slate-900 border-b-2 border-slate-900"
-                                    : "bg-slate-50 text-slate-500 hover:text-slate-700"
+                                    ? "ui-tab-active border-accent/30 bg-accent/10 text-accent"
+                                    : "text-muted"
                             )}
                         >
                             {t(cat.labelKey)}
@@ -143,10 +143,10 @@ export const Leaderboards = ({ stats }: LeaderboardsProps) => {
             )}
 
             {/* Table */}
-            <div className="overflow-y-auto flex-1">
+            <div className="min-h-0 min-w-0 flex-1 overflow-auto">
                 {viewMode === 'players' ? (
-                    <table className="w-full text-sm">
-                        <thead className="bg-slate-50 text-slate-500 font-medium border-b border-slate-200 sticky top-0">
+                    <table className="ui-table min-w-[520px] text-[13px] whitespace-nowrap">
+                        <thead className="sticky top-0 z-10 border-b border-line bg-canvas text-xs text-muted">
                             <tr>
                                 <th className="px-4 py-2.5 w-12 text-center">{t('ui.standings.rank')}</th>
                                 <th className="px-4 py-2.5 text-left">{t('ui.leaderboards.player')}</th>
@@ -154,21 +154,21 @@ export const Leaderboards = ({ stats }: LeaderboardsProps) => {
                                 <th className="px-4 py-2.5 text-right">{t('ui.leaderboards.value')}</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-slate-100">
+                        <tbody className="divide-y divide-line">
                             {activePlayerLeaders.map((entry, index) => (
                                 <tr
                                     key={`${entry.name}-${entry.teamName}`}
                                     className={clsx(
-                                        "hover:bg-slate-50 transition-colors",
-                                        index < 3 && "bg-amber-50/30"
+                                        "transition-colors hover:bg-surface-hover",
+                                        index < 3 && "bg-accent/5 [&>td:first-child]:text-accent"
                                     )}
                                 >
-                                    <td className="px-4 py-2.5 text-center font-medium text-slate-400">{index + 1}</td>
-                                    <td className="px-4 py-2.5 font-medium text-slate-900">{language === 'en_US' ? (entry.englishName || entry.name) : entry.name}</td>
-                                    <td className="px-4 py-2.5 text-slate-500 text-sm">
+                                    <td className="px-4 py-3 text-center font-medium text-faint">{index + 1}</td>
+                                    <td className="px-4 py-3 font-medium text-ink">{language === 'en_US' ? (entry.englishName || entry.name) : entry.name}</td>
+                                    <td className="px-4 py-3 text-muted">
                                         {getLocalizedTeamName(entry.teamName, language)}
                                     </td>
-                                    <td className="px-4 py-2.5 text-right font-bold text-slate-900">
+                                    <td className="px-4 py-3 text-right font-semibold text-accent">
                                         {formatValue(entry.value, false, isCurrentCategoryTotal)}
                                     </td>
                                 </tr>
@@ -176,28 +176,28 @@ export const Leaderboards = ({ stats }: LeaderboardsProps) => {
                         </tbody>
                     </table>
                 ) : (
-                    <table className="w-full text-sm">
-                        <thead className="bg-slate-50 text-slate-500 font-medium border-b border-slate-200 sticky top-0">
+                    <table className="ui-table min-w-[360px] text-[13px] whitespace-nowrap">
+                        <thead className="sticky top-0 z-10 border-b border-line bg-canvas text-xs text-muted">
                             <tr>
                                 <th className="px-4 py-2.5 w-12 text-center">{t('ui.standings.rank')}</th>
                                 <th className="px-4 py-2.5 text-left">{t('ui.standings.team')}</th>
                                 <th className="px-4 py-2.5 text-right">{t('ui.leaderboards.value')}</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-slate-100">
+                        <tbody className="divide-y divide-line">
                             {activeTeamLeaders.map((entry, index) => (
                                 <tr
                                     key={entry.name}
                                     className={clsx(
-                                        "hover:bg-slate-50 transition-colors",
-                                        index < 3 && "bg-amber-50/30"
+                                        "transition-colors hover:bg-surface-hover",
+                                        index < 3 && "bg-accent/5 [&>td:first-child]:text-accent"
                                     )}
                                 >
-                                    <td className="px-4 py-2.5 text-center font-medium text-slate-400">{index + 1}</td>
-                                    <td className="px-4 py-2.5 font-medium text-slate-900">
+                                    <td className="px-4 py-3 text-center font-medium text-faint">{index + 1}</td>
+                                    <td className="px-4 py-3 font-medium text-ink">
                                         {getLocalizedTeamName(entry.name, language)}
                                     </td>
-                                    <td className="px-4 py-2.5 text-right font-bold text-slate-900">
+                                    <td className="px-4 py-3 text-right font-semibold text-accent">
                                         {formatValue(entry.value, activeTeamConfig.isPercentage)}
                                     </td>
                                 </tr>

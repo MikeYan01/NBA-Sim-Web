@@ -16,23 +16,23 @@ export const PlayByPlay = ({ logs }: PlayByPlayProps) => {
     }, [logs])
 
     return (
-        <div className="bg-white rounded-xl border border-slate-200 overflow-hidden flex flex-col h-[500px]">
-            <div className="px-4 py-3 border-b border-slate-100 bg-gradient-to-r from-slate-50 to-white">
-                <h2 className="font-semibold text-slate-900 text-sm">{t('ui.gameView.playByPlay')}</h2>
+        <div className="ui-panel flex h-[500px] min-w-0 flex-col overflow-hidden">
+            <div className="border-b border-line bg-surface-raised px-5 py-4">
+                <h2 className="text-sm font-medium tracking-tight text-ink">{t('ui.gameView.playByPlay')}</h2>
             </div>
             <div
                 ref={scrollRef}
-                className="flex-1 overflow-y-auto p-3 text-xs space-y-0.5"
+                className="min-h-0 min-w-0 flex-1 space-y-1 overflow-y-auto p-3 text-xs sm:p-4 sm:text-[13px]"
             >
                 {logs.length === 0 ? (
-                    <div className="text-center text-slate-400 py-8">
+                    <div className="py-10 text-center text-faint">
                         {t('ui.gameView.controls.play')}...
                     </div>
                 ) : (
                     logs.map((log, index) => (
                         <div
                             key={index}
-                            className="py-1.5 px-2 rounded text-slate-600 hover:bg-slate-50 transition-colors leading-relaxed"
+                            className="break-words rounded-lg px-3 py-2 leading-relaxed text-muted transition-colors duration-200 ease-[var(--ui-ease)] hover:bg-surface-hover hover:text-ink"
                         >
                             {log}
                         </div>

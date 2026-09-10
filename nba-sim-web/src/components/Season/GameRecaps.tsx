@@ -38,26 +38,26 @@ export const GameRecaps = ({ recaps }: GameRecapsProps) => {
     }
 
     return (
-        <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
-            <div className="px-4 py-3 border-b border-slate-100 bg-slate-50/80">
-                <h2 className="font-semibold text-slate-900">
+        <div className="ui-panel min-w-0 overflow-hidden tabular-nums">
+            <div className="border-b border-line bg-canvas/60 px-4 py-4 sm:px-5">
+                <h2 className="text-sm font-medium text-ink">
                     {t('ui.season.recaps.title')} ({recaps.length} {t('ui.season.recaps.games')})
                 </h2>
             </div>
-            <div className="max-h-[500px] overflow-y-auto divide-y divide-slate-100">
+            <div className="max-h-[500px] overflow-y-auto divide-y divide-line">
                 {Array.from(recapsByDate.entries()).map(([date, games]) => (
                     <div key={date}>
                         <button
                             onClick={() => toggleDate(date)}
-                            className="w-full px-4 py-3 flex items-center justify-between hover:bg-slate-50 transition-colors"
+                            className="flex min-h-[52px] w-full items-center justify-between px-4 py-3 text-left transition-colors hover:bg-surface-hover focus-visible:outline-offset-[-3px] sm:px-5"
                         >
-                            <span className="font-medium text-slate-700">
+                            <span className="text-sm font-medium text-muted">
                                 {expandedDates.has(date) ? <ChevronDown className="w-4 h-4 inline mr-2" /> : <ChevronRight className="w-4 h-4 inline mr-2" />}
                                 {date} ({games.length} {t('ui.season.recaps.games')})
                             </span>
                         </button>
                         {expandedDates.has(date) && (
-                            <div className="px-4 pb-3 space-y-3">
+                            <div className="space-y-3 px-3 pb-4 sm:px-5">
                                 {games.map((game, i) => (
                                     <GameRecapCard key={i} recap={game} />
                                 ))}
@@ -108,46 +108,46 @@ export const GameRecapCard = ({ recap }: { recap: GameRecapData }) => {
         <>
             <div
                 className={clsx(
-                    "rounded-lg p-3 border cursor-pointer transition-all",
+                    "min-w-0 cursor-pointer rounded-xl border p-4 tabular-nums transition-colors hover:bg-surface-hover",
                     isAllStar
-                        ? "bg-gradient-to-r from-amber-50 to-yellow-50 border-amber-300 hover:border-amber-400 hover:shadow-md ring-1 ring-amber-200"
-                        : "bg-slate-50 border-slate-200 hover:border-slate-300 hover:shadow-sm"
+                        ? "border-warning/30 bg-warning/5 hover:border-warning/60"
+                        : "border-line bg-surface-raised hover:border-line-strong"
                 )}
                 onClick={() => setShowModal(true)}
             >
                 {/* All-Star Badge */}
                 {isAllStar && (
-                    <div className="flex items-center gap-1.5 mb-2">
-                        <Star className="w-4 h-4 text-amber-500 fill-amber-500" />
-                        <span className="text-xs font-bold text-amber-600 uppercase tracking-wider">{t('ui.season.allStarGame')}</span>
-                        <Star className="w-4 h-4 text-amber-500 fill-amber-500" />
+                    <div className="mb-3 flex items-center gap-1.5">
+                        <Star className="h-4 w-4 fill-warning text-warning" />
+                        <span className="text-xs font-medium tracking-wider text-warning uppercase">{t('ui.season.allStarGame')}</span>
+                        <Star className="h-4 w-4 fill-warning text-warning" />
                     </div>
                 )}
 
                 {/* Score Line */}
-                <div className="flex items-center justify-between mb-2">
-                    <div className="flex items-center gap-3">
-                        <span className={clsx("font-semibold", awayWon ? "text-green-600" : "text-slate-600")}>
+                <div className="mb-3 flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+                    <div className="flex min-w-0 flex-wrap items-center gap-x-3 gap-y-1 text-sm">
+                        <span className={clsx("min-w-0 font-medium break-words", awayWon ? "text-success" : "text-muted")}>
                             {getLocalizedTeamName(recap.awayTeam, language)}{!isAllStar && ` (${recap.awayWins}-${recap.awayLosses})`}
                         </span>
-                        <span className="text-slate-400">vs</span>
-                        <span className={clsx("font-semibold", !awayWon ? "text-green-600" : "text-slate-600")}>
+                        <span className="text-faint">vs</span>
+                        <span className={clsx("min-w-0 font-medium break-words", !awayWon ? "text-success" : "text-muted")}>
                             {getLocalizedTeamName(recap.homeTeam, language)}{!isAllStar && ` (${recap.homeWins}-${recap.homeLosses})`}
                         </span>
                     </div>
-                    <span className={clsx("font-bold tabular-nums", isAllStar ? "text-amber-700" : "text-slate-900")}>
+                    <span className={clsx("shrink-0 text-lg font-semibold tracking-tight whitespace-nowrap tabular-nums", isAllStar ? "text-warning" : "text-ink")}>
                         {recap.awayScore} - {recap.homeScore}{otSuffix}
                     </span>
                 </div>
 
                 {/* Top Players - Show 3 players with enhanced stats */}
-                <div className="grid grid-cols-2 gap-2 text-xs text-slate-500 mb-2">
-                    <div className="space-y-0.5">
+                <div className="mb-3 grid grid-cols-1 gap-x-6 gap-y-3 text-xs leading-relaxed text-muted sm:grid-cols-2">
+                    <div className="min-w-0 space-y-1 break-words">
                         {recap.awayTopPlayers.slice(0, 3).map((p, i) => (
                             <div key={i}>{p.marker}{p.name}: {formatPlayerStats(p)}</div>
                         ))}
                     </div>
-                    <div className="space-y-0.5">
+                    <div className="min-w-0 space-y-1 break-words">
                         {recap.homeTopPlayers.slice(0, 3).map((p, i) => (
                             <div key={i}>{p.marker}{p.name}: {formatPlayerStats(p)}</div>
                         ))}
@@ -156,7 +156,7 @@ export const GameRecapCard = ({ recap }: { recap: GameRecapData }) => {
 
                 {/* Hint to click for details */}
                 {(recap.playByPlayLog?.length > 0 || recap.boxScore) && (
-                    <div className="text-[10px] text-indigo-500 flex items-center gap-1">
+                    <div className="flex items-center gap-1 text-[11px] text-accent">
                         <span>{t('ui.common.expand')}</span>
                     </div>
                 )}
@@ -165,43 +165,43 @@ export const GameRecapCard = ({ recap }: { recap: GameRecapData }) => {
             {/* Game Detail Modal */}
             {showModal && (
                 <div
-                    className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60"
+                    className="ui-modal-backdrop fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4"
                     onClick={() => setShowModal(false)}
                 >
                     <div
-                        className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col overflow-hidden"
+                        className="ui-modal-panel flex max-h-[90vh] w-full max-w-4xl flex-col overflow-hidden tabular-nums"
                         onClick={(e) => e.stopPropagation()}
                     >
                         {/* Header */}
-                        <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 bg-gradient-to-r from-slate-50 to-slate-100">
-                            <div>
-                                <div className="text-sm text-slate-500 mb-1">{recap.date}</div>
-                                <div className="flex items-center gap-4">
+                        <div className="flex max-h-[40vh] shrink-0 items-start justify-between gap-3 overflow-y-auto border-b border-line bg-surface-raised px-4 py-4 sm:px-6">
+                            <div className="min-w-0">
+                                <div className="mb-2 text-xs text-muted">{recap.date}</div>
+                                <div className="flex min-w-0 flex-wrap items-center gap-x-4 gap-y-2">
                                     <span className={clsx(
-                                        "text-lg font-bold",
-                                        awayWon ? "text-green-600" : "text-slate-700"
+                                        "min-w-0 text-base font-medium tracking-tight break-words sm:text-lg",
+                                        awayWon ? "text-success" : "text-muted"
                                     )}>
                                         {getLocalizedTeamName(recap.awayTeam, language)}
-                                        {!isAllStar && <span className="text-xs font-normal text-slate-400 ml-1">({recap.awayWins}-{recap.awayLosses})</span>}
+                                        {!isAllStar && <span className="ml-1 text-xs font-normal text-faint">({recap.awayWins}-{recap.awayLosses})</span>}
                                     </span>
-                                    <span className="text-xl font-bold tabular-nums text-slate-900">
+                                    <span className="text-xl font-semibold tracking-tight whitespace-nowrap text-ink tabular-nums">
                                         {recap.awayScore} - {recap.homeScore}
                                     </span>
                                     <span className={clsx(
-                                        "text-lg font-bold",
-                                        !awayWon ? "text-green-600" : "text-slate-700"
+                                        "min-w-0 text-base font-medium tracking-tight break-words sm:text-lg",
+                                        !awayWon ? "text-success" : "text-muted"
                                     )}>
                                         {getLocalizedTeamName(recap.homeTeam, language)}
-                                        {!isAllStar && <span className="text-xs font-normal text-slate-400 ml-1">({recap.homeWins}-{recap.homeLosses})</span>}
+                                        {!isAllStar && <span className="ml-1 text-xs font-normal text-faint">({recap.homeWins}-{recap.homeLosses})</span>}
                                     </span>
                                     {otSuffix && (
-                                        <span className="text-sm text-orange-500 font-medium">{otSuffix}</span>
+                                        <span className="text-xs font-medium text-warning">{otSuffix}</span>
                                     )}
                                 </div>
                             </div>
                             <button
                                 onClick={() => setShowModal(false)}
-                                className="p-2 rounded-full hover:bg-slate-200 transition-colors text-slate-500 hover:text-slate-700"
+                                className="ui-icon-button"
                             >
                                 <X className="w-6 h-6" />
                             </button>
@@ -216,10 +216,10 @@ export const GameRecapCard = ({ recap }: { recap: GameRecapData }) => {
                         />
 
                         {/* Footer */}
-                        <div className="px-6 py-3 border-t border-slate-200 bg-slate-50 flex justify-end">
+                        <div className="flex shrink-0 justify-end border-t border-line bg-canvas/60 px-4 py-3 sm:px-6">
                             <button
                                 onClick={() => setShowModal(false)}
-                                className="px-6 py-2 bg-slate-700 text-white rounded-lg hover:bg-slate-800 transition-colors font-medium"
+                                className="ui-button ui-button-secondary px-6"
                             >
                                 {t('ui.common.close')}
                             </button>

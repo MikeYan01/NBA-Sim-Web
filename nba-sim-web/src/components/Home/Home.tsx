@@ -1,81 +1,77 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { ArrowRight, ArrowUpRight, CalendarDays, ChartNoAxesColumnIncreasing, Loader2, Play } from 'lucide-react'
 import { useLocalization } from '../../hooks/useLocalization'
-import { Zap, Calendar, Target, ChevronRight } from 'lucide-react'
+import { useStartGame } from '../../hooks/useStartGame'
+import { Language } from '../../models/types'
+import { MatchupCard } from './MatchupCard'
+import './Home.css'
 
 export const Home = () => {
-    const { t } = useLocalization()
+    const { t, language } = useLocalization()
+    const { startGame, isLoading, error } = useStartGame()
+    const [teams, setTeams] = useState({ away: 'Celtics', home: 'Lakers' })
+    const matchup = `/single-game?${new URLSearchParams(teams)}`
+    const modes = [
+        { to: matchup, icon: Play, title: 'ui.home.startSingle', description: 'ui.home.singleDesc' },
+        { to: '/season?start=1', icon: CalendarDays, title: 'ui.home.startSeason', description: 'ui.home.seasonDesc' },
+        { to: '/prediction', icon: ChartNoAxesColumnIncreasing, title: 'ui.home.startPrediction', description: 'ui.home.predictionDesc' },
+    ]
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-[75vh] text-center px-4">
-            {/* Hero */}
-            <div className="mb-12">
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight mb-4">
-                    {t('ui.home.title')}
-                </h1>
-                <p className="text-lg sm:text-xl text-slate-500 max-w-xl mx-auto leading-relaxed">
-                    {t('ui.home.subtitle')}
-                </p>
-            </div>
-
-            {/* Action Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 w-full max-w-4xl">
-                {/* Quick Match Card */}
-                <Link
-                    to="/single-game"
-                    className="group relative flex flex-col p-6 sm:p-8 bg-white rounded-2xl border border-slate-200 hover:border-orange-300 hover:shadow-lg hover:shadow-orange-100/50 transition-all duration-300"
-                >
-                    <div className="flex items-center justify-between mb-4">
-                        <div className="w-12 h-12 bg-gradient-to-br from-orange-400 to-orange-500 rounded-xl flex items-center justify-center shadow-sm">
-                            <Zap className="w-6 h-6 text-white" />
+        <div className="arena-home" lang={language === Language.CHINESE ? 'zh-CN' : 'en'}>
+            <section className="arena-hero" aria-labelledby="home-title">
+                <div className="arena-story">
+                    <h1 id="home-title">{t('ui.home.title')}</h1>
+                    <p className="arena-description">{t('ui.home.subtitle')}</p>
+                    <button
+                        type="button"
+                        className="arena-primary"
+                        onClick={() => startGame(teams.away, teams.home)}
+                        disabled={isLoading}
+                        aria-busy={isLoading}
+                    >
+                        {isLoading
+                            ? <Loader2 size={15} className="animate-spin" aria-hidden="true" />
+                            : <Play size={15} aria-hidden="true" />}
+                        <span>{t('ui.home.startSingle')}</span>
+                        <ArrowUpRight size={17} aria-hidden="true" />
+                    </button>
+                    {error && (
+                        <div role="alert" className="mt-4 break-words rounded-xl border border-danger/25 bg-danger/10 p-3 text-sm text-danger">
+                            {error}
                         </div>
-                        <ChevronRight className="w-5 h-5 text-slate-300 group-hover:text-orange-500 group-hover:translate-x-1 transition-all" />
-                    </div>
-                    <h3 className="text-xl font-bold text-slate-900 mb-2 text-left">
-                        {t('ui.home.startSingle')}
-                    </h3>
-                    <p className="text-sm text-slate-500 text-left">
-                        {t('ui.home.singleDesc')}
-                    </p>
-                </Link>
-
-                {/* Full Season Card */}
-                <Link
-                    to="/season"
-                    className="group relative flex flex-col p-6 sm:p-8 bg-white rounded-2xl border border-slate-200 hover:border-indigo-300 hover:shadow-lg hover:shadow-indigo-100/50 transition-all duration-300"
-                >
-                    <div className="flex items-center justify-between mb-4">
-                        <div className="w-12 h-12 bg-gradient-to-br from-indigo-400 to-indigo-500 rounded-xl flex items-center justify-center shadow-sm">
-                            <Calendar className="w-6 h-6 text-white" />
-                        </div>
-                        <ChevronRight className="w-5 h-5 text-slate-300 group-hover:text-indigo-500 group-hover:translate-x-1 transition-all" />
-                    </div>
-                    <h3 className="text-xl font-bold text-slate-900 mb-2 text-left">
-                        {t('ui.home.startSeason')}
-                    </h3>
-                    <p className="text-sm text-slate-500 text-left">
-                        {t('ui.home.seasonDesc')}
-                    </p>
-                </Link>
-
-                {/* Prediction Card */}
-                <Link
-                    to="/prediction"
-                    className="group relative flex flex-col p-6 sm:p-8 bg-white rounded-2xl border border-slate-200 hover:border-purple-300 hover:shadow-lg hover:shadow-purple-100/50 transition-all duration-300"
-                >
-                    <div className="flex items-center justify-between mb-4">
-                        <div className="w-12 h-12 bg-gradient-to-br from-purple-400 to-purple-500 rounded-xl flex items-center justify-center shadow-sm">
-                            <Target className="w-6 h-6 text-white" />
-                        </div>
-                        <ChevronRight className="w-5 h-5 text-slate-300 group-hover:text-purple-500 group-hover:translate-x-1 transition-all" />
-                    </div>
-                    <h3 className="text-xl font-bold text-slate-900 mb-2 text-left">
-                        {t('ui.home.startPrediction')}
-                    </h3>
-                    <p className="text-sm text-slate-500 text-left">
-                        {t('ui.home.predictionDesc')}
-                    </p>
-                </Link>
-            </div>
+                    )}
+                </div>
+                <MatchupCard
+                    awayTeamName={teams.away}
+                    homeTeamName={teams.home}
+                    disabled={isLoading}
+                    onSelectTeam={(side, name) => setTeams(previous => {
+                        const opposite = side === 'away' ? 'home' : 'away'
+                        if (name === previous[opposite]) {
+                            return { away: previous.home, home: previous.away }
+                        }
+                        return { ...previous, [side]: name }
+                    })}
+                    onSwapTeams={() => setTeams(previous => ({ away: previous.home, home: previous.away }))}
+                />
+            </section>
+            <nav className="arena-modes" aria-label={t('ui.menu.home')}>
+                {modes.map(mode => {
+                    const Icon = mode.icon
+                    return (
+                        <Link key={mode.title} to={mode.to} className="arena-mode">
+                            <Icon size={18} aria-hidden="true" />
+                            <div className="arena-mode-title">
+                                <h2>{t(mode.title)}</h2>
+                                <ArrowRight size={18} aria-hidden="true" />
+                            </div>
+                            <p>{t(mode.description)}</p>
+                        </Link>
+                    )
+                })}
+            </nav>
         </div>
     )
 }

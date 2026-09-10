@@ -17,8 +17,8 @@ export const ScoreDifferentialChart = ({
     visibleCount,
     team1Name,
     team2Name,
-    team1Color = '#6366f1',
-    team2Color = '#ef4444',
+    team1Color = 'var(--ui-info)',
+    team2Color = 'var(--ui-accent)',
 }: ScoreDifferentialChartProps) => {
     const { t } = useLocalization()
 
@@ -118,8 +118,8 @@ export const ScoreDifferentialChart = ({
 
     if (chartData.length < 2) {
         return (
-            <div className="bg-white rounded-xl border border-slate-200 p-4">
-                <div className="text-center text-slate-400 text-sm py-8">
+            <div className="ui-panel min-w-0 p-4 sm:p-5">
+                <div className="py-10 text-center text-sm text-faint">
                     {t('game.score_differential_waiting')}
                 </div>
             </div>
@@ -131,40 +131,43 @@ export const ScoreDifferentialChart = ({
     const leadColor = lastDiff > 0 ? team1Color : team2Color
 
     return (
-        <div className="bg-white rounded-xl border border-slate-200 p-4">
+        <div className="ui-panel min-w-0 p-4 sm:p-5">
             {/* Header */}
-            <div className="flex items-center justify-between mb-3">
-                <span className="text-sm font-medium text-slate-600">{t('game.score_differential_title')}</span>
+            <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
+                <span className="text-sm font-medium tracking-tight text-ink">{t('game.score_differential_title')}</span>
                 {leadingTeam && (
                     <span
-                        className="text-sm font-bold px-2 py-0.5 rounded"
-                        style={{ backgroundColor: `${leadColor}15`, color: leadColor }}
+                        className="max-w-full break-words rounded-lg border border-line px-3 py-1.5 text-xs font-medium tabular-nums"
+                        style={{
+                            backgroundColor: `color-mix(in srgb, ${leadColor} 16%, var(--ui-panel-raised))`,
+                            color: `color-mix(in srgb, ${leadColor} 35%, var(--ui-text))`,
+                        }}
                     >
                         {leadingTeam} +{Math.abs(lastDiff)}
                     </span>
                 )}
                 {!leadingTeam && lastDiff === 0 && (
-                    <span className="text-sm font-medium text-slate-500 px-2 py-0.5 rounded bg-slate-100">
+                    <span className="rounded-lg border border-line bg-surface-raised px-3 py-1.5 text-xs font-medium text-muted">
                         {t('game.score_differential_tied')}
                     </span>
                 )}
             </div>
 
             {/* Chart */}
-            <div className="relative">
+            <div className="relative min-w-0">
                 {/* Team labels - show actual max differential */}
-                <div className="absolute left-0 top-0 bottom-0 flex flex-col justify-between text-xs py-2 pr-2">
-                    <span className="font-medium" style={{ color: team1Color }}>+{Math.round(chartConfig.actualMaxDiff)}</span>
-                    <span className="text-slate-400">0</span>
-                    <span className="font-medium" style={{ color: team2Color }}>-{Math.round(chartConfig.actualMaxDiff)}</span>
+                <div className="absolute left-0 top-0 flex h-36 flex-col justify-between py-2 pr-2 text-xs tabular-nums sm:h-40">
+                    <span className="font-medium" style={{ color: `color-mix(in srgb, ${team1Color} 35%, var(--ui-text))` }}>+{Math.round(chartConfig.actualMaxDiff)}</span>
+                    <span className="text-faint">0</span>
+                    <span className="font-medium" style={{ color: `color-mix(in srgb, ${team2Color} 35%, var(--ui-text))` }}>-{Math.round(chartConfig.actualMaxDiff)}</span>
                 </div>
 
                 {/* SVG Chart */}
-                <div className="ml-8 relative">
+                <div className="relative ml-8 min-w-0">
                     <svg
                         viewBox="0 0 100 100"
                         preserveAspectRatio="none"
-                        className="w-full h-32"
+                        className="h-36 w-full rounded-lg border border-line bg-canvas sm:h-40"
                     >
                         {/* Gradient definitions */}
                         <defs>
@@ -184,7 +187,7 @@ export const ScoreDifferentialChart = ({
                             y1={chartConfig.zeroY}
                             x2="100"
                             y2={chartConfig.zeroY}
-                            stroke="#94a3b8"
+                            stroke="var(--ui-border-strong)"
                             strokeWidth="0.5"
                             strokeDasharray="2,2"
                         />
@@ -197,7 +200,7 @@ export const ScoreDifferentialChart = ({
                                 y1="10"
                                 x2={marker.x}
                                 y2="90"
-                                stroke="#e2e8f0"
+                                stroke="var(--ui-border)"
                                 strokeWidth="0.5"
                                 strokeDasharray="1,1"
                             />
@@ -217,14 +220,16 @@ export const ScoreDifferentialChart = ({
                                 {/* Positive area (Team 1 leading) */}
                                 <path
                                     d={chartConfig.areaPath}
-                                    fill={`${team1Color}20`}
+                                    fill={`color-mix(in srgb, ${team1Color} 60%, var(--ui-text))`}
+                                    fillOpacity="0.18"
                                     clipPath="url(#positiveClip)"
                                 />
 
                                 {/* Negative area (Team 2 leading) */}
                                 <path
                                     d={chartConfig.areaPath}
-                                    fill={`${team2Color}20`}
+                                    fill={`color-mix(in srgb, ${team2Color} 60%, var(--ui-text))`}
+                                    fillOpacity="0.18"
                                     clipPath="url(#negativeClip)"
                                 />
                             </>
@@ -234,7 +239,7 @@ export const ScoreDifferentialChart = ({
                         <polyline
                             points={chartConfig.points}
                             fill="none"
-                            stroke={lastDiff >= 0 ? team1Color : team2Color}
+                            stroke={`color-mix(in srgb, ${lastDiff >= 0 ? team1Color : team2Color} 50%, var(--ui-text))`}
                             strokeWidth="1.5"
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -247,7 +252,7 @@ export const ScoreDifferentialChart = ({
                         {quarterMarkers.slice(1).map((marker) => (
                             <span
                                 key={marker.quarter}
-                                className="absolute text-[10px] text-slate-400 -translate-x-1/2"
+                                className="absolute -translate-x-1/2 text-[10px] text-faint tabular-nums"
                                 style={{ left: `${marker.x}%` }}
                             >
                                 {marker.quarter <= 4 ? `Q${marker.quarter}` : `OT${marker.quarter - 4}`}
@@ -257,14 +262,14 @@ export const ScoreDifferentialChart = ({
                 </div>
 
                 {/* Team name labels at bottom */}
-                <div className="flex justify-between mt-8 text-xs ml-8">
-                    <div className="flex items-center gap-1">
-                        <div className="w-3 h-1 rounded" style={{ backgroundColor: team1Color }} />
-                        <span className="text-slate-500">{team1Name} {t('game.score_differential_leading')}</span>
+                <div className="ml-8 mt-8 flex flex-wrap justify-between gap-x-6 gap-y-3 text-xs">
+                    <div className="flex min-w-0 items-center gap-2">
+                        <div className="h-1.5 w-4 shrink-0 rounded-sm ring-1 ring-inset ring-ink/30" style={{ backgroundColor: team1Color }} />
+                        <span className="min-w-0 break-words text-muted">{team1Name} {t('game.score_differential_leading')}</span>
                     </div>
-                    <div className="flex items-center gap-1">
-                        <span className="text-slate-500">{team2Name} {t('game.score_differential_leading')}</span>
-                        <div className="w-3 h-1 rounded" style={{ backgroundColor: team2Color }} />
+                    <div className="ml-auto flex min-w-0 items-center gap-2 text-right">
+                        <span className="min-w-0 break-words text-muted">{team2Name} {t('game.score_differential_leading')}</span>
+                        <div className="h-1.5 w-4 shrink-0 rounded-sm ring-1 ring-inset ring-ink/30" style={{ backgroundColor: team2Color }} />
                     </div>
                 </div>
             </div>

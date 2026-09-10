@@ -16,16 +16,16 @@ export const Standings = ({ east, west }: StandingsProps) => {
     const activeStandings = activeConference === Conference.WEST ? west : east
 
     return (
-        <div className="bg-white rounded-xl border border-slate-200 overflow-hidden flex flex-col h-full">
+        <div className="ui-panel flex h-full min-w-0 flex-col overflow-hidden">
             {/* Conference Tabs */}
-            <div className="flex border-b border-slate-200">
+            <div className="flex border-b border-line bg-canvas">
                 <button
                     onClick={() => setActiveConference(Conference.WEST)}
                     className={clsx(
-                        "flex-1 py-3 text-sm font-medium transition-all",
+                        "ui-tab flex-1 rounded-none border-0 border-b-2 py-3 text-sm focus-visible:outline-offset-[-3px]",
                         activeConference === Conference.WEST
-                            ? "bg-white text-slate-900 border-b-2 border-slate-900"
-                            : "bg-slate-50 text-slate-500 hover:text-slate-700"
+                            ? "ui-tab-active border-accent bg-surface-raised text-accent"
+                            : "border-transparent text-muted"
                     )}
                 >
                     {t('conference.west')}
@@ -33,10 +33,10 @@ export const Standings = ({ east, west }: StandingsProps) => {
                 <button
                     onClick={() => setActiveConference(Conference.EAST)}
                     className={clsx(
-                        "flex-1 py-3 text-sm font-medium transition-all",
+                        "ui-tab flex-1 rounded-none border-0 border-b-2 py-3 text-sm focus-visible:outline-offset-[-3px]",
                         activeConference === Conference.EAST
-                            ? "bg-white text-slate-900 border-b-2 border-slate-900"
-                            : "bg-slate-50 text-slate-500 hover:text-slate-700"
+                            ? "ui-tab-active border-accent bg-surface-raised text-accent"
+                            : "border-transparent text-muted"
                     )}
                 >
                     {t('conference.east')}
@@ -44,9 +44,9 @@ export const Standings = ({ east, west }: StandingsProps) => {
             </div>
 
             {/* Table */}
-            <div className="overflow-y-auto flex-1">
-                <table className="w-full text-sm">
-                    <thead className="bg-slate-50 text-slate-500 font-medium border-b border-slate-200 sticky top-0">
+            <div className="min-h-0 min-w-0 flex-1 overflow-auto">
+                <table className="ui-table min-w-[520px] text-[13px] whitespace-nowrap">
+                    <thead className="sticky top-0 z-10 border-b border-line bg-canvas text-xs text-muted">
                         <tr>
                             <th className="px-4 py-2.5 w-12 text-center">{t('ui.standings.rank')}</th>
                             <th className="px-4 py-2.5 text-left">{t('ui.standings.team')}</th>
@@ -56,24 +56,24 @@ export const Standings = ({ east, west }: StandingsProps) => {
                             <th className="px-3 py-2.5 text-center w-16">{t('ui.standings.gamesBack')}</th>
                         </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-100">
+                    <tbody className="divide-y divide-line">
                         {activeStandings.map((entry) => (
                             <tr
                                 key={entry.teamName}
                                 className={clsx(
-                                    "hover:bg-slate-50 transition-colors",
-                                    entry.rank <= 6 && "bg-green-50/30",
-                                    entry.rank >= 7 && entry.rank <= 10 && "bg-yellow-50/30"
+                                    "transition-colors hover:bg-surface-hover",
+                                    entry.rank <= 6 && "bg-success/5 [&>td:first-child]:text-success",
+                                    entry.rank >= 7 && entry.rank <= 10 && "bg-warning/5 [&>td:first-child]:text-warning"
                                 )}
                             >
-                                <td className="px-4 py-2.5 text-center font-medium text-slate-400">{entry.rank}</td>
-                                <td className="px-4 py-2.5 font-medium text-slate-900">
+                                <td className="px-4 py-3 text-center font-medium text-faint">{entry.rank}</td>
+                                <td className="px-4 py-3 font-medium text-ink">
                                     {getLocalizedTeamName(entry.teamName, language)}
                                 </td>
-                                <td className="px-3 py-2.5 text-center text-slate-900 font-medium">{entry.wins}</td>
-                                <td className="px-3 py-2.5 text-center text-slate-600">{entry.losses}</td>
-                                <td className="px-3 py-2.5 text-center text-slate-600">{(entry.winPercentage * 100).toFixed(1)}%</td>
-                                <td className="px-3 py-2.5 text-center text-slate-400">{entry.gamesBack === 0 ? '—' : entry.gamesBack}</td>
+                                <td className="px-3 py-3 text-center font-medium text-ink">{entry.wins}</td>
+                                <td className="px-3 py-3 text-center text-muted">{entry.losses}</td>
+                                <td className="px-3 py-3 text-center text-muted">{(entry.winPercentage * 100).toFixed(1)}%</td>
+                                <td className="px-3 py-3 text-center text-faint">{entry.gamesBack === 0 ? '—' : entry.gamesBack}</td>
                             </tr>
                         ))}
                     </tbody>
@@ -81,17 +81,17 @@ export const Standings = ({ east, west }: StandingsProps) => {
             </div>
 
             {/* Legend */}
-            <div className="px-4 py-3 border-t border-slate-200 bg-slate-50/80 flex items-center gap-4 text-xs text-slate-600">
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-line bg-canvas/60 px-4 py-4 text-xs text-muted">
                 <div className="flex items-center gap-1.5">
-                    <span className="w-3 h-3 rounded bg-green-100 border border-green-300"></span>
+                    <span className="h-3 w-3 rounded-sm border border-success/40 bg-success/10"></span>
                     <span>{t('ui.standings.legend.playoffs')}</span>
                 </div>
                 <div className="flex items-center gap-1.5">
-                    <span className="w-3 h-3 rounded bg-yellow-100 border border-yellow-300"></span>
+                    <span className="h-3 w-3 rounded-sm border border-warning/40 bg-warning/10"></span>
                     <span>{t('ui.standings.legend.playIn')}</span>
                 </div>
                 <div className="flex items-center gap-1.5">
-                    <span className="w-3 h-3 rounded bg-slate-100 border border-slate-300"></span>
+                    <span className="h-3 w-3 rounded-sm border border-line-strong bg-surface-raised"></span>
                     <span>{t('ui.standings.legend.lottery')}</span>
                 </div>
             </div>

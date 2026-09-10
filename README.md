@@ -10,6 +10,7 @@ Browser-based NBA basketball simulator migrated from Java to TypeScript/React. F
 
 ### Single Game Mode
 - Select any two NBA teams for a head-to-head matchup
+- Start the selected matchup directly from home, or open Quick Match to choose teams first
 - Real-time play-by-play commentary with adjustable speed (1x to 64x)
 - Detailed box scores with sortable statistics
 - Score differential chart
@@ -17,6 +18,7 @@ Browser-based NBA basketball simulator migrated from Java to TypeScript/React. F
 - Intelligent player rotation and foul protection
 
 ### Season Mode
+- Start a season directly from the Full Season home entry
 - Full 82-game NBA season simulation
 - Conference standings with playoff seeding
 - Play-in tournament (7-10 seeds)
@@ -39,6 +41,7 @@ Browser-based NBA basketball simulator migrated from Java to TypeScript/React. F
 - Language toggle in header
 
 ### Modern UI Features
+- **Unified Arena interface** - Consistent dark styling across every mode, statistics table, and dialog, with roster previews and preselected Quick Match teams
 - **Team color theming** - UI adapts to selected teams
 - **Responsive design** - Works on mobile, tablet, and desktop
 - **Progressive Web App (PWA)** - Install on any device

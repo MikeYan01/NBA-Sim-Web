@@ -66,7 +66,7 @@ export const BoxScore = ({ boxScore }: BoxScoreProps) => {
     const SortHeader = ({ field, label, className }: { field: SortField, label: string, className?: string }) => (
         <th
             className={clsx(
-                "px-2 py-2.5 cursor-pointer hover:bg-slate-100 transition-colors select-none text-center",
+                "h-12 cursor-pointer select-none px-2 py-3 text-center transition-colors duration-200 ease-[var(--ui-ease)] hover:bg-surface-hover hover:text-ink",
                 className
             )}
             onClick={() => handleSort(field)}
@@ -76,7 +76,7 @@ export const BoxScore = ({ boxScore }: BoxScoreProps) => {
                 {sortField === field ? (
                     sortDirection === 'desc' ? <ArrowDown className="w-3 h-3" /> : <ArrowUp className="w-3 h-3" />
                 ) : (
-                    <ArrowUpDown className="w-3 h-3 text-slate-300" />
+                    <ArrowUpDown className="w-3 h-3 text-faint" />
                 )}
             </div>
         </th>
@@ -124,34 +124,34 @@ export const BoxScore = ({ boxScore }: BoxScoreProps) => {
     const team2Total = boxScore.quarterScores ? boxScore.quarterScores[1][boxScore.quarterScores[1].length - 1] : boxScore.team2.totals.points
 
     return (
-        <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
+        <div className="ui-panel min-w-0 overflow-hidden">
             {/* Quarter Scores Table */}
             {boxScore.quarterScores && boxScore.quarterScores[0].length > 0 && (
-                <div className="border-b border-slate-200 overflow-x-auto">
-                    <table className="w-full text-xs">
-                        <thead className="bg-slate-100 text-slate-500">
+                <div className="overflow-x-auto border-b border-line">
+                    <table className="ui-table min-w-[360px]">
+                        <thead className="bg-canvas text-muted">
                             <tr>
-                                <th className="px-3 py-2 text-left font-medium">{t('ui.boxScore.team')}</th>
+                                <th className="px-4 py-3 text-left font-medium">{t('ui.boxScore.team')}</th>
                                 {quarterLabels.map((label, i) => (
-                                    <th key={i} className="px-2 py-2 text-center font-medium w-10">{label}</th>
+                                    <th key={i} className="w-10 px-2 py-3 text-center font-medium">{label}</th>
                                 ))}
-                                <th className="px-3 py-2 text-center font-bold w-12">{t('ui.boxScore.total')}</th>
+                                <th className="w-12 px-4 py-3 text-center font-semibold text-ink">{t('ui.boxScore.total')}</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr className="border-b border-slate-100">
-                                <td className="px-3 py-2 font-medium text-slate-900">{team1LocalName}</td>
+                            <tr className="border-b border-line">
+                                <td className="min-w-[120px] max-w-[220px] break-words px-4 py-3 font-medium text-ink">{team1LocalName}</td>
                                 {team1QuarterScores.map((score, i) => (
-                                    <td key={i} className="px-2 py-2 text-center text-slate-600 tabular-nums">{score}</td>
+                                    <td key={i} className="px-2 py-3 text-center text-muted tabular-nums">{score}</td>
                                 ))}
-                                <td className="px-3 py-2 text-center font-bold text-slate-900 tabular-nums">{team1Total}</td>
+                                <td className="px-4 py-3 text-center font-semibold text-ink tabular-nums">{team1Total}</td>
                             </tr>
                             <tr>
-                                <td className="px-3 py-2 font-medium text-slate-900">{team2LocalName}</td>
+                                <td className="min-w-[120px] max-w-[220px] break-words px-4 py-3 font-medium text-ink">{team2LocalName}</td>
                                 {team2QuarterScores.map((score, i) => (
-                                    <td key={i} className="px-2 py-2 text-center text-slate-600 tabular-nums">{score}</td>
+                                    <td key={i} className="px-2 py-3 text-center text-muted tabular-nums">{score}</td>
                                 ))}
-                                <td className="px-3 py-2 text-center font-bold text-slate-900 tabular-nums">{team2Total}</td>
+                                <td className="px-4 py-3 text-center font-semibold text-ink tabular-nums">{team2Total}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -159,41 +159,49 @@ export const BoxScore = ({ boxScore }: BoxScoreProps) => {
             )}
 
             {/* Team Tabs with Team Colors */}
-            <div className="flex border-b border-slate-200">
+            <div className="flex min-w-0 gap-2 border-b border-line bg-canvas p-2">
                 <button
                     onClick={() => setActiveTab('team1')}
                     className={clsx(
-                        "flex-1 py-3 text-sm font-medium transition-all",
+                        "ui-tab min-w-0 flex-1 whitespace-normal px-3 py-3 text-sm",
                         activeTab === 'team1'
-                            ? "text-white"
-                            : "bg-slate-50 text-slate-500 hover:text-slate-700"
+                            ? "border-line-strong bg-surface-raised text-ink"
+                            : "text-muted"
                     )}
-                    style={activeTab === 'team1' ? { backgroundColor: team1Colors.primary, color: team1Colors.text } : undefined}
+                    style={activeTab === 'team1' ? {
+                        backgroundColor: `color-mix(in srgb, ${team1Colors.primary} 16%, var(--ui-panel-raised))`,
+                        boxShadow: `inset 0 -2px 0 ${team1Colors.primary}`,
+                    } : undefined}
                 >
-                    {team1LocalName}
+                    <span className="h-2.5 w-2.5 shrink-0 rounded-sm border border-ink/30" style={{ backgroundColor: team1Colors.primary }} aria-hidden="true" />
+                    <span className="min-w-0 break-words">{team1LocalName}</span>
                 </button>
                 <button
                     onClick={() => setActiveTab('team2')}
                     className={clsx(
-                        "flex-1 py-3 text-sm font-medium transition-all",
+                        "ui-tab min-w-0 flex-1 whitespace-normal px-3 py-3 text-sm",
                         activeTab === 'team2'
-                            ? "text-white"
-                            : "bg-slate-50 text-slate-500 hover:text-slate-700"
+                            ? "border-line-strong bg-surface-raised text-ink"
+                            : "text-muted"
                     )}
-                    style={activeTab === 'team2' ? { backgroundColor: team2Colors.primary, color: team2Colors.text } : undefined}
+                    style={activeTab === 'team2' ? {
+                        backgroundColor: `color-mix(in srgb, ${team2Colors.primary} 16%, var(--ui-panel-raised))`,
+                        boxShadow: `inset 0 -2px 0 ${team2Colors.primary}`,
+                    } : undefined}
                 >
-                    {team2LocalName}
+                    <span className="h-2.5 w-2.5 shrink-0 rounded-sm border border-ink/30" style={{ backgroundColor: team2Colors.primary }} aria-hidden="true" />
+                    <span className="min-w-0 break-words">{team2LocalName}</span>
                 </button>
             </div>
 
             {/* Stats Table */}
-            <div className="overflow-x-auto">
-                <table className="w-full text-xs">
-                    <thead className="bg-slate-50 text-slate-500 font-medium border-b border-slate-200">
+            <div className="min-w-0 overflow-x-auto">
+                <table className="ui-table min-w-[800px]">
+                    <thead className="border-b border-line bg-canvas font-medium text-muted">
                         <tr>
-                            <th className="px-3 py-2.5 text-left w-36">{t('ui.boxScore.player')}</th>
+                            <th className="w-48 px-4 py-3 text-left">{t('ui.boxScore.player')}</th>
                             <SortHeader field="minutes" label="MIN" />
-                            <SortHeader field="points" label="PTS" className="font-bold text-slate-700" />
+                            <SortHeader field="points" label="PTS" className="font-semibold text-ink" />
                             <SortHeader field="rebounds" label="REB" />
                             <SortHeader field="assists" label="AST" />
                             <SortHeader field="steals" label="STL" />
@@ -205,7 +213,7 @@ export const BoxScore = ({ boxScore }: BoxScoreProps) => {
                             <SortHeader field="fouls" label="PF" />
                         </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-100">
+                    <tbody className="divide-y divide-line">
                         {sortedPlayers.map((player, idx) => (
                             <PlayerRow key={idx} player={player} t={t} />
                         ))}
@@ -224,60 +232,60 @@ const calcPct = (made: number, attempted: number): string => {
 }
 
 const PlayerRow = ({ player, t }: { player: PlayerBoxScore; t: (key: string) => string }) => (
-    <tr className="hover:bg-slate-50 transition-colors">
-        <td className="px-3 py-2 font-medium text-slate-900 whitespace-nowrap">
-            <span className="inline-flex items-center gap-1.5">
+    <tr className="transition-colors duration-200 ease-[var(--ui-ease)] hover:bg-surface-hover">
+        <td className="px-4 py-3 font-medium text-ink">
+            <span className="inline-flex max-w-[220px] flex-wrap items-center gap-1.5 break-words">
                 {player.name}
                 {player.isStarter && (
-                    <span className="text-[9px] font-semibold text-amber-600 bg-amber-50 px-1 py-0.5 rounded">{t('ui.boxScore.starter')}</span>
+                    <span className="rounded border border-accent/20 bg-accent/10 px-1.5 py-0.5 text-[9px] font-medium text-accent">{t('ui.boxScore.starter')}</span>
                 )}
             </span>
         </td>
-        <td className="px-2 py-2 text-center text-slate-400">{player.minutes}</td>
-        <td className="px-2 py-2 text-center font-bold text-slate-900">{player.points}</td>
-        <td className="px-2 py-2 text-center text-slate-600">{player.rebounds}</td>
-        <td className="px-2 py-2 text-center text-slate-600">{player.assists}</td>
-        <td className="px-2 py-2 text-center text-slate-600">{player.steals}</td>
-        <td className="px-2 py-2 text-center text-slate-600">{player.blocks}</td>
-        <td className="px-2 py-2 text-center text-slate-400">
+        <td className="whitespace-nowrap px-2 py-3 text-center text-faint">{player.minutes}</td>
+        <td className="px-2 py-3 text-center font-semibold text-ink">{player.points}</td>
+        <td className="px-2 py-3 text-center text-muted">{player.rebounds}</td>
+        <td className="px-2 py-3 text-center text-muted">{player.assists}</td>
+        <td className="px-2 py-3 text-center text-muted">{player.steals}</td>
+        <td className="px-2 py-3 text-center text-muted">{player.blocks}</td>
+        <td className="whitespace-nowrap px-2 py-3 text-center text-muted">
             <div>{player.fgMade}-{player.fgAttempted}</div>
-            <div className="text-[10px] text-slate-300">{calcPct(player.fgMade, player.fgAttempted)}%</div>
+            <div className="mt-0.5 text-[10px] text-faint">{calcPct(player.fgMade, player.fgAttempted)}%</div>
         </td>
-        <td className="px-2 py-2 text-center text-slate-400">
+        <td className="whitespace-nowrap px-2 py-3 text-center text-muted">
             <div>{player.threeMade}-{player.threeAttempted}</div>
-            <div className="text-[10px] text-slate-300">{calcPct(player.threeMade, player.threeAttempted)}%</div>
+            <div className="mt-0.5 text-[10px] text-faint">{calcPct(player.threeMade, player.threeAttempted)}%</div>
         </td>
-        <td className="px-2 py-2 text-center text-slate-400">
+        <td className="whitespace-nowrap px-2 py-3 text-center text-muted">
             <div>{player.ftMade}-{player.ftAttempted}</div>
-            <div className="text-[10px] text-slate-300">{calcPct(player.ftMade, player.ftAttempted)}%</div>
+            <div className="mt-0.5 text-[10px] text-faint">{calcPct(player.ftMade, player.ftAttempted)}%</div>
         </td>
-        <td className="px-2 py-2 text-center text-slate-500">{player.turnovers}</td>
-        <td className="px-2 py-2 text-center text-slate-500">{player.fouls}</td>
+        <td className="px-2 py-3 text-center text-muted">{player.turnovers}</td>
+        <td className="px-2 py-3 text-center text-muted">{player.fouls}</td>
     </tr>
 )
 
 const TotalsRow = ({ totals, label }: { totals: TeamTotals, label: string }) => (
-    <tr className="bg-slate-50 font-semibold border-t-2 border-slate-200">
-        <td className="px-3 py-2 text-slate-900">{label}</td>
-        <td className="px-2 py-2 text-center text-slate-400">—</td>
-        <td className="px-2 py-2 text-center text-slate-900">{totals.points}</td>
-        <td className="px-2 py-2 text-center text-slate-800">{totals.rebounds}</td>
-        <td className="px-2 py-2 text-center text-slate-800">{totals.assists}</td>
-        <td className="px-2 py-2 text-center text-slate-800">{totals.steals}</td>
-        <td className="px-2 py-2 text-center text-slate-800">{totals.blocks}</td>
-        <td className="px-2 py-2 text-center text-slate-600">
+    <tr className="border-t-2 border-line-strong bg-surface-raised font-semibold">
+        <td className="px-4 py-3 text-ink">{label}</td>
+        <td className="px-2 py-3 text-center text-faint">—</td>
+        <td className="px-2 py-3 text-center text-ink">{totals.points}</td>
+        <td className="px-2 py-3 text-center text-ink">{totals.rebounds}</td>
+        <td className="px-2 py-3 text-center text-ink">{totals.assists}</td>
+        <td className="px-2 py-3 text-center text-ink">{totals.steals}</td>
+        <td className="px-2 py-3 text-center text-ink">{totals.blocks}</td>
+        <td className="whitespace-nowrap px-2 py-3 text-center text-muted">
             <div>{totals.fgMade}-{totals.fgAttempted}</div>
-            <div className="text-[10px] text-slate-400">{calcPct(totals.fgMade, totals.fgAttempted)}%</div>
+            <div className="mt-0.5 text-[10px] text-faint">{calcPct(totals.fgMade, totals.fgAttempted)}%</div>
         </td>
-        <td className="px-2 py-2 text-center text-slate-600">
+        <td className="whitespace-nowrap px-2 py-3 text-center text-muted">
             <div>{totals.threeMade}-{totals.threeAttempted}</div>
-            <div className="text-[10px] text-slate-400">{calcPct(totals.threeMade, totals.threeAttempted)}%</div>
+            <div className="mt-0.5 text-[10px] text-faint">{calcPct(totals.threeMade, totals.threeAttempted)}%</div>
         </td>
-        <td className="px-2 py-2 text-center text-slate-600">
+        <td className="whitespace-nowrap px-2 py-3 text-center text-muted">
             <div>{totals.ftMade}-{totals.ftAttempted}</div>
-            <div className="text-[10px] text-slate-400">{calcPct(totals.ftMade, totals.ftAttempted)}%</div>
+            <div className="mt-0.5 text-[10px] text-faint">{calcPct(totals.ftMade, totals.ftAttempted)}%</div>
         </td>
-        <td className="px-2 py-2 text-center text-slate-800">{totals.turnovers}</td>
-        <td className="px-2 py-2 text-center text-slate-800">{totals.fouls}</td>
+        <td className="px-2 py-3 text-center text-ink">{totals.turnovers}</td>
+        <td className="px-2 py-3 text-center text-ink">{totals.fouls}</td>
     </tr>
 )
