@@ -1,4 +1,5 @@
 import csv
+import io
 import json
 import re
 import shutil
@@ -16,11 +17,14 @@ sys.path.insert(0, str(SCRIPT_DIR))
 import process_roster as roster_processor
 from process_roster import (
     FIELDNAMES,
+    MANUAL_FIELDS,
     METADATA_FILENAME,
     PLAYER_NAME_ALIASES,
     RosterProcessingError,
+    load_metadata_catalog,
     metadata_lookup_key,
     process_roster,
+    sync_metadata,
     write_metadata_catalog,
     write_team_rosters,
 )
@@ -475,6 +479,236 @@ class ProcessRosterTests(unittest.TestCase):
             self.assertTrue((backup_dir / "Alpha.csv").exists())
             self.assertEqual((backup_dir / "Alpha.csv").read_bytes(), original_alpha)
             shutil.rmtree(backup_dir.parent)
+
+
+class SyncMetadataTests(unittest.TestCase):
+    def test_updates_reviewed_metadata_and_preserves_catalog_only_players(self):
+        mapping = {"Alpha Team": "Alpha"}
+        existing = {**make_existing_row(0, "Alpha"), "englishName": "Nic Claxton"}
+        updated = {
+            **existing,
+            "name": "更新后的球员",
+            "englishName": "Nicolas Claxton",
+            "position": "C",
+            "playerType": "5",
+            "rotationType": "3",
+        }
+        rookie = make_existing_row(1, "Rookie")
+        departed = make_existing_row(20, "Departed")
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            write_csv(root / "Alpha.csv", [updated, rookie])
+            write_metadata_catalog(
+                root / METADATA_FILENAME,
+                {
+                    metadata_lookup_key(row["englishName"]): row
+                    for row in (existing, departed)
+                },
+            )
+            for filename in ("temp.json", "temp.csv", "CHEAT.csv"):
+                (root / filename).write_text("untouched", encoding="utf-8")
+            unchanged = {
+                path.name: path.read_bytes()
+                for path in root.iterdir()
+                if path.name != METADATA_FILENAME
+            }
+
+            summary = sync_metadata(root, mapping)
+
+            self.assertEqual(summary.synced_player_count, 2)
+            self.assertEqual(summary.catalog_player_count, 3)
+            self.assertFalse(summary.manual_reviews)
+            self.assertEqual(
+                load_metadata_catalog(root / METADATA_FILENAME),
+                {
+                    metadata_lookup_key(row["englishName"]): {
+                        field: row[field] for field in MANUAL_FIELDS
+                    }
+                    for row in (updated, rookie, departed)
+                },
+            )
+            original_catalog = (root / METADATA_FILENAME).read_bytes()
+            self.assertEqual(sync_metadata(root, mapping), summary)
+            self.assertEqual(
+                (root / METADATA_FILENAME).read_bytes(), original_catalog
+            )
+            self.assertEqual(
+                {
+                    path.name: path.read_bytes()
+                    for path in root.iterdir()
+                    if path.name != METADATA_FILENAME
+                },
+                unchanged,
+            )
+
+    def test_reports_incomplete_rows_without_erasing_existing_metadata(self):
+        mapping = {"Alpha Team": "Alpha"}
+        existing = make_existing_row(0, "Alpha")
+        pending = make_existing_row(1, "Pending")
+        incomplete_rows = [
+            {
+                **row,
+                "name": "",
+                "position": "",
+                "playerType": "9",
+                "rotationType": "",
+            }
+            for row in (existing, pending)
+        ]
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            write_csv(root / "Alpha.csv", incomplete_rows)
+            write_metadata_catalog(
+                root / METADATA_FILENAME,
+                {metadata_lookup_key(existing["englishName"]): existing},
+            )
+            original_csv = (root / "Alpha.csv").read_bytes()
+            original_catalog = (root / METADATA_FILENAME).read_bytes()
+
+            summary = sync_metadata(root, mapping)
+
+            self.assertEqual(summary.synced_player_count, 0)
+            self.assertEqual(summary.catalog_player_count, 1)
+            self.assertEqual(
+                {review.player for review in summary.manual_reviews},
+                {existing["englishName"], pending["englishName"]},
+            )
+            for review in summary.manual_reviews:
+                self.assertEqual(review.team, "Alpha")
+                self.assertEqual(
+                    review.reason,
+                    "unresolved fields: name, position, playerType, rotationType",
+                )
+            self.assertEqual((root / "Alpha.csv").read_bytes(), original_csv)
+            self.assertEqual(
+                (root / METADATA_FILENAME).read_bytes(), original_catalog
+            )
+
+    def test_invalid_roster_sources_leave_files_unchanged(self):
+        mapping = {"Alpha Team": "Alpha", "Beta Team": "Beta"}
+        existing = make_existing_row(0, "Alpha")
+        scenarios = {
+            "missing": "Missing team CSVs",
+            "duplicate": "duplicate player",
+            "invalid-header": "unexpected header",
+        }
+
+        for scenario, message in scenarios.items():
+            with (
+                self.subTest(scenario=scenario),
+                tempfile.TemporaryDirectory() as temp_dir,
+            ):
+                root = Path(temp_dir)
+                write_csv(root / "Alpha.csv", [existing])
+                write_metadata_catalog(
+                    root / METADATA_FILENAME,
+                    {metadata_lookup_key(existing["englishName"]): existing},
+                )
+                if scenario == "duplicate":
+                    write_csv(root / "Beta.csv", [existing])
+                elif scenario == "invalid-header":
+                    (root / "Beta.csv").write_text(
+                        "wrong,header\n", encoding="utf-8"
+                    )
+                original_files = {
+                    path.name: path.read_bytes() for path in root.iterdir()
+                }
+
+                with self.assertRaisesRegex(RosterProcessingError, message):
+                    sync_metadata(root, mapping)
+
+                self.assertEqual(
+                    {path.name: path.read_bytes() for path in root.iterdir()},
+                    original_files,
+                )
+
+    def test_write_failure_preserves_catalog_and_csvs(self):
+        mapping = {"Alpha Team": "Alpha"}
+        existing = make_existing_row(0, "Alpha")
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            write_csv(root / "Alpha.csv", [{**existing, "position": "C"}])
+            write_metadata_catalog(
+                root / METADATA_FILENAME,
+                {metadata_lookup_key(existing["englishName"]): existing},
+            )
+            original_files = {
+                path.name: path.read_bytes() for path in root.iterdir()
+            }
+
+            with patch.object(
+                roster_processor.os, "replace", side_effect=OSError("replace failed")
+            ):
+                with self.assertRaisesRegex(
+                    RosterProcessingError, "previous files were restored"
+                ):
+                    sync_metadata(root, mapping)
+
+            self.assertEqual(
+                {path.name: path.read_bytes() for path in root.iterdir()},
+                original_files,
+            )
+
+    def test_cli_syncs_separate_metadata_source_without_raw_json(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            metadata_dir = root / "metadata"
+            output_dir = root / "output"
+            metadata_dir.mkdir()
+            pending = {
+                **make_existing_row(1, "Pending"),
+                "name": "",
+                "position": "",
+                "playerType": "",
+                "rotationType": "",
+            }
+            for number, team in enumerate(roster_processor.TEAM_MAPPING.values()):
+                rows = [make_existing_row(0, team)]
+                if number == 0:
+                    rows.append(pending)
+                write_csv(metadata_dir / f"{team}.csv", rows)
+            departed = make_existing_row(20, "Departed")
+            write_metadata_catalog(
+                metadata_dir / METADATA_FILENAME,
+                {metadata_lookup_key(departed["englishName"]): departed},
+            )
+            original_files = {
+                path.name: path.read_bytes() for path in metadata_dir.iterdir()
+            }
+            stdout = io.StringIO()
+            stderr = io.StringIO()
+
+            with patch("sys.stdout", stdout), patch("sys.stderr", stderr):
+                result = roster_processor.main(
+                    [
+                        "--sync-metadata",
+                        "--input", str(root / "missing.json"),
+                        "--output-dir", str(output_dir),
+                        "--metadata-dir", str(metadata_dir),
+                    ]
+                )
+
+            self.assertEqual(result, 0)
+            self.assertIn("Synchronized 30 players", stdout.getvalue())
+            self.assertIn("31 catalog entries", stdout.getvalue())
+            self.assertIn(
+                "Players requiring manual metadata review", stderr.getvalue()
+            )
+            self.assertIn(pending["englishName"], stderr.getvalue())
+            self.assertEqual(
+                len(load_metadata_catalog(output_dir / METADATA_FILENAME)), 31
+            )
+            self.assertEqual(
+                {path.name for path in output_dir.iterdir()},
+                {METADATA_FILENAME},
+            )
+            self.assertEqual(
+                {path.name: path.read_bytes() for path in metadata_dir.iterdir()},
+                original_files,
+            )
 
 
 if __name__ == "__main__":

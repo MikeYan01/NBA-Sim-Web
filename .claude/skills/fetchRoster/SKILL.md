@@ -1,11 +1,12 @@
 ---
 name: fetchRoster
-description: Fetch current NBA2K player data and regenerate the repository's team roster CSVs. Use when refreshing raw ability data or updating team rosters.
+description: Refresh NBA2K roster data and sync player metadata. Use when fetching raw abilities, regenerating team CSVs, or synchronizing metadata after roster edits.
 ---
 
 # Refresh roster data
 
-Run the complete refresh from the repository root.
+Run from the repository root. For a full refresh, follow every step. For
+metadata-only updates or follow-up manual CSV corrections, start at step 3.
 
 ## 1. Fetch every raw player
 
@@ -46,17 +47,40 @@ Complete manual fields are retained in the catalog even when a player later
 becomes a free agent.
 
 The processor validates every generated numeric rating before replacing all 30
-team CSVs as one batch. If an operating-system error prevents a complete
-rollback, the command reports and retains the recovery-copy directory.
+team CSVs and the metadata catalog as one batch. If an operating-system error
+prevents a complete rollback, the command reports and retains the recovery-copy
+directory.
 
 This step is complete when the command reports 30 processed teams.
 
-## 3. Report
+## 3. Synchronize player metadata
 
-Report:
+After updating the team CSVs, synchronize their current manual fields into
+`nba-sim-web/public/data/rosters/player-metadata.json`:
+
+```bash
+python3 .claude/skills/fetchRoster/scripts/process_roster.py --sync-metadata
+```
+
+Repeat this step after any later manual CSV corrections. The command only
+updates the catalog; it leaves raw JSON, team membership, ratings, and CSV files
+unchanged. Complete CSV metadata takes precedence over catalog values, including
+newly reviewed players. Incomplete rows are reported for manual review while
+their existing catalog entries, if any, are retained.
+
+This step is complete when the command reports the synchronized player and
+catalog counts, every complete CSV row's five manual fields match the saved
+catalog, and catalog-only players remain preserved. Report any unresolved rows.
+
+## 4. Report
+
+For a full refresh, report:
 
 - raw players fetched and pages requested;
 - players written, players skipped, and team CSV count;
 - the raw JSON path and roster output directory;
 - every new player requiring manual metadata review;
 - every skipped player or raw position warning.
+
+For either workflow, also report the metadata catalog path, synchronized player
+count, total catalog entries, and any unresolved manual fields.

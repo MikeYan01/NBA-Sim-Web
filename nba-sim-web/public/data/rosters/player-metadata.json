@@ -373,6 +373,13 @@
       "rotationType": "2"
     },
     {
+      "name": "本·西蒙斯",
+      "englishName": "Ben Simmons",
+      "position": "PG",
+      "playerType": "2",
+      "rotationType": "2"
+    },
+    {
       "name": "贝兹·姆本",
       "englishName": "Bez Mbeng",
       "position": "SG",
@@ -1014,7 +1021,7 @@
       "englishName": "Darius Acuff Jr.",
       "position": "PG",
       "playerType": "4",
-      "rotationType": "2"
+      "rotationType": "3"
     },
     {
       "name": "达利乌斯·加兰",
@@ -3686,7 +3693,7 @@
     {
       "name": "昆腾·波斯特",
       "englishName": "Quinten Post",
-      "position": "PF",
+      "position": "C",
       "playerType": "5",
       "rotationType": "3"
     },

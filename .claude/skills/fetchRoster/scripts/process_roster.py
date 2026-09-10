@@ -166,6 +166,13 @@ class RosterSummary:
     position_warnings: tuple[str, ...]
 
 
+@dataclass(frozen=True)
+class MetadataSyncSummary:
+    synced_player_count: int
+    catalog_player_count: int
+    manual_reviews: tuple[ManualReview, ...]
+
+
 def normalize_player_name(name: str) -> str:
     normalized = unicodedata.normalize("NFKD", name).casefold()
     return "".join(character for character in normalized if character.isalnum())
@@ -309,6 +316,7 @@ def load_existing_metadata(
 ) -> tuple[
     dict[str, ExistingMetadata],
     dict[str, dict[str, str]],
+    tuple[ManualReview, ...],
 ]:
     catalog = load_metadata_catalog(catalog_file)
     source_catalog_file = metadata_dir / METADATA_FILENAME
@@ -319,6 +327,7 @@ def load_existing_metadata(
         for lookup_key, row in catalog.items()
     }
     roster_player_teams: dict[str, str] = {}
+    manual_reviews: list[ManualReview] = []
 
     for team in team_mapping.values():
         roster = read_existing_team(metadata_dir / f"{team}.csv")
@@ -330,7 +339,17 @@ def load_existing_metadata(
                 )
             roster_player_teams[lookup_key] = team
 
-            if not unresolved_manual_fields(row):
+            unresolved_fields = unresolved_manual_fields(row)
+            if unresolved_fields:
+                manual_reviews.append(
+                    ManualReview(
+                        row["englishName"],
+                        team,
+                        "unresolved fields: " + ", ".join(unresolved_fields),
+                    )
+                )
+
+            if not unresolved_fields:
                 metadata_by_name[lookup_key] = ExistingMetadata(
                     row=row,
                     source_team=team,
@@ -342,7 +361,13 @@ def load_existing_metadata(
                     source_team=team,
                 )
 
-    return metadata_by_name, catalog
+    return (
+        metadata_by_name,
+        catalog,
+        tuple(
+            sorted(manual_reviews, key=lambda review: (review.team, review.player))
+        ),
+    )
 
 
 def require_rating(value: Any, field_name: str, context: str) -> int:
@@ -550,6 +575,47 @@ def write_team_rosters(
             shutil.rmtree(stage_dir, ignore_errors=True)
 
 
+def sync_metadata(
+    output_dir: Path | str,
+    team_mapping: Mapping[str, str] = TEAM_MAPPING,
+    metadata_dir: Path | str | None = None,
+) -> MetadataSyncSummary:
+    output_path = Path(output_dir)
+    metadata_path = Path(metadata_dir) if metadata_dir is not None else output_path
+    missing_files = [
+        f"{team}.csv"
+        for team in team_mapping.values()
+        if not (metadata_path / f"{team}.csv").is_file()
+    ]
+    if missing_files:
+        raise RosterProcessingError(
+            "Missing team CSVs for metadata synchronization: "
+            + ", ".join(missing_files)
+        )
+
+    existing_metadata, catalog, manual_reviews = load_existing_metadata(
+        metadata_path,
+        output_path / METADATA_FILENAME,
+        team_mapping,
+    )
+    synced_player_count = sum(
+        metadata.source_team is not None
+        and not unresolved_manual_fields(metadata.row)
+        for metadata in existing_metadata.values()
+    )
+    write_team_rosters(output_path, {}, catalog)
+    if load_metadata_catalog(output_path / METADATA_FILENAME) != catalog:
+        raise RosterProcessingError(
+            "Saved metadata catalog does not match the synchronized player metadata"
+        )
+
+    return MetadataSyncSummary(
+        synced_player_count=synced_player_count,
+        catalog_player_count=len(catalog),
+        manual_reviews=manual_reviews,
+    )
+
+
 def process_roster(
     input_file: Path | str,
     output_dir: Path | str,
@@ -563,7 +629,7 @@ def process_roster(
         raise RosterProcessingError("Team output names must be unique")
 
     raw_players = load_raw_players(input_path)
-    existing_metadata, metadata_catalog = load_existing_metadata(
+    existing_metadata, metadata_catalog, _ = load_existing_metadata(
         metadata_path,
         output_path / METADATA_FILENAME,
         team_mapping,
@@ -712,7 +778,18 @@ def print_summary(summary: RosterSummary, output_dir: Path) -> None:
 
 def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Convert raw NBA2K player JSON into team roster CSV files."
+        description=(
+            "Convert raw NBA2K player JSON into team roster CSV files "
+            "or synchronize player metadata."
+        )
+    )
+    parser.add_argument(
+        "--sync-metadata",
+        action="store_true",
+        help=(
+            "Update only the metadata catalog from existing team CSVs; "
+            "leave raw JSON and CSVs unchanged."
+        ),
     )
     parser.add_argument(
         "--input",
@@ -724,13 +801,13 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
         "--output-dir",
         type=Path,
         default=DEFAULT_OUTPUT_DIR,
-        help=f"Team CSV directory (default: {DEFAULT_OUTPUT_DIR})",
+        help=f"Team CSV and metadata directory (default: {DEFAULT_OUTPUT_DIR})",
     )
     parser.add_argument(
         "--metadata-dir",
         type=Path,
         help=(
-            "Directory containing pre-refresh team CSVs used as the manual "
+            "Directory containing team CSVs used as the manual "
             "metadata source (default: --output-dir)"
         ),
     )
@@ -740,6 +817,23 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
 def main(argv: Sequence[str] | None = None) -> int:
     args = parse_args(argv)
     try:
+        if args.sync_metadata:
+            metadata_summary = sync_metadata(
+                args.output_dir,
+                metadata_dir=args.metadata_dir,
+            )
+            print(
+                f"Synchronized {metadata_summary.synced_player_count} players into "
+                f"{(args.output_dir / METADATA_FILENAME).resolve()} "
+                f"({metadata_summary.catalog_player_count} catalog entries)"
+            )
+            if metadata_summary.manual_reviews:
+                print_items(
+                    "Players requiring manual metadata review",
+                    metadata_summary.manual_reviews,
+                )
+            return 0
+
         summary = process_roster(
             args.input,
             args.output_dir,
