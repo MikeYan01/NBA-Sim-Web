@@ -158,7 +158,7 @@
     {
       "name": "阿利亚·马丁",
       "englishName": "Alijah Martin",
-      "position": "SG",
+      "position": "SF",
       "playerType": "1",
       "rotationType": "3"
     },
@@ -377,7 +377,7 @@
       "englishName": "Ben Simmons",
       "position": "PG",
       "playerType": "2",
-      "rotationType": "2"
+      "rotationType": "3"
     },
     {
       "name": "贝兹·姆本",
@@ -587,7 +587,7 @@
       "englishName": "Buddy Hield",
       "position": "SG",
       "playerType": "4",
-      "rotationType": "2"
+      "rotationType": "3"
     },
     {
       "name": "凯德·坎宁安",
@@ -685,7 +685,7 @@
       "englishName": "Cam Whitmore",
       "position": "PF",
       "playerType": "5",
-      "rotationType": "2"
+      "rotationType": "3"
     },
     {
       "name": "卡里斯·勒韦尔",
@@ -928,7 +928,7 @@
     {
       "name": "戴林·斯温",
       "englishName": "Dailyn Swain",
-      "position": "PG",
+      "position": "SG",
       "playerType": "4",
       "rotationType": "3"
     },
@@ -1021,7 +1021,7 @@
       "englishName": "Darius Acuff Jr.",
       "position": "PG",
       "playerType": "4",
-      "rotationType": "3"
+      "rotationType": "2"
     },
     {
       "name": "达利乌斯·加兰",
@@ -1549,6 +1549,13 @@
       "rotationType": "3"
     },
     {
+      "name": "格雷厄姆·艾克",
+      "englishName": "Graham Ike",
+      "position": "PF",
+      "playerType": "1",
+      "rotationType": "3"
+    },
+    {
       "name": "格兰特·尼尔森",
       "englishName": "Grant Nelson",
       "position": "C",
@@ -1560,7 +1567,7 @@
       "englishName": "Grant Williams",
       "position": "PF",
       "playerType": "5",
-      "rotationType": "3"
+      "rotationType": "2"
     },
     {
       "name": "格雷森·阿伦",
@@ -2104,7 +2111,7 @@
     {
       "name": "杰林·塞勒斯",
       "englishName": "Jaylin Sellers",
-      "position": "SG",
+      "position": "PG",
       "playerType": "5",
       "rotationType": "3"
     },
@@ -2328,9 +2335,9 @@
     {
       "name": "乔丹·霍金斯",
       "englishName": "Jordan Hawkins",
-      "position": "SG",
+      "position": "PG",
       "playerType": "5",
-      "rotationType": "3"
+      "rotationType": "2"
     },
     {
       "name": "乔丹·麦克劳克林",
@@ -2669,6 +2676,13 @@
       "rotationType": "1"
     },
     {
+      "name": "哈利法·迪奥普",
+      "englishName": "Khalifa Diop",
+      "position": "C",
+      "playerType": "2",
+      "rotationType": "3"
+    },
+    {
       "name": "卡曼·马卢阿赫",
       "englishName": "Khaman Maluach",
       "position": "C",
@@ -2694,7 +2708,7 @@
       "englishName": "Kingston Flemings",
       "position": "PG",
       "playerType": "5",
-      "rotationType": "3"
+      "rotationType": "2"
     },
     {
       "name": "KJ·辛普森",
@@ -2937,7 +2951,7 @@
     {
       "name": "吕冈茨·多尔特",
       "englishName": "Luguentz Dort",
-      "position": "SF",
+      "position": "SG",
       "playerType": "5",
       "rotationType": "2"
     },
@@ -3777,7 +3791,7 @@
     {
       "name": "罗伊斯·奥尼尔",
       "englishName": "Royce O’Neale",
-      "position": "PF",
+      "position": "SF",
       "playerType": "5",
       "rotationType": "2"
     },
