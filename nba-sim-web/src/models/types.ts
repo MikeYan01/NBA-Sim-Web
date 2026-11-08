@@ -10,8 +10,8 @@
  * - Type 1 (All-Rounded): Even distribution across ranges
  * - Type 2 (Insider): 80%+ shots inside paint
  * - Type 3 (Mid-Range): 30% from mid-range
- * - Type 4 (Inside-Outside): 40% close, 15% mid, 45% three
- * - Type 5 (Outsider): 20% close, 20% mid, 60% three
+ * - Type 4 (Inside-Outside): 35% close, 20% mid, 45% three
+ * - Type 5 (Outsider): 15% close, 15% mid, 70% three
  */
 export enum PlayerType {
     ALL_ROUNDED = 1,

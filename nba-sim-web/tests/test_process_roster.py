@@ -104,6 +104,91 @@ class ProcessRosterTests(unittest.TestCase):
         self.assertEqual(args.input, roster_dir / "temp.json")
         self.assertEqual(args.output_dir, roster_dir)
 
+    def test_maps_api_attribute_variants_without_mutating_raw_data(self):
+        mapping = {"Alpha Team": "Alpha"}
+        existing_rows = [make_existing_row(number, "Alpha") for number in range(10)]
+        raw_players = [
+            make_raw_player(row["englishName"], "Alpha Team", row["position"])
+            for row in existing_rows
+        ]
+        raw_players[0]["attributes"] = {
+            name[0].upper() + name[1:]: value
+            for name, value in make_attributes().items()
+        }
+        for canonical, alternate in (
+            ("threePointShot", "ThreePointShot"),
+            ("drivingLayup", "Layup"),
+            ("durability", "OverallDurability"),
+            ("passIQ", "PassIQ"),
+            ("speed", "Speed"),
+        ):
+            attributes = raw_players[1]["attributes"]
+            attributes[alternate] = attributes.pop(canonical)
+        raw_players[2]["attributes"].update(
+            {"ThreePointShot": "75", "Layup": 57, "OverallDurability": 58}
+        )
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            write_csv(root / "Alpha.csv", existing_rows)
+            input_file = root / "temp.json"
+            input_file.write_text(json.dumps(raw_players), encoding="utf-8")
+            original_raw = input_file.read_bytes()
+
+            summary = process_roster(input_file, root, mapping)
+
+            self.assertEqual(summary.processed_player_count, 10)
+            self.assertFalse(summary.skipped_players)
+            self.assertEqual(input_file.read_bytes(), original_raw)
+            rows = read_csv(root / "Alpha.csv")
+            canonical_row = next(
+                row for row in rows
+                if row["englishName"] == existing_rows[3]["englishName"]
+            )
+            expected_ratings = {
+                field: canonical_row[field] for field in FIELDNAMES[5:]
+            }
+            for row in rows:
+                self.assertEqual(
+                    {field: row[field] for field in FIELDNAMES[5:]},
+                    expected_ratings,
+                )
+
+    def test_rejects_invalid_api_attribute_variants(self):
+        for value in (None, True, -1, 101, "75'"):
+            with self.subTest(value=value):
+                attributes = make_attributes()
+                attributes["ThreePointShot"] = value
+                del attributes["threePointShot"]
+                player = make_raw_player(
+                    "Invalid Player", "Alpha Team", attributes=attributes
+                )
+
+                with self.assertRaisesRegex(
+                    roster_processor.PlayerDataError,
+                    "missing or invalid threePointShot",
+                ):
+                    roster_processor.convert_player(player, "Alpha", None)
+
+    def test_rejects_conflicting_api_attribute_variants(self):
+        for canonical, alternate in (
+            ("threePointShot", "ThreePointShot"),
+            ("drivingLayup", "Layup"),
+            ("durability", "OverallDurability"),
+            ("passVision", "PassVision"),
+        ):
+            with self.subTest(attribute=canonical):
+                attributes = make_attributes()
+                attributes[alternate] = attributes[canonical] + 1
+                player = make_raw_player(
+                    "Conflicting Player", "Alpha Team", attributes=attributes
+                )
+
+                with self.assertRaisesRegex(
+                    roster_processor.PlayerDataError, f"conflicting {canonical}"
+                ):
+                    roster_processor.convert_player(player, "Alpha", None)
+
     def test_maps_ability_data_and_preserves_transfer_metadata(self):
         mapping = {"Alpha Team": "Alpha", "Beta Team": "Beta"}
         alpha_rows = [make_existing_row(number, "Alpha") for number in range(10)]

@@ -753,25 +753,6 @@ export function calculatePercentage(
         percentage += calculateTeamSpacingBonus(offenseTeamOnCourt)
     }
 
-    // Elite offensive rotation bonus (skip in All-Star game)
-    // All five players must meet the shooting floors, with at least three highly consistent scorers.
-    if (!isAllStar) {
-        let allEliteShooters = true
-        let highOffConstCount = 0
-        for (const player of offenseTeamOnCourt.values()) {
-            if (player.midRating < Constants.ELITE_ROTATION_MID_THRESHOLD ||
-                player.threeRating < Constants.ELITE_ROTATION_THREE_THRESHOLD) {
-                allEliteShooters = false
-            }
-            if (player.offConst >= Constants.ELITE_ROTATION_OFF_CONST_THRESHOLD) {
-                highOffConstCount++
-            }
-        }
-        if (allEliteShooters && highOffConstCount >= Constants.ELITE_ROTATION_OFF_CONST_MIN_COUNT) {
-            percentage += Constants.ELITE_ROTATION_BONUS
-        }
-    }
-
     // Star player defensive focus penalty (skip in All-Star game)
     // High-rated players (rating >= 90) face tighter defense from opposing teams' game plans
     // This reduces their efficiency while not affecting role players

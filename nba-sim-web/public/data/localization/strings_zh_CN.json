@@ -41,7 +41,13 @@
                 "restart": "重播",
                 "play": "播放",
                 "pause": "暂停",
-                "skipToEnd": "跳到结尾"
+                "skipToEnd": "跳到结尾",
+                "speed": {
+                    "label": "播放速度",
+                    "normal": "常速",
+                    "fast": "快速",
+                    "turbo": "极速"
+                }
             }
         },
         "boxScore": {

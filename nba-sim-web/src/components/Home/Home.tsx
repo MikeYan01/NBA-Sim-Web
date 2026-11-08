@@ -23,7 +23,6 @@ export const Home = () => {
             <section className="arena-hero" aria-labelledby="home-title">
                 <div className="arena-story">
                     <h1 id="home-title">{t('ui.home.title')}</h1>
-                    <p className="arena-description">{t('ui.home.subtitle')}</p>
                     <button
                         type="button"
                         className="arena-primary"

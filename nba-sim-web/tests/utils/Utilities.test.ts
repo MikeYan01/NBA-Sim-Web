@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from 'vitest'
+import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { SeededRandom } from '../../src/utils/SeededRandom'
 import * as Utilities from '../../src/utils/Utilities'
 import { Player, PlayerCSVRow } from '../../src/models/Player'
@@ -128,6 +128,31 @@ describe('Utilities', () => {
     })
 
     describe('getShotDistance', () => {
+        it.each([
+            { playerType: PlayerType.INSIDE_OUTSIDE, expected: [35, 20, 45] },
+            { playerType: PlayerType.OUTSIDER, expected: [15, 15, 70] },
+        ])(
+            'should use the expected shot distribution for player type $playerType',
+            ({ playerType, expected }) => {
+                const player = createPlayer(
+                    createMockPlayer({ playerType: String(playerType) }),
+                    'Lakers'
+                )
+                const counts = [0, 0, 0]
+                const nextInt = vi.spyOn(random, 'nextInt').mockReturnValue(0)
+
+                for (let roll = 0; roll < 100; roll++) {
+                    nextInt.mockReturnValueOnce(roll)
+                    const distance = Utilities.getShotDistance(random, player)
+                    const range = distance <= 12 ? 0 : distance <= 22 ? 1 : 2
+                    counts[range]++
+                }
+
+                nextInt.mockRestore()
+                expect(counts).toEqual(expected)
+            }
+        )
+
         it('should return valid distance for ALL_ROUNDED player (1-35 feet)', () => {
             const player = createPlayer(createMockPlayer({ playerType: '1' }), 'Lakers')
             for (let i = 0; i < 50; i++) {
@@ -564,7 +589,7 @@ describe('Utilities', () => {
             expect(withTwoPlaymakers).toBeCloseTo(withOnePlaymaker, 10)
         })
 
-        it('should require the full elite rotation criteria instead of average three-point rating', () => {
+        it('should not change a shot based on teammates offensive consistency', () => {
             const mockTeam1 = { totalScore: 50 } as Team
             const mockTeam2 = { totalScore: 48 } as Team
             const shooter = createPlayer(
@@ -590,14 +615,14 @@ describe('Utilities', () => {
                     }),
                     'Lakers'
                 )
-            const averageThreeOnly = new Map([
+            const baselineLineup = new Map([
                 ['PG', createLineupPlayer('PG', '80')],
                 ['SG', shooter],
                 ['SF', createLineupPlayer('SF', '80')],
                 ['PF', createLineupPlayer('PF', '80')],
                 ['C', createLineupPlayer('C', '80')],
             ])
-            const fullEliteRotation = new Map([
+            const consistentLineup = new Map([
                 ['PG', createLineupPlayer('PG', '90')],
                 ['SG', shooter],
                 ['SF', createLineupPlayer('SF', '90')],
@@ -619,45 +644,7 @@ describe('Utilities', () => {
                     mockTeam2
                 )
 
-            expect(calculate(fullEliteRotation) - calculate(averageThreeOnly)).toBeCloseTo(3, 10)
-        })
-
-        it('should apply the elite rotation bonus at the 75 mid-range threshold', () => {
-            const mockTeam1 = { totalScore: 50 } as Team
-            const mockTeam2 = { totalScore: 48 } as Team
-            const shooter = createPlayer(
-                createMockPlayer({
-                    position: 'SG',
-                    midRating: '75',
-                    threeRating: '75',
-                    offConst: '90',
-                    astRating: '70',
-                }),
-                'Lakers'
-            )
-            const createLineup = (centerMidRating: string) => new Map([
-                ['PG', createPlayer(createMockPlayer({ position: 'PG', midRating: '75', threeRating: '75', offConst: '90', astRating: '70' }), 'Lakers')],
-                ['SG', shooter],
-                ['SF', createPlayer(createMockPlayer({ position: 'SF', midRating: '75', threeRating: '75', offConst: '90', astRating: '70' }), 'Lakers')],
-                ['PF', createPlayer(createMockPlayer({ position: 'PF', midRating: '75', threeRating: '75', offConst: '80', astRating: '70' }), 'Lakers')],
-                ['C', createPlayer(createMockPlayer({ position: 'C', midRating: centerMidRating, threeRating: '75', offConst: '80', astRating: '70' }), 'Lakers')],
-            ])
-
-            const calculate = (lineup: Map<string, Player>) =>
-                Utilities.calculatePercentage(
-                    new SeededRandom(12345),
-                    15,
-                    shooter,
-                    defensePlayer,
-                    lineup,
-                    ShotType.JUMPER,
-                    360,
-                    2,
-                    mockTeam1,
-                    mockTeam2
-                )
-
-            expect(calculate(createLineup('75')) - calculate(createLineup('74'))).toBeCloseTo(3, 10)
+            expect(calculate(consistentLineup)).toBeCloseTo(calculate(baselineLineup), 10)
         })
 
         it('should apply one reduced switching penalty for either perimeter defense trigger', () => {

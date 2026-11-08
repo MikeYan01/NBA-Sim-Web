@@ -2,7 +2,7 @@ import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } 
 import { act, cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
 import { MemoryRouter, Route, Routes, useLocation } from 'react-router-dom'
 import { Home } from '../../src/components/Home/Home'
-import { Player } from '../../src/models/Player'
+import { Player, type PlayerCSVRow } from '../../src/models/Player'
 import { Team } from '../../src/models/Team'
 import { Language } from '../../src/models/types'
 import english from '../../public/data/localization/strings_en_US.json'
@@ -38,7 +38,7 @@ vi.mock('../../src/hooks/useLocalization', () => ({
     }),
 }))
 
-function makeTeam(name: string) {
+function makeTeam(name: string, overrides: Partial<PlayerCSVRow> = {}) {
     const team = new Team(name)
     team.players.push(Player.fromCSVRow({
         name: `${name}球员`,
@@ -66,6 +66,7 @@ function makeTeam(name: string) {
         offConst: '80',
         defConst: '80',
         drawFoul: '80',
+        ...overrides,
     }, name))
     return team
 }
@@ -243,10 +244,10 @@ describe('Home', () => {
         expect(screen.getByTestId('route-location')).toHaveTextContent(/^\/season\?start=1$/)
     })
 
-    it('uses the original localized title, descriptions, and mode names', async () => {
+    it('keeps the localized title and mode descriptions without the hero subtitle', async () => {
         renderHome()
         expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(english.ui.home.title)
-        expect(screen.getByText(english.ui.home.subtitle)).toBeInTheDocument()
+        expect(screen.queryByText(english.ui.home.subtitle)).not.toBeInTheDocument()
         for (const text of [
             english.ui.home.startSingle, english.ui.home.startSeason, english.ui.home.startPrediction,
         ]) {
@@ -297,9 +298,57 @@ describe('Home', () => {
         localization.language = Language.CHINESE
         renderHome()
         expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(chinese.ui.home.title)
+        expect(screen.queryByText(chinese.ui.home.subtitle)).not.toBeInTheDocument()
         expect(screen.getByRole('combobox', { name: chinese.ui.teamSelection.selectAway })).toHaveValue('Celtics')
         expect(screen.getByRole('button', { name: chinese.ui.home.startSingle })).toBeInTheDocument()
         await screen.findByText('Celtics球员')
+    })
+
+    it('orders both starter previews by position after loading, selecting, and swapping teams', async () => {
+        const inputOrder = ['PG', 'SF', 'C', 'SG', 'PF'] as const
+        const teams = new Map(['Celtics', 'Lakers', 'Warriors'].map(name => {
+            const team = new Team(name)
+            for (const [index, position] of inputOrder.entries()) {
+                team.players.push(makeTeam(name, {
+                    position,
+                    englishName: `${name} ${position} Player`,
+                    rating: String(99 - index * 3),
+                }).players[0])
+            }
+            return [name, team] as const
+        }))
+        vi.mocked(Team.loadFromCSV).mockImplementation(async name => {
+            const team = teams.get(name)
+            if (!team) throw new Error(`Unexpected team: ${name}`)
+            return team
+        })
+        const { container } = renderHome()
+        const expectPositionOrder = () => {
+            const previews = container.querySelectorAll('.arena-lineup')
+            expect(previews).toHaveLength(2)
+            for (const preview of previews) {
+                expect(Array.from(
+                    preview.querySelectorAll('.arena-player-position'),
+                    node => node.textContent,
+                )).toEqual(['C', 'PF', 'SF', 'SG', 'PG'])
+            }
+        }
+
+        await screen.findByText('Celtics C Player')
+        expectPositionOrder()
+        fireEvent.change(screen.getByRole('combobox', { name: 'Away Team' }), {
+            target: { value: 'Warriors' },
+        })
+        await screen.findByText('Warriors C Player')
+        expectPositionOrder()
+        fireEvent.click(screen.getByRole('button', { name: 'Away Team ↔ Home Team' }))
+        await waitFor(() => expect(
+            container.querySelector('.arena-team-away .arena-player-name')
+        ).toHaveTextContent('Lakers C Player'))
+        expectPositionOrder()
+        for (const team of teams.values()) {
+            expect(team.players.map(player => player.position)).toEqual(inputOrder)
+        }
     })
 
     it('opens the current roster and can reopen the same team after closing', async () => {

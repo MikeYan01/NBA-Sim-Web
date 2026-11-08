@@ -341,10 +341,10 @@ export const DIST_CURVE = 5
 // ============================================================================
 
 export const TYPE3_PERCENT = 30
-export const TYPE4_CLOSE_SHOT = 40
-export const TYPE4_MID_SHOT = 15
-export const TYPE5_CLOSE_SHOT = 20
-export const TYPE5_MID_SHOT = 20
+export const TYPE4_CLOSE_SHOT = 35
+export const TYPE4_MID_SHOT = 20
+export const TYPE5_CLOSE_SHOT = 15
+export const TYPE5_MID_SHOT = 15
 
 // ============================================================================
 // Initial Shot Percent Coefficients
@@ -416,18 +416,6 @@ export const LOCKDOWN_DETERRENCE_PENALTY = 2.0
 export const TEAM_SPACING_BASE = 72
 export const TEAM_SPACING_SCALE = 0.12
 export const TEAM_SPACING_MAX_BONUS = 2.0
-
-// ============================================================================
-// Elite Offensive Rotation Bonus
-// All 5 on-court players have high midRating AND threeRating
-// Represents a lineup with no offensive weak links - every player can shoot.
-// ============================================================================
-
-export const ELITE_ROTATION_MID_THRESHOLD = 75
-export const ELITE_ROTATION_THREE_THRESHOLD = 75
-export const ELITE_ROTATION_OFF_CONST_THRESHOLD = 90
-export const ELITE_ROTATION_OFF_CONST_MIN_COUNT = 3
-export const ELITE_ROTATION_BONUS = 3.0
 
 // ============================================================================
 // Playoff/Play-In Adjustments

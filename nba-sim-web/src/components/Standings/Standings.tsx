@@ -61,9 +61,12 @@ export const Standings = ({ east, west }: StandingsProps) => {
                             <tr
                                 key={entry.teamName}
                                 className={clsx(
-                                    "transition-colors hover:bg-surface-hover",
-                                    entry.rank <= 6 && "bg-success/5 [&>td:first-child]:text-success",
-                                    entry.rank >= 7 && entry.rank <= 10 && "bg-warning/5 [&>td:first-child]:text-warning"
+                                    "transition-colors",
+                                    entry.rank <= 6 && "bg-success/10 hover:bg-success/15 [&>td:first-child]:text-success",
+                                    entry.rank >= 7 && entry.rank <= 10 && "bg-warning/20 hover:bg-warning/25 [&>td:first-child]:text-warning",
+                                    entry.rank > 10 && "hover:bg-surface-hover",
+                                    entry.rank === 7 && "[&>td]:border-t-2 [&>td]:border-t-warning/60",
+                                    entry.rank === 11 && "[&>td]:border-t-2 [&>td]:border-t-line-strong"
                                 )}
                             >
                                 <td className="px-4 py-3 text-center font-medium text-faint">{entry.rank}</td>
@@ -87,7 +90,7 @@ export const Standings = ({ east, west }: StandingsProps) => {
                     <span>{t('ui.standings.legend.playoffs')}</span>
                 </div>
                 <div className="flex items-center gap-1.5">
-                    <span className="h-3 w-3 rounded-sm border border-warning/40 bg-warning/10"></span>
+                    <span className="h-3 w-3 rounded-sm border border-warning/60 bg-warning/20"></span>
                     <span>{t('ui.standings.legend.playIn')}</span>
                 </div>
                 <div className="flex items-center gap-1.5">

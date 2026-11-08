@@ -1,8 +1,14 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { render, screen, fireEvent, act } from '@testing-library/react'
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
+import { render, screen, fireEvent, act, within } from '@testing-library/react'
 import { GameView } from '../../src/components/GameView/GameView'
 import { MemoryRouter } from 'react-router-dom'
 import { useGameStore } from '../../src/stores/gameStore'
+import { Language } from '../../src/models/types'
+import english from '../../public/data/localization/strings_en_US.json'
+import chinese from '../../public/data/localization/strings_zh_CN.json'
+
+type Strings = { [key: string]: string | Strings }
+const localization = vi.hoisted(() => ({ language: 'en_US' }))
 
 // Define hoisted mocks
 const { mockNavigate } = vi.hoisted(() => {
@@ -26,7 +32,17 @@ vi.mock('../../src/stores/gameStore', () => ({
 // Mock localization
 vi.mock('../../src/hooks/useLocalization', () => ({
     useLocalization: () => ({
-        t: (key: string) => key
+        language: localization.language,
+        t: (key: string) => {
+            if (!key.startsWith('ui.gameView.controls.speed.')) return key
+            let value: string | Strings = localization.language === Language.CHINESE ? chinese : english
+            for (const segment of key.split('.')) {
+                if (typeof value === 'string') throw new Error(`Invalid translation key: ${key}`)
+                value = value[segment]
+            }
+            if (typeof value !== 'string') throw new Error(`Missing translation: ${key}`)
+            return value
+        }
     })
 }))
 
@@ -68,9 +84,14 @@ describe('GameView', () => {
 
     beforeEach(() => {
         vi.clearAllMocks()
+        localization.language = Language.ENGLISH
             ; (useGameStore as any).mockReturnValue({
                 currentGame: mockGame
             })
+    })
+
+    afterEach(() => {
+        vi.useRealTimers()
     })
 
     it('renders game score and team names', () => {
@@ -105,13 +126,12 @@ describe('GameView', () => {
         expect(screen.getByTitle('ui.gameView.controls.pause')).toBeInTheDocument()
         expect(screen.getByTitle('ui.gameView.controls.skipToEnd')).toBeInTheDocument()
 
-        // Check for speed controls
-        expect(screen.getByText('1x')).toBeInTheDocument()
-        expect(screen.getByText('2x')).toBeInTheDocument()
-        expect(screen.getByText('4x')).toBeInTheDocument()
+        const speeds = screen.getByRole('group', { name: 'Playback speed' })
+        expect(within(speeds).getAllByRole('button')).toHaveLength(3)
+        expect(within(speeds).getByRole('button', { name: /^Normal/ })).toHaveAttribute('aria-pressed', 'true')
     })
 
-    it('handles playback interactions', async () => {
+    it('plays commentary at the selected 1x, 4x, and 32x speeds', () => {
         vi.useFakeTimers()
 
         render(
@@ -120,18 +140,42 @@ describe('GameView', () => {
             </MemoryRouter>
         )
 
-        // Verify playback controls are present and clickable
-        const skipButton = screen.getByTitle('ui.gameView.controls.skipToEnd')
+        act(() => vi.advanceTimersByTime(799))
+        expect(screen.queryByText(mockGame.playByPlayLog[0])).not.toBeInTheDocument()
+        act(() => vi.advanceTimersByTime(1))
+        expect(screen.getByText(mockGame.playByPlayLog[0])).toBeInTheDocument()
 
-        // Test speed buttons are present
-        expect(screen.getByText('1x')).toBeInTheDocument()
-        expect(screen.getByText('2x')).toBeInTheDocument()
-        expect(screen.getByText('4x')).toBeInTheDocument()
+        const fast = screen.getByRole('button', { name: /^Fast/ })
+        fireEvent.click(fast)
+        expect(fast).toHaveAttribute('aria-pressed', 'true')
+        act(() => vi.advanceTimersByTime(199))
+        expect(screen.queryByText(mockGame.playByPlayLog[1])).not.toBeInTheDocument()
+        act(() => vi.advanceTimersByTime(1))
+        expect(screen.getByText(mockGame.playByPlayLog[1])).toBeInTheDocument()
 
-        // Click skip to end - should work without errors  
-        fireEvent.click(skipButton)
+        const turbo = screen.getByRole('button', { name: /^Turbo/ })
+        fireEvent.click(turbo)
+        expect(turbo).toHaveAttribute('aria-pressed', 'true')
+        expect(fast).toHaveAttribute('aria-pressed', 'false')
+        act(() => vi.advanceTimersByTime(24))
+        expect(screen.queryByText(mockGame.playByPlayLog[2])).not.toBeInTheDocument()
+        act(() => vi.advanceTimersByTime(1))
+        expect(screen.getByText(mockGame.playByPlayLog[2])).toBeInTheDocument()
+    })
 
-        vi.useRealTimers()
+    it.each([
+        { language: Language.ENGLISH, group: 'Playback speed', labels: ['Normal', 'Fast', 'Turbo'] },
+        { language: Language.CHINESE, group: '播放速度', labels: ['常速', '快速', '极速'] },
+    ])('localizes the three speed choices in $language', ({ language, group, labels }) => {
+        localization.language = language
+        render(<MemoryRouter><GameView /></MemoryRouter>)
+
+        const buttons = within(screen.getByRole('group', { name: group })).getAllByRole('button')
+        expect(buttons).toHaveLength(3)
+        for (const [index, label] of labels.entries()) {
+            expect(buttons[index]).toHaveTextContent(label)
+            expect(buttons[index]).toHaveTextContent(`${[1, 4, 32][index]}x`)
+        }
     })
 
     it('redirects if no game is present', () => {

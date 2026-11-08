@@ -41,7 +41,13 @@
                 "restart": "Restart",
                 "play": "Play",
                 "pause": "Pause",
-                "skipToEnd": "Skip to End"
+                "skipToEnd": "Skip to End",
+                "speed": {
+                    "label": "Playback speed",
+                    "normal": "Normal",
+                    "fast": "Fast",
+                    "turbo": "Turbo"
+                }
             }
         },
         "boxScore": {

@@ -252,27 +252,30 @@ export const GameView = () => {
               </button>
             </div>
 
-            <div className="order-3 grid w-full min-w-0 grid-cols-4 gap-1 rounded-xl border border-line bg-canvas p-1 sm:order-none sm:flex sm:w-auto">
+            <div
+              role="group"
+              aria-label={t('ui.gameView.controls.speed.label')}
+              className="order-3 grid w-full min-w-0 grid-cols-3 gap-1 rounded-xl border border-line bg-canvas p-1 sm:order-none sm:flex sm:w-auto"
+            >
               {[
-                { label: '1x', value: 800 },
-                { label: '2x', value: 400 },
-                { label: '4x', value: 200 },
-                { label: '8x', value: 100 },
-                { label: '16x', value: 50 },
-                { label: '32x', value: 25 },
-                { label: '64x', value: 12 }
+                { label: 'ui.gameView.controls.speed.normal', multiplier: 1, value: 800 },
+                { label: 'ui.gameView.controls.speed.fast', multiplier: 4, value: 200 },
+                { label: 'ui.gameView.controls.speed.turbo', multiplier: 32, value: 25 }
               ].map((speed) => (
                 <button
+                  type="button"
                   key={speed.label}
                   onClick={() => setSpeed(speed.value)}
+                  aria-pressed={playbackSpeed === speed.value}
                   className={clsx(
-                    "ui-tab min-w-11 px-2 tabular-nums sm:px-2.5",
+                    "ui-tab min-w-0 gap-1.5 whitespace-nowrap px-2 sm:px-3",
                     playbackSpeed === speed.value
                       ? "ui-tab-active"
                       : "text-muted"
                   )}
                 >
-                  {speed.label}
+                  <span>{t(speed.label)}</span>
+                  <span className="text-[11px] font-normal tabular-nums opacity-75">{speed.multiplier}x</span>
                 </button>
               ))}
             </div>

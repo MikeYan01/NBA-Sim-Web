@@ -103,6 +103,10 @@ DERIVED_ATTRIBUTE_FIELDS = {
     "astRating": ("passAccuracy", "passIQ", "passVision"),
     "athleticism": ("speed", "agility", "strength", "vertical", "stamina", "hustle"),
 }
+ATTRIBUTE_NAME_ALIASES = {
+    "drivingLayup": "Layup",
+    "durability": "OverallDurability",
+}
 VALID_PLAYER_TYPES = {"1", "2", "3", "4", "5"}
 VALID_ROTATION_TYPES = {"1", "2", "3"}
 IGNORED_TEAMS = {"Free Agency"}
@@ -377,6 +381,22 @@ def require_rating(value: Any, field_name: str, context: str) -> int:
     return rating
 
 
+def require_attribute_rating(
+    attributes: Mapping[str, Any], attribute_name: str, context: str
+) -> int:
+    names = [attribute_name, attribute_name[0].upper() + attribute_name[1:]]
+    if attribute_name in ATTRIBUTE_NAME_ALIASES:
+        names.append(ATTRIBUTE_NAME_ALIASES[attribute_name])
+    ratings = [
+        require_rating(attributes[name], attribute_name, context)
+        for name in names
+        if name in attributes
+    ]
+    if len(set(ratings)) > 1:
+        raise PlayerDataError(f"conflicting {attribute_name}")
+    return require_rating(ratings[0] if ratings else None, attribute_name, context)
+
+
 def read_primary_position(
     player: Mapping[str, Any], context: str
 ) -> tuple[str, tuple[str, ...]]:
@@ -435,11 +455,11 @@ def convert_player(
     }
     for output_field, attribute_name in DIRECT_ATTRIBUTE_FIELDS.items():
         row[output_field] = str(
-            require_rating(attributes.get(attribute_name), attribute_name, context)
+            require_attribute_rating(attributes, attribute_name, context)
         )
     for output_field, attribute_names in DERIVED_ATTRIBUTE_FIELDS.items():
         values = [
-            require_rating(attributes.get(attribute_name), attribute_name, context)
+            require_attribute_rating(attributes, attribute_name, context)
             for attribute_name in attribute_names
         ]
         row[output_field] = str(math.floor(sum(values) / len(values)))

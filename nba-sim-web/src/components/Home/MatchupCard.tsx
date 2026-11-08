@@ -2,7 +2,7 @@ import { useEffect, useId, useRef, useState } from 'react'
 import { ArrowLeftRight, ArrowUpRight, ChevronDown, CircleAlert, Loader2, RotateCcw, X } from 'lucide-react'
 import { useLocalization } from '../../hooks/useLocalization'
 import { Team } from '../../models/Team'
-import { Language, RotationType } from '../../models/types'
+import { Language, POSITIONS, RotationType } from '../../models/types'
 import { EAST_TEAMS_EN, WEST_TEAMS_EN, getLocalizedTeamName } from '../../utils/Constants'
 import { getTeamColors } from '../../utils/teamColors'
 
@@ -84,7 +84,9 @@ export function MatchupCard({ awayTeamName, homeTeamName, disabled = false, onSe
                     const name = side === 'away' ? awayTeamName : homeTeamName
                     const opposite = side === 'away' ? homeTeamName : awayTeamName
                     const team = isLoading ? null : rosters[side]
-                    const starters = team?.players.filter(player => player.rotationType === RotationType.STARTER) ?? []
+                    const starters = team?.players
+                        .filter(player => player.rotationType === RotationType.STARTER)
+                        .sort((left, right) => POSITIONS.indexOf(right.position) - POSITIONS.indexOf(left.position)) ?? []
                     return (
                         <div key={side} className={`arena-team arena-team-${side}`}>
                             <label htmlFor={`${id}-${side}`} className="arena-team-label">

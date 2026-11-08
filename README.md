@@ -11,7 +11,7 @@ Browser-based NBA basketball simulator migrated from Java to TypeScript/React. F
 ### Single Game Mode
 - Select any two NBA teams for a head-to-head matchup
 - Start the selected matchup directly from home, or open Quick Match to choose teams first
-- Real-time play-by-play commentary with adjustable speed (1x to 64x)
+- Real-time play-by-play commentary with adjustable speed (1x, 4x, or 32x)
 - Detailed box scores with sortable statistics
 - Score differential chart
 - Authentic basketball simulation including fouls, free throws, overtime, and injuries
